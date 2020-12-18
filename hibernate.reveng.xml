@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+	</type-mapping>
+	<table-filter match-name="centros_meteorologicos"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table-filter match-name="clientes" match-catalog="cafrometbbdd"></table-filter>
+	<table-filter match-name="espacios_naturales"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table-filter match-name="fuentes" match-catalog="cafrometbbdd"></table-filter>
+	<table-filter match-name="municipios"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table-filter match-name="provincias"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table catalog="cafrometbbdd" name="centros_meteorologicos">
+		<column name="ID_CENTRO_MET"></column>
+		<column name="NOMBRE"></column>
+		<column name="LONGITUD"></column>
+		<column name="LATITUD"></column>
+		<column name="COD_MUNICIPIO"></column>
+		<column name="DIRECCION"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="clientes">
+		<column name="ID_CLIENTE"></column>
+		<column name="USUARIO"></column>
+		<column name="PASSWD"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="espacios_naturales">
+		<column name="ID_ESPACIO"></column>
+		<column name="LONGITUD"></column>
+		<column name="CATEGORIA"></column>
+		<column name="LATITUD"></column>
+		<column name="DESCRIPCION"></column>
+		<column name="TIPO"></column>
+		<column name="DIRECCION"></column>
+		<column name="NOMBRE"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="fuentes">
+		<column name="ID_INDEX"></column>
+		<column name="HASH"></column>
+		<column name="NOMBRE"></column>
+		<column name="FORMATO"></column>
+		<column name="URL"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="municipios">
+		<column name="ID_MUNICIPIO"></column>
+		<column name="NOMBRE"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="provincias">
+		<column name="ID_PROVINCIA"></column>
+		<column name="NOMBRE"></column>
+	</table>
+</hibernate-reverse-engineering>

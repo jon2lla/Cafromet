@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 18 dic. 2020 7:16:02 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Fuentes" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="fuentes">
+        <id name="idIndex" type="int">
+            <column name="ID_INDEX"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="formato" optimistic-lock="true" type="string" unique="false">
+            <column length="5" name="FORMATO"/>
+        </property>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="NOMBRE"/>
+        </property>
+        <property generated="never" lazy="false" name="url" optimistic-lock="true" type="string" unique="false">
+            <column length="150" name="URL"/>
+        </property>
+        <property generated="never" lazy="false" name="hash" optimistic-lock="true" type="string" unique="false">
+            <column length="64" name="HASH"/>
+        </property>
+    </class>
+</hibernate-mapping>
