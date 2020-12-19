@@ -33,11 +33,11 @@ public class MunicipiosDAO {
 	}
 	
 	public static void borrarRegistro(int id) {
-		SESSION.beginTransaction();
-		
+		SESSION.beginTransaction();	
 		HQL = "from Municipios as mun where mun.idMunicipio = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
+		
 		Municipios municipio = (Municipios) QUERY.uniqueResult(); 
 
 		SESSION.delete(municipio);
