@@ -9,3 +9,6 @@ build
 
 # JDT-specific (Eclipse Java Development Tools)     
 .classpath
+
+#Ignore /bin directory
+/bin/
