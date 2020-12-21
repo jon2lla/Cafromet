@@ -17,8 +17,8 @@ import com.cafromet.util.HibernateUtil;
 
 public class PruebasCRUD {
 	
-	public static void pruebas() {
-        
+	public static boolean pruebas() {
+        boolean correcto=false;
     	try {   		
     		pruebaMunicipios();
 			pruebaCentrosMeteoroLogicos();
@@ -26,6 +26,7 @@ public class PruebasCRUD {
     		pruebaEspaciosNaturales();
     		pruebaFuentes();
     		pruebaProvincia();
+    		correcto = true;
 		} catch (ObjectNotFoundException o) {
 			System.out.println("ERROR: OBJECT NOT FOUND");
 		} catch (ConstraintViolationException cve) {
@@ -33,21 +34,20 @@ public class PruebasCRUD {
 				MunicipiosDAO.SESSION.getTransaction().rollback();
 			}
 			System.out.println("ERROR: CONSTRAINT VIOLATION");
-
 		} catch (TransactionException e) {
-
 			System.out.println("ERROR: TRANSACTION EXCEPTION");
-
 		}  catch (Exception e) {
 			System.out.println("EXCEPCION SIN CONTROLAR");
 			e.printStackTrace();
 		} finally {
 			HibernateUtil.shutdown();
-		}      
+		}
+		return correcto;      
 	}
 
 	//metodos para probrar las BBDD
-	private static void pruebaMunicipios() {
+	private static boolean pruebaMunicipios() {
+		boolean correcto=false;
 		Municipios municipio = new Municipios();
 		municipio.setNombre("MUNICIPIO BAKIO");
 		municipio.setIdMunicipio(7);
@@ -55,6 +55,8 @@ public class PruebasCRUD {
 		MunicipiosDAO.insertarRegistro(municipio);
 		MunicipiosDAO.consultarRegistro(7);
 		MunicipiosDAO.borrarRegistro(7);
+		correcto=true;
+		return correcto;
 	}
 
 	private static void pruebaCliente() {
@@ -117,6 +119,7 @@ public class PruebasCRUD {
 	CentrosMeteorologicosDAO.insertarRegistro(centros);
 	CentrosMeteorologicosDAO.consultarRegistro(8);
 	CentrosMeteorologicosDAO.borrarRegistro(8);
+	MunicipiosDAO.borrarRegistro(4);
 }
 	
 }
