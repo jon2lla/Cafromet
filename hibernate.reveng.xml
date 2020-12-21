@@ -9,6 +9,8 @@
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 	</type-mapping>
 	<table-filter match-name="centros_meteorologicos"
 		match-catalog="cafrometbbdd">
@@ -22,6 +24,9 @@
 		match-catalog="cafrometbbdd">
 	</table-filter>
 	<table-filter match-name="provincias"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table-filter match-name="municipio_espacio_nat"
 		match-catalog="cafrometbbdd">
 	</table-filter>
 	<table catalog="cafrometbbdd" name="centros_meteorologicos">
@@ -61,5 +66,11 @@
 	<table catalog="cafrometbbdd" name="provincias">
 		<column name="ID_PROVINCIA"></column>
 		<column name="NOMBRE"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="municipio_espacio_nat">
+		<column name="COD_MUNI"></column>
+		<column name="COD_ESPACIO"></column>
+		<column name="COD_MUNI"></column>
+		<column name="COD_ESPACIO"></column>
 	</table>
 </hibernate-reverse-engineering>

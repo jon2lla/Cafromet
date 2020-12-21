@@ -35,7 +35,7 @@ public class CentrosMeteorologicosDAO {
 	
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
-		HQL = "from centrosMeteorologicos where idCentroMet = :id";
+		HQL = "from CentrosMeteorologicos where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		
