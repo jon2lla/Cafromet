@@ -10,8 +10,8 @@ public class CentrosMeteorologicosTest {
 
 	@Test
 	public void test() {
-		CentrosMeteorologicos centro1 = new CentrosMeteorologicos(4, null);
-		CentrosMeteorologicos centro2 = new CentrosMeteorologicos(4,null, null, null, null, null);
+		CentrosMeteorologicos centro1 = new CentrosMeteorologicos(4);
+		CentrosMeteorologicos centro2 = new CentrosMeteorologicos(4, null, null, null, null, null, null);
 		assertEquals(centro1.getIdCentroMet(), centro2.getIdCentroMet());
 	}
 

@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 19 dic. 2020 1:10:31 by Hibernate Tools 5.4.18.Final
+// Generated 24 dic. 2020 7:35:16 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,9 @@ import java.util.Set;
 public class Municipios implements java.io.Serializable {
 
 	private int idMunicipio;
+	private Provincias provincias;
 	private String nombre;
+	private Set espaciosNaturaleses = new HashSet(0);
 	private Set centrosMeteorologicoses = new HashSet(0);
 
 	public Municipios() {
@@ -20,9 +22,12 @@ public class Municipios implements java.io.Serializable {
 		this.idMunicipio = idMunicipio;
 	}
 
-	public Municipios(int idMunicipio, String nombre, Set centrosMeteorologicoses) {
+	public Municipios(int idMunicipio, Provincias provincias, String nombre, Set espaciosNaturaleses,
+			Set centrosMeteorologicoses) {
 		this.idMunicipio = idMunicipio;
+		this.provincias = provincias;
 		this.nombre = nombre;
+		this.espaciosNaturaleses = espaciosNaturaleses;
 		this.centrosMeteorologicoses = centrosMeteorologicoses;
 	}
 
@@ -34,12 +39,28 @@ public class Municipios implements java.io.Serializable {
 		this.idMunicipio = idMunicipio;
 	}
 
+	public Provincias getProvincias() {
+		return this.provincias;
+	}
+
+	public void setProvincias(Provincias provincias) {
+		this.provincias = provincias;
+	}
+
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Set getEspaciosNaturaleses() {
+		return this.espaciosNaturaleses;
+	}
+
+	public void setEspaciosNaturaleses(Set espaciosNaturaleses) {
+		this.espaciosNaturaleses = espaciosNaturaleses;
 	}
 
 	public Set getCentrosMeteorologicoses() {

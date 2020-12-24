@@ -11,7 +11,7 @@ public class ProvinciasTest {
 	@Test
 	public void test() {
 		Provincias provincia1 = new Provincias(4);
-		Provincias provincia2 = new Provincias(4,null);
+		Provincias provincia2 = new Provincias(4, null, null);
 		assertEquals(provincia1.getIdProvincia(), provincia2.getIdProvincia());
 	}
 

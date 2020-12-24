@@ -20,57 +20,78 @@
 		match-catalog="cafrometbbdd">
 	</table-filter>
 	<table-filter match-name="fuentes" match-catalog="cafrometbbdd"></table-filter>
+	<table-filter match-name="mediciones_centro_met"
+		match-catalog="cafrometbbdd">
+	</table-filter>
 	<table-filter match-name="municipios"
+		match-catalog="cafrometbbdd">
+	</table-filter>
+	<table-filter match-name="municipios_espacios_nat"
 		match-catalog="cafrometbbdd">
 	</table-filter>
 	<table-filter match-name="provincias"
 		match-catalog="cafrometbbdd">
 	</table-filter>
-	<table-filter match-name="municipio_espacio_nat"
-		match-catalog="cafrometbbdd">
-	</table-filter>
-	<table catalog="cafrometbbdd" name="centros_meteorologicos">
+	<table catalog="cafrometbbdd" name="centros_meteorologicos" class="CentroMeteorologico">
 		<column name="ID_CENTRO_MET"></column>
-		<column name="NOMBRE"></column>
-		<column name="LONGITUD"></column>
-		<column name="LATITUD"></column>
-		<column name="COD_MUNICIPIO"></column>
+		<column name="ID_MUNICIPIO"></column>
 		<column name="DIRECCION"></column>
+		<column name="NOMBRE"></column>
+		<column name="LATITUD"></column>
+		<column name="LONGITUD"></column>
 	</table>
 	<table catalog="cafrometbbdd" name="clientes">
 		<column name="ID_CLIENTE"></column>
-		<column name="USUARIO"></column>
 		<column name="PASSWD"></column>
+		<column name="USUARIO"></column>
 	</table>
 	<table catalog="cafrometbbdd" name="espacios_naturales">
 		<column name="ID_ESPACIO"></column>
-		<column name="LONGITUD"></column>
-		<column name="CATEGORIA"></column>
-		<column name="LATITUD"></column>
+		<column name="DIRECCION"></column>
 		<column name="DESCRIPCION"></column>
 		<column name="TIPO"></column>
-		<column name="DIRECCION"></column>
+		<column name="LONGITUD"></column>
 		<column name="NOMBRE"></column>
+		<column name="LATITUD"></column>
+		<column name="CATEGORIA"></column>
 	</table>
 	<table catalog="cafrometbbdd" name="fuentes">
-		<column name="ID_INDEX"></column>
-		<column name="HASH"></column>
-		<column name="NOMBRE"></column>
-		<column name="FORMATO"></column>
+		<column name="ID"></column>
 		<column name="URL"></column>
+		<column name="NOMBRE"></column>
+		<column name="HASH"></column>
+		<column name="FORMATO"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="mediciones_centro_met">
+		<column name="ID_CENTRO_MET"></column>
+		<column name="FECHA"></column>
+		<column name="HORA"></column>
+		<column name="COMGM3"></column>
+		<column name="PM25"></column>
+		<column name="NO2ICA"></column>
+		<column name="SO2"></column>
+		<column name="CO8HMGM3"></column>
+		<column name="PM10"></column>
+		<column name="SO2ICA"></column>
+		<column name="NOXGM3"></column>
+		<column name="NOGM3"></column>
+		<column name="NO2"></column>
+		<column name="PM25ICA"></column>
+		<column name="ICA_ESTACION"></column>
+		<column name="PM10ICA"></column>
 	</table>
 	<table catalog="cafrometbbdd" name="municipios">
 		<column name="ID_MUNICIPIO"></column>
 		<column name="NOMBRE"></column>
+		<column name="ID_PROVINCIA"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="provincias">
+<table catalog="cafrometbbdd" name="municipios_espacios_nat">
+
+	<column name="ID_ESPACIO"></column>
+	<column name="ID_MUNICIPIO"></column>
+</table>
+<table catalog="cafrometbbdd" name="provincias">
 		<column name="ID_PROVINCIA"></column>
 		<column name="NOMBRE"></column>
-	</table>
-	<table catalog="cafrometbbdd" name="municipio_espacio_nat">
-		<column name="COD_MUNI"></column>
-		<column name="COD_ESPACIO"></column>
-		<column name="COD_MUNI"></column>
-		<column name="COD_ESPACIO"></column>
 	</table>
 </hibernate-reverse-engineering>

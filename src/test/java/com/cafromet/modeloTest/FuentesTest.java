@@ -12,7 +12,7 @@ public class FuentesTest {
 	public void test() {
 		Fuentes fuentes1 = new Fuentes(4);
 		Fuentes fuentes2 = new Fuentes(4, null, null, null, null);
-		assertEquals(fuentes1.getIdIndex(), fuentes2.getIdIndex());
+		assertEquals(fuentes1.getId(), fuentes2.getId());
 	}
 
 }

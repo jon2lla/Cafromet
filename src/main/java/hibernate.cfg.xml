@@ -13,6 +13,7 @@
         <mapping resource="com/cafromet/modelo/CentrosMeteorologicos.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Provincias.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Municipios.hbm.xml"/>
+        <mapping resource="com/cafromet/modelo/MedicionesCentroMet.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Clientes.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/EspaciosNaturales.hbm.xml"/>
     </session-factory>

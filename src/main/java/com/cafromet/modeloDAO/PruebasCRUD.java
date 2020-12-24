@@ -30,9 +30,7 @@ public class PruebasCRUD {
 		} catch (ObjectNotFoundException o) {
 			System.out.println("ERROR: OBJECT NOT FOUND");
 		} catch (ConstraintViolationException cve) {
-			if (MunicipiosDAO.SESSION.getTransaction() != null) {
-				MunicipiosDAO.SESSION.getTransaction().rollback();
-			}
+			
 			System.out.println("ERROR: CONSTRAINT VIOLATION");
 		} catch (TransactionException e) {
 			System.out.println("ERROR: TRANSACTION EXCEPTION");
@@ -86,7 +84,7 @@ public class PruebasCRUD {
 	
 	private static void pruebaFuentes() {
 		Fuentes fuentes = new Fuentes();
-		fuentes.setIdIndex(2);
+		fuentes.setId(2);
 		fuentes.setNombre("FUENTES CAFROMET");
 		fuentes.setUrl("www.CAFROMET.com");
 		fuentes.setFormato("XML");

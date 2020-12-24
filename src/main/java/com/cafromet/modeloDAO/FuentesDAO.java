@@ -25,17 +25,17 @@ public class FuentesDAO {
 	}
 	
 	public static Fuentes consultarRegistro(int id) {
-		HQL = "from Fuentes where idIndex = :id";
+		HQL = "from Fuentes where id = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		Fuentes fuente = (Fuentes) QUERY.uniqueResult(); 
-        System.out.printf(" REGISTRO(S) => %s || %d%n%n", fuente.getNombre(), fuente.getIdIndex());
+        System.out.printf(" REGISTRO(S) => %s || %d%n%n", fuente.getNombre(), fuente.getId());
         return fuente;
 	}
 	
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
-		HQL = "from Fuentes where idIndex = :id";
+		HQL = "from Fuentes where id = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		
