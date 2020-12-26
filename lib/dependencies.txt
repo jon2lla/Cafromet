@@ -1,4 +1,17 @@
-	// https://mvnrepository.com/artifact/javax.activation/activation
+   // This dependency is exported to consumers, that is to say found on their compile classpath.
+    api 'org.apache.commons:commons-math3:3.6.1'
+     
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:28.2-jre'
+
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+    
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+	//testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
+    
+    
+    // https://mvnrepository.com/artifact/javax.activation/activation
 	compile group: 'javax.activation', name: 'activation', version: '1.1.1'
     
     // https://mvnrepository.com/artifact/antlr/antlr
@@ -17,7 +30,10 @@
 	compile group: 'org.hibernate.common', name: 'hibernate-commons-annotations', version: '5.0.1.Final'
     
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.1.0.Final'
+	//compile group: 'org.hibernate', name: 'hibernate-core', version: '5.1.0.Final'
+	
+	// https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.20.Final'
     
     // https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
@@ -36,8 +52,12 @@
     
     // https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging
 	compile group: 'org.jboss.logging', name: 'jboss-logging', version: '3.3.0.Final'
-	
-	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.49'
 
-     
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.6.2'  
+	
+
+	 
