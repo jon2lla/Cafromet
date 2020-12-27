@@ -1,17 +1,15 @@
 package com.cafromet.modeloDAO;
 
-//Imports externos
-import org.hibernate.HibernateException;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.TransactionException;
 import org.hibernate.exception.ConstraintViolationException;
 
-import com.cafromet.modelo.CentrosMeteorologicos;
-import com.cafromet.modelo.Clientes;
-import com.cafromet.modelo.EspaciosNaturales;
-import com.cafromet.modelo.Fuentes;
-import com.cafromet.modelo.Municipios;
-import com.cafromet.modelo.Provincias;
+import com.cafromet.modelo.CentroMeteorologico;
+import com.cafromet.modelo.Cliente;
+import com.cafromet.modelo.EspacioNatural;
+import com.cafromet.modelo.Fuente;
+import com.cafromet.modelo.Municipio;
+import com.cafromet.modelo.Provincia;
 //Imports locales
 import com.cafromet.util.HibernateUtil;
 
@@ -20,11 +18,11 @@ public class PruebasCRUD {
 	public static boolean pruebas() {
         boolean correcto=false;
     	try {   		
-    		pruebaMunicipios();
-			pruebaCentrosMeteoroLogicos();
+    		pruebaMunicipio();
+			pruebaCentroMeteoroLogico();
     		pruebaCliente();
-    		pruebaEspaciosNaturales();
-    		pruebaFuentes();
+    		pruebaEspacioNatural();
+    		pruebaFuente();
     		pruebaProvincia();
     		correcto = true;
 		} catch (ObjectNotFoundException o) {
@@ -44,80 +42,80 @@ public class PruebasCRUD {
 	}
 
 	//metodos para probrar las BBDD
-	private static boolean pruebaMunicipios() {
-		boolean correcto=false;
-		Municipios municipio = new Municipios();
+	private static boolean pruebaMunicipio() {
+		boolean correcto = false;
+		Municipio municipio = new Municipio();
 		municipio.setNombre("MUNICIPIO BAKIO");
 		municipio.setIdMunicipio(7);
-		MunicipiosDAO.iniciarSesion();
-		MunicipiosDAO.insertarRegistro(municipio);
-		MunicipiosDAO.consultarRegistro(7);
-		MunicipiosDAO.borrarRegistro(7);
+		MunicipioDAO.iniciarSesion();
+		MunicipioDAO.insertarRegistro(municipio);
+		MunicipioDAO.consultarRegistro(7);
+		MunicipioDAO.borrarRegistro(7);
 		correcto=true;
 		return correcto;
 	}
 
 	private static void pruebaCliente() {
-		Clientes clientes = new Clientes();
-		clientes.setIdCliente(4);
-		clientes.setUsuario("CLIENTE CAFROMET");
-		clientes.setPasswd("CAFROMET");
-		ClientesDAO.iniciarSesion();
-		ClientesDAO.insertarRegistro(clientes);
-		ClientesDAO.consultarRegistro(4);
-		ClientesDAO.borrarRegistro(4);
+		Cliente cliente = new Cliente();
+		cliente.setIdCliente(4);
+		cliente.setUsuario("CLIENTE CAFROMET");
+		cliente.setPasswd("CAFROMET");
+		ClienteDAO.iniciarSesion();
+		ClienteDAO.insertarRegistro(cliente);
+		ClienteDAO.consultarRegistro(4);
+		ClienteDAO.borrarRegistro(4);
 	}
 	
-	private static void pruebaEspaciosNaturales() {
-		EspaciosNaturales espacioNat = new EspaciosNaturales();
+	private static void pruebaEspacioNatural() {
+		EspacioNatural espacioNat = new EspacioNatural();
 		espacioNat.setCategoria("PRUEBA ESPACIO NATURAL");
 		espacioNat.setDescripcion("PRUEBA SPRINT1");
 		espacioNat.setDireccion("ELORRIETA");
 		espacioNat.setIdEspacio(2);
 		espacioNat.setNombre("ESPACIO NATURAL CAFROMET");
 		espacioNat.setTipo("PLAYA");
-		EspaciosNaturalesDAO.iniciarSesion();
-		EspaciosNaturalesDAO.insertarRegistro(espacioNat);
-		EspaciosNaturalesDAO.consultarRegistro(2);
-		EspaciosNaturalesDAO.borrarRegistro(2);
+		EspacioNaturalDAO.iniciarSesion();
+		EspacioNaturalDAO.insertarRegistro(espacioNat);
+		EspacioNaturalDAO.consultarRegistro(2);
+		EspacioNaturalDAO.borrarRegistro(2);
 	}
 	
-	private static void pruebaFuentes() {
-		Fuentes fuentes = new Fuentes();
-		fuentes.setId(2);
-		fuentes.setNombre("FUENTES CAFROMET");
-		fuentes.setUrl("www.CAFROMET.com");
-		fuentes.setFormato("XML");
-		FuentesDAO.iniciarSesion();
-		FuentesDAO.insertarRegistro(fuentes);
-		FuentesDAO.consultarRegistro(2);
-		FuentesDAO.borrarRegistro(2);
+	private static void pruebaFuente() {
+		Fuente fuente = new Fuente();
+		fuente.setId(2);
+		fuente.setNombre("FUENTES CAFROMET");
+		fuente.setUrl("www.CAFROMET.com");
+		fuente.setFormato("XML");
+		FuenteDAO.iniciarSesion();
+		FuenteDAO.insertarRegistro(fuente);
+		FuenteDAO.consultarRegistro(2);
+		FuenteDAO.borrarRegistro(2);
 	}
 	
 	private static void pruebaProvincia() {
-		Provincias provincias = new  Provincias();
-		provincias.setIdProvincia(9);
-		provincias.setNombre("PROVINCIA CAFROMET");
-		ProvinciasDAO.iniciarSesion();
-		ProvinciasDAO.insertarRegistro(provincias);
-		ProvinciasDAO.consultarRegistro(9);
-		ProvinciasDAO.borrarRegistro(9);	
+		Provincia provincia = new  Provincia();
+		provincia.setIdProvincia(9);
+		provincia.setNombre("PROVINCIA CAFROMET");
+		ProvinciaDAO.iniciarSesion();
+		ProvinciaDAO.insertarRegistro(provincia);
+		ProvinciaDAO.consultarRegistro(9);
+		ProvinciaDAO.borrarRegistro(9);	
 	}
 	
-	private static void pruebaCentrosMeteoroLogicos() {
-	CentrosMeteorologicos centros = new CentrosMeteorologicos();
-	Municipios municipio = new Municipios();
+	private static void pruebaCentroMeteoroLogico() {
+	CentroMeteorologico centro = new CentroMeteorologico();
+	Municipio municipio = new Municipio();
 	municipio.setIdMunicipio(4);
-	MunicipiosDAO.insertarRegistro(municipio);
-	centros.setNombre("CENTRO CAFROMET");
-	centros.setDireccion("elorrieta");
-	centros.setIdCentroMet(8);
-	centros.setMunicipios(municipio);
-	CentrosMeteorologicosDAO.iniciarSesion();
-	CentrosMeteorologicosDAO.insertarRegistro(centros);
-	CentrosMeteorologicosDAO.consultarRegistro(8);
-	CentrosMeteorologicosDAO.borrarRegistro(8);
-	MunicipiosDAO.borrarRegistro(4);
+	MunicipioDAO.insertarRegistro(municipio);
+	centro.setNombre("CENTRO CAFROMET");
+	centro.setDireccion("elorrieta");
+	centro.setIdCentroMet(8);
+	centro.setMunicipio(municipio);
+	CentroMeteorologicoDAO.iniciarSesion();
+	CentroMeteorologicoDAO.insertarRegistro(centro);
+	CentroMeteorologicoDAO.consultarRegistro(8);
+	CentroMeteorologicoDAO.borrarRegistro(8);
+	MunicipioDAO.borrarRegistro(4);
 }
 	
 }

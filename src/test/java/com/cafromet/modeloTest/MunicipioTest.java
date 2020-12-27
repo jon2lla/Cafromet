@@ -4,15 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.cafromet.modelo.Municipios;
+import com.cafromet.modelo.Municipio;
 
-public class MunicipiosTest {
+public class MunicipioTest {
 
 	@Test
 	public void testMunicipioConstructor() {
-		Municipios municipio1 = new Municipios(4);
+		Municipio municipio1 = new Municipio(4);
 
-		Municipios municipio2= new Municipios(4, null, null, null, null);
+		Municipio municipio2= new Municipio(4, null, null, null, null);
 		
 		assertEquals(municipio1.getIdMunicipio(), municipio2.getIdMunicipio());
 		

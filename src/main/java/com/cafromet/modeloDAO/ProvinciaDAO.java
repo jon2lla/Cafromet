@@ -3,12 +3,14 @@ package com.cafromet.modeloDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.cafromet.modelo.CentrosMeteorologicos;
+import com.cafromet.modelo.Provincia;
 import com.cafromet.util.HibernateUtil;
 
-public class CentrosMeteorologicosDAO {
+@SuppressWarnings("deprecation")
+public class ProvinciaDAO {
 	public static Session SESSION;
 	private static String HQL;
+	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
 	public static void iniciarSesion() {
@@ -17,31 +19,30 @@ public class CentrosMeteorologicosDAO {
 		SESSION = HibernateUtil.getSessionFactory().openSession();
 
 	}
-	
-	public static void insertarRegistro(CentrosMeteorologicos centrosMeteorologicos) {
+	public static void insertarRegistro(Provincia provincias) {
 		SESSION.beginTransaction();		
-		SESSION.save(centrosMeteorologicos);
+		SESSION.save(provincias);
 		SESSION.getTransaction().commit();	 
 	}
-	
-	public static CentrosMeteorologicos consultarRegistro(int id) {
-		HQL = "from CentrosMeteorologicos where idCentroMet = :id";
+		
+	public static Provincia consultarRegistro(int id) {
+		HQL = "from Provincia  where idProvincia = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
-		CentrosMeteorologicos centros =  (CentrosMeteorologicos) QUERY.uniqueResult(); 
-        System.out.printf(" REGISTRO(S) => %s || %d%n%n", centros.getNombre(), centros.getIdCentroMet());
-        return centros;
+		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
+        System.out.printf(" REGISTRO(S) => %s || %d%n%n", provincia.getNombre(), provincia.getIdProvincia());
+        return provincia;
 	}
 	
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
-		HQL = "from CentrosMeteorologicos where idCentroMet = :id";
+		HQL = "from Provincia  where idProvincia = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		
-		CentrosMeteorologicos centros =  (CentrosMeteorologicos) QUERY.uniqueResult(); 
-		
-		SESSION.delete(centros);	
+		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
+
+		SESSION.delete(provincia);
 		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");

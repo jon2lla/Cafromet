@@ -4,14 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.cafromet.modelo.Clientes;
+import com.cafromet.modelo.Cliente;
 
-public class ClientesTest {
+public class ClienteTest {
 
 	@Test
 	public void test() {
-		Clientes cliente1 = new Clientes(4);
-		Clientes cliente2 = new Clientes(4, null,null);
+		Cliente cliente1 = new Cliente(4);
+		Cliente cliente2 = new Cliente(4, null,null);
 		assertEquals(cliente1.getIdCliente(), cliente2.getIdCliente());
 	}
 

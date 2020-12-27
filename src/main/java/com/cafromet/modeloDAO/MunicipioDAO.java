@@ -3,12 +3,14 @@ package com.cafromet.modeloDAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.cafromet.modelo.Municipios;
+import com.cafromet.modelo.Municipio;
 import com.cafromet.util.HibernateUtil;
 
-public class MunicipiosDAO {
+@SuppressWarnings("deprecation")
+public class MunicipioDAO {
 	public static Session SESSION;
 	private static String HQL;
+	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
 	public static void iniciarSesion() {
@@ -17,28 +19,28 @@ public class MunicipiosDAO {
 		SESSION = HibernateUtil.getSessionFactory().openSession();
 
 	}
-	public static void insertarRegistro(Municipios municipio) {
+	public static void insertarRegistro(Municipio municipio) {
 		SESSION.beginTransaction();		
 		SESSION.save(municipio);
 		SESSION.getTransaction().commit();	 
 	}
 		
-	public static Municipios consultarRegistro(int id) {
-		HQL = "from Municipios as mun where mun.idMunicipio = :id";
+	public static Municipio consultarRegistro(int id) {
+		HQL = "from Municipio as mun where mun.idMunicipio = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
-		Municipios municipio = (Municipios) QUERY.uniqueResult(); 
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
         System.out.printf(" REGISTRO(S) => %s || %d%n%n", municipio.getNombre(), municipio.getIdMunicipio());
         return municipio;
 	}
 	
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
-		HQL = "from Municipios as mun where mun.idMunicipio = :id";
+		HQL = "from Municipio as mun where mun.idMunicipio = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		
-		Municipios municipio = (Municipios) QUERY.uniqueResult(); 
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
 
 		SESSION.delete(municipio);
 		
