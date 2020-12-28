@@ -9,7 +9,7 @@ import com.cafromet.modelo.EspacioNatural;
 public class EspacioNaturalTest {
 
 	@Test
-	public void test() {
+	public void testConstructorEspacioNat() {
 		EspacioNatural espacio1 = new EspacioNatural(4);
 		EspacioNatural espacio2 = new EspacioNatural(4, null, null, null, null, null, null, null, null);
 		assertEquals(espacio1.getIdEspacio(), espacio2.getIdEspacio());

@@ -10,7 +10,7 @@ public class PruebasDAOTest {
 
 	@Test
 	public void testPruebasCRUD() {
-		boolean result=PruebasCRUD.pruebas();
+		boolean result = PruebasCRUD.pruebas();
 		assertEquals(true, result);
 	}
 	

@@ -9,7 +9,7 @@ import com.cafromet.modelo.Municipio;
 public class MunicipioTest {
 
 	@Test
-	public void testMunicipioConstructor() {
+	public void testConstructorMunicipio() {
 		Municipio municipio1 = new Municipio(4);
 
 		Municipio municipio2= new Municipio(4, null, null, null, null);
