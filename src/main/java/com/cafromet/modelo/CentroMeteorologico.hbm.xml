@@ -1,31 +1,35 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 27 dic. 2020 22:44:50 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
-    <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.CentroMeteorologico" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="centros_meteorologicos">
-        <id name="idCentroMet" type="int">
-            <column name="ID_CENTRO_MET"/>
-            <generator class="assigned"/>
-        </id>
-        <many-to-one class="com.cafromet.modelo.Municipio" embed-xml="true" fetch="select" insert="true" name="municipio" not-found="exception" optimistic-lock="true" unique="false" update="true">
-            <column name="ID_MUNICIPIO"/>
-        </many-to-one>
-        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="NOMBRE"/>
-        </property>
-        <property generated="never" lazy="false" name="direccion" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="DIRECCION"/>
-        </property>
-        <property generated="never" lazy="false" name="latitud" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="LATITUD" precision="20" scale="20"/>
-        </property>
-        <property generated="never" lazy="false" name="longitud" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="LONGITUD" precision="20" scale="20"/>
-        </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="medicions" optimistic-lock="true" sort="unsorted" table="mediciones_centro_met">
-            <key on-delete="noaction">
-                <column name="ID_CENTRO_MET" not-null="true"/>
-            </key>
-            <one-to-many class="com.cafromet.modelo.Medicion" embed-xml="true" not-found="exception"/>
-        </set>
-    </class>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27 dic. 2020 22:44:50 by Hibernate Tools 5.4.21.Final -->
+<hibernate-mapping default-access="field">
+ <class catalog="cafrometbbdd"
+  name="com.cafromet.modelo.CentroMeteorologico" table="centros_meteorologicos">
+  <id name="idCentroMet" type="int">
+   <column name="ID_CENTRO_MET"/>
+   <generator class="assigned"/>
+  </id>
+  <many-to-one class="com.cafromet.modelo.Municipio" fetch="select" name="municipio">
+   <column name="ID_MUNICIPIO"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="nombre" type="string">
+   <column length="50" name="NOMBRE"/>
+  </property>
+  <property generated="never" lazy="false" name="direccion" type="string">
+   <column length="50" name="DIRECCION"/>
+  </property>
+  <property generated="never" lazy="false" name="latitud" type="java.lang.Float">
+   <column name="LATITUD" precision="20" scale="20"/>
+  </property>
+  <property generated="never" lazy="false" name="longitud" type="java.lang.Float">
+   <column name="LONGITUD" precision="20" scale="20"/>
+  </property>
+  <set fetch="select" inverse="true" lazy="true" name="medicions"
+   sort="unsorted" table="mediciones_centro_met">
+   <key>
+    <column name="ID_CENTRO_MET" not-null="true"/>
+   </key>
+   <one-to-many class="com.cafromet.modelo.Medicion"/>
+  </set>
+ </class>
 </hibernate-mapping>

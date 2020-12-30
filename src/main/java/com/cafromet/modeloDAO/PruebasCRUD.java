@@ -199,8 +199,7 @@ public class PruebasCRUD {
 
 		MunicipioDAO.borrarRegistro(7);
 		
-		EspacioNaturalDAO.borrarRegistro(2);
-	
+		EspacioNaturalDAO.borrarRegistro(2);	
 		
 		return true;
 	}

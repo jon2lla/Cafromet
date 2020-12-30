@@ -5,9 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.cafromet.modelo.CentroMeteorologico;
-import com.cafromet.modelo.Cliente;
-import com.cafromet.modelo.Fuente;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
 
