@@ -5,6 +5,35 @@ import java.io.File;
 import com.cafromet.util.GestorFicheros;
 
 public class Updater {
+	private static String DATOS_ESPACIOS_NAT = "src" + File.separator 
+			+ "resource" + File.separator 
+			+ "com" + File.separator
+			+ "cafromet" + File.separator
+			+ "files" + File.separator
+			+ "json" + File.separator 
+			+ "espacios-naturales.json";
+	private static String DATOS_ESTACIONES = "src" + File.separator 
+			+ "resource" + File.separator 
+			+ "com" + File.separator
+			+ "cafromet" + File.separator
+			+ "files" + File.separator
+			+ "json" + File.separator 
+			+ "estaciones.json";
+	private static String DATOS_INDEX = "src" + File.separator 
+			+ "resource" + File.separator 
+			+ "com" + File.separator
+			+ "cafromet" + File.separator
+			+ "files" + File.separator
+			+ "json" + File.separator 
+			+ "index.json";
+	private static String DATOS_PUEBLOS = "src" + File.separator 
+			+ "resource" + File.separator 
+			+ "com" + File.separator
+			+ "cafromet" + File.separator
+			+ "files" + File.separator
+			+ "json" + File.separator 
+			+ "pueblos.json";
+	
 	
 	private Updater() {}
 	
@@ -21,10 +50,10 @@ public class Updater {
 	}
 	
 	public boolean actualizarFuentes() {
-		GestorFicheros gfEspNat = new GestorFicheros(new File("espacios-naturales.json"), 1);
-		GestorFicheros gfEstaciones = new GestorFicheros(new File("estaciones.json"), 1);
-		GestorFicheros gfIndex = new GestorFicheros(new File("index.json"), 1);
-		GestorFicheros gfPueblos = new GestorFicheros(new File("pueblos.json"), 1);
+		GestorFicheros gfEspNat = new GestorFicheros(new File(DATOS_ESPACIOS_NAT), 1);
+//		GestorFicheros gfEstaciones = new GestorFicheros(new File(DATOS_ESTACIONES), 2);
+//		GestorFicheros gfIndex = new GestorFicheros(new File(DATOS_INDEX), 3);
+//		GestorFicheros gfPueblos = new GestorFicheros(new File(DATOS_PUEBLOS), 4);
 		gfEspNat.start();
 //		gfEstaciones.start();
 //		gfIndex.start();

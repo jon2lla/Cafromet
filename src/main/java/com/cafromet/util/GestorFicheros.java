@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 
@@ -22,6 +25,7 @@ public class GestorFicheros extends Thread {
 	
 	private File fichero;
 	private int tipo;
+
 	
 	public GestorFicheros(File fichero, int tipo) {
 		this.fichero = fichero;
@@ -48,26 +52,19 @@ public class GestorFicheros extends Thread {
 	 */  
     public boolean procesarJson(){
     	
-    	
-
-    	
-
-	        // Show it.
     	filtrarJson();
-//    	JsonParser parser = new JsonParser();
-//		FileReader fr = null;
-//	
-//		try {
-//			fr = new FileReader(fichero);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//	   
-//		JsonElement datos = parser.parse(fr);
-//	
-//		procesarElementoJson(datos);
+    	JsonParser parser = new JsonParser();
+		FileReader fr = null;
+	
+		try {
+			fr = new FileReader(fichero);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		JsonElement datos = parser.parse(fr);
+		procesarElementoJson(datos);
     	return true;
     }
     
@@ -77,7 +74,6 @@ public class GestorFicheros extends Thread {
 	 * @return true
 	 */  
 	public String filtrarJson(){
-			
 		String linea;
 		String contenido = "";
         FileWriter fwFichero = null;
@@ -86,15 +82,16 @@ public class GestorFicheros extends Thread {
 		try{
 			brFichero = new BufferedReader(new FileReader(fichero));
 			while((linea = brFichero.readLine())!=null) {				
-				
 				linea = remplazoHT(linea);
-				if(comprobarCamposEspacioNat(linea)) {
-					linea = remplazoEspacioNat(linea);
-
-					System.out.println(linea);	
-
-					contenido = contenido + linea + "\n";
-				}
+				switch(tipo) {
+				case 1:
+					if(comprobarCamposEspacioNat(linea) || comprobarEstructuraJson(linea)) {
+						linea = remplazoEspacioNat(linea);
+						contenido = contenido + linea + "\n";
+						System.out.println(linea);	
+					}
+					break;
+				}	
 			}
 			fwFichero = new FileWriter(fichero);  
 			fwFichero.write(contenido);
@@ -123,13 +120,22 @@ public class GestorFicheros extends Thread {
 		if(linea.contains("]);")) {
 			linea = linea.replace(");", "");
 			System.out.println("\n Pie de pagina remplazado");	
-		}	
-			
+		}		
 		return linea;
 	}
 	
+	public boolean comprobarEstructuraJson(String linea) {
+		if(linea.contains("[ {")
+				|| linea.contains("}, {")
+				|| linea.contains("} ]")) {
+			return true;
+
+		}
+			
+		return false;
+	}
 	
-	// CLASE ESPACIO NATURAL
+	// CLASE ESPACIO NATURALES
 	public String remplazoEspacioNat(String linea) {
 		
 		if(linea.contains("\"documentName\" : "))
@@ -150,25 +156,30 @@ public class GestorFicheros extends Thread {
 		else if(linea.contains("\"lonwgs84\" : "))
 			linea = linea.replace("lonwgs84", "longitud");						
 		
-		else if(linea.contains("\"municipality\" : ")){
+		else if(linea.contains("\"municipality\" : ")) {
 			linea = linea.replace("municipality", "municipio");	
-			linea = linea.replace(",", "");	
-																									
-		}	
+			linea = linea.replace(",", "");
+		}
+			
 		return linea;
 	}
 	
 	private boolean comprobarCamposEspacioNat(String linea) {
-		if(linea.contains("[ {")
-			|| linea.contains("\"documentName\" : " ) 
+		if(linea.contains("\"documentName\" : " ) 
+			|| linea.contains("\"nombre\" : " ) 
 			|| linea.contains("\"turismDescription\" : \"<p>") 
+			|| linea.contains("\"descripcion\" : \"<p>") 
 			|| linea.contains("\"templateType\" : ") 
+			|| linea.contains("\"tipo\" : ") 
 			|| linea.contains("\"natureType\" : ") 
+			|| linea.contains("\"categoria\" : ") 
 			|| linea.contains("\"latwgs84\" : ") 
-			|| linea.contains("\"lonwgs84\" : ")			
+			|| linea.contains("\"latitud\" : ") 
+			|| linea.contains("\"lonwgs84\" : ")
+			|| linea.contains("\"longitud\" : ")			
 			|| linea.contains("\"municipality\" : ")
-			|| linea.contains("}, {")
-			|| linea.contains("} ]")) {
+			|| linea.contains("\"municipio\" : ")) {
+		
 			return true;
 		}
 		return false;
@@ -180,14 +191,6 @@ public class GestorFicheros extends Thread {
 		  System.out.println(esp.getNombre());
 		  return esp;
 	}
-	
-	// CLASE MUNICIPIO
-	
-	
-	
-	
-	
-
 
 	/**
 	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
