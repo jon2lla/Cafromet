@@ -10,8 +10,8 @@ public class EspacioNaturalTest {
 
 	@Test
 	public void testConstructorEspacioNat() {
-		EspacioNatural espacio1 = new EspacioNatural(4);
-		EspacioNatural espacio2 = new EspacioNatural(4, null, null, null, null, null, null, null, null);
+		EspacioNatural espacio1 = new EspacioNatural();
+		EspacioNatural espacio2 = new EspacioNatural( null, null, null, null, null, null, null, null);
 		assertEquals(espacio1.getIdEspacio(), espacio2.getIdEspacio());
 	}
 

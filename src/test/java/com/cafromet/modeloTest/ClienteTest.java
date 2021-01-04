@@ -10,8 +10,8 @@ public class ClienteTest {
 
 	@Test
 	public void testConstructorCliente() {
-		Cliente cliente1 = new Cliente(4);
-		Cliente cliente2 = new Cliente(4, null,null);
+		Cliente cliente1 = new Cliente();
+		Cliente cliente2 = new Cliente( null,null);
 		assertEquals(cliente1.getIdCliente(), cliente2.getIdCliente());
 	}
 

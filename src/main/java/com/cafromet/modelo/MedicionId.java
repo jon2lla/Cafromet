@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 27 dic. 2020 22:44:50 by Hibernate Tools 5.4.21.Final
+// Generated 4 ene. 2021 19:38:01 by Hibernate Tools 5.4.21.Final
 
 import java.util.Date;
 
@@ -8,10 +8,6 @@ import java.util.Date;
  */
 public class MedicionId implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1177573191815915403L;
 	private int idCentroMet;
 	private Date fecha;
 	private Date hora;
