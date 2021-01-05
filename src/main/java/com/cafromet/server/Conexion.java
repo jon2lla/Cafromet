@@ -36,7 +36,7 @@ public class Conexion {
 				System.out.println("Fichero de datos de conexion no encontrado");
 			}
 		
-			URL = "jdbc:mysql://localhost:3306/empresa?user=" + usuario + "&password=" + passwd;
+			URL = "jdbc:mysql://localhost:3306/cafrometbbdd?user=" + usuario + "&password=" + passwd;
 		try {
 			con = DriverManager.getConnection(URL);
 			if (con != null) {

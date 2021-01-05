@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.cafromet.modelo.Cliente;
+import com.cafromet.modeloDAO.ClienteDAO;
+
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;
 	protected static int NUM_CONSULTAS = 0;
@@ -47,7 +50,23 @@ public class IOListenerSrv extends Thread {
 				case 2:
 					ArrayList<Departamento> listaDep = MetodosDAO.buscarDepartamentos(datos.getConsulta());
 					datos.setObjeto(listaDep);
-					break;				
+					break;	
+				case 3:
+					String[] array = datos.getConsulta().split(",");;
+					
+					String usuario = array[0];
+					String passwd = array[1];
+					Cliente cliente = new Cliente(usuario,passwd);
+					
+					System.out.println(cliente.getUsuario());
+					ClienteDAO.iniciarSesion();
+					if(ClienteDAO.consultarRegistro(cliente.getUsuario()) != null){
+						System.out.println("EXISTE");
+					}else {
+						System.out.println("pal oyo");
+					}
+					
+					break;	
 			}
 			
 //			for (Empleado empleado : lista) {

@@ -35,6 +35,15 @@ public class ClienteDAO {
         return cliente;
 	}
 	
+	public static Cliente consultarRegistro(String usuario) {
+		HQL = "from Cliente where usuario = :usuario";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("usuario", usuario);
+		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
+        System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
+        return cliente;
+	}
+	
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
 		HQL = "from Cliente where idCliente = :id";
