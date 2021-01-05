@@ -41,13 +41,9 @@ public class IOListenerSrv extends Thread {
 			
 			switch (datos.getTipoConsulta()) {	
 				case 1: 
-					ArrayList<Empleado> listaEmp = MetodosDAO.buscarEmpleados(datos.getConsulta());
-					datos.setObjeto(listaEmp);
+				
 					break;
-				case 2:
-					ArrayList<Departamento> listaDep = MetodosDAO.buscarDepartamentos(datos.getConsulta());
-					datos.setObjeto(listaDep);
-					break;				
+							
 			}
 			
 //			for (Empleado empleado : lista) {

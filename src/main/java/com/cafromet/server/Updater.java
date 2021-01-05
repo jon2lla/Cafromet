@@ -50,10 +50,10 @@ public class Updater {
 	}
 	
 	public boolean actualizarFuentes() {
-		GestorFicheros gfEspNat = new GestorFicheros(new File(DATOS_ESPACIOS_NAT), 1);
-//		GestorFicheros gfEstaciones = new GestorFicheros(new File(DATOS_ESTACIONES), 2);
-//		GestorFicheros gfIndex = new GestorFicheros(new File(DATOS_INDEX), 3);
-//		GestorFicheros gfPueblos = new GestorFicheros(new File(DATOS_PUEBLOS), 4);
+//		GestorFicheros gfIndex = new GestorFicheros(new File(DATOS_INDEX), 1);
+//		GestorFicheros gfPueblos = new GestorFicheros(new File(DATOS_PUEBLOS), 2);
+		GestorFicheros gfEspNat = new GestorFicheros(new File(DATOS_ESPACIOS_NAT), 3);
+//		GestorFicheros gfEstaciones = new GestorFicheros(new File(DATOS_ESTACIONES), 4);
 		gfEspNat.start();
 //		gfEstaciones.start();
 //		gfIndex.start();

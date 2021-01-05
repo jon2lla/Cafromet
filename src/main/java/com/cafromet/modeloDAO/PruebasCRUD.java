@@ -23,12 +23,12 @@ public class PruebasCRUD {
 	 */
 	public static boolean pruebas() {
     	try {   		
+    		pruebaProvincia();
     		pruebaMunicipio();
 			pruebaCentroMeteoroLogico();
     		pruebaCliente();
     		pruebaEspacioNatural();
     		pruebaFuente();
-    		pruebaProvincia();
     		pruebaMunicipioEspacioNat();
 		} catch (ObjectNotFoundException o) {
 			System.out.println("ERROR: OBJECT NOT FOUND");
@@ -53,12 +53,12 @@ public class PruebasCRUD {
 	private static boolean pruebaMunicipio() {
 		Municipio municipio = new Municipio();
 		municipio.setNombre("MUNICIPIO BAKIO");
-		municipio.setIdMunicipio(7);
+		municipio.setIdMunicipio(0);
 		
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
-		MunicipioDAO.consultarRegistro(7);
-		MunicipioDAO.borrarRegistro(7);
+		MunicipioDAO.consultarRegistro(0);
+		MunicipioDAO.borrarRegistro(0);
 		
 		return true;
 	}
@@ -69,14 +69,13 @@ public class PruebasCRUD {
 	 */
 	private static boolean pruebaCliente() {
 		Cliente cliente = new Cliente();
-		cliente.setIdCliente(4);
 		cliente.setUsuario("CLIENTE CAFROMET");
 		cliente.setPasswd("CAFROMET");
 		
 		ClienteDAO.iniciarSesion();
 		ClienteDAO.insertarRegistro(cliente);
-		ClienteDAO.consultarRegistro(4);
-		ClienteDAO.borrarRegistro(4);
+		ClienteDAO.consultarRegistro(1);
+		ClienteDAO.borrarRegistro(1);
 		
 		return true;
 	}
@@ -96,8 +95,8 @@ public class PruebasCRUD {
 		
 		EspacioNaturalDAO.iniciarSesion();
 		EspacioNaturalDAO.insertarRegistro(espacioNat);
-		EspacioNaturalDAO.consultarRegistro(2);
-		EspacioNaturalDAO.borrarRegistro(2);
+		EspacioNaturalDAO.consultarRegistro(1);
+		EspacioNaturalDAO.borrarRegistro(1);
 		
 		return true;
 	}
@@ -145,21 +144,21 @@ public class PruebasCRUD {
 	private static boolean pruebaCentroMeteoroLogico() {
 		CentroMeteorologico centro = new CentroMeteorologico();
 		Municipio municipio = new Municipio();
-		municipio.setIdMunicipio(4);
+		municipio.setNombre("MUNICIPIO BAKIO");
+		municipio.setIdMunicipio(0);
 		
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
 		
 		centro.setNombre("CENTRO CAFROMET");
 		centro.setDireccion("elorrieta");
-		centro.setIdCentroMet(8);
 		centro.setMunicipio(municipio);
 		
 		CentroMeteorologicoDAO.iniciarSesion();
 		CentroMeteorologicoDAO.insertarRegistro(centro);
-		CentroMeteorologicoDAO.consultarRegistro(8);
-		CentroMeteorologicoDAO.borrarRegistro(8);
-		MunicipioDAO.borrarRegistro(4);
+		CentroMeteorologicoDAO.consultarRegistro(1);
+		CentroMeteorologicoDAO.borrarRegistro(1);
+		MunicipioDAO.borrarRegistro(0);
 		
 		return true;
 	}	

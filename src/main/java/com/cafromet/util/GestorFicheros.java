@@ -84,11 +84,11 @@ public class GestorFicheros extends Thread {
 			while((linea = brFichero.readLine())!=null) {				
 				linea = remplazoHT(linea);
 				switch(tipo) {
-				case 1:
+				case 3:
 					if(comprobarCamposEspacioNat(linea) || comprobarEstructuraJson(linea)) {
 						linea = remplazoEspacioNat(linea);
 						contenido = contenido + linea + "\n";
-						System.out.println(linea);	
+						System.out.println(linea);
 					}
 					break;
 				}	
