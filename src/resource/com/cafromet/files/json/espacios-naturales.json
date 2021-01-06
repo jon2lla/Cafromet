@@ -27,8 +27,8 @@
   "descripcion" : "<p>El embalse de Urr&uacute naga est&aacute  ubicado a caballo entre &Aacute lava y Bizkaia, rodeado de un espectacular paisaje, con el monte Gorbeia (1.481 m) al fondo. Pertenece en su mayor parte al municipio alav&eacute s de Legutiano, aunque parte de la presa se encuentra en Otxandio. <br/> <br/>Este espl&eacute ndido enclave es uno de los principales atractivos tur&iacute sticos de Legutiano, lo que ha favorecido el desarrollo de numerosas actividades relacionadas con el ocio, el deporte y el descanso. Por un lado, en la orilla del embalse se han habilitado dos parques, el de Sorgimendi y el de Zabalain, que disponen de mesas, parrillas, fuentes, juegos infantiles... Por otro, hacia el norte, se ubica el Campo Internacional de Regatas, que tambi&eacute n funciona como escuela de regatas. <br/> <br/>El sector de la hosteler&iacute a se ha desarrollado en buen medida gracias al embalse. Legutiano cuenta con numerosos bares y restaurantes, mientras que en otras localidades del municipio se pueden encontrar agroturismos (Elosu), marisquer&iacute as (Urr&uacute naga), etc. <br/> En la parte vizca&iacute na, es posible realizar una ruta que bordea parte del embalse. Un poco antes del puente de Gomilaz, parte un sendero que nos lleva hasta el barrio Mekoleta, pasando por el monte San Bernab&eacute , donde encontraremos un antiguo nevero rehabilitado en 1999. Asimismo, el embalse de Urr&uacute naga llama especialmente la atenci&oacute n por el gran n&uacute mero de aves y comunidades acu&aacute ticas que se concentran en este h&aacute bitat. Por &uacute ltimo, destacar que numerosos pescadores acuden al embalse para capturar los mejores ejemplares.</p>",
   "tipo" : "Playas, pantanos y ríos",
   "categoria" : "Pantanos",
-  "latitud" : "",
-  "longitud" : "",
+  "latitud" : "0",
+  "longitud" : "0",
   "municipio" : "Otxandio Legutio Legutio Legutio"
 }, {
   "nombre" : "La Arboleda",
@@ -123,8 +123,8 @@
   "descripcion" : "<p>Enclavada entre los municipios vizca&iacute nos de Sopela y Getxo, la playa de Barinatxe est&aacute  compuesta por tres elementos vitales de la naturaleza: agua de una inmensa bravura, fina arena y un aire vol&aacute til que emana una pureza solamente propia de enclaves tan caracter&iacute sticos como este. Precisamente gracias a su innato e impredecible ecosistema, Barinatxe se ha ganado el nombre de &ldquo La Salvaje&rdquo . <br/> <br/>Se trata de una <strong>playa amplia y abierta, flanqueada por hermosos acantilados</strong>, y que cuenta con una zona naturista. <br/> <br/>Asimismo, la playa de Barinatxe ofrece la oportunidad de realizar numerosas actividades, entre las que destaca el <strong>surf</strong>, debido al gran oleaje de sus aguas. <br/> Como su propio nombre indica se trata de una playa salvaje con un sistema dunar propio. Cuenta con un edificio multiusos con vestuarios, duchas y donde tienen su sede las escuelas de surf locales, cuenta con dos clubes de surf y como el resto de las playas de esta zona hay una gran afluencia de ba&ntilde istas y surfistas. Orientada al noroeste, la frecuencia de olas es bastante alta. Es una playa que cuenta con distintos picos, la m&aacute s conocida es la ola de La Triangular, de fondo rocoso, que puede aguantar bastante tama&ntilde o y funciona con todas las mareas. Se trata de una derecha larga con un pico muy concentrado pero bastante noble, lo que la hace ideal para la pr&aacute ctica del longboard, en marea baja tiene una izquierda m&aacute s vertical con secciones tuberas. En la zona oeste de la playa est&aacute  la ola de La Batidora, donde predominan las izquierdas. En la zona centro se encuentra La Corriente, una izquierda muy t&eacute cnica y muy cambiante en funci&oacute n de la marea, el tama&ntilde o del swell y la corriente. En Barinatxe los fondos son muy cambiantes y pueden dar olas de mucha calidad. Sus acantilados son ideales para la pr&aacute ctica del parapente.</p>",
   "tipo" : "Playas, pantanos y ríos",
   "categoria" : "Playas",
-  "latitud" : "",
-  "longitud" : "",
+  "latitud" : "0",
+  "longitud" : "0",
   "municipio" : "Getxo Sopela"
 }, {
   "nombre" : "Playa de Barrika",
@@ -235,8 +235,8 @@
   "descripcion" : "<p>Situada entre Muskiz y Zierbena, la hermosa playa de La Arena tiene 966 metros de longitud y es<strong> uno de los rincones preferidos de los surfistas</strong> de la Margen Izquierda del Gran Bilbao. <br/> <br/>Es la &uacute ltima playa de Euskadi en su l&iacute mite oeste. Tiene fundamentalmente tres olas principales: la izquierda de Pobe&ntilde a, en la zona oeste de la playa, el Centro y la derecha del Vivero, en la zona este de la playa. Es en el Centro donde se imparten las clases de surf, ya que los otros dos picos merecen especial atenci&oacute n por las fuertes corrientes. Todas las olas funcionan en todas las mareas, aunque Pobe&ntilde a rompe mejor con marea baja, siendo una izquierda larga de gran calidad que puede ofrecer sesiones &eacute picas. La playa aguanta hasta los 2 metros y no necesita mucho mar, gracias a que es un arenal abierto.</p>",
   "tipo" : "Playas, pantanos y ríos",
   "categoria" : "Playas",
-  "latitud" : "",
-  "longitud" : "",
+  "latitud" : "0",
+  "longitud" : "0",
   "municipio" : "Zierbena Muskiz"
 }, {
   "nombre" : "Playa de La Concha",
@@ -347,8 +347,8 @@
   "descripcion" : "<p>La playa de San Antonio se encuentra entre las localidades de Busturia y Sukarrieta, en la margen izquierda de la r&iacute a de Mundaka. <br/> <br/>Protegida por la isla Sandindere, esta playa ofrece en sus casi 200 metros de arena dorada la posibilidad de practicar actividades como voleibol, windsurf, vela... <br/> <br/>San Antonio est&aacute  bien equipada, con aseos, duchas, lavapies, guardabiciletas, etc. Adem&aacute s, es un lugar tranquilo, muy recomendable para familias con ni&ntilde os, pues cuenta con una hermosa &aacute rea recreativa junto a la playa, dotada de instalaciones infantiles, mesas, bancos, etc. <br/></p>",
   "tipo" : "Playas, pantanos y ríos",
   "categoria" : "Playas",
-  "latitud" : "",
-  "longitud" : "",
+  "latitud" : "0",
+  "longitud" : "0",
   "municipio" : "Sukarrieta Busturia"
 }, {
   "nombre" : "Playa de Santiago",
@@ -419,8 +419,8 @@
   "descripcion" : "<p>En Euskadi no es imprescindible acercarse al mar para disfrutar de magn&iacute ficas playas. A unos 15 km de Vitoria-Gasteiz el embalse de Ullibarri-Gamboa acoge varias playas interiores. <br/> <br/>Es el caso de las dos playas de Garaio Sur y Garaio Norte rodeadas de zonas arboladas y de esparcimiento que forman el parque de Garaio, con 116 Hect&aacute reas de superficie. Sus dos playas suman 2.600 metros de longitud. <br/> <br/>Entre junio y agosto disponen de servicio de socorristas, duchas y plataformas de ba&ntilde o para personas con discapacidad. <br/> Han sido reconocidas con bandera azul por la calidad de sus aguas, la accesibilidad, la informaci&oacute n ambiental dirigida a sus usuarios y la existencia de servicios sanitarios y de salvamento, entre otros.</p>",
   "tipo" : "Playas, pantanos y ríos",
   "categoria" : "Playas",
-  "latitud" : "",
-  "longitud" : "",
+  "latitud" : "0",
+  "longitud" : "0",
   "municipio" : "Barrundia Elburgo/Burgelu"
 }, {
   "nombre" : "Zierbena-Puerto",

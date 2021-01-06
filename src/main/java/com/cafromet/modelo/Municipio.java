@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 4 ene. 2021 19:38:01 by Hibernate Tools 5.4.21.Final
+// Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,33 +9,30 @@ import java.util.Set;
  */
 public class Municipio implements java.io.Serializable {
 
-	private int idMunicipio;
+	private Integer idMunicipio;
 	private Provincia provincia;
 	private String nombre;
+	private String descripcion;
 	private Set municipio_EspacioNaturals = new HashSet(0);
 	private Set centroMeteorologicos = new HashSet(0);
 
 	public Municipio() {
 	}
 
-	public Municipio(int idMunicipio) {
-		this.idMunicipio = idMunicipio;
-	}
-
-	public Municipio(int idMunicipio, Provincia provincia, String nombre, Set municipio_EspacioNaturals,
+	public Municipio(Provincia provincia, String nombre, String descripcion, Set municipio_EspacioNaturals,
 			Set centroMeteorologicos) {
-		this.idMunicipio = idMunicipio;
 		this.provincia = provincia;
 		this.nombre = nombre;
+		this.descripcion = descripcion;
 		this.municipio_EspacioNaturals = municipio_EspacioNaturals;
 		this.centroMeteorologicos = centroMeteorologicos;
 	}
 
-	public int getIdMunicipio() {
+	public Integer getIdMunicipio() {
 		return this.idMunicipio;
 	}
 
-	public void setIdMunicipio(int idMunicipio) {
+	public void setIdMunicipio(Integer idMunicipio) {
 		this.idMunicipio = idMunicipio;
 	}
 
@@ -53,6 +50,14 @@ public class Municipio implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Set getMunicipio_EspacioNaturals() {

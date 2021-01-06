@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 4 ene. 2021 19:38:01 by Hibernate Tools 5.4.21.Final
+// Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,14 +13,14 @@ public class CentroMeteorologico implements java.io.Serializable {
 	private Municipio municipio;
 	private String nombre;
 	private String direccion;
-	private Float latitud;
-	private Float longitud;
+	private Double latitud;
+	private Double longitud;
 	private Set medicions = new HashSet(0);
 
 	public CentroMeteorologico() {
 	}
 
-	public CentroMeteorologico(Municipio municipio, String nombre, String direccion, Float latitud, Float longitud,
+	public CentroMeteorologico(Municipio municipio, String nombre, String direccion, Double latitud, Double longitud,
 			Set medicions) {
 		this.municipio = municipio;
 		this.nombre = nombre;
@@ -62,19 +62,19 @@ public class CentroMeteorologico implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	public Float getLatitud() {
+	public Double getLatitud() {
 		return this.latitud;
 	}
 
-	public void setLatitud(Float latitud) {
+	public void setLatitud(Double latitud) {
 		this.latitud = latitud;
 	}
 
-	public Float getLongitud() {
+	public Double getLongitud() {
 		return this.longitud;
 	}
 
-	public void setLongitud(Float longitud) {
+	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
 

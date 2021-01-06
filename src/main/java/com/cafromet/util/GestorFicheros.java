@@ -15,6 +15,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cafromet.modelo.EspacioNatural;
+import com.cafromet.modelo.Municipio;
+import com.cafromet.modelo.Provincia;
+import com.cafromet.modeloDAO.EspacioNaturalDAO;
+import com.cafromet.modeloDAO.MunicipioDAO;
+import com.cafromet.modeloDAO.ProvinciaDAO;
 import com.cafromet.server.Updater;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -38,9 +43,16 @@ public class GestorFicheros extends Thread {
 	@Override
 	public void run() {
 		switch(tipo) {
+		
+		case 2:
+			insertarProvincias();
+			procesarJson();
+			transformarJsonPOJOMunicipio(fichero.getAbsolutePath());
+			break;
+	
 		case 3:
 			procesarJson();
-			transformarJsonPOJO(fichero.getAbsolutePath());
+			transformarJsonPOJOEspacio(fichero.getAbsolutePath());
 			break;
 		}
 	}
@@ -85,6 +97,15 @@ public class GestorFicheros extends Thread {
 			while((linea = brFichero.readLine())!=null) {				
 				linea = remplazoHT(linea);
 				switch(tipo) {
+				
+				case 2:
+					if(comprobarCamposMunicipios(linea) || comprobarEstructuraJson(linea)) {
+						linea = remplazoMunicipios(linea);
+						contenido = contenido + linea + "\n";
+						System.out.println(linea);
+					}
+					break;
+				
 				case 3:
 					if(comprobarCamposEspacioNat(linea) || comprobarEstructuraJson(linea)) {
 						linea = remplazoEspacioNat(linea);
@@ -136,28 +157,117 @@ public class GestorFicheros extends Thread {
 		return false;
 	}
 	
-	// CLASE ESPACIO NATURALES
-	public String remplazoEspacioNat(String linea) {
-		
-		if(linea.contains("\"documentName\" : "))
+	public boolean insertarProvincias() {
+
+		Provincia bizkaia = new Provincia(48);
+		Provincia gipuzkoa = new Provincia(20);
+		Provincia araba = new Provincia(1);
+
+		ProvinciaDAO.iniciarSesion();
+		ProvinciaDAO.insertarRegistro(bizkaia);
+		ProvinciaDAO.insertarRegistro(gipuzkoa);
+		ProvinciaDAO.insertarRegistro(araba);
+
+		return false;
+
+	}
+	
+	// CLASE MUNICIPIOS *
+	public String remplazoMunicipios(String linea) {
+
+		if (linea.contains("\"documentName\" : "))
 			linea = linea.replace("documentName", "nombre");
-		
-		else if(linea.contains("\"turismDescription\" : \"<p>"))
+
+		else if (linea.contains("\"turismDescription\" : \"<p>"))
 			linea = linea.replace("turismDescription", "descripcion");
-		
-		else if(linea.contains("\"templateType\" : "))
+
+		else if (linea.contains("\"latwgs84\" : ")) {
+
+			linea = linea.replace("latwgs84", "latitud");
+
+		} else if (linea.contains("\"lonwgs84\" : ") || (linea.contains("\"longitud\" : "))) {
+			linea = linea.replace("lonwgs84", "longitud");
+			linea = linea.replace(",", "");
+
+		} else if (linea.contains("\"latitud\" : \"\",")) {
+
+			linea = "  \"latitud\" : \"0\",";
+
+		} else if (linea.contains("\"longitud\" : \"\",")) {
+
+			linea = "  \"longitud\" : \"0\"";
+		}
+
+		return linea;
+	}
+
+	private boolean comprobarCamposMunicipios(String linea) {
+		if (linea.contains("\"documentName\" : ") || linea.contains("\"nombre\" : ")
+				|| linea.contains("\"turismDescription\" : \"<p>") || linea.contains("\"descripcion\" : \"<p>")
+				|| linea.contains("\"latwgs84\" : ") || linea.contains("\"latitud\" : ")
+				|| linea.contains("\"lonwgs84\" : ") || linea.contains("\"longitud\" : ")) {
+
+			return true;
+		}
+		return false;
+	}
+
+	public Municipio[] transformarJsonPOJOMunicipio(String rutaFichero) {
+		Gson gson = new Gson();
+		String strJson = null;
+		try {
+			strJson = readFileAsStringEspacio(rutaFichero);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Municipio[] municipios = gson.fromJson(strJson, Municipio[].class);
+
+		for (Municipio municipio : municipios) {
+			System.out.println(municipio.getNombre());
+
+			MunicipioDAO.iniciarSesion();
+			MunicipioDAO.insertarRegistro(municipio);
+
+		}
+		return municipios;
+	}
+
+	public static String readFileAsStringMunicipio(String file) throws IOException {
+		return new String(Files.readAllBytes(Paths.get(file)));
+	}
+	
+	// CLASE ESPACIO NATURALES *
+	public String remplazoEspacioNat(String linea) {
+
+		if (linea.contains("\"documentName\" : "))
+			linea = linea.replace("documentName", "nombre");
+
+		else if (linea.contains("\"turismDescription\" : \"<p>"))
+			linea = linea.replace("turismDescription", "descripcion");
+
+		else if (linea.contains("\"templateType\" : "))
 			linea = linea.replace("templateType", "tipo");
+
+		else if (linea.contains("\"natureType\" : "))
+			linea = linea.replace("natureType", "categoria");
+
+		else if (linea.contains("\"latwgs84\" : ")) {
+
+			linea = linea.replace("latwgs84", "latitud");
+
+		} else if (linea.contains("\"latitud\" : \"\",")) {
+
+			linea = "  \"latitud\" : \"0\",";
+
+		} else if (linea.contains("\"longitud\" : \"\",")) {
+
+			linea = "  \"longitud\" : \"0\",";
+			
+		}else if(linea.contains("\"lonwgs84\" : ")) {
+			linea = linea.replace("lonwgs84", "longitud");	
 		
-		else if(linea.contains("\"natureType\" : "))
-			linea = linea.replace("natureType", "categoria");		
-		
-		else if(linea.contains("\"latwgs84\" : "))
-			linea = linea.replace("latwgs84", "latitud");					
-		
-		else if(linea.contains("\"lonwgs84\" : "))
-			linea = linea.replace("lonwgs84", "longitud");						
-		
-		else if(linea.contains("\"municipality\" : ")) {
+		}else if(linea.contains("\"municipality\" : ")) {
 			linea = linea.replace("municipality", "municipio");	
 			linea = linea.replace(",", "");
 		}
@@ -186,11 +296,11 @@ public class GestorFicheros extends Thread {
 		return false;
 	}
 	
-	public EspacioNatural[] transformarJsonPOJO(String rutaFichero) {
+	public EspacioNatural[] transformarJsonPOJOEspacio(String rutaFichero) {
 		Gson gson = new Gson();
 		String strJson = null;
 		try {
-			strJson = readFileAsString(rutaFichero);
+			strJson = readFileAsStringEspacio(rutaFichero);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,14 +309,35 @@ public class GestorFicheros extends Thread {
 		
 		for (EspacioNatural espacio : espaciosNaturales) {
 		    System.out.println(espacio.getNombre());
+//		    System.out.println(espacio.getMunicipio_EspacioNaturals().toString());
+		    EspacioNaturalDAO.iniciarSesion();
+		    EspacioNaturalDAO.insertarRegistro(espacio);
+		    
 		}
 		return espaciosNaturales;
 	}
 	
-	 public static String readFileAsString(String file) throws IOException{
+	 public static String readFileAsStringEspacio(String file) throws IOException{
 	        return new String(Files.readAllBytes(Paths.get(file)));
 	    }
 
+	 
+	
+
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	/**
 	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
 	 * @param Elemento Json a procesar

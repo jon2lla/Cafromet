@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 4 ene. 2021 19:38:01 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.EspacioNatural" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="espacios_naturales">
         <id name="idEspacio" type="java.lang.Integer">
@@ -21,11 +21,11 @@
         <property generated="never" lazy="false" name="categoria" optimistic-lock="true" type="string" unique="false">
             <column length="50" name="CATEGORIA"/>
         </property>
-        <property generated="never" lazy="false" name="latitud" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="LATITUD" precision="20" scale="20"/>
+        <property generated="never" lazy="false" name="latitud" optimistic-lock="true" type="java.lang.Double" unique="false">
+            <column name="LATITUD" precision="20" scale="16"/>
         </property>
-        <property generated="never" lazy="false" name="longitud" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="LONGITUD" precision="20" scale="20"/>
+        <property generated="never" lazy="false" name="longitud" optimistic-lock="true" type="java.lang.Double" unique="false">
+            <column name="LONGITUD" precision="20" scale="16"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="municipio_EspacioNaturals" optimistic-lock="true" sort="unsorted" table="municipios_espacios_nat">
             <key on-delete="noaction">

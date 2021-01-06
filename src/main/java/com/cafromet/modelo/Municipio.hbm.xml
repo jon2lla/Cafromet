@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 4 ene. 2021 19:38:01 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Municipio" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="municipios">
-        <id name="idMunicipio" type="int">
+        <id name="idMunicipio" type="java.lang.Integer">
             <column name="ID_MUNICIPIO"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <many-to-one class="com.cafromet.modelo.Provincia" embed-xml="true" fetch="select" insert="true" name="provincia" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="ID_PROVINCIA"/>
         </many-to-one>
         <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
             <column length="50" name="NOMBRE"/>
+        </property>
+        <property generated="never" lazy="false" name="descripcion" optimistic-lock="true" type="string" unique="false">
+            <column length="2000" name="DESCRIPCION"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="municipio_EspacioNaturals" optimistic-lock="true" sort="unsorted" table="municipios_espacios_nat">
             <key on-delete="noaction">
