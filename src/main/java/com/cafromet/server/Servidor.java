@@ -11,6 +11,8 @@ import java.net.SocketAddress;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.cafromet.util.HibernateUtil;
+
 public class Servidor extends Thread {
 
 	private int PUERTO = 44444;
@@ -29,13 +31,14 @@ public class Servidor extends Thread {
 	public void run() {
 
 		try {
+			
 			servidor = new ServerSocket(PUERTO);
 
 			System.out.println("\n **SERVIDOR INICIADO**\n");
 			Socket socket = new Socket();
 			
 			texto.setText("Numero de consultas realizadas (sesion actual): " + IOListenerSrv.NUM_CONSULTAS);
-
+			iniciarSesionHibernate();
 			while (continuar) {
 				Thread.sleep(200);
 				if (GestorConexiones.getInstance().getNumUsuarios() < Servidor.MAX_CONEXIONES)
@@ -43,19 +46,7 @@ public class Servidor extends Thread {
 				else
 					textArea.append(" Servidor lleno\n");
 				socket = servidor.accept();
-				SocketAddress socketAddress = socket.getRemoteSocketAddress();
 
-				if (socketAddress instanceof InetSocketAddress) {
-				    InetAddress inetAddress = ((InetSocketAddress)socketAddress).getAddress();
-				    if (inetAddress instanceof Inet4Address)
-				        System.out.println("IPv4: " + inetAddress);
-				    else if (inetAddress instanceof Inet6Address)
-				        System.out.println("IPv6: " + inetAddress);
-				    else
-				        System.err.println("Not an IP address.");
-				} else {
-				    System.err.println("Not an internet protocol socket.");
-				}
 				if (GestorConexiones.getInstance().getNumUsuarios() < MAX_CONEXIONES) {
 					IOListenerSrv hilo = new IOListenerSrv(socket, textArea, texto);
 					hilo.start();
@@ -75,10 +66,24 @@ public class Servidor extends Thread {
 			System.out.println(" !ERROR: Servidor -> InterruptedException\n");
 		}
 	}
-
+	
+	public static void iniciarSesionHibernate() {
+		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
+		 		 + " -------------------------\n"); 
+		HibernateUtil.getSessionFactory().openSession();
+ 
+	}
+	
+	public void cerrarSesionHibernate() {
+		System.out.println("\n\n ** DESCONECTADO DE LA BBDD **\n"
+		 		 + " -------------------------\n"); 
+		HibernateUtil.getSessionFactory().close();		
+	}
+	
 	public void desconectar() {
 		continuar = false;
 		try {
+			cerrarSesionHibernate();
 			GestorConexiones.getInstance().mensajeDeDifusion("*");			
 			servidor.close();
 		} catch (IOException e) {

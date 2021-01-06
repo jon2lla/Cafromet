@@ -7,45 +7,15 @@ public class Datos implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String idConexion;
-    private String ip;
     private String identificador;
     private String contenido;
-    private String consulta;
-    private int tipoConsulta;
+    private Peticion peticion; 
     private Object objeto;
 
     public Datos() {}
-
-    public String getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public String getConsulta() {
-        return consulta;
-    }
-
-    public void setConsulta(String consulta) {
-        this.consulta = consulta;
+    
+    public Datos(Peticion peticion) {
+    	this.peticion = peticion;
     }
 
     public String getIdConexion() {
@@ -55,15 +25,31 @@ public class Datos implements Serializable {
     public void setIdConexion(String idConexion) {
         this.idConexion = idConexion;
     }
-
-    public int getTipoConsulta() {
-        return tipoConsulta;
+   
+    public String getIdentificador() {
+        return identificador;
     }
 
-    public void setTipoConsulta(int tipoConsulta) {
-        this.tipoConsulta = tipoConsulta;
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+   
+    public String getContenido() {
+        return contenido;
     }
 
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+  
+    public Peticion getPeticion() {
+    	return this.peticion;
+    }
+    
+    public void setPeticion(Peticion peticion) {
+    	this.peticion = peticion;
+    }
+    
     public Object getObjeto() {
         return objeto;
     }

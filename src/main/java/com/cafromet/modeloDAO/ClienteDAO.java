@@ -17,13 +17,13 @@ public class ClienteDAO {
 		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
 		 		 + " -------------------------\n"); 
 		SESSION = HibernateUtil.getSessionFactory().openSession();
-
+ 
 	}
 	
 	public static void insertarRegistro(Cliente cliente) {
 		SESSION.beginTransaction();		
 		SESSION.save(cliente);
-		SESSION.getTransaction().commit();	 
+		SESSION.getTransaction().commit();
 	}
 	
 	public static Cliente consultarRegistro(int id) {
@@ -40,6 +40,9 @@ public class ClienteDAO {
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("usuario", usuario);
 		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
+		if (cliente == null){
+			return null;
+		}
         System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
         return cliente;
 	}

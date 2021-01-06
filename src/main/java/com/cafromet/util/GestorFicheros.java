@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -13,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.cafromet.modelo.EspacioNatural;
+import com.cafromet.server.Updater;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -35,12 +38,10 @@ public class GestorFicheros extends Thread {
 	@Override
 	public void run() {
 		switch(tipo) {
-		case 1:
+		case 3:
 			procesarJson();
+			transformarJsonPOJO(fichero.getAbsolutePath());
 			break;
-		case 2:
-
-			break;	
 		}
 	}
 
@@ -185,12 +186,26 @@ public class GestorFicheros extends Thread {
 		return false;
 	}
 	
-	public EspacioNatural transformarJsonXml(String strJson) {
-		  EspacioNatural esp = new Gson().fromJson(strJson, EspacioNatural.class);
-
-		  System.out.println(esp.getNombre());
-		  return esp;
+	public EspacioNatural[] transformarJsonPOJO(String rutaFichero) {
+		Gson gson = new Gson();
+		String strJson = null;
+		try {
+			strJson = readFileAsString(rutaFichero);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		EspacioNatural[] espaciosNaturales = gson.fromJson(strJson, EspacioNatural[].class);
+		
+		for (EspacioNatural espacio : espaciosNaturales) {
+		    System.out.println(espacio.getNombre());
+		}
+		return espaciosNaturales;
 	}
+	
+	 public static String readFileAsString(String file) throws IOException{
+	        return new String(Files.readAllBytes(Paths.get(file)));
+	    }
 
 	/**
 	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
@@ -202,7 +217,7 @@ public class GestorFicheros extends Thread {
 			
 			System.out.println("  (Objeto)");
 			JsonObject obj = elemento.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet(); 
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
 			
 			while (iter.hasNext()) {

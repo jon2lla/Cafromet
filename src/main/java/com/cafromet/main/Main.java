@@ -6,7 +6,7 @@ import com.cafromet.server.Updater;
 public class Main {
 	
 	public static void main(String[] args) {
-		PruebasCRUD.pruebas();
-//		Updater.getInstance().actualizarFuentes();
+//		PruebasCRUD.pruebas();
+		Updater.getInstance().actualizarFuentes();
 	}
 }

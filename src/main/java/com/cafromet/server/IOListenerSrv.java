@@ -20,6 +20,8 @@ public class IOListenerSrv extends Thread {
 	private JTextField textoF = null;
 	private ObjectOutputStream osalida = null;
 	private ObjectInputStream oentrada = null;
+	private Datos datos;
+	
 
 	public IOListenerSrv(Socket cliente, JTextArea textArea, JTextField texto) throws IOException {
 		ID_CLIENTE++;
@@ -33,47 +35,17 @@ public class IOListenerSrv extends Thread {
 	}
 
 	public void run() {
-		Datos datos = new Datos();
+		datos = new Datos();
 		datos.setContenido("");
 
 		try {
 			datos = (Datos) oentrada.readObject();
 			
-			textArea.append(" " + datos.getIp() + " > "+ datos.getContenido() + "\n");
-			System.out.println(datos.getConsulta());
+			textArea.append(datos.getContenido() + "\n");
+			System.out.println(datos.getPeticion().getConsulta());
 			
-			switch (datos.getTipoConsulta()) {	
-				case 1: 
-				
-					break;
-				case 2:
-					
-					break;	
-				case 3:
-					String[] array = datos.getConsulta().split(",");;
-					
-					String usuario = array[0];
-					String passwd = array[1];
-					Cliente cliente = new Cliente(usuario,passwd);
-					
-					System.out.println(cliente.getUsuario());
-					ClienteDAO.iniciarSesion();
-					if(ClienteDAO.consultarRegistro(cliente.getUsuario()) != null){
-						System.out.println("EXISTE");
-					}else {
-						System.out.println("pal oyo");
-					}
-					
-					break;	
-							
-			}
-			
-//			for (Empleado empleado : lista) {
-//				System.out.println(empleado.getApellido());
-//			}
-			datos.setContenido(String.valueOf(NUM_CONSULTAS));
-			
-		
+			procesarPeticion();
+
 			osalida.writeObject(datos);
 			osalida.flush();
 			GestorConexiones.getInstance().cerrarConexion(idConexion);
@@ -92,6 +64,31 @@ public class IOListenerSrv extends Thread {
 		
 	}
 
+	public boolean procesarPeticion() {
+		switch (datos.getPeticion().getCodigo()) {	
+		case 1: 
+			String[] array = datos.getContenido().split(",");
+			
+			String usuario = array[0];
+			String passwd = array[1];
+			Cliente cliente = new Cliente(usuario,passwd);
+			boolean existe;
+			System.out.println(cliente.getUsuario());
+			ClienteDAO.iniciarSesion();
+			if(ClienteDAO.consultarRegistro(cliente.getUsuario()) != null){
+				System.out.println("EXISTE");
+				existe = true;
+				datos.setObjeto(existe);
+			}else {
+				System.out.println("NO EXISTE");
+				existe = false;
+				datos.setObjeto(existe);
+			}				
+			break;					
+	}
+		return true;
+	}
+	
 	public String getIdConexion() {
 		return idConexion;
 	}
