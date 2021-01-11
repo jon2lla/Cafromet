@@ -13,16 +13,34 @@ public class ProvinciaDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
-		 		 + " -------------------------\n"); 
+	public static void iniciarSesion() { 
 		SESSION = HibernateUtil.getSessionFactory().openSession();
 
 	}
-	public static void insertarRegistro(Provincia provincias) {
-		SESSION.beginTransaction();		
-		SESSION.save(provincias);
-		SESSION.getTransaction().commit();	 
+	
+	public static void cerrarSesion() {
+		SESSION.close();
+	}
+	
+	public static boolean duplicado(Provincia provincia) {
+		Provincia registro = consultarRegistro(provincia.getIdProvincia());
+		if(registro != null) {
+			return true;
+		}else if(provincia.equals(registro)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean insertarRegistro(Provincia provincia) {
+		if(duplicado(provincia)) {
+			return false;
+		}
+		SESSION.beginTransaction();
+		SESSION.save(provincia);
+		SESSION.getTransaction().commit();
+
+		return true;
 	}
 		
 	public static Provincia consultarRegistro(int id) {
@@ -30,7 +48,9 @@ public class ProvinciaDAO {
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
-        System.out.printf(" REGISTRO(S) => %s || %d%n%n", provincia.getNombre(), provincia.getIdProvincia());
+		if (provincia == null) {
+			return null;
+		}
         return provincia;
 	}
 	

@@ -21,28 +21,18 @@ public class VentanaServidor extends JFrame implements ActionListener {
 
 	static JTextField mensaje = new JTextField();
 
+	private JFrame ventana;
 	private JScrollPane scrollpane1;
 	static JTextArea textarea1;
 	JButton botonEnviar = new JButton("Enviar");
 	JButton botonSalir = new JButton("Salir");
 	Servidor s = null;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaServidor frame = new VentanaServidor();
-					frame.setBounds(0, 0, 500, 450);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	} 
-
-	public VentanaServidor() {
+	
+	public VentanaServidor() {		
 		super(" VENTANA SERVIDOR ");
+		
+		setBounds(0, 0, 500, 450);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		getContentPane().setLayout(null);
@@ -66,6 +56,7 @@ public class VentanaServidor extends JFrame implements ActionListener {
 		botonEnviar.addActionListener(this);
 		botonSalir.addActionListener(this);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setVisible(true);
 
 		s = new Servidor(textarea1,mensaje);
 		s.start();
@@ -78,4 +69,7 @@ public class VentanaServidor extends JFrame implements ActionListener {
 		}
 	}
 
+	public JFrame getVentana() {
+		return ventana;
+	}
 }

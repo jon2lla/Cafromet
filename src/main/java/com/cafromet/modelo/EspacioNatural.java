@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final
+// Generated 11 ene. 2021 5:03:03 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,6 @@ public class EspacioNatural implements java.io.Serializable {
 	private String nombre;
 	private String descripcion;
 	private String tipo;
-	private String direccion;
 	private String categoria;
 	private Double latitud;
 	private Double longitud;
@@ -22,12 +21,11 @@ public class EspacioNatural implements java.io.Serializable {
 	public EspacioNatural() {
 	}
 
-	public EspacioNatural(String nombre, String descripcion, String tipo, String direccion, String categoria,
-			Double latitud, Double longitud, Set municipio_EspacioNaturals) {
+	public EspacioNatural(String nombre, String descripcion, String tipo, String categoria, Double latitud,
+			Double longitud, Set municipio_EspacioNaturals) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
-		this.direccion = direccion;
 		this.categoria = categoria;
 		this.latitud = latitud;
 		this.longitud = longitud;
@@ -64,14 +62,6 @@ public class EspacioNatural implements java.io.Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	public String getCategoria() {

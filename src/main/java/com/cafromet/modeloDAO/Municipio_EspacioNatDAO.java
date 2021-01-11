@@ -15,8 +15,6 @@ public class Municipio_EspacioNatDAO{
 	private static Query QUERY;
 	
 	public static void iniciarSesion() {
-		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
-		 		 + " -------------------------\n"); 
 		SESSION = HibernateUtil.getSessionFactory().openSession();
 
 	}

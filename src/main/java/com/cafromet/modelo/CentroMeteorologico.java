@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 6 ene. 2021 20:21:45 by Hibernate Tools 5.4.21.Final
+// Generated 11 ene. 2021 5:03:03 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,9 +10,10 @@ import java.util.Set;
 public class CentroMeteorologico implements java.io.Serializable {
 
 	private Integer idCentroMet;
-	private Municipio municipio;
 	private String nombre;
+	private String municipio;
 	private String direccion;
+	private String provincia;
 	private Double latitud;
 	private Double longitud;
 	private Set medicions = new HashSet(0);
@@ -20,11 +21,12 @@ public class CentroMeteorologico implements java.io.Serializable {
 	public CentroMeteorologico() {
 	}
 
-	public CentroMeteorologico(Municipio municipio, String nombre, String direccion, Double latitud, Double longitud,
-			Set medicions) {
-		this.municipio = municipio;
+	public CentroMeteorologico(String nombre, String municipio, String direccion, String provincia, Double latitud,
+			Double longitud, Set medicions) {
 		this.nombre = nombre;
+		this.municipio = municipio;
 		this.direccion = direccion;
+		this.provincia = provincia;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.medicions = medicions;
@@ -38,14 +40,6 @@ public class CentroMeteorologico implements java.io.Serializable {
 		this.idCentroMet = idCentroMet;
 	}
 
-	public Municipio getMunicipio() {
-		return this.municipio;
-	}
-
-	public void setMunicipio(Municipio municipio) {
-		this.municipio = municipio;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -54,12 +48,28 @@ public class CentroMeteorologico implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	public String getMunicipio() {
+		return this.municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
 	public String getDireccion() {
 		return this.direccion;
 	}
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public String getProvincia() {
+		return this.provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 	public Double getLatitud() {

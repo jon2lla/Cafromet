@@ -53,7 +53,6 @@ public class PruebasCRUD {
 	private static boolean pruebaMunicipio() {
 		Municipio municipio = new Municipio();
 		municipio.setNombre("MUNICIPIO BAKIO");
-		municipio.setIdMunicipio(0);
 		
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
@@ -88,7 +87,6 @@ public class PruebasCRUD {
 		EspacioNatural espacioNat = new EspacioNatural();
 		espacioNat.setCategoria("PRUEBA ESPACIO NATURAL");
 		espacioNat.setDescripcion("PRUEBA SPRINT1");
-		espacioNat.setDireccion("ELORRIETA");
 		espacioNat.setIdEspacio(2);
 		espacioNat.setNombre("ESPACIO NATURAL CAFROMET");
 		espacioNat.setTipo("PLAYA");
@@ -145,14 +143,11 @@ public class PruebasCRUD {
 		CentroMeteorologico centro = new CentroMeteorologico();
 		Municipio municipio = new Municipio();
 		municipio.setNombre("MUNICIPIO BAKIO");
-		municipio.setIdMunicipio(0);
 		
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
 		
 		centro.setNombre("CENTRO CAFROMET");
-		centro.setDireccion("elorrieta");
-		centro.setMunicipio(municipio);
 		
 		CentroMeteorologicoDAO.iniciarSesion();
 		CentroMeteorologicoDAO.insertarRegistro(centro);
@@ -172,7 +167,6 @@ public class PruebasCRUD {
 
 		Municipio municipio = new Municipio();
 		municipio.setNombre("MUNICIPIO BAKIO");
-		municipio.setIdMunicipio(7);
 		
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
@@ -180,7 +174,6 @@ public class PruebasCRUD {
 		EspacioNatural espacioNat = new EspacioNatural();
 		espacioNat.setCategoria("PRUEBA ESPACIO NATURAL");
 		espacioNat.setDescripcion("PRUEBA SPRINT1");
-		espacioNat.setDireccion("ELORRIETA");
 		espacioNat.setIdEspacio(2);
 		espacioNat.setNombre("ESPACIO NATURAL CAFROMET");
 		espacioNat.setTipo("PLAYA");

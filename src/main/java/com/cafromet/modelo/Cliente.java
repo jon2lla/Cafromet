@@ -6,40 +6,46 @@ package com.cafromet.modelo;
  */
 public class Cliente implements java.io.Serializable {
 
-	private Integer idCliente;
-	private String usuario;
-	private String passwd;
+    private Integer idCliente;
+    private String usuario;
+    private String passwd;
 
-	public Cliente() {
-	}
+    public Cliente() {
+    }
 
-	public Cliente(String usuario, String passwd) {
-		this.usuario = usuario;
-		this.passwd = passwd;
-	}
+    public Cliente(String usuario, String passwd) {
+        this.usuario = usuario;
+        this.passwd = passwd;
+    }
 
-	public Integer getIdCliente() {
-		return this.idCliente;
-	}
+    public Integer getIdCliente() {
+        return this.idCliente;
+    }
 
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
-	}
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
 
-	public String getUsuario() {
-		return this.usuario;
-	}
+    public String getUsuario() {
+        return this.usuario;
+    }
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-	public String getPasswd() {
-		return this.passwd;
-	}
+    public String getPasswd() {
+        return this.passwd;
+    }
 
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
 
+    public boolean isNull() {
+        if (this.usuario.equals("") || this.passwd.equals("")) {
+            return true;
+        }
+        return false;
+    }
 }

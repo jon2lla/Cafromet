@@ -11,7 +11,7 @@ public class EspacioNaturalTest {
 	@Test
 	public void testConstructorEspacioNat() {
 		EspacioNatural espacio1 = new EspacioNatural();
-		EspacioNatural espacio2 = new EspacioNatural( null, null, null, null, null, null, null, null);
+		EspacioNatural espacio2 = new EspacioNatural(null, null, null, null, null, null, null);
 		assertEquals(espacio1.getIdEspacio(), espacio2.getIdEspacio());
 	}
 

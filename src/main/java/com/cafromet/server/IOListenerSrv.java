@@ -4,12 +4,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.cafromet.modelo.Cliente;
+import com.cafromet.modelo.Municipio;
 import com.cafromet.modeloDAO.ClienteDAO;
+import com.cafromet.modeloDAO.MunicipioDAO;
 
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;
@@ -41,14 +44,19 @@ public class IOListenerSrv extends Thread {
 		try {
 			datos = (Datos) oentrada.readObject();
 			
-			textArea.append(datos.getContenido() + "\n");
+			textArea.append(" Conexion => " + idConexion + " || Peticion => " + datos.getPeticion() + "\n");
 			System.out.println(datos.getPeticion().getConsulta());
 			
 			procesarPeticion();
-
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			osalida.writeObject(datos);
 			osalida.flush();
-			GestorConexiones.getInstance().cerrarConexion(idConexion);
+
 			cerrarConexion();
 		} catch (ClassNotFoundException e) {
 			System.out.println(" !ERROR: Input Listener Servidor -> ClassNotFoundException");
@@ -71,20 +79,54 @@ public class IOListenerSrv extends Thread {
 			
 			String usuario = array[0];
 			String passwd = array[1];
-			Cliente cliente = new Cliente(usuario,passwd);
+			Cliente cliente = new Cliente(usuario, passwd);
+			Cliente clienteComprobacion = new Cliente();
 			boolean existe;
 			System.out.println(cliente.getUsuario());
 			ClienteDAO.iniciarSesion();
-			if(ClienteDAO.consultarRegistro(cliente.getUsuario()) != null){
-				System.out.println("EXISTE");
-				existe = true;
-				datos.setObjeto(existe);
-			}else {
+			clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
+
+			if (clienteComprobacion != null) {
+				if (cliente.getPasswd().equals(clienteComprobacion.getPasswd())) {
+					existe = true;
+					datos.setObjeto(existe);
+					datos.setContenido("Este es el usuario");
+				}
+
+			} else {
 				System.out.println("NO EXISTE");
 				existe = false;
 				datos.setObjeto(existe);
-			}				
-			break;					
+			}
+			ClienteDAO.cerrarSesion();
+			break;
+
+		case 2:
+			boolean insertado = false;
+			
+			Cliente cliente1 = (Cliente) datos.getObjeto();
+			System.out.println("Recepcion Server ,Cliente"+cliente1.getUsuario() + "Pass"+cliente1.getPasswd());
+			ClienteDAO.iniciarSesion();
+			
+			datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
+			
+			ClienteDAO.cerrarSesion();
+			
+			break;
+
+		case 3:
+
+			MunicipioDAO.iniciarSesion();
+			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
+			datos.setObjeto(lista);
+			datos.setContenido("Estoy aqui");
+			for(Municipio muni : lista) {
+				
+				System.out.println(muni.getNombre());
+			}
+
+			break;
+
 	}
 		return true;
 	}
@@ -98,6 +140,7 @@ public class IOListenerSrv extends Thread {
 	}
 
 	public void cerrarConexion() throws IOException {
+		GestorConexiones.getInstance().cerrarConexion(idConexion);
 		if(oentrada != null)
 			oentrada.close();
 		if(osalida != null)

@@ -4,6 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.cafromet.modelo.Cliente;
+import com.cafromet.modelo.Municipio;
 import com.cafromet.util.HibernateUtil;
 
 @SuppressWarnings("deprecation")
@@ -19,12 +20,35 @@ public class ClienteDAO {
 		SESSION = HibernateUtil.getSessionFactory().openSession();
  
 	}
+
+
 	
-	public static void insertarRegistro(Cliente cliente) {
-		SESSION.beginTransaction();		
+	public static void cerrarSesion() {
+		SESSION.close();
+	}
+
+	public static boolean duplicado(Cliente cliente) {
+		Cliente registro = consultarRegistro(cliente.getUsuario());
+		if (registro != null) {
+			return true;
+		} else if (cliente.equals(registro)) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean insertarRegistro(Cliente cliente) {
+		if (duplicado(cliente)) {
+			return false;
+		}
+		SESSION.beginTransaction();
 		SESSION.save(cliente);
 		SESSION.getTransaction().commit();
+		return true;
 	}
+	
+	
+
 	
 	public static Cliente consultarRegistro(int id) {
 		HQL = "from Cliente where idCliente = :id";
