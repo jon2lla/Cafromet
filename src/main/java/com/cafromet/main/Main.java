@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 //		PruebasCRUD.pruebas();
-		Updater.getInstance().comprobarActualizaciones();
+//		Updater.getInstance().comprobarActualizaciones();
 		VentanaServidor server = new VentanaServidor();
 		
 	}
