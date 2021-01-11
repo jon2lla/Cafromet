@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 11 ene. 2021 5:03:03 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11 ene. 2021 18:47:26 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.CentroMeteorologico" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="centros_meteorologicos">
         <id name="idCentroMet" type="java.lang.Integer">
@@ -23,6 +23,12 @@
         </property>
         <property generated="never" lazy="false" name="longitud" optimistic-lock="true" type="java.lang.Double" unique="false">
             <column name="LONGITUD" precision="20" scale="16"/>
+        </property>
+        <property generated="never" lazy="false" name="url" optimistic-lock="true" type="string" unique="false">
+            <column length="150" name="URL"/>
+        </property>
+        <property generated="never" lazy="false" name="hash" optimistic-lock="true" type="string" unique="false">
+            <column length="64" name="HASH"/>
         </property>
         <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="medicions" optimistic-lock="true" sort="unsorted" table="mediciones_centro_met">
             <key on-delete="noaction">

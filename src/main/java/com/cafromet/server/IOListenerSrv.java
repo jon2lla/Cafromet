@@ -14,6 +14,8 @@ import com.cafromet.modelo.Municipio;
 import com.cafromet.modeloDAO.ClienteDAO;
 import com.cafromet.modeloDAO.MunicipioDAO;
 
+import modeloDTO.MunicipioDTO;
+
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;
 	protected static int NUM_CONSULTAS = 0;
@@ -118,11 +120,18 @@ public class IOListenerSrv extends Thread {
 
 			MunicipioDAO.iniciarSesion();
 			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
+			List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
+			
+			for(Municipio muni : lista) {
+				MunicipioDTO muniDTO = new MunicipioDTO();
+				muniDTO.setNombre(muni.getNombre());
+				muniDTO.setIdMunicipio(muni.getIdMunicipio());
+			}
 			datos.setObjeto(lista);
 			datos.setContenido("Estoy aqui");
-			for(Municipio muni : lista) {
+			for(MunicipioDTO muniDTO : listaDTO) {
 				
-				System.out.println(muni.getNombre());
+				System.out.println(muniDTO.getNombre());
 			}
 
 			break;
