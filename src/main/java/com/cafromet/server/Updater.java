@@ -17,6 +17,12 @@ public class Updater {
 			+ "cafromet" + File.separator
 			+ "files" + File.separator
 			+ "json" + File.separator;
+	protected static String RUTA_XML =  "src" + File.separator 
+			+ "resource" + File.separator 
+			+ "com" + File.separator
+			+ "cafromet" + File.separator
+			+ "files" + File.separator
+			+ "xml" + File.separator;
 	protected static String DATOS_PUEBLOS = RUTA_RES + "pueblos.json";
 	protected static String DATOS_ESPACIOS_NAT = RUTA_RES + "espacios-naturales.json";
 	protected static String DATOS_ESTACIONES = RUTA_RES + "estaciones.json"; 
