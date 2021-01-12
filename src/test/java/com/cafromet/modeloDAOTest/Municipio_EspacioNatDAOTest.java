@@ -8,7 +8,7 @@ public class Municipio_EspacioNatDAOTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		
 	}
 
 }

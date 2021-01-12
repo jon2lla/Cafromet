@@ -36,6 +36,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 	//testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
     
+    //mockito
+    implementation 'org.mockito:mockito-core:3.7.0'
     
     // https://mvnrepository.com/artifact/javax.activation/activation
 	compile group: 'javax.activation', name: 'activation', version: '1.1.1'

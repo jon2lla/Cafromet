@@ -68,4 +68,15 @@ public class FuenteDAO {
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 	}
+	public static boolean borrarRegistro(String nombre) {
+		SESSION.beginTransaction();	
+		HQL = "from Fuente where nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);	
+		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
+		SESSION.delete(fuente);
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+		return true;
+	}
 }
