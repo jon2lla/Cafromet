@@ -53,12 +53,32 @@ public class ProvinciaDAO {
 		}
         return provincia;
 	}
-	
+	public static Provincia consultarRegistro(String nombre) {
+		HQL = "from Provincia  where nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);
+		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
+		if (provincia == null) {
+			return null;
+		}
+        return provincia;
+	}
 	public static void borrarRegistro(int id) {
 		SESSION.beginTransaction();	
 		HQL = "from Provincia  where idProvincia = :id";
 		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);
+		QUERY.setParameter("id", id);		
+		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
+		SESSION.delete(provincia);	
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+	}
+	public static boolean borrarRegistro(String nombre) {
+		boolean correcto=false;
+		SESSION.beginTransaction();	
+		HQL = "from Provincia  where nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);
 		
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
 
@@ -66,5 +86,7 @@ public class ProvinciaDAO {
 		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
+		correcto=true;		
+		return correcto;
 	}
 }

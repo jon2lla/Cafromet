@@ -88,4 +88,18 @@ public class EspacioNaturalDAO {
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 	}
+	public static boolean borrarRegistro(String nombre) {
+		SESSION.beginTransaction();	
+		HQL = "from EspacioNatural where nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);
+		
+		EspacioNatural espacioNat =  (EspacioNatural) QUERY.uniqueResult(); 
+
+		SESSION.delete(espacioNat);
+		
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+		return true;
+	}
 }

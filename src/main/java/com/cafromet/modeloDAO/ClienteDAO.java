@@ -20,8 +20,6 @@ public class ClienteDAO {
 		SESSION = HibernateUtil.getSessionFactory().openSession();
  
 	}
-
-
 	
 	public static void cerrarSesion() {
 		SESSION.close();
@@ -46,9 +44,6 @@ public class ClienteDAO {
 		SESSION.getTransaction().commit();
 		return true;
 	}
-	
-	
-
 	
 	public static Cliente consultarRegistro(int id) {
 		HQL = "from Cliente where idCliente = :id";
@@ -84,5 +79,18 @@ public class ClienteDAO {
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 	}
-	
+	public static boolean borrarRegistro(String usuario) {
+		SESSION.beginTransaction();	
+		HQL = "from Cliente where usuario = :usuario";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("usuario", usuario);
+		
+		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
+		
+		SESSION.delete(cliente);
+		
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+		return true;
+	}
 }

@@ -44,8 +44,7 @@ public class CentroMeteorologicoDAO {
 		SESSION.getTransaction().commit();	
 		return true;
 	}
-	
-	
+
 	public static CentroMeteorologico consultarRegistro(int id) {
 		HQL = "from CentroMeteorologico where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
@@ -90,6 +89,20 @@ public class CentroMeteorologicoDAO {
 		HQL = "from CentroMeteorologico where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
+		
+		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
+		
+		SESSION.delete(centro);	
+		
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+		return true;
+	}
+	public static boolean borrarRegistro(String nombre) {
+		SESSION.beginTransaction();	
+		HQL = "from CentroMeteorologico where nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);
 		
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
 		

@@ -92,7 +92,8 @@ public class MunicipioDAO {
     }
 
 	
-	public static void borrarRegistro(int id) {
+	public static boolean borrarRegistro(int id) {
+		boolean correcto=false;
 		SESSION.beginTransaction();	
 		HQL = "from Municipio as mun where mun.idMunicipio = :id";
 		QUERY = SESSION.createQuery(HQL);
@@ -104,5 +105,23 @@ public class MunicipioDAO {
 		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
+		correcto=true;
+		return correcto;
+	}
+	public static boolean borrarRegistro(String nombre) {
+		boolean correcto=false;
+		SESSION.beginTransaction();	
+		HQL = "from Municipio as mun where mun.nombre = :nombre";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nombre", nombre);
+		
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
+
+		SESSION.delete(municipio);
+		
+		SESSION.getTransaction().commit();
+		System.out.println("\n FILA(S) BORRADA(S)\n");
+		correcto=true;
+		return correcto;
 	}
 }

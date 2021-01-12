@@ -77,5 +77,4 @@ public class MedicionDAO {
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}
-
 }
