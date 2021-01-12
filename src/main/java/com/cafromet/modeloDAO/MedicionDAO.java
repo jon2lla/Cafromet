@@ -46,7 +46,7 @@ public class MedicionDAO {
 	
 	
 	public static Medicion consultarRegistro(int idCentro) {
-		HQL = "from Medicion where idCentro = :idCentro";
+		HQL = "from Medicion where id.idCentroMet = :idCentro";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("idCentro", idCentro);
 		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 

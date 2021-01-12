@@ -180,11 +180,11 @@ public class Updater {
 					CentroMeteorologicoDAO.iniciarSesion();
 					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
 					CentroMeteorologicoDAO.cerrarSesion();
-					actualizarMediciones(centroMeteorologico.getNombre());
+					actualizarMediciones(centroMeteorologico);
 				}
 				else if(!centroMeteorologico.getHash().equals(hash)) {	
 
-					actualizarMediciones(centroMeteorologico.getNombre());
+					actualizarMediciones(centroMeteorologico);
 					
 				}
 			}	
@@ -248,11 +248,11 @@ public class Updater {
 		return true;
 	}
 
-	public boolean actualizarMediciones(String nombre) {
+	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) {
 		
-		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + nombre + "Temp.json"), new File(RUTA_TEMP + nombre + "Temp2.json"), 5);
+		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-		System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_TEMP + nombre + "Temp.json");
+		System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;
 	
