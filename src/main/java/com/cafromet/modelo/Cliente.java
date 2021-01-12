@@ -42,12 +42,6 @@ public class Cliente implements java.io.Serializable {
 		this.passwd = passwd;
 	}
 	
-	public boolean isNull(Cliente cliente) {
-		
-		if(cliente.getUsuario() == null)
-			return true;
-		return false;
-	}
 
 	public boolean isNull(Cliente cliente) {
 		if (cliente.getUsuario() == null || cliente.getPasswd() == null)

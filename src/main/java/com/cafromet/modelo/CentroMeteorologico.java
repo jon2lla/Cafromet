@@ -115,11 +115,5 @@ public class CentroMeteorologico implements java.io.Serializable {
 	public void setMedicions(Set medicions) {
 		this.medicions = medicions;
 	}
-	
-	public boolean isNull() {
-		if (hash==null)
-			return true;
-		return false;
-	}
 
 }

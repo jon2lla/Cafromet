@@ -12,14 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import javax.persistence.criteria.CriteriaBuilder.In;
-
-import org.checkerframework.checker.units.qual.C;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
@@ -32,19 +27,14 @@ import com.cafromet.modelo.Municipio_EspacioNaturalId;
 import com.cafromet.modelo.Provincia;
 import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
 import com.cafromet.modeloDAO.EspacioNaturalDAO;
-import com.cafromet.modeloDAO.FuenteDAO;
 import com.cafromet.modeloDAO.MedicionDAO;
 import com.cafromet.modeloDAO.MunicipioDAO;
 import com.cafromet.modeloDAO.Municipio_EspacioDAO;
 import com.cafromet.modeloDAO.ProvinciaDAO;
-import com.cafromet.server.Updater;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-import com.sun.xml.bind.v2.model.core.ID;
 
 public class GestorFicheros extends Thread {
 
@@ -99,6 +89,7 @@ public class GestorFicheros extends Thread {
 			procesarElementoJsonIndex(procesarJson());
 			break;
 		case 5:
+			filtrarJson();
 			procesarElementoJsonMedicion(procesarJson());
 			break;
 		}
@@ -116,16 +107,15 @@ public class GestorFicheros extends Thread {
 	public JsonElement procesarJson() {
 
 		JsonParser parser = new JsonParser();
+
 		FileReader fr = null;
 
 		try {
-			switch (tipo) {
-			case 4:
+			if(tipo == 4) {
 				fr = new FileReader(ficheroEntrada);
-				break;
-			default:
+			}
+			else {
 				fr = new FileReader(ficheroSalida);
-				break;
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -155,9 +145,8 @@ public class GestorFicheros extends Thread {
 
 		try {
 			linea = "";
-			int contador = 0;
-			frFichero = new FileReader(ficheroEntrada);
-			brFichero = new BufferedReader(frFichero);
+//			int contador = 0;
+			brFichero = new BufferedReader(new FileReader(ficheroEntrada));
 			while ((linea = brFichero.readLine()) != null) {
 
 				switch (tipo) {
@@ -210,6 +199,7 @@ public class GestorFicheros extends Thread {
 //					break;
 				case 5:
 					if (comprobarEstructuraJson(linea)) {
+						
 						linea = remplazoHT(linea);						
 					}	
 					contenido = contenido + linea + "\n";
@@ -227,7 +217,6 @@ public class GestorFicheros extends Thread {
 			try {
 				brFichero.close();
 				fwFichero.close();
-				frFichero.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -325,7 +314,7 @@ public class GestorFicheros extends Thread {
 		}
 		return true;
 	}
-
+	
 	// PUEBLOS.JSON *
 
 	private String remplazoMunicipios(String linea) {
@@ -727,7 +716,9 @@ public class GestorFicheros extends Thread {
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
 				try {
-					if (entrada.getKey().equals("Date")) {					
+					if (entrada.getKey().equals("Date")) {	
+						System.out.println("EOOOOOEEEEEEDXEDCED");
+						System.out.println(entrada.getValue().getAsString());
 					    Date date=new SimpleDateFormat("dd/MM/yyyy").parse(entrada.getValue().getAsString());          
 						medicion = new Medicion();
 						medicionId = new MedicionId();

@@ -61,7 +61,7 @@ public class CentroMeteorologicoDAO {
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
         return centro;
 	}
-	public static List<CentroMeteorologico> consultarRegistro() {
+	public static List<CentroMeteorologico> consultarRegistros() {
 		SESSION.beginTransaction();
 		HQL = "from CentroMeteorologico";
 		Query q = SESSION.createQuery(HQL);
@@ -75,6 +75,7 @@ public class CentroMeteorologicoDAO {
 		SESSION.beginTransaction();	
 		if(centro!=null) {
 			centro.setUrl(centroMeteorologico.getUrl());
+			centro.setHash(centroMeteorologico.getHash());
 			SESSION.update(centro);
 			SESSION.getTransaction().commit();
 			System.out.println("\n FILA(S) ACTUALIZADA(S)\n");

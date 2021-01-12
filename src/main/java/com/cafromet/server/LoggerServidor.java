@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.text.DefaultCaret;
 
 
-public class VentanaServidor extends JFrame implements ActionListener {
+public class LoggerServidor extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class VentanaServidor extends JFrame implements ActionListener {
 	Servidor s = null;
 
 	
-	public VentanaServidor() {		
+	public LoggerServidor() {		
 		super(" VENTANA SERVIDOR ");
 		
 		setBounds(0, 0, 500, 450);
