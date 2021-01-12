@@ -67,6 +67,7 @@ public class Fuente implements java.io.Serializable {
 		this.hash = hash;
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,6 +76,18 @@ public class Fuente implements java.io.Serializable {
 		return result;
 	}
 
+=======
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((hash == null) ? 0 : hash.hashCode());
+		return result;
+	}
+
+	
+>>>>>>> branch 'Desarrollo2' of https://github.com/Iker-elorrieta/RetoADPSP2.git
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

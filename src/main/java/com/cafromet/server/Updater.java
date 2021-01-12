@@ -1,11 +1,15 @@
 package com.cafromet.server;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
+import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Fuente;
+import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
 import com.cafromet.modeloDAO.FuenteDAO;
 import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
@@ -45,14 +49,12 @@ public class Updater {
 	private Object readResolve() {
 		return Holder.INSTANCE;
 	}
-	
-	
+		
 	public boolean comprobarActualizaciones() {
 		FuenteDAO.iniciarSesion();
 		System.out.println("\n >> COMPROBANDO ACTUALIZACIONES...");
 
-		//ACTUALIZACION INDEX
-
+		//ACTUALIZACION MUNICIPIOS
 		new PeticionHttp(URL_PUEBLOS, RUTA_RES + "pueblosTemp.json");
 		Fuente fuenteMunicipios = new Fuente();
 		fuenteMunicipios.setId(1);
@@ -133,7 +135,23 @@ public class Updater {
 			actualizarIndex();
 		}
 		
-		FuenteDAO.cerrarSesion();	
+		FuenteDAO.cerrarSesion();
+		
+		
+		//ACTUALIZACION MEDICIONES	
+		CentroMeteorologicoDAO.iniciarSesion();
+		List<CentroMeteorologico> centros = CentroMeteorologicoDAO.consultarRegistro(); 
+		for (CentroMeteorologico centroMeteorologico : centros) {
+			new PeticionHttp(centroMeteorologico.getUrl(), RUTA_RES + centroMeteorologico.getNombre()+".json");
+			String hash=Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_RES + centroMeteorologico.getNombre()+".json")), "SHA-256");
+			if((centroMeteorologico.isNull() && centroMeteorologico.getUrl()!=null)
+					||(centroMeteorologico.getHash().equals(hash))) {
+				actualizarMediciones(centroMeteorologico.getNombre());
+				System.out.println(" HASH LOCAL => " + centroMeteorologico.getHash());
+				System.out.println(" HASH REMOTO => " + hash);
+			}
+		}
+		CentroMeteorologicoDAO.cerrarSesion();	
 		
 		GestorFicheros.eliminarFichero(new File(RUTA_RES + "pueblosTemp.json"));
 		GestorFicheros.eliminarFichero(new File(RUTA_RES + "espacios-naturalesTemp.json"));
@@ -143,7 +161,6 @@ public class Updater {
 		System.out.println("\n >> FICHEROS ACTUALIZADOS");
 		return true;
 	}
-	
 	
 	public boolean actualizarMunicipios() {
 		try {
@@ -186,14 +203,28 @@ public class Updater {
 	
 	public boolean actualizarIndex() {
 		try {
-			GestorFicheros gfIndex = new GestorFicheros(new File(RUTA_RES + "indexTemp.json"), new File(DATOS_INDEX), 4);
+			GestorFicheros gfIndex = new GestorFicheros(new File(RUTA_RES + "indexTemp.json"), 4);
 			gfIndex.start();
-			System.out.println("\n >>ACTUALIZANDO FICHERO => " + DATOS_INDEX);
+			System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_RES + "indexTemp.json");
 			gfIndex.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + DATOS_INDEX);
+			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + RUTA_RES + "indexTemp.json");
 		}
 		return true;
 	}
+
+	public boolean actualizarMediciones(String nombre) {
+		try {
+			GestorFicheros gfMediciones = new GestorFicheros(new File(RUTA_RES + nombre + ".json"), 5);
+			gfMediciones.start();
+			System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_RES + nombre + ".json");
+			gfMediciones.join();
+			System.out.println("\n >> FICHERO ACTUALIZADO");
+		} catch (InterruptedException e) {
+			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + RUTA_RES + nombre + ".json");
+		}
+		return true;
+	}
+	
 }

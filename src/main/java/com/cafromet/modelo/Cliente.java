@@ -49,4 +49,10 @@ public class Cliente implements java.io.Serializable {
 		return false;
 	}
 
+	public boolean isNull(Cliente cliente) {
+		if (cliente.getUsuario() == null || cliente.getPasswd() == null)
+			return true;
+		return false;
+	}
+
 }

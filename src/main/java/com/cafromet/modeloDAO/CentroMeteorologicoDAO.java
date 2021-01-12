@@ -1,5 +1,7 @@
 package com.cafromet.modeloDAO;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -59,8 +61,30 @@ public class CentroMeteorologicoDAO {
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
         return centro;
 	}
+	public static List<CentroMeteorologico> consultarRegistro() {
+		SESSION.beginTransaction();
+		HQL = "from CentroMeteorologico";
+		Query q = SESSION.createQuery(HQL);
+		List<CentroMeteorologico> centros = q.list(); 
+		SESSION.getTransaction().commit();
+        return centros;
+	}
 	
-	public static void borrarRegistro(int id) {
+	public static boolean actualizarRegistro(CentroMeteorologico centroMeteorologico) {
+		CentroMeteorologico centro = consultarRegistro(centroMeteorologico.getNombre()); 
+		SESSION.beginTransaction();	
+		if(centro!=null) {
+			centro.setUrl(centroMeteorologico.getUrl());
+			SESSION.update(centro);
+			SESSION.getTransaction().commit();
+			System.out.println("\n FILA(S) ACTUALIZADA(S)\n");
+			return true;
+		}
+		System.out.println("\n ERROR AL ACTUALIZAR; CLASE => CENTROMETDAO\n");
+		return false;
+	}
+	
+	public static boolean borrarRegistro(int id) {
 		SESSION.beginTransaction();	
 		HQL = "from CentroMeteorologico where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
@@ -72,5 +96,6 @@ public class CentroMeteorologicoDAO {
 		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
+		return true;
 	}
 }

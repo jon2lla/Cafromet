@@ -8,7 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,6 +24,7 @@ import org.checkerframework.checker.units.qual.C;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Fuente;
+import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelo.Municipio_EspacioNatural;
@@ -29,6 +33,7 @@ import com.cafromet.modelo.Provincia;
 import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
 import com.cafromet.modeloDAO.EspacioNaturalDAO;
 import com.cafromet.modeloDAO.FuenteDAO;
+import com.cafromet.modeloDAO.MedicionDAO;
 import com.cafromet.modeloDAO.MunicipioDAO;
 import com.cafromet.modeloDAO.Municipio_EspacioDAO;
 import com.cafromet.modeloDAO.ProvinciaDAO;
@@ -41,9 +46,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.sun.xml.bind.v2.model.core.ID;
 
-
 public class GestorFicheros extends Thread {
-	
+
 	private File ficheroEntrada;
 	private File ficheroSalida;
 	private int tipo;
@@ -55,154 +59,199 @@ public class GestorFicheros extends Thread {
 	private ArrayList<Municipio_EspacioNatural> mun_esps = new ArrayList<>();
 	private CentroMeteorologico centroMet;
 	private Fuente fuente;
+	private CentroMeteorologico centroMeteorologico;
+	private String str;
+	private MedicionId medicionId;
+	private Medicion medicion;
 	
+	public GestorFicheros(File ficheroEntrada, int tipo, CentroMeteorologico centroMeteorologico) {
+		this.ficheroEntrada = ficheroEntrada;
+		this.tipo = tipo;
+		this.centroMeteorologico = centroMeteorologico;
+	}
+	public GestorFicheros(File ficheroEntrada, int tipo) {
+		this.ficheroEntrada = ficheroEntrada;
+		this.tipo = tipo;
+	}
 	public GestorFicheros(File ficheroEntrada, File ficheroSalida, int tipo) {
 		this.ficheroEntrada = ficheroEntrada;
 		this.ficheroSalida = ficheroSalida;
 		this.tipo = tipo;
 	}
-	
+
 	@Override
 	public void run() {
-    	filtrarJson();
-		switch(tipo) {		
+//		filtrarJson();
+		switch (tipo) {
 		case 1:
+			filtrarJson();
 			procesarElementoJsonMunicipio(procesarJson());
-			break;	
+			break;
 		case 2:
+			filtrarJson();
 			procesarElementoJsonEspacio(procesarJson());
 			break;
 		case 3:
+			filtrarJson();
 			procesarElementoJsonCentrosMet(procesarJson());
 			break;
 		case 4:
 			procesarElementoJsonIndex(procesarJson());
 			break;
+		case 5:
+			procesarElementoJsonMedicion(procesarJson());
+			break;
 		}
-	
+
 	}
 
-    /**
-	 * Metodo que recibe un fichero Json como parametro y llama a las funciones para filtrarlo y procesar sus elementos
+	/**
+	 * Metodo que recibe un fichero Json como parametro y llama a las funciones para
+	 * filtrarlo y procesar sus elementos
+	 * 
 	 * @param fichero Json a procesar
 	 * @return true
-     * @throws FileNotFoundException 
-	 */  
-    public JsonElement procesarJson(){
-    	
-    	JsonParser parser = new JsonParser();
+	 * @throws FileNotFoundException
+	 */
+	public JsonElement procesarJson() {
+
+		JsonParser parser = new JsonParser();
 		FileReader fr = null;
-	
+
 		try {
-			fr = new FileReader(ficheroSalida);
+			switch (tipo) {
+			case 4:
+				fr = new FileReader(ficheroEntrada);
+				break;
+			default:
+				fr = new FileReader(ficheroSalida);
+				break;
+			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		JsonElement datos = parser.parse(fr);
-    	return datos;
-    }
-    
+		try {
+			fr.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return datos;
+	}
+
 	/**
 	 * Metodo que lee un fichero Json y filtra los errores que pueda contener
+	 * 
 	 * @param fichero Json a filtrar
 	 * @return true
-	 */  
-	public String filtrarJson(){
+	 */
+	public String filtrarJson() {
 		String linea;
 		String contenido = "";
-        FileWriter fwFichero = null;
-        BufferedReader brFichero = null;
+		FileReader frFichero = null;
+		FileWriter fwFichero = null;
+		BufferedReader brFichero = null;
 
-		try{
-			brFichero = new BufferedReader(new FileReader(ficheroEntrada));
-			while((linea = brFichero.readLine())!=null) {
-				
-				switch(tipo) {				
+		try {
+			linea = "";
+			int contador = 0;
+			frFichero = new FileReader(ficheroEntrada);
+			brFichero = new BufferedReader(frFichero);
+			while ((linea = brFichero.readLine()) != null) {
+
+				switch (tipo) {
 				case 1:
-					if(comprobarCamposMunicipios(linea)) {
+					if (comprobarCamposMunicipios(linea)) {
 						linea = remplazoMunicipios(linea);
 						contenido = contenido + linea + "\n";
 
-					}
-					else if(comprobarEstructuraJson(linea)) {
+					} else if (comprobarEstructuraJson(linea)) {
 						linea = remplazoHT(linea);
 						contenido = contenido + linea + "\n";
 
 					}
-					break;			
+					break;
 				case 2:
-					if(comprobarCamposEspacioNat(linea)) {
+					if (comprobarCamposEspacioNat(linea)) {
 						linea = remplazoEspacioNat(linea);
 						contenido = contenido + linea + "\n";
 
-					}
-					else if(comprobarEstructuraJson(linea)) {
+					} else if (comprobarEstructuraJson(linea)) {
 						linea = remplazoHT(linea);
 						contenido = contenido + linea + "\n";
 
 					}
 					break;
 				case 3:
-					if(comprobarCamposCentrosMet(linea)) {
+					if (comprobarCamposCentrosMet(linea)) {
 						linea = remplazoCentrosMet(linea);
 						contenido = contenido + linea + "\n";
 
-					}
-					else if(comprobarEstructuraJson(linea)) {
+					} else if (comprobarEstructuraJson(linea)) {
 						linea = remplazoHT(linea);
 						contenido = contenido + linea + "\n";
 
 					}
 					break;
-				case 4:
-					if(comprobarCamposIndex(linea)) {
-						linea = remplazoIndex(linea);
-					}
+//				case 4:
+//					 if (comprobarCamposIndex(linea)) {
+//						linea = remplazoIndex(linea);	
+//						contenido = contenido + "\n" + linea;						
+//					} else if (comprobarEstructuraJsonIndex(linea)) {
+//						linea = remplazoHTIndex(linea);
+//						if(contador==0) {
+//							contenido = contenido + linea;
+//						}else {
+//							contenido = contenido + "\n" + linea;
+//						}
+//					}
+//					contador=1;
+//					break;
+				case 5:
+					if (comprobarEstructuraJson(linea)) {
+						linea = remplazoHT(linea);						
+					}	
 					contenido = contenido + linea + "\n";
 					break;
-				}	
-
+				}
 			}
-			fwFichero = new FileWriter(ficheroSalida);  
+
+			fwFichero = new FileWriter(ficheroSalida);
 			fwFichero.write(contenido);
-		}catch (FileNotFoundException fn ){
+		} catch (FileNotFoundException fn) {
 			System.out.println("\n No se encuentra el fichero de carga");
-		}catch (IOException io) {
+		} catch (IOException io) {
 			System.out.println("\n Error de E/S ");
+		} finally {
+			try {
+				brFichero.close();
+				fwFichero.close();
+				frFichero.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		finally{
-            try{
-    			brFichero.close();
-    			fwFichero.close();
-            } 
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
 		return contenido;
 	}
-		
+
 	public String remplazoHT(String linea) {
-		if(linea.contains("jsonCallback(")) {
+		if (linea.contains("jsonCallback(")) {
 			linea = linea.replace("jsonCallback(", "");
 		}
-		if(linea.contains("]);")) {
+		if (linea.contains("]);")) {
 			linea = linea.replace(");", "");
-		}		
+		}
 		return linea;
 	}
-	
+
 	public boolean comprobarEstructuraJson(String linea) {
-		if(linea.contains("[ {")
-				|| linea.contains("}, {")
-				|| linea.contains("} ]")) {
+		if (linea.contains("[ {") || linea.contains("}, {") || linea.contains("} ]")) {
 			return true;
-		}	
+		}
 		return false;
 	}
-	
+
 	public String eliminarRepetidos(String linea) {
 		String lineaNueva = "";
 		String[] arrayLinea = linea.split(" ");
@@ -229,7 +278,7 @@ public class GestorFicheros extends Thread {
 		lineaNueva = lineaNueva + "\",";
 		return lineaNueva;
 	}
-	
+
 	public static String removerUltimoCaracter(String str) {
 		String result = null;
 		if ((str != null) && (str.length() > 0)) {
@@ -237,70 +286,67 @@ public class GestorFicheros extends Thread {
 		}
 		return result;
 	}
-	
+
 	public static String readFileAsString(String file) throws IOException {
 		return new String(Files.readAllBytes(Paths.get(file)));
 	}
-	
+
 	public static String readFileAsString(File fichero) {
 		String linea;
 		String contenido = "";
-        BufferedReader brFichero = null;
+		BufferedReader brFichero = null;
 
-		try{
+		try {
 			brFichero = new BufferedReader(new FileReader(fichero));
-			while((linea = brFichero.readLine())!=null) {
-				
+			while ((linea = brFichero.readLine()) != null) {
+
 				contenido += linea;
-					
+
 			}
-		}catch (FileNotFoundException fn ){
+		} catch (FileNotFoundException fn) {
 			System.out.println("\n No se encuentra el fichero de carga");
-		}catch (IOException io) {
+		} catch (IOException io) {
 			System.out.println("\n Error de E/S ");
+		} finally {
+			try {
+				brFichero.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		finally{
-            try{
-    			brFichero.close();
-            } 
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
 		return contenido;
 	}
-	
-	public static boolean eliminarFichero(File fichero) { 
-	    if (fichero.delete()) { 
-	      System.out.println("\n FICHERO BORRADO => " + fichero.getPath());
-	    } else {
-	      System.out.println("\n ERROR AL BORRAR EL FICHERO => " + fichero.getPath());
-	    }
-		return true; 
-	  }
-	
-	
+
+	public static boolean eliminarFichero(File fichero) {
+		if (fichero.delete()) {
+			System.out.println("\n FICHERO BORRADO => " + fichero.getPath());
+		} else {
+			System.out.println("\n ERROR AL BORRAR EL FICHERO => " + fichero.getPath());
+		}
+		return true;
+	}
+
 	// PUEBLOS.JSON *
-	
+
 	private String remplazoMunicipios(String linea) {
-		
+
 		linea = linea.trim();
 		if (linea.contains("\"documentName\" : "))
 			linea = linea.replace("documentName", "nombre");
 		else if (linea.contains("\"turismDescription\" : \"<p>"))
 			linea = linea.replace("turismDescription", "descripcion");
-		else if(linea.contains("\"municipalitycode\" : ")) {
+		else if (linea.contains("\"municipalitycode\" : ")) {
 			linea = linea.replace("municipalitycode", "codmunicipio");
 			linea = eliminarRepetidos(linea);
-		}else if (linea.contains("\"territory\" : ")) {
+		} else if (linea.contains("\"territory\" : ")) {
 			linea = linea.replace("territory", "provincia");
 			linea = eliminarRepetidos(linea);
-		}else if (linea.contains("\"territorycode\" : ") || (linea.contains("\"idrovincia\" : "))) {
+		} else if (linea.contains("\"territorycode\" : ") || (linea.contains("\"idrovincia\" : "))) {
 			linea = linea.replace("territorycode", "idprovincia");
 			linea = eliminarRepetidos(linea);
 			linea = removerUltimoCaracter(linea);
 		}
-		linea = "  " + linea;	
+		linea = "  " + linea;
 		return linea;
 	}
 
@@ -314,42 +360,39 @@ public class GestorFicheros extends Thread {
 		}
 		return false;
 	}
-	
-	 
+
 	/**
-	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
+	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera
+	 * recursiva
+	 * 
 	 * @param Elemento Json a procesar
 	 * @return true
 	 */
 	private boolean procesarElementoJsonMunicipio(JsonElement elemento) {
 		if (elemento.isJsonObject()) {
-			
+
 			JsonObject obj = elemento.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet(); 
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
-			
+
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
-				
-				if(entrada.getKey().equals("nombre")) {
+
+				if (entrada.getKey().equals("nombre")) {
 					municipio = new Municipio();
-					municipio.setNombre(entrada.getValue().getAsString());				
-				}
-				else if(entrada.getKey().equals("descripcion")) {
-					municipio.setDescripcion(entrada.getValue().getAsString());					
-				}
-				else if(entrada.getKey().equals("codmunicipio")) {
+					municipio.setNombre(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("descripcion")) {
+					municipio.setDescripcion(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("codmunicipio")) {
 					municipio.setCodMunicipio(Integer.parseInt(entrada.getValue().getAsString()));
-				}
-				else if(entrada.getKey().equals("provincia")) {
+				} else if (entrada.getKey().equals("provincia")) {
 					provincia = new Provincia();
-					provincia.setNombre(entrada.getValue().getAsString());				
-				}
-				else if(entrada.getKey().equals("idprovincia")) {
+					provincia.setNombre(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("idprovincia")) {
 					provincia.setIdProvincia(entrada.getValue().getAsInt());
 					ProvinciaDAO.iniciarSesion();
 					ProvinciaDAO.insertarRegistro(provincia);
-					ProvinciaDAO.cerrarSesion();				
+					ProvinciaDAO.cerrarSesion();
 					municipio.setProvincia(provincia);
 					MunicipioDAO.iniciarSesion();
 					MunicipioDAO.insertarRegistro(municipio);
@@ -357,11 +400,10 @@ public class GestorFicheros extends Thread {
 				}
 				procesarElementoJsonMunicipio(entrada.getValue());
 			}
-		} 
-		else if (elemento.isJsonArray()) {
+		} else if (elemento.isJsonArray()) {
 			JsonArray array = elemento.getAsJsonArray();
 			Iterator<JsonElement> iter = array.iterator();
-			
+
 			while (iter.hasNext()) {
 				JsonElement entrada = iter.next();
 				procesarElementoJsonMunicipio(entrada);
@@ -370,9 +412,8 @@ public class GestorFicheros extends Thread {
 		return true;
 	}
 
-	
 	// ESPACIOS-NATURALES.JSON *
-	
+
 	public String remplazoEspacioNat(String linea) {
 		linea = linea.trim();
 
@@ -388,17 +429,15 @@ public class GestorFicheros extends Thread {
 			linea = linea.replace("latwgs84", "latitud");
 			if (linea.contains("\"latitud\" : \"\","))
 				linea = "\"latitud\" : \"0\",";
-		}else if(linea.contains("\"lonwgs84\" : ")) {
+		} else if (linea.contains("\"lonwgs84\" : ")) {
 			linea = linea.replace("lonwgs84", "longitud");
-			if (linea.contains("\"longitud\" : \"\",")) 
+			if (linea.contains("\"longitud\" : \"\","))
 				linea = "\"longitud\" : \"0\",";
-		}
-		else if(linea.contains("\"municipality\" : ")) {
-			linea = linea.replace("municipality", "municipio");				
-		}else if(linea.contains("\"municipalitycode\" : ")) {
+		} else if (linea.contains("\"municipality\" : ")) {
+			linea = linea.replace("municipality", "municipio");
+		} else if (linea.contains("\"municipalitycode\" : ")) {
 			linea = linea.replace("municipalitycode", "codmunicipio");
-		}
-		else if (linea.contains("\"territory\" : ")) {
+		} else if (linea.contains("\"territory\" : ")) {
 			linea = linea.replace("territory", "provincia");
 		} else if (linea.contains("\"territorycode\" : ")) {
 			linea = linea.replace("territorycode", "idprovincia");
@@ -407,77 +446,61 @@ public class GestorFicheros extends Thread {
 		linea = "  " + linea;
 		return linea;
 	}
-	
+
 	public boolean comprobarCamposEspacioNat(String linea) {
-		if(linea.contains("\"documentName\" : " ) 
-			|| linea.contains("\"nombre\" : " ) 
-			|| linea.contains("\"turismDescription\" : \"<p>") 
-			|| linea.contains("\"descripcion\" : \"<p>") 
-			|| linea.contains("\"templateType\" : ") 
-			|| linea.contains("\"tipo\" : ") 
-			|| linea.contains("\"natureType\" : ") 
-			|| linea.contains("\"categoria\" : ") 
-			|| linea.contains("\"latwgs84\" : ") 
-			|| linea.contains("\"latitud\" : ") 
-			|| linea.contains("\"lonwgs84\" : ")
-			|| linea.contains("\"longitud\" : ")			
-			|| linea.contains("\"municipality\" : ")
-			|| linea.contains("\"municipio\" : ")
-			|| linea.contains("\"municipalitycode\" : ")
-			|| linea.contains("\"codmunicipio\" : ")	
-			|| linea.contains("\"territory\" : ") 
-			|| linea.contains("\"provincia\" : ")
-			|| linea.contains("\"territorycode\" : ") 
-			|| linea.contains("\"idprovincia\" : ")) {
+		if (linea.contains("\"documentName\" : ") || linea.contains("\"nombre\" : ")
+				|| linea.contains("\"turismDescription\" : \"<p>") || linea.contains("\"descripcion\" : \"<p>")
+				|| linea.contains("\"templateType\" : ") || linea.contains("\"tipo\" : ")
+				|| linea.contains("\"natureType\" : ") || linea.contains("\"categoria\" : ")
+				|| linea.contains("\"latwgs84\" : ") || linea.contains("\"latitud\" : ")
+				|| linea.contains("\"lonwgs84\" : ") || linea.contains("\"longitud\" : ")
+				|| linea.contains("\"municipality\" : ") || linea.contains("\"municipio\" : ")
+				|| linea.contains("\"municipalitycode\" : ") || linea.contains("\"codmunicipio\" : ")
+				|| linea.contains("\"territory\" : ") || linea.contains("\"provincia\" : ")
+				|| linea.contains("\"territorycode\" : ") || linea.contains("\"idprovincia\" : ")) {
 			return true;
 		}
 		return false;
 	}
-	
-	 
+
 	/**
-	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
+	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera
+	 * recursiva
+	 * 
 	 * @param Elemento Json a procesar
 	 * @return true
 	 */
 	public boolean procesarElementoJsonEspacio(JsonElement elemento) {
 		if (elemento.isJsonObject()) {
-			
+
 			JsonObject obj = elemento.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet(); 
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
-			
+
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
-				
-				if(entrada.getKey().equals("nombre")) {
+
+				if (entrada.getKey().equals("nombre")) {
 					espacio = new EspacioNatural();
-					espacio.setNombre(entrada.getValue().getAsString());				
-				}
-				else if(entrada.getKey().equals("descripcion")) {
-					espacio.setDescripcion(entrada.getValue().getAsString());					
-				}
-				else if(entrada.getKey().equals("tipo")) {
+					espacio.setNombre(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("descripcion")) {
+					espacio.setDescripcion(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("tipo")) {
 					espacio.setTipo(entrada.getValue().getAsString());
-				}
-				else if(entrada.getKey().equals("categoria")) {
-					espacio.setCategoria(entrada.getValue().getAsString());	
-				}
-				else if(entrada.getKey().equals("latitud")) {
-					espacio.setLatitud(entrada.getValue().getAsDouble());		
-				}
-				else if(entrada.getKey().equals("longitud")) {	
-					espacio.setLongitud(entrada.getValue().getAsDouble());	
+				} else if (entrada.getKey().equals("categoria")) {
+					espacio.setCategoria(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("latitud")) {
+					espacio.setLatitud(entrada.getValue().getAsDouble());
+				} else if (entrada.getKey().equals("longitud")) {
+					espacio.setLongitud(entrada.getValue().getAsDouble());
 					EspacioNaturalDAO.iniciarSesion();
 					EspacioNaturalDAO.insertarRegistro(espacio);
 					EspacioNaturalDAO.cerrarSesion();
-				}
-				else if(entrada.getKey().equals("codmunicipio")) {
+				} else if (entrada.getKey().equals("codmunicipio")) {
 					codMunicipios = entrada.getValue().getAsString().split(" ");
-				}
-				else if(entrada.getKey().equals("idprovincia")) {
+				} else if (entrada.getKey().equals("idprovincia")) {
 					idProvincias = entrada.getValue().getAsString().split(" ");
-					for(int i = 0; i < idProvincias.length; i++) {
+					for (int i = 0; i < idProvincias.length; i++) {
 						int str = Integer.parseInt(codMunicipios[i]);
 						int str2 = Integer.parseInt(idProvincias[i]);
 						EspacioNaturalDAO.iniciarSesion();
@@ -486,11 +509,12 @@ public class GestorFicheros extends Thread {
 						MunicipioDAO.iniciarSesion();
 						municipio = MunicipioDAO.consultarRegistro(str, str2);
 						MunicipioDAO.cerrarSesion();
-						Municipio_EspacioNaturalId mun_espId = new Municipio_EspacioNaturalId(espacio.getIdEspacio(), municipio.getIdMunicipio());
+						Municipio_EspacioNaturalId mun_espId = new Municipio_EspacioNaturalId(espacio.getIdEspacio(),
+								municipio.getIdMunicipio());
 						Municipio_EspacioNatural mun_esp = new Municipio_EspacioNatural(mun_espId, espacio, municipio);
 						mun_esps.add(mun_esp);
 					}
-					for(Municipio_EspacioNatural mun_esp2 : mun_esps) {
+					for (Municipio_EspacioNatural mun_esp2 : mun_esps) {
 						Municipio_EspacioDAO.iniciarSesion();
 						Municipio_EspacioDAO.insertarRegistro(mun_esp2);
 						Municipio_EspacioDAO.cerrarSesion();
@@ -498,32 +522,30 @@ public class GestorFicheros extends Thread {
 				}
 				procesarElementoJsonEspacio(entrada.getValue());
 			}
-		} 
-		else if (elemento.isJsonArray()) {
+		} else if (elemento.isJsonArray()) {
 			JsonArray array = elemento.getAsJsonArray();
 			Iterator<JsonElement> iter = array.iterator();
-			
+
 			while (iter.hasNext()) {
 				JsonElement entrada = iter.next();
 				procesarElementoJsonEspacio(entrada);
 			}
-		} 
+		}
 		return true;
 	}
 
-
 	// ESTACIONES.JSON *
-		
+
 	private String remplazoCentrosMet(String linea) {
-		
+
 		linea = linea.trim();
 		if (linea.contains("\"Name\" : "))
 			linea = linea.replace("Name", "nombre");
-		else if (linea.contains("\"Province\" : ")) 
+		else if (linea.contains("\"Province\" : "))
 			linea = linea.replace("Province", "provincia");
-		else if(linea.contains("\"Town\" : ")) 
+		else if (linea.contains("\"Town\" : "))
 			linea = linea.replace("Town", "municipio");
-		else if(linea.contains("\"Address\" : ")) 
+		else if (linea.contains("\"Address\" : "))
 			linea = linea.replace("Address", "direccion");
 		else if (linea.contains("\"Latitude\" : ")) {
 			linea = linea.replace("Latitude", "latitud");
@@ -532,7 +554,7 @@ public class GestorFicheros extends Thread {
 			linea = linea.replace(",", ".");
 			linea = removerUltimoCaracter(linea);
 			linea = linea + ",";
-		}else if(linea.contains("\"Longitude\" : ")) {
+		} else if (linea.contains("\"Longitude\" : ")) {
 			linea = linea.replace("Longitude", "longitud");
 			if (linea.contains("\"longitud\" : \"\",")) {
 				linea = "\"longitud\" : \"0\",";
@@ -540,69 +562,64 @@ public class GestorFicheros extends Thread {
 			linea = linea.replace(",", ".");
 
 		}
-		
-		linea = "  " + linea;	
+
+		linea = "  " + linea;
 		return linea;
 	}
 
 	private boolean comprobarCamposCentrosMet(String linea) {
-		if (linea.contains("\"Name\" : ") || linea.contains("\"nombre\" : ")
-				|| linea.contains("\"Province\" : ") || linea.contains("\"provincia\" : ")
-				|| linea.contains("\"Town\" : ") || linea.contains("\"municipio\" : ")
-				|| linea.contains("\"Address\" : ") || linea.contains("\"direccion\" : ")
-				|| linea.contains("\"Latitude\" : ") || linea.contains("\"latitud\" : ")
-				|| linea.contains("\"Longitude\" : ") || linea.contains("\"longitud\" : ")) {
+		if (linea.contains("\"Name\" : ") || linea.contains("\"nombre\" : ") || linea.contains("\"Province\" : ")
+				|| linea.contains("\"provincia\" : ") || linea.contains("\"Town\" : ")
+				|| linea.contains("\"municipio\" : ") || linea.contains("\"Address\" : ")
+				|| linea.contains("\"direccion\" : ") || linea.contains("\"Latitude\" : ")
+				|| linea.contains("\"latitud\" : ") || linea.contains("\"Longitude\" : ")
+				|| linea.contains("\"longitud\" : ")) {
 
 			return true;
 		}
 		return false;
 	}
-	
-	 
+
 	/**
-	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
+	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera
+	 * recursiva
+	 * 
 	 * @param Elemento Json a procesar
 	 * @return true
 	 */
 	private boolean procesarElementoJsonCentrosMet(JsonElement elemento) {
 		if (elemento.isJsonObject()) {
-			
+
 			JsonObject obj = elemento.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet(); 
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
-			
+
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
-				
-				if(entrada.getKey().equals("nombre")) {
+
+				if (entrada.getKey().equals("nombre")) {
 					centroMet = new CentroMeteorologico();
-					centroMet.setNombre(entrada.getValue().getAsString());				
-				}
-				else if(entrada.getKey().equals("provincia")) {
-					centroMet.setProvincia(entrada.getValue().getAsString());					
-				}
-				else if(entrada.getKey().equals("municipio")) {
+					centroMet.setNombre(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("provincia")) {
+					centroMet.setProvincia(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("municipio")) {
 					centroMet.setMunicipio(entrada.getValue().getAsString());
-				}
-				else if(entrada.getKey().equals("direccion")) {
-					centroMet.setDireccion(entrada.getValue().getAsString());		
-				}
-				else if(entrada.getKey().equals("latitud")) {
+				} else if (entrada.getKey().equals("direccion")) {
+					centroMet.setDireccion(entrada.getValue().getAsString());
+				} else if (entrada.getKey().equals("latitud")) {
 					centroMet.setLatitud(entrada.getValue().getAsDouble());
-				}
-				else if(entrada.getKey().equals("longitud")) {
+				} else if (entrada.getKey().equals("longitud")) {
 					centroMet.setLongitud(entrada.getValue().getAsDouble());
 					CentroMeteorologicoDAO.iniciarSesion();
-					CentroMeteorologicoDAO.insertarRegistro(centroMet);	
+					CentroMeteorologicoDAO.insertarRegistro(centroMet);
 					CentroMeteorologicoDAO.cerrarSesion();
 				}
 				procesarElementoJsonCentrosMet(entrada.getValue());
 			}
-		} 
-		else if (elemento.isJsonArray()) {
+		} else if (elemento.isJsonArray()) {
 			JsonArray array = elemento.getAsJsonArray();
 			Iterator<JsonElement> iter = array.iterator();
-			
+
 			while (iter.hasNext()) {
 				JsonElement entrada = iter.next();
 				procesarElementoJsonCentrosMet(entrada);
@@ -611,65 +628,81 @@ public class GestorFicheros extends Thread {
 		return true;
 	}
 
-	// MEDICIONES.JSON
+	// INDEX.JSON
 	private String remplazoIndex(String linea) {
 		linea = linea.trim();
-		
-		if (linea.contains("\"format\": "))
-			linea = linea.replace("format", "formato");
-		else if (linea.contains("\"name\": ")) 
-			linea = linea.replace("name", "nombre");	
-		
-		linea = "  " + linea;	
-		System.out.println(linea);
+		if (linea.contains("\"name\": ")) {
+			linea = linea.replace("name", "nombre");
+			linea = linea.replace("_", " ");
+		}
+		linea = "  " + linea;
 		return linea;
 	}
 
 	private boolean comprobarCamposIndex(String linea) {
-		if (linea.contains("\"format\": ") || linea.contains("\"formato\": ")
-				|| linea.contains("\"name\": ") || linea.contains("\"nombre\": ")
-				|| linea.contains("\"url\": ") || linea.contains("\"url\": ")) {
-			System.out.println("eoooos");
+		if (linea.contains("\"name\": ") || linea.contains("\"url\": ")) {
 			return true;
 		}
 		return false;
 	}
-	
-	 
+
+	public String remplazoHTIndex(String linea) {
+//		linea = linea.trim();
+		if (linea.contains("\"lastUpdateDate\": "))
+			linea = "";
+		if (linea.contains("\"aggregated\":")) {
+			linea = "[";
+		}
+		return linea;
+	}
+
+	public boolean comprobarEstructuraJsonIndex(String linea) {
+		if (linea.contains("[") 
+				|| linea.contains("},") 
+				|| linea.contains("    {") 
+				|| linea.contains("    }")
+				|| linea.contains("]")) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
-	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera recursiva
+	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera
+	 * recursiva
+	 * 
 	 * @param Elemento Json a procesar
 	 * @return true
 	 */
 	private boolean procesarElementoJsonIndex(JsonElement elemento) {
+
 		if (elemento.isJsonObject()) {
-			
+
 			JsonObject obj = elemento.getAsJsonObject();
-			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet(); 
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
-			
+
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
-				if(entrada.getKey().equals("formato")) {
-					fuente = new Fuente();
-					fuente.setFormato(entrada.getValue().getAsString());				
-				}
-				else if(entrada.getKey().equals("nombre")) {
-					fuente.setNombre(entrada.getValue().getAsString());					
-				}
-				else if(entrada.getKey().equals("url")) {
-					fuente.setUrl(entrada.getValue().getAsString());
-					FuenteDAO.iniciarSesion();
-					FuenteDAO.insertarRegistro(fuente);
-					FuenteDAO.cerrarSesion();
+				if (entrada.getKey().equals("name")) {
+					System.out.println(entrada.getValue());
+					str = entrada.getValue().getAsString();
+					str=str.replace("_", " ");
+					centroMeteorologico = new CentroMeteorologico();
+					centroMeteorologico.setNombre(str);
+				} else if (entrada.getKey().equals("url") && entrada.getValue().getAsString().contains("datos_indice")) {
+					centroMeteorologico.setUrl(entrada.getValue().getAsString());
+					System.out.println(entrada.getValue());
+					CentroMeteorologicoDAO.iniciarSesion();
+					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
+					CentroMeteorologicoDAO.cerrarSesion();
 				}
 				procesarElementoJsonIndex(entrada.getValue());
 			}
-		} 
-		else if (elemento.isJsonArray()) {
+		} else if (elemento.isJsonArray()) {
 			JsonArray array = elemento.getAsJsonArray();
 			Iterator<JsonElement> iter = array.iterator();
-			
+
 			while (iter.hasNext()) {
 				JsonElement entrada = iter.next();
 				procesarElementoJsonIndex(entrada);
@@ -677,4 +710,55 @@ public class GestorFicheros extends Thread {
 		}
 		return true;
 	}
+
+	
+	//MEDICION.JSON
+	
+	
+	
+	private boolean procesarElementoJsonMedicion(JsonElement elemento) {
+
+		if (elemento.isJsonObject()) {
+
+			JsonObject obj = elemento.getAsJsonObject();
+			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
+			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
+
+			while (iter.hasNext()) {
+				Map.Entry<String, JsonElement> entrada = iter.next();
+				try {
+					if (entrada.getKey().equals("Date")) {					
+					    Date date=new SimpleDateFormat("dd/MM/yyyy").parse(entrada.getValue().getAsString());          
+						medicion = new Medicion();
+						medicionId = new MedicionId();
+						medicionId.setFecha(date);
+					} 
+					else if (entrada.getKey().equals("Hour")) {
+					    Date date=new SimpleDateFormat("HH:mm:ss").parse(entrada.getValue().getAsString());          
+					    medicionId.setHora(date);
+					    medicion.setId(medicionId);
+					}else if (entrada.getKey().equals("ICAEstacion")) {
+						medicion.setIcaEstacion(entrada.getValue().getAsString());
+						MedicionDAO.iniciarSesion();
+						MedicionDAO.insertarRegistro(medicion);
+						MedicionDAO.cerrarSesion();
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				procesarElementoJsonIndex(entrada.getValue());
+			}
+		} else if (elemento.isJsonArray()) {
+			JsonArray array = elemento.getAsJsonArray();
+			Iterator<JsonElement> iter = array.iterator();
+
+			while (iter.hasNext()) {
+				JsonElement entrada = iter.next();
+				procesarElementoJsonIndex(entrada);
+			}
+		}
+		return true;
+	}
+
 }
