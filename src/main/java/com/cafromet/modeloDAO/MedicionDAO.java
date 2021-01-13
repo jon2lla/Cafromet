@@ -28,16 +28,14 @@ public class MedicionDAO {
 		Medicion registro = consultarRegistro(medicion.getId().getIdCentroMet());
 		if(registro != null) {
 			return true;
-		}else if(medicion.equals(registro)) {
-			return true;
 		}
 		return false;
 	}
 	
-	public static boolean insertarRegistro(Medicion medicion) {
-		if(duplicado(medicion)) {
-			return false;
-		}
+	public static synchronized boolean insertarRegistro(Medicion medicion) {
+//		if(duplicado(medicion)) {
+//			return false;
+//		}
 		SESSION.beginTransaction();		
 		SESSION.save(medicion);
 		SESSION.getTransaction().commit();	

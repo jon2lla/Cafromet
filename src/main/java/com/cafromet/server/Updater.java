@@ -9,8 +9,10 @@ import java.util.List;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Fuente;
+import com.cafromet.modelo.MedicionId;
 import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
 import com.cafromet.modeloDAO.FuenteDAO;
+import com.cafromet.modeloDAO.MedicionDAO;
 import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
 
@@ -30,7 +32,7 @@ public class Updater {
 	protected static String URL_PUEBLOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/pueblos.json";
 	protected static String URL_ESPACIOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json";
 	protected static String URL_ESTACIONES = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json";
-	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/index.json";
+	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/index.json";
 	
 	private Updater() {}
 	
@@ -47,6 +49,7 @@ public class Updater {
 	}
 		
 	public boolean comprobarActualizaciones() {
+		GestorFicheros.crearDirectorio(RUTA_TEMP);
 		FuenteDAO.iniciarSesion();
 		System.out.println("\n >> COMPROBANDO ACTUALIZACIONES...");
 
@@ -64,10 +67,21 @@ public class Updater {
 		
 		//ACTUALIZACION MEDICIONES	
 		comprobarActuMediciones();
-
+				
+		GestorFicheros.eliminarDirectorio(new File(RUTA_TEMP));
 		return true;
 	}
 
+	public boolean mostrarHash(String hash, String hash2) {
+		if(hash != null) {
+			System.out.println(" HASH LOCAL => " + hash);
+		}
+		if(hash2 != null) {
+			System.out.println(" HASH REMOTO => " + hash2);
+		}
+		return true;
+	}
+	
 	public boolean comprobarActuMunicipios() {
 		new PeticionHttp(URL_PUEBLOS, RUTA_TEMP + "pueblosTemp.json");
 		Fuente fuenteMunicipios = new Fuente();
@@ -78,8 +92,12 @@ public class Updater {
 		fuenteMunicipios.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "pueblosTemp.json")), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteMunicipios)) {
 			Fuente fuenteMunicipios2 = FuenteDAO.consultarRegistroPorNombre("Municipios");
-			System.out.println(" HASH LOCAL => " + fuenteMunicipios.getHash());
-			System.out.println(" HASH REMOTO => " + fuenteMunicipios2.getHash());
+			if(fuenteMunicipios.getHash() != null) {
+				System.out.println(" HASH LOCAL => " + fuenteMunicipios.getHash());
+			}
+			if(fuenteMunicipios2.getHash() != null) {
+				System.out.println(" HASH REMOTO => " + fuenteMunicipios2.getHash());
+			}
 			if(!fuenteMunicipios.equals(fuenteMunicipios2)) {
 				actualizarMunicipios();
 			}
@@ -163,15 +181,14 @@ public class Updater {
 	}
 
 	public boolean comprobarActuMediciones() {
-
+		File fichero = null;
 		CentroMeteorologicoDAO.iniciarSesion();
 		List<CentroMeteorologico> centros = CentroMeteorologicoDAO.consultarRegistros(); 
 		for (CentroMeteorologico centroMeteorologico : centros) {
-		
-    	  String hash = null;
+			String hash = null;
 			if(centroMeteorologico.getUrl() != null) {
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
-				File fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
+				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 			
 				
 				hash = String.valueOf(fichero.length());
@@ -180,17 +197,26 @@ public class Updater {
 					CentroMeteorologicoDAO.iniciarSesion();
 					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
 					CentroMeteorologicoDAO.cerrarSesion();
-					actualizarMediciones(centroMeteorologico);
+					try {
+						actualizarMediciones(centroMeteorologico);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else if(!centroMeteorologico.getHash().equals(hash)) {	
 
-					actualizarMediciones(centroMeteorologico);
+					try {
+						actualizarMediciones(centroMeteorologico);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 			}	
 			System.out.println(" HASH LOCAL => " + centroMeteorologico.getHash());
 			System.out.println(" HASH REMOTO => " + hash);			     
-		
 		
 		}	
 		return true;
@@ -248,11 +274,16 @@ public class Updater {
 		return true;
 	}
 
-	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) {
+	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) throws InterruptedException {
 		
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-		System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
+		MedicionDAO.iniciarSesion();
+
+		gfMediciones.join();
+
+		MedicionDAO.cerrarSesion();
+		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;
 	

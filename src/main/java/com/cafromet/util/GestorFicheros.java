@@ -91,11 +91,7 @@ public class GestorFicheros extends Thread {
 			break;
 		case 5:
 			filtrarJson();
-			MedicionDAO.iniciarSesion();
-
 			procesarElementoJsonMedicion(procesarJson());
-			MedicionDAO.cerrarSesion();
-
 			break;
 		}
 
@@ -310,7 +306,35 @@ public class GestorFicheros extends Thread {
 		}
 		return contenido;
 	}
+	
+	
+	public static boolean crearDirectorio(String ruta) {
+		File directorio = new File(ruta);
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("\n DIRECTORIO => " + ruta + " creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        }
+		return true;
+	}
+	
+	public static boolean eliminarDirectorio(File fichero) {
 
+		File[] ficheros = fichero.listFiles();
+
+		for (int x = 0; x < ficheros.length; x++) {
+
+			if (ficheros[x].isDirectory()) {
+				eliminarDirectorio(ficheros[x]);
+			}
+			ficheros[x].delete();
+
+		}
+		return true;
+	}
+	
 	public static boolean eliminarFichero(File fichero) {
 		if (fichero.delete()) {
 			System.out.println("\n FICHERO BORRADO => " + fichero.getPath());
@@ -710,7 +734,7 @@ public class GestorFicheros extends Thread {
 	
 	
 	
-	private boolean procesarElementoJsonMedicion(JsonElement elemento) {
+	private synchronized boolean procesarElementoJsonMedicion(JsonElement elemento) {
 		if (elemento.isJsonObject()) {
 
 			JsonObject obj = elemento.getAsJsonObject();
@@ -720,6 +744,7 @@ public class GestorFicheros extends Thread {
 				Map.Entry<String, JsonElement> entrada = iter.next();
 				try {
 					if (entrada.getKey().equals("Date")) {	
+						System.out.println("");
 					    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(entrada.getValue().getAsString());          
 						medicion = new Medicion();
 						medicionId = new MedicionId();
@@ -727,15 +752,15 @@ public class GestorFicheros extends Thread {
 					} 
 					else if (entrada.getKey().equals("Hour")) {
 					    Date date = new SimpleDateFormat("HH:mm").parse(entrada.getValue().getAsString());    
-						System.out.println(entrada.getValue().getAsString());
-
 					    medicionId.setHora(date);
 					    medicionId.setIdCentroMet(centroMeteorologico.getIdCentroMet());
 					    medicion.setId(medicionId);
 					}else if (entrada.getKey().equals("ICAEstacion")) {
+						System.out.println(medicion.toString());
 						medicion.setIcaEstacion(entrada.getValue().getAsString());
 						MedicionDAO.insertarRegistro(medicion);
 					}
+
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -753,5 +778,7 @@ public class GestorFicheros extends Thread {
 		}
 		return true;
 	}
+	
+
 
 }
