@@ -1,21 +1,27 @@
 package com.cafromet.modeloDAOTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.cafromet.modelo.Municipio;
 import com.cafromet.modelo.Provincia;
-import com.cafromet.modeloDAO.MunicipioDAO;
 import com.cafromet.modeloDAO.ProvinciaDAO;
 
 public class ProvinciaDAOTest {
-
-	@Test
-	public void testInsertar() {		
-		Provincia provincia = new Provincia();
+	
+	Provincia provincia;
+	
+	@Before
+	public void setup() {
+		provincia = new Provincia();		
 		provincia.setNombre("cafromet");
 		ProvinciaDAO.iniciarSesion();
+		
+	}
+	
+	@Test
+	public void testInsertar() {		
 		boolean result =ProvinciaDAO.insertarRegistro(provincia);
 		ProvinciaDAO.consultarRegistro("cafromet");
 		ProvinciaDAO.borrarRegistro("cafromet");
@@ -24,9 +30,6 @@ public class ProvinciaDAOTest {
 	}
 	@Test
 	public void testEliminar() {
-		Provincia provincia = new Provincia();
-		provincia.setNombre("cafromet");
-		ProvinciaDAO.iniciarSesion();
 		ProvinciaDAO.insertarRegistro(provincia);
 		ProvinciaDAO.consultarRegistro("cafromet");
 		boolean result =ProvinciaDAO.borrarRegistro("cafromet");

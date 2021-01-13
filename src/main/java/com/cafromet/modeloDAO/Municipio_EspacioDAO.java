@@ -16,10 +16,8 @@ public class Municipio_EspacioDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-	
+	public static void iniciarSesion() {	
 		SESSION = HibernateUtil.getSessionFactory().openSession();
-
 	}
 	
 	public static void cerrarSesion() {
@@ -53,4 +51,7 @@ public class Municipio_EspacioDAO {
 //        System.out.printf(" REGISTRO(S) => %s || %d%n%n", mun_espId2.getIdMunicipio(), mun_espId2.getIdEspacio());
         return mun_esp2;
 	}
+	
+	
+	
 }

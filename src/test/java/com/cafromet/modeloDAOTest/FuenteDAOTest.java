@@ -2,19 +2,24 @@ package com.cafromet.modeloDAOTest;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.Fuente;
 import com.cafromet.modeloDAO.FuenteDAO;
 
 public class FuenteDAOTest {
-
+	Fuente fuente;
 	
-	@Test
-	public void testInsertar() {
-		Fuente fuente = new Fuente();
+	@Before
+	public void setup() {
+		fuente = new Fuente();
 		fuente.setNombre("cafromet");
 		FuenteDAO.iniciarSesion();
+	}
+	
+	@Test
+	public void testInsertar() {		
 		boolean result=FuenteDAO.insertarRegistro(fuente);
 		FuenteDAO.consultarRegistroPorNombre("cafromet");
 		FuenteDAO.borrarRegistro("cafromet");
@@ -24,9 +29,6 @@ public class FuenteDAOTest {
 	
 	@Test
 	public void testEliminar() {
-		Fuente fuente = new Fuente();
-		fuente.setNombre("cafromet");
-		FuenteDAO.iniciarSesion();
 		FuenteDAO.insertarRegistro(fuente);
 		FuenteDAO.consultarRegistroPorNombre("cafromet");
 		boolean result=FuenteDAO.borrarRegistro("cafromet");

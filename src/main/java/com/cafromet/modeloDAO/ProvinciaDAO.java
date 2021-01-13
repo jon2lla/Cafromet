@@ -15,7 +15,6 @@ public class ProvinciaDAO {
 	
 	public static void iniciarSesion() { 
 		SESSION = HibernateUtil.getSessionFactory().openSession();
-
 	}
 	
 	public static void cerrarSesion() {
@@ -39,7 +38,6 @@ public class ProvinciaDAO {
 		SESSION.beginTransaction();
 		SESSION.save(provincia);
 		SESSION.getTransaction().commit();
-
 		return true;
 	}
 		
@@ -63,27 +61,24 @@ public class ProvinciaDAO {
 		}
         return provincia;
 	}
-	public static void borrarRegistro(int id) {
-		SESSION.beginTransaction();	
-		HQL = "from Provincia  where idProvincia = :id";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);		
-		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
-		SESSION.delete(provincia);	
-		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
-	}
+//	public static void borrarRegistro(int id) {
+//		SESSION.beginTransaction();	
+//		HQL = "from Provincia  where idProvincia = :id";
+//		QUERY = SESSION.createQuery(HQL);
+//		QUERY.setParameter("id", id);		
+//		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
+//		SESSION.delete(provincia);	
+//		SESSION.getTransaction().commit();
+//		System.out.println("\n FILA(S) BORRADA(S)\n");
+//	}
 	public static boolean borrarRegistro(String nombre) {
 		boolean correcto=false;
 		SESSION.beginTransaction();	
 		HQL = "from Provincia  where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("nombre", nombre);
-		
+		QUERY.setParameter("nombre", nombre);	
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
-
-		SESSION.delete(provincia);
-		
+		SESSION.delete(provincia);		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		correcto=true;		

@@ -1,21 +1,26 @@
 package com.cafromet.modeloDAOTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.EspacioNatural;
-import com.cafromet.modelo.Municipio;
 import com.cafromet.modeloDAO.EspacioNaturalDAO;
-import com.cafromet.modeloDAO.MunicipioDAO;
 
 public class EspacioNaturalDAOTest {
-
-	@Test
-	public void testInsertar() {
-		EspacioNatural espacioNatural = new EspacioNatural();
+	
+	EspacioNatural espacioNatural;
+	
+	@Before
+	public void setup() {
+		espacioNatural = new EspacioNatural();
 		espacioNatural.setNombre("cafromet");
 		EspacioNaturalDAO.iniciarSesion();
+	}
+	
+	@Test
+	public void testInsertar() {	
 		boolean result =EspacioNaturalDAO.insertarRegistro(espacioNatural);
 		EspacioNaturalDAO.consultarRegistroPorNombre("cafromet");
 		EspacioNaturalDAO.borrarRegistro("cafromet");
@@ -24,13 +29,12 @@ public class EspacioNaturalDAOTest {
 	}
 	@Test
 	public void testEliminar() {
-		EspacioNatural espacioNatural = new EspacioNatural();
-		espacioNatural.setNombre("cafromet");
-		EspacioNaturalDAO.iniciarSesion();
 		EspacioNaturalDAO.insertarRegistro(espacioNatural);
 		EspacioNaturalDAO.consultarRegistroPorNombre("cafromet");
 		boolean result = EspacioNaturalDAO.borrarRegistro("cafromet");
 		EspacioNaturalDAO.cerrarSesion();
 		assertEquals(true, result);
 	}
+	
+	
 }

@@ -45,14 +45,14 @@ public class ClienteDAO {
 		return true;
 	}
 	
-	public static Cliente consultarRegistro(int id) {
-		HQL = "from Cliente where idCliente = :id";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);
-		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
-        System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
-        return cliente;
-	}
+//	public static Cliente consultarRegistro(int id) {
+//		HQL = "from Cliente where idCliente = :id";
+//		QUERY = SESSION.createQuery(HQL);
+//		QUERY.setParameter("id", id);
+//		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
+//        System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
+//        return cliente;
+//	}
 	
 	public static Cliente consultarRegistro(String usuario) {
 		HQL = "from Cliente where usuario = :usuario";
@@ -66,29 +66,26 @@ public class ClienteDAO {
         return cliente;
 	}
 	
-	public static void borrarRegistro(int id) {
-		SESSION.beginTransaction();	
-		HQL = "from Cliente where idCliente = :id";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);
-		
-		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
-		
-		SESSION.delete(cliente);
-		
-		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
-	}
+//	public static void borrarRegistro(int id) {
+//		SESSION.beginTransaction();	
+//		HQL = "from Cliente where idCliente = :id";
+//		QUERY = SESSION.createQuery(HQL);
+//		QUERY.setParameter("id", id);
+//		
+//		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
+//		
+//		SESSION.delete(cliente);
+//		
+//		SESSION.getTransaction().commit();
+//		System.out.println("\n FILA(S) BORRADA(S)\n");
+//	}
 	public static boolean borrarRegistro(String usuario) {
 		SESSION.beginTransaction();	
 		HQL = "from Cliente where usuario = :usuario";
 		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("usuario", usuario);
-		
-		Cliente cliente = (Cliente) QUERY.uniqueResult(); 
-		
-		SESSION.delete(cliente);
-		
+		QUERY.setParameter("usuario", usuario);	
+		Cliente cliente = (Cliente) QUERY.uniqueResult(); 		
+		SESSION.delete(cliente);		
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;

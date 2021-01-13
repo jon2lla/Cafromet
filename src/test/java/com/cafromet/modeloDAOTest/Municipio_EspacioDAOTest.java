@@ -12,22 +12,22 @@ import com.cafromet.modelo.Municipio_EspacioNaturalId;
 import com.cafromet.modeloDAO.EspacioNaturalDAO;
 import com.cafromet.modeloDAO.MunicipioDAO;
 import com.cafromet.modeloDAO.Municipio_EspacioDAO;
-import com.cafromet.modeloDAO.Municipio_EspacioNatDAO;
 
-public class Municipio_EspacioNatDAOTest {
+
+public class Municipio_EspacioDAOTest {
 	
-	Municipio_EspacioNaturalId id;
 	Municipio_EspacioNatural mun_esp;
+	Municipio_EspacioNaturalId id;
 	
 	@Before
-	public void setup() {			
+	public void setup() {
 		mun_esp = new Municipio_EspacioNatural();
 		id = new Municipio_EspacioNaturalId();
-		Municipio_EspacioNatDAO.iniciarSesion();
 		Municipio_EspacioDAO.iniciarSesion();
 	}
 	
 	@Test
+	
 	public void test() {
 		
 		Municipio municipio = new Municipio();
@@ -41,7 +41,7 @@ public class Municipio_EspacioNatDAOTest {
 		EspacioNaturalDAO.iniciarSesion();
 		EspacioNaturalDAO.insertarRegistro(espacioNatural);
 		EspacioNaturalDAO.consultarRegistroPorNombre("cafromet");
-	
+		
 		id.setIdEspacio(espacioNatural.getIdEspacio());
 		id.setIdMunicipio(municipio.getIdMunicipio());
 		
@@ -49,12 +49,9 @@ public class Municipio_EspacioNatDAOTest {
 		mun_esp.setMunicipio(municipio);
 		mun_esp.setId(id);
 		
-		Municipio_EspacioDAO.insertarRegistro(mun_esp);
+		boolean result = Municipio_EspacioDAO.insertarRegistro(mun_esp);
 		Municipio_EspacioDAO.consultarRegistro(mun_esp);
-					
-		boolean result = Municipio_EspacioNatDAO.insertarRegistro(mun_esp);
-		Municipio_EspacioNatDAO.consultarRegistro(id);
-	
+				
 		EspacioNaturalDAO.borrarRegistro("cafromet");
 		EspacioNaturalDAO.cerrarSesion();
 				
@@ -62,7 +59,6 @@ public class Municipio_EspacioNatDAOTest {
 		MunicipioDAO.cerrarSesion();
 		
 		assertEquals(true, result);
-			
 	}
 
 }

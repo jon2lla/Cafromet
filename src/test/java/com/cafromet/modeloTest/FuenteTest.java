@@ -2,25 +2,45 @@ package com.cafromet.modeloTest;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.Fuente;
 
 public class FuenteTest {
-
-	@Test
-	public void testConstructorFuente() {
-		Fuente fuente = new Fuente();
-//		Fuente fuente2 = new Fuente(null, null, null, null);
-//		assertEquals(fuente.getId(), fuente2.getId());
+	Fuente fuente;
+	Fuente fuente2;
+	@Before
+	public void setup() {
+	fuente = new Fuente();
+	fuente2 = new Fuente();
 	}
 	
 	@Test
+	public void testConstructorFuenteId() {
+		 fuente = new Fuente(1);
+		 fuente2 = new Fuente(1);
+		assertEquals(fuente.getId(), fuente2.getId());
+	}
+	@Test
+	public void testConstructorFuente() {
+		 fuente = new Fuente(1,"1","1","1","1");
+		 fuente2 = new Fuente(1,"1","1","1","1");
+		assertEquals(fuente.getId(), fuente2.getId());
+	}
+	@Test
 	public void testSetHashFuente() {
-		Fuente fuente = new Fuente();
-		fuente.setHash("a");
-		Fuente fuente2 = new Fuente();
-		assertNotEquals(fuente.getHash(), fuente2.getHash());
+		 fuente = new Fuente();
+		 fuente2 = new Fuente();
+		 int num1=fuente.hashCode();
+		 int num2=fuente2.hashCode();
+		assertEquals(num1, num2);
+	}
+	@Test
+	public void testEquals() {
+		 fuente = new Fuente();
+		 fuente2 = new Fuente();
+		assertEquals(fuente, fuente2);
 	}
 
 }

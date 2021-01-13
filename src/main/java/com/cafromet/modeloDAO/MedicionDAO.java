@@ -17,7 +17,6 @@ public class MedicionDAO {
 	
 	public static void iniciarSesion() {
 		SESSION = HibernateUtil.getSessionFactory().openSession();
-
 	}
 	
 	public static void cerrarSesion() {
