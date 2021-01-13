@@ -123,11 +123,14 @@ public class IOListenerSrv extends Thread {
 			List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
 			
 			for(Municipio muni : lista) {
+				//System.out.println(muni.getNombre());
 				MunicipioDTO muniDTO = new MunicipioDTO();
 				muniDTO.setNombre(muni.getNombre());
 				muniDTO.setIdMunicipio(muni.getIdMunicipio());
+				listaDTO.add(muniDTO);
+				muniDTO.setProvincia(muni.getProvincia().getNombre());
 			}
-			datos.setObjeto(lista);
+			datos.setObjeto(listaDTO);
 			datos.setContenido("Estoy aqui");
 			for(MunicipioDTO muniDTO : listaDTO) {
 				

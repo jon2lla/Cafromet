@@ -4,14 +4,25 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.cafromet.modelo.Provincia;
+
 
 public class MunicipioDTO implements java.io.Serializable {
 
 	private Integer idMunicipio;
 	private String nombre;
+	private String provincia;
 	
 	public MunicipioDTO() {
 		
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 	public Integer getIdMunicipio() {

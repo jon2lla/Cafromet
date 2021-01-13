@@ -8,8 +8,8 @@ public class MainServer {
 	
 	public static void main(String[] args) {
 
-		Updater.getInstance().comprobarActualizaciones();
+		//Updater.getInstance().comprobarActualizaciones();
 
-//		VentanaServidor server = new VentanaServidor();		
+		LoggerServidor server = new LoggerServidor();		
 	}
 }
