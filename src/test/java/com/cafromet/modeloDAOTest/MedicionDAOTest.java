@@ -11,8 +11,8 @@ import org.junit.Test;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
-import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
-import com.cafromet.modeloDAO.MedicionDAO;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.MedicionDAO;
 
 public class MedicionDAOTest {
 	

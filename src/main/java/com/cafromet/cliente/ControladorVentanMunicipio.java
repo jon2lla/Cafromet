@@ -3,6 +3,7 @@ package com.cafromet.cliente;
 import java.util.ArrayList;
 
 import com.cafromet.modelo.Municipio;
+import com.cafromet.modelodto.MunicipioDTO;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticion;
 
@@ -10,7 +11,7 @@ public class ControladorVentanMunicipio {
 
 	private Datos datos;
 
-	private ArrayList<Municipio> municipio;
+	private ArrayList<MunicipioDTO> municipios;
 
 	public VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 
@@ -43,18 +44,18 @@ public class ControladorVentanMunicipio {
 
 		case 3:
 			 
-			municipio = (ArrayList<Municipio>) datos.getObjeto();
+			municipios = (ArrayList<MunicipioDTO>) datos.getObjeto();
 			
-			String matrizInfo[][] = new String[municipio.size()][2];
+			String matrizInfo[][] = new String[municipios.size()][2];
 			
-			for (int i = 0; i < municipio.size(); i++) {
+			for (int i = 0; i < municipios.size(); i++) {
 				
-				matrizInfo[i][0] = municipio.get(i).getNombre();
-				matrizInfo[i][1] = municipio.get(i).getDescripcion();
+				matrizInfo[i][0] = municipios.get(i).getNombre();
+				matrizInfo[i][1] = municipios.get(i).getProvincia();
 				
-				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);
-				
+				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);	
 			}
+			
 			break;
 		}
 	}

@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.CentroMeteorologico;
-import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
 
 public class CentroMeteorologicoDAOTest {
 	CentroMeteorologico centroMeteorologico;

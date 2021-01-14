@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.EspacioNatural;
-import com.cafromet.modeloDAO.EspacioNaturalDAO;
+import com.cafromet.modelodao.EspacioNaturalDAO;
 
 public class EspacioNaturalDAOTest {
 	

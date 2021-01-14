@@ -46,7 +46,7 @@ public class VentanaMunicipio extends JFrame {
 		scrollPane.setBounds(0, 47, 587, 95);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "NOMBRE", "DESCRIPCION" };
+		String columnas[] = { "NOMBRE", "PROVINCIA" };
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 

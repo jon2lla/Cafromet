@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.Fuente;
-import com.cafromet.modeloDAO.FuenteDAO;
+import com.cafromet.modelodao.FuenteDAO;
 
 public class FuenteDAOTest {
 	Fuente fuente;

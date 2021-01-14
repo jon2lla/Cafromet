@@ -10,9 +10,9 @@ import java.util.List;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Fuente;
 import com.cafromet.modelo.MedicionId;
-import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
-import com.cafromet.modeloDAO.FuenteDAO;
-import com.cafromet.modeloDAO.MedicionDAO;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.FuenteDAO;
+import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
 
@@ -190,8 +190,21 @@ public class Updater {
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 			
-				
+				//ACTUALIZACION POR TAMAÑO
 				hash = String.valueOf(fichero.length());
+
+				
+				// ACTUALIZACION CON HASH
+//				try {
+//					byte[] c = Files.readAllBytes(Paths.get(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"));
+//					hash = Encriptacion.generateHash(c.toString(), "SHA1");
+//					
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+
+				
 				if(centroMeteorologico.getHash() == null) {
 					centroMeteorologico.setHash(hash);
 					CentroMeteorologicoDAO.iniciarSesion();

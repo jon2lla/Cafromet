@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelo.Provincia;
-import com.cafromet.modeloDAO.MunicipioDAO;
-import com.cafromet.modeloDAO.ProvinciaDAO;
+import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodao.ProvinciaDAO;
 
 public class MunicipioDAOTest {
 	

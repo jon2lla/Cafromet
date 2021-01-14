@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.Provincia;
-import com.cafromet.modeloDAO.ProvinciaDAO;
+import com.cafromet.modelodao.ProvinciaDAO;
 
 public class ProvinciaDAOTest {
 	

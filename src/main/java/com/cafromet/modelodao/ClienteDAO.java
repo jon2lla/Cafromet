@@ -1,4 +1,4 @@
-package com.cafromet.modeloDAO;
+package com.cafromet.modelodao;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
