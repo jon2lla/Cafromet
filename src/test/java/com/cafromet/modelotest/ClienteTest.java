@@ -1,4 +1,4 @@
-package com.cafromet.modeloTest;
+package com.cafromet.modelotest;
 
 import static org.junit.Assert.*;
 

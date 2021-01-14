@@ -1,4 +1,4 @@
-package com.cafromet.serverTest;
+package com.cafromet.servertest;
 
 import static org.junit.Assert.*;
 

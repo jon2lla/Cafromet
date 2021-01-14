@@ -1,4 +1,4 @@
-package com.cafromet.clienteTest;
+package com.cafromet.clientetest;
 
 import static org.junit.Assert.assertEquals;
 

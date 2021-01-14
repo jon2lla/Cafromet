@@ -1,4 +1,4 @@
-package com.cafromet.modeloDAOTest;
+package com.cafromet.modelodaotest;
 
 import static org.junit.Assert.*;
 

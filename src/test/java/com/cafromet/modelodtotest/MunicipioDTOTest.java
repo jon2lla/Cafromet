@@ -1,4 +1,4 @@
-package com.cafromet.modeloDTOTest;
+package com.cafromet.modelodtotest;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.MedicionId;
-import com.cafromet.modeloDTO.MunicipioDTO;
+import com.cafromet.modelodto.MunicipioDTO;
 
 public class MunicipioDTOTest {
 	MunicipioDTO municipioDTO;
