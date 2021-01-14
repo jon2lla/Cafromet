@@ -35,30 +35,28 @@ public class ControladorCliente implements ActionListener {
 			String usu = ventanaCliente.getTextFieldUsuario().getText();
 			String pass = ventanaCliente.getTextFieldPassw().getText();
 			
-			try {
-
-				enviarPeticion(usu+","+pass, Peticion.p101);
-
-			} catch (InterruptedException e1) {
-
-				e1.printStackTrace();
-			}
+			enviarPeticion(usu+","+pass, Peticion.p101);
 
 			break;
 
 		}
 	}
 
-	public void enviarPeticion(String contenido, Peticion peticion) throws InterruptedException {
-		datos = new Datos();
-		datos.setContenido(contenido);
-		datos.setPeticion(peticion);
-		IOListenerClt IOListenerClt = new IOListenerClt(datos);
-		Thread hiloSender = new Thread(IOListenerClt);
-		hiloSender.start();
-		hiloSender.join();
-		datos = IOListenerClt.getDatos();
-		procesarRecepcion();
+	public boolean enviarPeticion(String contenido, Peticion peticion) {
+		try {
+			datos = new Datos();
+			datos.setContenido(contenido);
+			datos.setPeticion(peticion);
+			IOListenerClt IOListenerClt = new IOListenerClt(datos);
+			Thread hiloSender = new Thread(IOListenerClt);
+			hiloSender.start();
+			hiloSender.join();
+			datos = IOListenerClt.getDatos();
+			procesarRecepcion();
+		} catch (Exception e) {
+		}
+		return false;
+		
 	}
 	@SuppressWarnings("unused")
 	public void procesarRecepcion() {
