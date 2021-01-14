@@ -68,4 +68,16 @@ public class MedicionTest {
 		
 		assertEquals(medicion.getId(), medicion2.getId());
 	}
+	
+	@Test
+	public void testHash() {
+		int num1 = medicion.hashCode();
+		int num2 = medicion.hashCode();
+		assertEquals(num1,num2);
+	}
+	@Test
+	public void testEquals() {	
+		assertEquals(medicion,medicion2);
+	}
+	
 }

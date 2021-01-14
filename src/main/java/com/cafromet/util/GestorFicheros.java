@@ -647,43 +647,43 @@ public class GestorFicheros extends Thread {
 	}
 
 	// INDEX.JSON
-	private String remplazoIndex(String linea) {
-		linea = linea.trim();
-		if (linea.contains("\"name\": ")) {
-			linea = linea.replace("name", "nombre");
-			linea = linea.replace("_", " ");
-		}
-		linea = "  " + linea;
-		return linea;
-	}
-
-	private boolean comprobarCamposIndex(String linea) {
-		if (linea.contains("\"name\": ") || linea.contains("\"url\": ")) {
-			return true;
-		}
-		return false;
-	}
-
-	public String remplazoHTIndex(String linea) {
+//	private String remplazoIndex(String linea) {
 //		linea = linea.trim();
-		if (linea.contains("\"lastUpdateDate\": "))
-			linea = "";
-		if (linea.contains("\"aggregated\":")) {
-			linea = "[";
-		}
-		return linea;
-	}
-
-	public boolean comprobarEstructuraJsonIndex(String linea) {
-		if (linea.contains("[") 
-				|| linea.contains("},") 
-				|| linea.contains("    {") 
-				|| linea.contains("    }")
-				|| linea.contains("]")) {
-			return true;
-		}
-		return false;
-	}
+//		if (linea.contains("\"name\": ")) {
+//			linea = linea.replace("name", "nombre");
+//			linea = linea.replace("_", " ");
+//		}
+//		linea = "  " + linea;
+//		return linea;
+//	}
+//
+//	private boolean comprobarCamposIndex(String linea) {
+//		if (linea.contains("\"name\": ") || linea.contains("\"url\": ")) {
+//			return true;
+//		}
+//		return false;
+//	}
+//
+//	private String remplazoHTIndex(String linea) {
+////		linea = linea.trim();
+//		if (linea.contains("\"lastUpdateDate\": "))
+//			linea = "";
+//		if (linea.contains("\"aggregated\":")) {
+//			linea = "[";
+//		}
+//		return linea;
+//	}
+//
+//	private boolean comprobarEstructuraJsonIndex(String linea) {
+//		if (linea.contains("[") 
+//				|| linea.contains("},") 
+//				|| linea.contains("    {") 
+//				|| linea.contains("    }")
+//				|| linea.contains("]")) {
+//			return true;
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Metodo que recibe un elemento Json y procesa los elemementos hijo de manera
@@ -744,7 +744,6 @@ public class GestorFicheros extends Thread {
 				Map.Entry<String, JsonElement> entrada = iter.next();
 				try {
 					if (entrada.getKey().equals("Date")) {	
-						System.out.println("");
 					    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(entrada.getValue().getAsString());          
 						medicion = new Medicion();
 						medicionId = new MedicionId();
@@ -756,7 +755,7 @@ public class GestorFicheros extends Thread {
 					    medicionId.setIdCentroMet(centroMeteorologico.getIdCentroMet());
 					    medicion.setId(medicionId);
 					}else if (entrada.getKey().equals("ICAEstacion")) {
-						System.out.println(medicion.toString());
+//						System.out.println(medicion.toString());
 						medicion.setIcaEstacion(entrada.getValue().getAsString());
 						MedicionDAO.insertarRegistro(medicion);
 					}

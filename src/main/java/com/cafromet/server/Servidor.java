@@ -1,4 +1,5 @@
 package com.cafromet.server;
+import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -11,6 +12,7 @@ import java.net.SocketAddress;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.cafromet.util.GestorFicheros;
 import com.cafromet.util.HibernateUtil;
 
 public class Servidor extends Thread {
@@ -86,6 +88,7 @@ public class Servidor extends Thread {
 			cerrarSesionHibernate();
 			GestorConexiones.getInstance().mensajeDeDifusion("*");			
 			servidor.close();
+			GestorFicheros.eliminarDirectorio(new File(Updater.RUTA_TEMP));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	

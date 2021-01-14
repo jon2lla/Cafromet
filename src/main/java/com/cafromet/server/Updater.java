@@ -68,7 +68,6 @@ public class Updater {
 		//ACTUALIZACION MEDICIONES	
 		comprobarActuMediciones();
 				
-		GestorFicheros.eliminarDirectorio(new File(RUTA_TEMP));
 		return true;
 	}
 
@@ -190,21 +189,8 @@ public class Updater {
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 			
-				//ACTUALIZACION POR TAMAÑO
+				
 				hash = String.valueOf(fichero.length());
-
-				
-				// ACTUALIZACION CON HASH
-//				try {
-//					byte[] c = Files.readAllBytes(Paths.get(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"));
-//					hash = Encriptacion.generateHash(c.toString(), "SHA1");
-//					
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-
-				
 				if(centroMeteorologico.getHash() == null) {
 					centroMeteorologico.setHash(hash);
 					CentroMeteorologicoDAO.iniciarSesion();
@@ -288,14 +274,14 @@ public class Updater {
 	}
 
 	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) throws InterruptedException {
-		
+//		MedicionDAO.iniciarSesion();
+
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-		MedicionDAO.iniciarSesion();
-
-		gfMediciones.join();
-
-		MedicionDAO.cerrarSesion();
+//
+//		gfMediciones.join();
+//
+//		MedicionDAO.cerrarSesion();
 		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;

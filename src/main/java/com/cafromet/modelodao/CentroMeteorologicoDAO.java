@@ -68,7 +68,8 @@ public class CentroMeteorologicoDAO {
         return centros;
 	}
 	
-	public static boolean actualizarRegistro(CentroMeteorologico centroMeteorologico) {
+	public synchronized static boolean actualizarRegistro(CentroMeteorologico centroMeteorologico) {
+		iniciarSesion();
 		CentroMeteorologico centro = consultarRegistro(centroMeteorologico.getNombre()); 
 		SESSION.beginTransaction();	
 		if(centro!=null) {
@@ -77,6 +78,7 @@ public class CentroMeteorologicoDAO {
 			SESSION.update(centro);
 			SESSION.getTransaction().commit();
 			System.out.println("\n FILA(S) ACTUALIZADA(S)\n");
+			cerrarSesion();
 			return true;
 		}
 		System.out.println("\n ERROR AL ACTUALIZAR; CLASE => CENTROMETDAO\n");
