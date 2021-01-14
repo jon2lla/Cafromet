@@ -17,14 +17,14 @@ public class ControladorVentaClienteTest {
 	
 	@Before
 	public void setup() {
-		ventanaMunicipio = Mockito.mock(VentanaMunicipio.class);
+//		ventanaMunicipio = Mockito.mock(VentanaMunicipio.class);
 		Controlador = new ControladorVentanMunicipio(ventanaMunicipio);
 	}
 	
 	@Test
 	public void testEnviarPeticion() {
-		boolean result=Controlador.enviarPeticion("prueba", Peticion.p103);
-		assertEquals(false,result);	
+		boolean result = Controlador.enviarPeticion("prueba", Peticion.p103);
+		assertEquals(false, result);	
 	}
 
 }

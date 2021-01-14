@@ -49,7 +49,7 @@ public class IOListenerClt implements Runnable{
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("ERROR E/S || CLASE => IOListenerCliente");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
