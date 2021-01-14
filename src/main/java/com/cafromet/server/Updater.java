@@ -93,12 +93,7 @@ public class Updater {
 		fuenteMunicipios.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "pueblosTemp.json")), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteMunicipios)) {
 			Fuente fuenteMunicipios2 = FuenteDAO.consultarRegistroPorNombre("Municipios");
-			if(fuenteMunicipios.getHash() != null) {
-				System.out.println(" HASH LOCAL => " + fuenteMunicipios.getHash());
-			}
-			if(fuenteMunicipios2.getHash() != null) {
-				System.out.println(" HASH REMOTO => " + fuenteMunicipios2.getHash());
-			}
+			mostrarHash(fuenteMunicipios.getHash(), fuenteMunicipios2.getHash());
 			if(!fuenteMunicipios.equals(fuenteMunicipios2)) {
 				actualizarMunicipios();
 			}
