@@ -25,9 +25,9 @@ public class GestorConexiones {
     	conexiones.put(conexion.getIdConexion(), conexion);
     }
     
-    public IOListenerSrv recuperarConexion(String idConexion) {
-    	return conexiones.get(idConexion);
-    }
+//    public IOListenerSrv recuperarConexion(String idConexion) {
+//    	return conexiones.get(idConexion);
+//    }
     
     public synchronized void cerrarConexion(String idConexion){
     	IOListenerSrv conexion = conexiones.get(idConexion);
@@ -50,9 +50,9 @@ public class GestorConexiones {
         }
     }  
     
-    public Map<String, IOListenerSrv> getConexiones(){
-    	return conexiones;
-    }
+//    public Map<String, IOListenerSrv> getConexiones(){
+//    	return conexiones;
+//    }
     
     public int getNumUsuarios() {
 		return conexiones.size();

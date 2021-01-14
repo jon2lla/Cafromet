@@ -13,7 +13,9 @@ import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodto.ClienteDTO;
 import com.cafromet.modelodto.MunicipioDTO;
+
 
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;
@@ -48,12 +50,7 @@ public class IOListenerSrv extends Thread {
 			textArea.append(" Conexion => " + idConexion + " || Peticion => " + datos.getPeticion() + "\n");
 			
 			procesarPeticion();
-//			try {
-//				Thread.sleep(5000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
 			osalida.writeObject(datos);
 			osalida.flush();
 
@@ -72,7 +69,8 @@ public class IOListenerSrv extends Thread {
 		
 	}
 
-	public boolean procesarPeticion() {
+	public synchronized boolean procesarPeticion() {
+		MunicipioDAO.iniciarSesion();
 		switch (datos.getPeticion().getCodigo()) {	
 		case 1: 
 			String[] array = datos.getContenido().split(",");
@@ -102,21 +100,20 @@ public class IOListenerSrv extends Thread {
 			break;
 
 		case 2:
-			boolean insertado = false;
 			
-			Cliente cliente1 = (Cliente) datos.getObjeto();
-			System.out.println("Recepcion Server ,Cliente"+cliente1.getUsuario() + "Pass"+cliente1.getPasswd());
+			ClienteDTO clienteDto = (ClienteDTO) datos.getObjeto();
+			Cliente cliente1 = new Cliente();
+			cliente1.setUsuario(clienteDto.getUsuario());
+			cliente1.setPasswd(clienteDto.getPasswd());
+			System.out.println("Recepcion Server, Cliente" + cliente1.getUsuario() + "Pass" + cliente1.getPasswd());
 			ClienteDAO.iniciarSesion();
-			
 			datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
-			
 			ClienteDAO.cerrarSesion();
 			
 			break;
 
 		case 3:
 
-			MunicipioDAO.iniciarSesion();
 			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
 			List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
 			
@@ -125,22 +122,23 @@ public class IOListenerSrv extends Thread {
 				muniDTO.setNombre(muni.getNombre());
 				muniDTO.setIdMunicipio(muni.getIdMunicipio());
 				muniDTO.setProvincia(muni.getProvincia().getNombre());
+				listaDTO.add(muniDTO);
+
 			}
 			datos.setObjeto(listaDTO);
-			datos.setContenido("Estoy aqui");
-			for(MunicipioDTO muniDTO : listaDTO) {
-				
-				System.out.println(muniDTO.getNombre());
-			}
-
 			break;
 
 	}
+		MunicipioDAO.cerrarSesion();
 		return true;
 	}
 	
 	public String getIdConexion() {
 		return idConexion;
+	}
+	
+	public int getIdCliente() {
+		return ID_CLIENTE;
 	}
 	
 	public Socket getSocket() {

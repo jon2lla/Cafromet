@@ -12,14 +12,14 @@ import com.cafromet.server.Peticion;
 
 public class ControladorVentaClienteTest {
 
-	ControladorVentanMunicipio Controlador;
+	ControladorVentanMunicipio controlador;
 	VentanaMunicipio ventanaMunicipio;
 	
 	@Before
 	public void setup() {
-		ventanaMunicipio = Mockito.mock(VentanaMunicipio.class);
 		try {
-			Controlador = new ControladorVentanMunicipio(ventanaMunicipio);
+			
+			controlador = new ControladorVentanMunicipio(ventanaMunicipio);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class ControladorVentaClienteTest {
 	
 	@Test
 	public void testEnviarPeticion() {
-		boolean result = Controlador.enviarPeticion("prueba", Peticion.p103);
+		boolean result = controlador.enviarPeticion("prueba", Peticion.p103);
 		assertEquals(false, result);	
 	}
 

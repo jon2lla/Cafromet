@@ -15,6 +15,7 @@ import com.cafromet.modelodao.FuenteDAO;
 import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
+import com.cafromet.util.JsonToXml;
 
 public class Updater {
 	protected static String RUTA_RES =  "src" + File.separator 
@@ -23,7 +24,7 @@ public class Updater {
 			+ "cafromet" + File.separator
 			+ "files" + File.separator;
 	protected static String RUTA_JSON = RUTA_RES + "json" + File.separator;
-	protected static String RUTA_TEMP =  RUTA_RES + "temp" + File.separator;
+	public static String RUTA_TEMP =  RUTA_RES + "temp" + File.separator;
 	protected static String RUTA_XML =  RUTA_RES + "xml" + File.separator;
 	protected static String DATOS_PUEBLOS = RUTA_JSON + "pueblos.json";
 	protected static String DATOS_ESPACIOS_NAT = RUTA_JSON + "espacios-naturales.json";
@@ -185,13 +186,31 @@ public class Updater {
 		CentroMeteorologicoDAO.iniciarSesion();
 		List<CentroMeteorologico> centros = CentroMeteorologicoDAO.consultarRegistros(); 
 		for (CentroMeteorologico centroMeteorologico : centros) {
+			
+		
 			String hash = null;
+			
+			
+			
+			
 			if(centroMeteorologico.getUrl() != null) {
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 			
+				//ACTUALIZACION POR HASH
+//				try {
+//					byte[] c = Files.readAllBytes(Paths.get(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"));
+//					hash = Encriptacion.generateHash(c.toString(), "SHA1");
+//				} catch (IOException e1) {
+//					System.out.println("\n ERROR AL ENCRIPTAR");
+//				}
 				
+				
+				//ACTUALIZACION POR TAMAÑO
 				hash = String.valueOf(fichero.length());
+				
+				
+				
 				if(centroMeteorologico.getHash() == null) {
 					centroMeteorologico.setHash(hash);
 					CentroMeteorologicoDAO.iniciarSesion();
@@ -279,7 +298,12 @@ public class Updater {
 
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-//
+//		
+		while(gfMediciones.isAlive()) {}
+		
+		JsonToXml jtx = new JsonToXml();
+		jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", RUTA_XML);
+		jtx.start();
 //		gfMediciones.join();
 //
 //		MedicionDAO.cerrarSesion();

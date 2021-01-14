@@ -76,9 +76,4 @@ public class VentanaCliente extends JFrame {
 		contentPane.add(lblPassword);
 	}
 
-	public boolean cerrarVentana() {
-		ventanaCliente.dispose();
-		return false;
-	}
-	
 }

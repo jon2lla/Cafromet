@@ -77,25 +77,33 @@ public class Encriptacion {
 
 	}
 
-	public byte[] desencriptar(String ruta, String claveUsuario) throws BadPaddingException {
-		File fic = new File(ruta + File.separator + "mensaje");
-		File fic2 = new File(ruta + File.separator + "iv");
-
-		byte[] mensajeCodificado = leerFichero(fic);
-		byte[] iv = leerFichero(fic2);
+	public byte[] desencriptar(String ruta, String claveUsuario) {
+		byte[] mensajeCodificado;
+		byte[] iv;
 		byte[] mensajeDecodificado = null;
-		Cipher cipher;
 		try {
-			cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
-			IvParameterSpec dps = new IvParameterSpec(iv);
-			cipher.init(Cipher.DECRYPT_MODE, generarClave(claveUsuario), dps);
-			mensajeDecodificado = cipher.doFinal(mensajeCodificado);
+			File fic = new File(ruta + File.separator + "mensaje");
+			File fic2 = new File(ruta + File.separator + "iv");
 
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-				| InvalidAlgorithmParameterException | IllegalBlockSizeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			mensajeCodificado = leerFichero(fic);
+			iv = leerFichero(fic2);
+			mensajeDecodificado = null;
+			Cipher cipher;
+			try {
+				cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+				IvParameterSpec dps = new IvParameterSpec(iv);
+				cipher.init(Cipher.DECRYPT_MODE, generarClave(claveUsuario), dps);
+				mensajeDecodificado = cipher.doFinal(mensajeCodificado);
+
+			} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+					| InvalidAlgorithmParameterException | IllegalBlockSizeException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 		return mensajeDecodificado;
 
 	}
@@ -172,21 +180,21 @@ public class Encriptacion {
 	 * @param txt
 	 * @param hashType
 	 */
-	public static String generateHash(String data, String algorithm, byte[] salt) {
-		try {
-			MessageDigest md = MessageDigest.getInstance(algorithm);
-			md.reset();
-			md.update(salt);
-
-			byte[] hash = md.digest(data.getBytes());
-
-			return bytesToStringHex(hash);
-
-		} catch (NoSuchAlgorithmException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
-	}
+//	public static String generateHash(String data, String algorithm, byte[] salt) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance(algorithm);
+//			md.reset();
+//			md.update(salt);
+//
+//			byte[] hash = md.digest(data.getBytes());
+//
+//			return bytesToStringHex(hash);
+//
+//		} catch (NoSuchAlgorithmException e) {
+//			System.out.println(e.getMessage());
+//		}
+//		return null;
+//	}
 
 	public static String bytesToStringHex(byte[] bytes) {
 		StringBuffer sb = new StringBuffer();

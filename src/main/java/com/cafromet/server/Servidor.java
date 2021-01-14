@@ -67,17 +67,19 @@ public class Servidor extends Thread {
 		}
 	}
 	
-	public static void iniciarSesionHibernate() {
+	public static boolean iniciarSesionHibernate() {
 		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
 		 		 + " -------------------------\n"); 
 		HibernateUtil.getSessionFactory().openSession();
+		return true;
  
 	}
 	
-	public void cerrarSesionHibernate() {
+	public boolean cerrarSesionHibernate() {
 		System.out.println("\n\n ** DESCONECTADO DE LA BBDD **\n"
 		 		 + " -----------------------------\n"); 
-		HibernateUtil.getSessionFactory().close();		
+		HibernateUtil.getSessionFactory().close();
+		return true;		
 	}
 	
 	public void desconectar() {

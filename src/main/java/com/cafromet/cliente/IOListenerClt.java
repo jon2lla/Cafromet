@@ -3,6 +3,7 @@ package com.cafromet.cliente;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -48,10 +49,12 @@ public class IOListenerClt implements Runnable{
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }catch (ConnectException e) {
+        	System.out.println("CONNECTEXCEPTION || CONEXION RECHAZADA");
+        }catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        } 
     }
 }
