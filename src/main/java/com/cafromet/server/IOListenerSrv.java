@@ -46,7 +46,6 @@ public class IOListenerSrv extends Thread {
 			datos = (Datos) oentrada.readObject();
 			
 			textArea.append(" Conexion => " + idConexion + " || Peticion => " + datos.getPeticion() + "\n");
-			System.out.println(datos.getPeticion().getConsulta());
 			
 			procesarPeticion();
 //			try {
@@ -125,8 +124,9 @@ public class IOListenerSrv extends Thread {
 				MunicipioDTO muniDTO = new MunicipioDTO();
 				muniDTO.setNombre(muni.getNombre());
 				muniDTO.setIdMunicipio(muni.getIdMunicipio());
+				muniDTO.setProvincia(muni.getProvincia().getNombre());
 			}
-			datos.setObjeto(lista);
+			datos.setObjeto(listaDTO);
 			datos.setContenido("Estoy aqui");
 			for(MunicipioDTO muniDTO : listaDTO) {
 				
