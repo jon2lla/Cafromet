@@ -11,9 +11,9 @@ import javax.swing.JTextField;
 
 import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.Municipio;
-import com.cafromet.modeloDAO.ClienteDAO;
-import com.cafromet.modeloDAO.MunicipioDAO;
 import com.cafromet.modeloDTO.MunicipioDTO;
+import com.cafromet.modelodao.ClienteDAO;
+import com.cafromet.modelodao.MunicipioDAO;
 
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;

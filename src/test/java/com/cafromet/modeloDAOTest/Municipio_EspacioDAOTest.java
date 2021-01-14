@@ -9,9 +9,9 @@ import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelo.Municipio_EspacioNatural;
 import com.cafromet.modelo.Municipio_EspacioNaturalId;
-import com.cafromet.modeloDAO.EspacioNaturalDAO;
-import com.cafromet.modeloDAO.MunicipioDAO;
-import com.cafromet.modeloDAO.Municipio_EspacioDAO;
+import com.cafromet.modelodao.EspacioNaturalDAO;
+import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodao.Municipio_EspacioDAO;
 
 
 public class Municipio_EspacioDAOTest {

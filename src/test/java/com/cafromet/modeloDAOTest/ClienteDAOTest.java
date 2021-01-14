@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.cafromet.modelo.Cliente;
-import com.cafromet.modeloDAO.ClienteDAO;
+import com.cafromet.modelodao.ClienteDAO;
 
 public class ClienteDAOTest {
 	Cliente cliente;
