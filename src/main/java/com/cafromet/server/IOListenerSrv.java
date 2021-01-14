@@ -13,8 +13,7 @@ import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modeloDAO.ClienteDAO;
 import com.cafromet.modeloDAO.MunicipioDAO;
-
-import modeloDTO.MunicipioDTO;
+import com.cafromet.modeloDTO.MunicipioDTO;
 
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;

@@ -16,13 +16,16 @@ import com.cafromet.modeloDAO.MedicionDAO;
 
 public class MedicionDAOTest {
 	
+	Medicion medicion;
+	Medicion medicion2;
+	
 	 public Date fecha() {
 		 Date date = new Date();
 		 Date fecha = new Date();
 		 try {
 			date = new SimpleDateFormat("dd/MM/yyyy").parse("10/10/2020");			
 		} catch (ParseException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}  
 		 return date;
 	 }
@@ -31,7 +34,7 @@ public class MedicionDAOTest {
 		 try {
 			 date = new SimpleDateFormat("HH:mm").parse("10:10"); 
 		} catch (ParseException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}  
 		 return date;
 	 }
@@ -40,7 +43,41 @@ public class MedicionDAOTest {
 	public void test() {
 		
 		MedicionDAO.iniciarSesion();
-		Medicion medicion = new Medicion();
+		medicion = new Medicion();
+		
+		CentroMeteorologico centroMeteorologico = new CentroMeteorologico();
+		centroMeteorologico.setNombre("cafromet");
+		centroMeteorologico.setIdCentroMet(5000);
+		CentroMeteorologicoDAO.iniciarSesion();
+		CentroMeteorologicoDAO.insertarRegistro(centroMeteorologico);
+		CentroMeteorologicoDAO.consultarRegistro("cafromet");
+		
+		medicion.setCentroMeteorologico(centroMeteorologico);
+		MedicionId id = new MedicionId();
+		Date fecha = fecha();          
+		Date hora = Hora();
+		id.setFecha(fecha);
+		id.setHora(hora);
+		id.setIdCentroMet(centroMeteorologico.getIdCentroMet());
+		medicion.setId(id);
+		
+		MedicionDAO.insertarRegistro(medicion);		
+		medicion = MedicionDAO.consultarRegistro(id.getIdCentroMet());
+		MedicionDAO.cerrarSesion();
+		
+		medicion2 = new Medicion(id, centroMeteorologico);
+		
+		CentroMeteorologicoDAO.borrarRegistro("cafromet");
+		CentroMeteorologicoDAO.cerrarSesion();
+	
+		assertEquals(medicion, medicion2);
+	}
+	
+	@Test
+	public void consultar() {
+		
+		MedicionDAO.iniciarSesion();
+		medicion = new Medicion();
 		
 		CentroMeteorologico centroMeteorologico = new CentroMeteorologico();
 		centroMeteorologico.setNombre("cafromet");
@@ -60,13 +97,14 @@ public class MedicionDAOTest {
 		
 		MedicionDAO.insertarRegistro(medicion);		
 		MedicionDAO.consultarRegistro(id.getIdCentroMet());
-		
-		MedicionDAO.borrarRegistro(id.getIdCentroMet());
+		boolean result =MedicionDAO.duplicado(medicion);
 		MedicionDAO.cerrarSesion();
 		
+	
 		CentroMeteorologicoDAO.borrarRegistro("cafromet");
 		CentroMeteorologicoDAO.cerrarSesion();
-		
+	
+		assertEquals(true, result);
 	}
 
 }

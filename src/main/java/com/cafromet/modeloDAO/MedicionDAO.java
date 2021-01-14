@@ -50,28 +50,28 @@ public class MedicionDAO {
         return medicion;
 	}
 	
-	public static Medicion consultarRegistro(int idCentro, Date fecha, Date hora) {
-		HQL = "from Medicion where id = :idCentro and fecha = :fecha and hora = :hora";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("idCentro", idCentro);
-		QUERY.setParameter("fecha", fecha);
-		QUERY.setParameter("hora", hora);
-		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
-        return medicion;
-	}
+//	public static Medicion consultarRegistro(int idCentro, Date fecha, Date hora) {
+//		HQL = "from Medicion where id = :idCentro and fecha = :fecha and hora = :hora";
+//		QUERY = SESSION.createQuery(HQL);
+//		QUERY.setParameter("idCentro", idCentro);
+//		QUERY.setParameter("fecha", fecha);
+//		QUERY.setParameter("hora", hora);
+//		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
+//        return medicion;
+//	}
 	
-	public static boolean borrarRegistro(int id) {
-		SESSION.beginTransaction();	
-		HQL = "from CentroMeteorologico where idCentroMet = :id";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);
-		
-		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
-		
-		SESSION.delete(medicion);	
-		
-		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
-		return true;
-	}
+//	public static boolean borrarRegistro(int id) {
+//		SESSION.beginTransaction();	
+//		HQL = "from CentroMeteorologico where idCentroMet = :id";
+//		QUERY = SESSION.createQuery(HQL);
+//		QUERY.setParameter("id", id);
+//		
+//		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
+//		
+//		SESSION.delete(medicion);	
+//		
+//		SESSION.getTransaction().commit();
+//		System.out.println("\n FILA(S) BORRADA(S)\n");
+//		return true;
+//	}
 }

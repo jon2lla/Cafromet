@@ -1,4 +1,4 @@
-package modeloDTO;
+package com.cafromet.modeloDTO;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -17,46 +17,46 @@ public class ControladorVentanMunicipio {
 	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio) {
 
 		ventanaMunicipio = pVentanaMunicipio;
-		try {
-			enviarPeticion("prueba", Peticion.p103);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+		enviarPeticion("prueba", Peticion.p103);
+
 	}
 
-	public void enviarPeticion(String contenido, Peticion peticion) throws InterruptedException {
-		datos = new Datos();
-		datos.setContenido(contenido);
-		datos.setPeticion(peticion);
-		IOListenerClt IOListenerClt = new IOListenerClt(datos);
-		Thread hiloSender = new Thread(IOListenerClt);
-		hiloSender.start();
-		hiloSender.join();
-		datos = IOListenerClt.getDatos();
-		procesarRecepcion();
+	public boolean enviarPeticion(String contenido, Peticion peticion) {
+		try {
+			datos = new Datos();
+			datos.setContenido(contenido);
+			datos.setPeticion(peticion);
+			IOListenerClt IOListenerClt = new IOListenerClt(datos);
+			Thread hiloSender = new Thread(IOListenerClt);
+			hiloSender.start();
+			hiloSender.join();
+			datos = IOListenerClt.getDatos();
+			procesarRecepcion();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void procesarRecepcion() {
+	public boolean procesarRecepcion() {
 
 		switch (datos.getPeticion().getCodigo()) {
 
 		case 3:
 			 
-			municipio = (ArrayList<Municipio>) datos.getObjeto();
-			
-			String matrizInfo[][] = new String[municipio.size()][2];
-			
+			municipio = (ArrayList<Municipio>) datos.getObjeto();		
+			String matrizInfo[][] = new String[municipio.size()][2];		
 			for (int i = 0; i < municipio.size(); i++) {
-				
 				matrizInfo[i][0] = municipio.get(i).getNombre();
 				matrizInfo[i][1] = municipio.get(i).getDescripcion();
-				
-				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);
-				
+				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);				
 			}
+			
 			break;
 		}
+		return false;
 	}
 
 }
