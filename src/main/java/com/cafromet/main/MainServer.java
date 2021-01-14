@@ -2,7 +2,7 @@ package com.cafromet.main;
 
 
 import com.cafromet.server.Updater;
-import com.cafromet.server.LoggerServidor;
+import com.cafromet.server.Logger;
 
 public class MainServer {
 	
@@ -10,6 +10,7 @@ public class MainServer {
 
 		Updater.getInstance().comprobarActualizaciones();
 
-//		VentanaServidor server = new VentanaServidor();		
+		Logger server = new Logger();	
+		server.iniciarSesion();
 	}
 }

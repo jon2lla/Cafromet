@@ -14,26 +14,28 @@ public class ControladorVentanMunicipio {
 
 	public VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 
-	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio) {
+	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio) throws InterruptedException {
 
 		ventanaMunicipio = pVentanaMunicipio;
-		try {
-			enviarPeticion("prueba", Peticion.p103);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		enviarPeticion("prueba", Peticion.p103);
 	}
 
-	public void enviarPeticion(String contenido, Peticion peticion) throws InterruptedException {
+	public boolean enviarPeticion(String contenido, Peticion peticion){
 		datos = new Datos();
 		datos.setContenido(contenido);
 		datos.setPeticion(peticion);
 		IOListenerClt IOListenerClt = new IOListenerClt(datos);
 		Thread hiloSender = new Thread(IOListenerClt);
 		hiloSender.start();
-		hiloSender.join();
+		try {
+			hiloSender.join();
+
+		}catch(InterruptedException e) {
+			e.getMessage();
+		}
 		datos = IOListenerClt.getDatos();
 		procesarRecepcion();
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")

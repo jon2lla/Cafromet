@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -16,6 +17,18 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.json.JSONArray;
+import org.json.XML;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Fuente;
@@ -25,12 +38,12 @@ import com.cafromet.modelo.Municipio;
 import com.cafromet.modelo.Municipio_EspacioNatural;
 import com.cafromet.modelo.Municipio_EspacioNaturalId;
 import com.cafromet.modelo.Provincia;
-import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
-import com.cafromet.modeloDAO.EspacioNaturalDAO;
-import com.cafromet.modeloDAO.MedicionDAO;
-import com.cafromet.modeloDAO.MunicipioDAO;
-import com.cafromet.modeloDAO.Municipio_EspacioDAO;
-import com.cafromet.modeloDAO.ProvinciaDAO;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.EspacioNaturalDAO;
+import com.cafromet.modelodao.MedicionDAO;
+import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodao.Municipio_EspacioDAO;
+import com.cafromet.modelodao.ProvinciaDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -344,6 +357,44 @@ public class GestorFicheros extends Thread {
 		return true;
 	}
 	
+	
+	//GENERAR XML
+	public void convertJsonToXml(String nombreJson, String raiz, String nombreEtiqueta, String nombreXml, String ruta) {
+		try {
+			String path = ruta;
+			path = path.concat(nombreXml);
+			
+			JsonParser parser = new JsonParser();
+			FileReader fr = new FileReader(nombreJson);
+			JsonElement datos = parser.parse(fr);
+
+			String jsonFile = datos.toString();
+			String xml = "";
+			JSONArray jsonarray = new JSONArray(jsonFile);
+
+			xml = xml + XML.toString(jsonarray, nombreEtiqueta);
+
+			String xmlSrt = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<" + raiz + ">" + xml + "</" + raiz + ">";
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new InputSource(new StringReader(xmlSrt)));
+
+			TransformerFactory transFactory = TransformerFactory.newInstance();
+			Transformer trasnFormer = transFactory.newTransformer();
+			DOMSource source = new DOMSource(document);
+			StreamResult result = new StreamResult(new File(path));
+			trasnFormer.transform(source, result);
+			
+			System.out.println("xml " + nombreXml + " creado correctamente" );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	// PUEBLOS.JSON *
 
 	private String remplazoMunicipios(String linea) {
@@ -368,7 +419,7 @@ public class GestorFicheros extends Thread {
 		return linea;
 	}
 
-	private boolean comprobarCamposMunicipios(String linea) {
+	public boolean comprobarCamposMunicipios(String linea) {
 		if (linea.contains("\"documentName\" : ") || linea.contains("\"nombre\" : ")
 				|| linea.contains("\"turismDescription\" : \"<p>") || linea.contains("\"descripcion\" : \"<p>")
 				|| linea.contains("\"municipalitycode\" : ") || linea.contains("\"codmunicipio\" : ")
@@ -585,7 +636,7 @@ public class GestorFicheros extends Thread {
 		return linea;
 	}
 
-	private boolean comprobarCamposCentrosMet(String linea) {
+	public boolean comprobarCamposCentrosMet(String linea) {
 		if (linea.contains("\"Name\" : ") || linea.contains("\"nombre\" : ") || linea.contains("\"Province\" : ")
 				|| linea.contains("\"provincia\" : ") || linea.contains("\"Town\" : ")
 				|| linea.contains("\"municipio\" : ") || linea.contains("\"Address\" : ")
@@ -646,18 +697,18 @@ public class GestorFicheros extends Thread {
 		return true;
 	}
 
-	// INDEX.JSON
-	private String remplazoIndex(String linea) {
-		linea = linea.trim();
-		if (linea.contains("\"name\": ")) {
-			linea = linea.replace("name", "nombre");
-			linea = linea.replace("_", " ");
-		}
-		linea = "  " + linea;
-		return linea;
-	}
+//	// INDEX.JSON
+//	private String remplazoIndex(String linea) {
+//		linea = linea.trim();
+//		if (linea.contains("\"name\": ")) {
+//			linea = linea.replace("name", "nombre");
+//			linea = linea.replace("_", " ");
+//		}
+//		linea = "  " + linea;
+//		return linea;
+//	}
 
-	private boolean comprobarCamposIndex(String linea) {
+	public boolean comprobarCamposIndex(String linea) {
 		if (linea.contains("\"name\": ") || linea.contains("\"url\": ")) {
 			return true;
 		}
@@ -744,7 +795,6 @@ public class GestorFicheros extends Thread {
 				Map.Entry<String, JsonElement> entrada = iter.next();
 				try {
 					if (entrada.getKey().equals("Date")) {	
-						System.out.println("");
 					    Date date = new SimpleDateFormat("dd/MM/yyyy").parse(entrada.getValue().getAsString());          
 						medicion = new Medicion();
 						medicionId = new MedicionId();
@@ -756,7 +806,7 @@ public class GestorFicheros extends Thread {
 					    medicionId.setIdCentroMet(centroMeteorologico.getIdCentroMet());
 					    medicion.setId(medicionId);
 					}else if (entrada.getKey().equals("ICAEstacion")) {
-						System.out.println(medicion.toString());
+//						System.out.println(medicion.toString());
 						medicion.setIcaEstacion(entrada.getValue().getAsString());
 						MedicionDAO.insertarRegistro(medicion);
 					}

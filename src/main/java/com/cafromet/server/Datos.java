@@ -7,15 +7,14 @@ public class Datos implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String idConexion;
-    private String identificador;
     private String contenido;
-    private Peticion peticion; 
+    private Peticion peticion;
     private Object objeto;
 
     public Datos() {}
-    
+
     public Datos(Peticion peticion) {
-    	this.peticion = peticion;
+        this.peticion = peticion;
     }
 
     public String getIdConexion() {
@@ -25,15 +24,7 @@ public class Datos implements Serializable {
     public void setIdConexion(String idConexion) {
         this.idConexion = idConexion;
     }
-   
-    public String getIdentificador() {
-        return identificador;
-    }
 
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
-    }
-   
     public String getContenido() {
         return contenido;
     }
@@ -41,15 +32,15 @@ public class Datos implements Serializable {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-  
+
     public Peticion getPeticion() {
-    	return this.peticion;
+        return this.peticion;
     }
-    
+
     public void setPeticion(Peticion peticion) {
-    	this.peticion = peticion;
+        this.peticion = peticion;
     }
-    
+
     public Object getObjeto() {
         return objeto;
     }

@@ -25,39 +25,6 @@ public class JsonToXml extends Thread {
 	private String path;
 	public JsonToXml() {}
 	
-	public void convertJsonToXml(String nombreJson, String raiz, String nombreEtiqueta, String nombreXml, String ruta) {
-		try {
-			String path = ruta;
-			path = path.concat(nombreXml);
-			
-			JsonParser parser = new JsonParser();
-			FileReader fr = new FileReader(nombreJson);
-			JsonElement datos = parser.parse(fr);
-
-			String jsonFile = datos.toString();
-			String xml = "";
-			JSONArray jsonarray = new JSONArray(jsonFile);
-
-			xml = xml + XML.toString(jsonarray, nombreEtiqueta);
-
-			String xmlSrt = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<" + raiz + ">" + xml + "</" + raiz + ">";
-
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new InputSource(new StringReader(xmlSrt)));
-
-			TransformerFactory transFactory = TransformerFactory.newInstance();
-			Transformer trasnFormer = transFactory.newTransformer();
-			DOMSource source = new DOMSource(document);
-			StreamResult result = new StreamResult(new File(path));
-			trasnFormer.transform(source, result);
-			
-			System.out.println("xml " + nombreXml + " creado correctamente" );
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+	
 	
 }

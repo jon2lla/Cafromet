@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class VentanaCliente extends JFrame {
-
+	private VentanaCliente ventanaCliente;
 	private JPanel contentPane;
 	private JButton btnEnviar;
 	private JTextField textFieldUsuario;
@@ -26,30 +26,20 @@ public class VentanaCliente extends JFrame {
 		return textFieldUsuario;
 	}
 
-	public void setTextFieldUsuario(JTextField textFieldUsuario) {
-		this.textFieldUsuario = textFieldUsuario;
-	}
-
 	public JTextField getTextFieldPassw() {
 		return textFieldPassw;
 	}
 
-	public void setTextFieldPassw(JTextField textFieldPassw) {
-		this.textFieldPassw = textFieldPassw;
-	}
 
-	public void setbtnEnviar(JButton btnbtnEnviar) {
-		this.btnEnviar = btnbtnEnviar;
-	}
 
 	//controlador
 	@SuppressWarnings("unused")
 	public void inicioVentaCliente() {
 		
-		VentanaCliente VentanaCliente = new VentanaCliente();
-		VentanaCliente.setVisible(true);
+		ventanaCliente = new VentanaCliente();
+		ventanaCliente.setVisible(true);
 		
-		ControladorCliente controladorCliente = new ControladorCliente(VentanaCliente);
+		ControladorCliente controladorCliente = new ControladorCliente(ventanaCliente);
 		
 	}
 
@@ -84,6 +74,11 @@ public class VentanaCliente extends JFrame {
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblPassword.setBounds(74, 116, 123, 17);
 		contentPane.add(lblPassword);
+	}
+
+	public boolean cerrarVentana() {
+		ventanaCliente.dispose();
+		return false;
 	}
 	
 }

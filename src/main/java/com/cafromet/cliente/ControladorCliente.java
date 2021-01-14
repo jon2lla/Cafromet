@@ -75,7 +75,12 @@ public class ControladorCliente implements ActionListener {
 				VentanaMunicipio.setVisible(true);
 				
 				
-				ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
+				try {
+					ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			} else {
 				System.out.println("NO EXISTE");

@@ -10,9 +10,9 @@ import java.util.List;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Fuente;
 import com.cafromet.modelo.MedicionId;
-import com.cafromet.modeloDAO.CentroMeteorologicoDAO;
-import com.cafromet.modeloDAO.FuenteDAO;
-import com.cafromet.modeloDAO.MedicionDAO;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.FuenteDAO;
+import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
 
@@ -32,7 +32,7 @@ public class Updater {
 	protected static String URL_PUEBLOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/pueblos.json";
 	protected static String URL_ESPACIOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json";
 	protected static String URL_ESTACIONES = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json";
-	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2020/es_def/adjuntos/index.json";
+	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/index.json";
 	
 	private Updater() {}
 	
@@ -275,14 +275,14 @@ public class Updater {
 	}
 
 	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) throws InterruptedException {
-		
+//		MedicionDAO.iniciarSesion();
+
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-		MedicionDAO.iniciarSesion();
-
-		gfMediciones.join();
-
-		MedicionDAO.cerrarSesion();
+//
+//		gfMediciones.join();
+//
+//		MedicionDAO.cerrarSesion();
 		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;

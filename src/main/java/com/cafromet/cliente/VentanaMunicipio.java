@@ -29,7 +29,12 @@ public class VentanaMunicipio extends JFrame {
 		VentanaMunicipio VentanaMunicipio = new VentanaMunicipio();
 		VentanaMunicipio.setVisible(true);
 		
-		ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
+		try {
+			ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
