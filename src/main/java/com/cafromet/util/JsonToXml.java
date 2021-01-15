@@ -51,7 +51,7 @@ public class JsonToXml extends Thread {
 				document = builder.parse(new InputSource(new StringReader(xmlSrt)));
 
 			} catch (SAXParseException e) {
-				System.out.println("SAXPARSEEXCEPTION");
+				System.out.println("\n !ERROR => SAXPARSEEXCEPTION");
 			}
 
 			TransformerFactory transFactory = TransformerFactory.newInstance();
@@ -60,7 +60,7 @@ public class JsonToXml extends Thread {
 			StreamResult result = new StreamResult(new File(path));
 			trasnFormer.transform(source, result);
 			
-			System.out.println("xml " + nombreXml + " creado correctamente" );
+			System.out.println("\n >> FICHERO XML CREADO  => " + ruta + nombreXml);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

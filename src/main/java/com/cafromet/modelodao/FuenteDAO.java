@@ -32,13 +32,15 @@ public class FuenteDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(Fuente fuente) {
+	public synchronized static boolean insertarRegistro(Fuente fuente) {
 		if(duplicado(fuente)) {
 			return false;
 		}
+		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(fuente);
-		SESSION.getTransaction().commit();	
+		SESSION.getTransaction().commit();
+		cerrarSesion();
 		return true;
 	}
 	
@@ -68,7 +70,8 @@ public class FuenteDAO {
 //		SESSION.getTransaction().commit();
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}         
-	public static boolean borrarRegistro(String nombre) {
+	public synchronized static boolean borrarRegistro(String nombre) {
+		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Fuente where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -76,7 +79,9 @@ public class FuenteDAO {
 		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
 		SESSION.delete(fuente);
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n FILA(S) BORRADA(S)");
+		cerrarSesion();
+
 		return true;
 	}
 }

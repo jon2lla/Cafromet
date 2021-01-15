@@ -16,13 +16,9 @@ public class Municipio_EspacioDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {	
-		SESSION = HibernateUtil.getSessionFactory().openSession();
-	}
+	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public static void cerrarSesion() {SESSION.close();}
 	
 	public static boolean duplicado(Municipio_EspacioNatural mun_esp) {
 		if(consultarRegistro(mun_esp) != null) {
@@ -31,13 +27,15 @@ public class Municipio_EspacioDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(Municipio_EspacioNatural mun_esp) {
+	public synchronized static boolean insertarRegistro(Municipio_EspacioNatural mun_esp) {
 		if(duplicado(mun_esp)) {
 			return false;
 		}
+		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(mun_esp);
 		SESSION.getTransaction().commit();	
+		cerrarSesion();
 		return true;
 	}
 

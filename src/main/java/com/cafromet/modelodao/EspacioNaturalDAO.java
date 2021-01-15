@@ -14,12 +14,9 @@ public class EspacioNaturalDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-		SESSION = HibernateUtil.getSessionFactory().openSession();
-	}
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	
+	public static void cerrarSesion() {SESSION.close();}
 	
 	public static boolean duplicado(EspacioNatural espacio) {
 		EspacioNatural registro = consultarRegistroPorNombre(espacio.getNombre());
@@ -31,13 +28,15 @@ public class EspacioNaturalDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(EspacioNatural espacio) {
+	public synchronized static boolean insertarRegistro(EspacioNatural espacio) {
 		if(duplicado(espacio)) {
 			return false;
 		}
+		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(espacio);
 		SESSION.getTransaction().commit();	
+		cerrarSesion();
 		return true;
 	}
 		
@@ -83,7 +82,8 @@ public class EspacioNaturalDAO {
 //		SESSION.getTransaction().commit();
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}
-	public static boolean borrarRegistro(String nombre) {
+	public synchronized static boolean borrarRegistro(String nombre) {
+		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from EspacioNatural where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -91,6 +91,7 @@ public class EspacioNaturalDAO {
 		EspacioNatural espacioNat =  (EspacioNatural) QUERY.uniqueResult(); 
 		SESSION.delete(espacioNat);		
 		SESSION.getTransaction().commit();
+		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

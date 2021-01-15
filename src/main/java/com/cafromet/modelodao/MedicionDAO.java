@@ -15,13 +15,9 @@ public class MedicionDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-		SESSION = HibernateUtil.getSessionFactory().openSession();
-	}
+	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public static void cerrarSesion() {SESSION.close();}
 	
 	public static boolean duplicado(Medicion medicion) {
 		Medicion registro = consultarRegistro(medicion.getId().getIdCentroMet());
@@ -62,17 +58,16 @@ public class MedicionDAO {
         return medicion;
 	}
 	
-	public static boolean borrarRegistro(int id) {
+	public synchronized static boolean borrarRegistro(int id) {
+		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from CentroMeteorologico where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
-		
 		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
-		
 		SESSION.delete(medicion);	
-		
-		SESSION.getTransaction().commit();
+		SESSION.getTransaction().commit();	
+		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

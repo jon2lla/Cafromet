@@ -14,16 +14,9 @@ public class ClienteDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
-		 		 + " -------------------------\n"); 
-		SESSION = HibernateUtil.getSessionFactory().openSession();
- 
-	}
+	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public static void cerrarSesion() {SESSION.close();}
 
 	public static boolean duplicado(Cliente cliente) {
 		Cliente registro = consultarRegistro(cliente.getUsuario());
@@ -39,9 +32,11 @@ public class ClienteDAO {
 		if (duplicado(cliente)) {
 			return false;
 		}
+		iniciarSesion();
 		SESSION.beginTransaction();
 		SESSION.save(cliente);
 		SESSION.getTransaction().commit();
+		cerrarSesion();
 		return true;
 	}
 	
@@ -79,7 +74,8 @@ public class ClienteDAO {
 //		SESSION.getTransaction().commit();
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}
-	public static boolean borrarRegistro(String usuario) {
+	public synchronized static boolean borrarRegistro(String usuario) {
+		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Cliente where usuario = :usuario";
 		QUERY = SESSION.createQuery(HQL);
@@ -87,6 +83,7 @@ public class ClienteDAO {
 		Cliente cliente = (Cliente) QUERY.uniqueResult(); 		
 		SESSION.delete(cliente);		
 		SESSION.getTransaction().commit();
+		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

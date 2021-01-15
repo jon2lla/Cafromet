@@ -13,13 +13,9 @@ public class ProvinciaDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() { 
-		SESSION = HibernateUtil.getSessionFactory().openSession();
-	}
+	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public static void cerrarSesion() {SESSION.close();}
 	
 	public static boolean duplicado(Provincia provincia) {
 		Provincia registro = consultarRegistro(provincia.getIdProvincia());
@@ -31,13 +27,15 @@ public class ProvinciaDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(Provincia provincia) {
+	public synchronized static boolean insertarRegistro(Provincia provincia) {
 		if(duplicado(provincia)) {
 			return false;
 		}
+		iniciarSesion();
 		SESSION.beginTransaction();
 		SESSION.save(provincia);
 		SESSION.getTransaction().commit();
+		cerrarSesion();
 		return true;
 	}
 		
@@ -71,8 +69,9 @@ public class ProvinciaDAO {
 //		SESSION.getTransaction().commit();
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}
-	public static boolean borrarRegistro(String nombre) {
-		boolean correcto=false;
+	
+	public synchronized static boolean borrarRegistro(String nombre) {
+		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Provincia  where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -80,8 +79,9 @@ public class ProvinciaDAO {
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
 		SESSION.delete(provincia);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
-		correcto=true;		
-		return correcto;
+		
+		cerrarSesion();
+		System.out.println("\n FILA(S) BORRADA(S)");
+		return true;
 	}
 }

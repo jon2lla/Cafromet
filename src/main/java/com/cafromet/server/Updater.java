@@ -137,14 +137,13 @@ public class Updater {
 		fuenteCentrosMet.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "estacionesTemp.json")), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteCentrosMet)) {
 			Fuente fuenteCentrosMet2 = FuenteDAO.consultarRegistroPorNombre("Estaciones Meteorologicas");
-			System.out.println(" HASH LOCAL => " + fuenteCentrosMet.getHash());
-			System.out.println(" HASH REMOTO => " + fuenteCentrosMet2.getHash());
+			mostrarHash(fuenteCentrosMet.getHash(), fuenteCentrosMet2.getHash());
 			if(!fuenteCentrosMet.equals(fuenteCentrosMet2)) {
 				actualizarCentrosMet();
 			}
 		}
-		else {
-			actualizarCentrosMet();
+		else {actualizarCentrosMet();
+		
 		}
 		return true;
 
@@ -158,20 +157,15 @@ public class Updater {
 		fuenteIndex.setNombre("Index");
 		fuenteIndex.setUrl(URL_INDEX);
 		fuenteIndex.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "indexTemp.json")), "SHA-256"));
-		FuenteDAO.iniciarSesion();
 		if(!FuenteDAO.insertarRegistro(fuenteIndex)) {
 			Fuente fuenteIndex2 = FuenteDAO.consultarRegistroPorNombre("Index");
-			System.out.println(" HASH LOCAL => " + fuenteIndex.getHash());
-			System.out.println(" HASH REMOTO => " + fuenteIndex2.getHash());
+			mostrarHash(fuenteIndex.getHash(), fuenteIndex2.getHash());
 			if(!fuenteIndex.equals(fuenteIndex2)) {
 				actualizarIndex();
 			}
 		}
-		else {
-			actualizarIndex();
-		}
+		else {actualizarIndex();}
 		
-		FuenteDAO.cerrarSesion();
 		return true;
 
 	}
@@ -180,14 +174,10 @@ public class Updater {
 		File fichero = null;
 		CentroMeteorologicoDAO.iniciarSesion();
 		List<CentroMeteorologico> centros = CentroMeteorologicoDAO.consultarRegistros(); 
-		for (CentroMeteorologico centroMeteorologico : centros) {
-			
+		for (CentroMeteorologico centroMeteorologico : centros) {			
 		
 			String hash = null;
-			
-			
-			
-			
+
 			if(centroMeteorologico.getUrl() != null) {
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
@@ -208,9 +198,7 @@ public class Updater {
 				
 				if(centroMeteorologico.getHash() == null) {
 					centroMeteorologico.setHash(hash);
-					CentroMeteorologicoDAO.iniciarSesion();
 					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
-					CentroMeteorologicoDAO.cerrarSesion();
 					try {
 						actualizarMediciones(centroMeteorologico);
 					} catch (InterruptedException e) {
@@ -228,10 +216,8 @@ public class Updater {
 					}
 					
 				}
-			}	
-			System.out.println(" HASH LOCAL => " + centroMeteorologico.getHash());
-			System.out.println(" HASH REMOTO => " + hash);			     
-		
+			}				  
+			mostrarHash(centroMeteorologico.getHash(), hash);	
 		}	
 		return true;
 
@@ -244,7 +230,7 @@ public class Updater {
 			gfMunicipios.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + DATOS_PUEBLOS);
+			System.out.println("\n !ERROR AL ACTUALIZAR. FICHERO => " + DATOS_PUEBLOS);
 		}
 		return true;
 	}
@@ -257,7 +243,7 @@ public class Updater {
 			gfEspNat.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + DATOS_ESPACIOS_NAT);
+			System.out.println("\n !ERROR AL ACTUALIZAR. FICHERO => " + DATOS_ESPACIOS_NAT);
 		}
 		return true;
 	}
@@ -270,7 +256,7 @@ public class Updater {
 			gfEstaciones.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + DATOS_ESTACIONES);
+			System.out.println("\n !ERROR AL ACTUALIZAR. FICHERO => " + DATOS_ESTACIONES);
 		}
 		return true;
 	}
@@ -279,29 +265,31 @@ public class Updater {
 		try {
 			GestorFicheros gfIndex = new GestorFicheros(new File(RUTA_TEMP + "indexTemp.json"), 4);
 			gfIndex.start();
-			System.out.println("\n >>ACTUALIZANDO FICHERO => " + RUTA_TEMP + "indexTemp.json");
+			System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + "indexTemp.json");
 			gfIndex.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + RUTA_TEMP + "indexTemp.json");
+			System.out.println("\n !ERROR AL ACTUALIZAR. FICHERO => " + RUTA_TEMP + "indexTemp.json");
 		}
 		return true;
 	}
 
 	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) throws InterruptedException {
-//		MedicionDAO.iniciarSesion();
 
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
-//		
+		
 		while(gfMediciones.isAlive()) {}
 		
 		JsonToXml jtx = new JsonToXml();
 		jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", RUTA_XML);
 		jtx.start();
+		
+		
+		//DESCOMENTAR PARA REALIZAR LA ACTUALIZACION DE MEDICIONES DE FORMA SECUENCIAL
 //		gfMediciones.join();
-//
-//		MedicionDAO.cerrarSesion();
+		
+		
 		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;
