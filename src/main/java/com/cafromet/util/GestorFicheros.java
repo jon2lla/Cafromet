@@ -44,6 +44,7 @@ import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodao.Municipio_EspacioDAO;
 import com.cafromet.modelodao.ProvinciaDAO;
+import com.cafromet.server.Updater;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -105,6 +106,9 @@ public class GestorFicheros extends Thread {
 		case 5:
 			filtrarJson();
 			procesarElementoJsonMedicion(procesarJson());
+			JsonToXml jtx = new JsonToXml();
+			jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", Updater.RUTA_XML);
+			jtx.start();
 			break;
 		}
 
@@ -325,7 +329,7 @@ public class GestorFicheros extends Thread {
 		File directorio = new File(ruta);
         if (!directorio.exists()) {
             if (directorio.mkdirs()) {
-                System.out.println("\n DIRECTORIO => " + ruta + " creado");
+                System.out.println("\n DIRECTORIO CREADO => " + ruta);
             } else {
                 System.out.println("Error al crear directorio");
             }
@@ -345,6 +349,7 @@ public class GestorFicheros extends Thread {
 			ficheros[x].delete();
 
 		}
+
 		return true;
 	}
 	
@@ -718,14 +723,12 @@ public class GestorFicheros extends Thread {
 			while (iter.hasNext()) {
 				Map.Entry<String, JsonElement> entrada = iter.next();
 				if (entrada.getKey().equals("name")) {
-					System.out.println(entrada.getValue());
 					str = entrada.getValue().getAsString();
 					str=str.replace("_", " ");
 					centroMeteorologico = new CentroMeteorologico();
 					centroMeteorologico.setNombre(str);
 				} else if (entrada.getKey().equals("url") && entrada.getValue().getAsString().contains("datos_indice")) {
 					centroMeteorologico.setUrl(entrada.getValue().getAsString());
-					System.out.println(entrada.getValue());
 					CentroMeteorologicoDAO.iniciarSesion();
 					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
 					CentroMeteorologicoDAO.cerrarSesion();

@@ -124,10 +124,10 @@ public class Encriptacion {
 					"\nSe han guardado " + mensajeCodificado.length + " bytes en el fichero " + fichero.getName());
 
 		} catch (FileNotFoundException fn) {
-			System.out.println("\nNo se encuentra el fichero");
+			System.out.println("\n !ERROR => No se encuentra el fichero");
 			cargado = false;
 		} catch (IOException io) {
-			System.out.println("\nError de E/S ");
+			System.out.println("\n !ERROR => IOException");
 		}
 		return cargado;
 	}
@@ -144,14 +144,14 @@ public class Encriptacion {
 			ois.close();
 
 			if (bytes.length == 0) {
-				System.out.println("\nNo se ha cargado ningun byte ");
+				System.out.println("\n No se ha cargado ningun byte ");
 			} else {
-				System.out.println("\nSe han cargado en memoria " + bytes.length + " bytes");
+				System.out.println("\n Se han cargado en memoria " + bytes.length + " bytes");
 			}
 		} catch (FileNotFoundException fn) {
-			System.out.println("\nNo se encuentra el fichero de carga");
+			System.out.println("\n !ERROR => No se encuentra el fichero de carga");
 		} catch (IOException io) {
-			System.out.println("\nError de E/S ");
+			System.out.println("\n !ERROR => IOException ");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

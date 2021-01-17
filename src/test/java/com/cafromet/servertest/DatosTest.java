@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.cafromet.server.Datos;
-import com.cafromet.server.Peticion;
+import com.cafromet.server.Peticiones;
 
 public class DatosTest {
 	Datos datos;
@@ -13,12 +13,12 @@ public class DatosTest {
 
 	@Test
 	public void test() {
-		datos = new Datos(Peticion.p101);
+		datos = new Datos(Peticiones.p101);
 		datos.setContenido("");
 		datos.setIdConexion(null);
 		datos.setObjeto(datos);
-		datos.setPeticion(Peticion.p101);	
-		datos2 = new Datos(Peticion.p101);
+		datos.setPeticion(Peticiones.p101);	
+		datos2 = new Datos(Peticiones.p101);
 		datos.getContenido();
 		datos.getIdConexion();
 		datos.getObjeto();

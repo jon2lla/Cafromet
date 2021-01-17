@@ -200,5 +200,4 @@ public class Medicion implements java.io.Serializable {
 		return "ID CENTRO = " + id.getIdCentroMet() + " || FECHA = " + id.getFecha() + " || HORA = " + id.getHora();
 		
 	}
-
 }

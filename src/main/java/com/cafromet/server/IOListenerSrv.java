@@ -80,7 +80,6 @@ public class IOListenerSrv extends Thread {
 			Cliente cliente = new Cliente(usuario, passwd);
 			Cliente clienteComprobacion = new Cliente();
 			boolean existe;
-			System.out.println(cliente.getUsuario());
 			ClienteDAO.iniciarSesion();
 			clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
 
@@ -92,7 +91,7 @@ public class IOListenerSrv extends Thread {
 				}
 
 			} else {
-				System.out.println("NO EXISTE");
+				System.out.println("\n EL USUARIO NO EXISTE");
 				existe = false;
 				datos.setObjeto(existe);
 			}
@@ -105,7 +104,7 @@ public class IOListenerSrv extends Thread {
 			Cliente cliente1 = new Cliente();
 			cliente1.setUsuario(clienteDto.getUsuario());
 			cliente1.setPasswd(clienteDto.getPasswd());
-			System.out.println("Recepcion Server, Cliente" + cliente1.getUsuario() + "Pass" + cliente1.getPasswd());
+			System.out.println("\n RECEPCION SERVER => Cliente: " + cliente1.getUsuario() + "; Password: " + cliente1.getPasswd());
 			ClienteDAO.iniciarSesion();
 			datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
 			ClienteDAO.cerrarSesion();

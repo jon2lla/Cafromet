@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelodto.MunicipioDTO;
 import com.cafromet.server.Datos;
-import com.cafromet.server.Peticion;
+import com.cafromet.server.Peticiones;
 
 public class ControladorVentanMunicipio {
 
@@ -15,32 +15,34 @@ public class ControladorVentanMunicipio {
 
 	public VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 
-	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio) throws InterruptedException {
+	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio){
 
 		ventanaMunicipio = pVentanaMunicipio;
-		enviarPeticion("prueba", Peticion.p103);
+		enviarPeticion("prueba", Peticiones.p103);
 	}
 
-	public boolean enviarPeticion(String contenido, Peticion peticion){
-		datos = new Datos();
-		datos.setContenido(contenido);
-		datos.setPeticion(peticion);
-		IOListenerClt IOListenerClt = new IOListenerClt(datos);
-		Thread hiloSender = new Thread(IOListenerClt);
-		hiloSender.start();
+	public boolean enviarPeticion(String contenido, Peticiones peticion){
 		try {
-			hiloSender.join();
+			datos = new Datos();
+			datos.setContenido(contenido);
+			datos.setPeticion(peticion);
+			IOListenerClt IOListenerClt = new IOListenerClt(datos);
+			Thread hiloSender = new Thread(IOListenerClt);
+			hiloSender.start();
 
-		}catch(InterruptedException e) {
+			hiloSender.join();
+			datos = IOListenerClt.getDatos();
+			procesarRecepcion();
+			
+		}catch(Exception e) {
 			e.getMessage();
 		}
-		datos = IOListenerClt.getDatos();
-		procesarRecepcion();
+
 		return true;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void procesarRecepcion() {
+	public boolean procesarRecepcion() {
 
 		switch (datos.getPeticion().getCodigo()) {
 
@@ -60,6 +62,7 @@ public class ControladorVentanMunicipio {
 			}
 			break;
 		}
+		return true;
 	}
 
 }

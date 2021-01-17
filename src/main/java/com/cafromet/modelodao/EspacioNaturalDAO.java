@@ -41,16 +41,6 @@ public class EspacioNaturalDAO {
 		return true;
 	}
 		
-	
-//	public static EspacioNatural consultarRegistro(int id) {
-//		HQL = "from EspacioNatural where idEspacio = :id";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("id", id);
-//		EspacioNatural espacioNat =  (EspacioNatural) QUERY.uniqueResult(); 
-//        System.out.printf(" REGISTRO(S) => %s || %d%n%n", espacioNat.getNombre(), espacioNat.getIdEspacio());
-//        return espacioNat;
-//	}
-//	
 	public static EspacioNatural consultarRegistroPorNombre(String nombre) {
 		HQL = "from EspacioNatural as esp where esp.nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -59,30 +49,6 @@ public class EspacioNaturalDAO {
 		return espacio;
 	}
 	
-//	public static EspacioNatural consultarRegistro(String nombre, int idProvincia) {
-//		HQL = "from EspacioNatural as esp where esp.nombre = :nombre and esp.municipio.provincia.idProvincia = :idProvincia";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("nombre", nombre);
-//		QUERY.setParameter("idProvincia", idProvincia);
-//		EspacioNatural espacio = (EspacioNatural) QUERY.uniqueResult(); 
-//		if(espacio != null) {
-////	        System.out.printf(" REGISTRO(S) => %s || %d%n%n", espacio.getNombre(), espacio.);
-//
-//		}
-//		System.out.println("Registro vacio");
-//		return espacio;
-//	}
-	
-//	public static void borrarRegistro(int id) {
-//		SESSION.beginTransaction();	
-//		HQL = "from EspacioNatural where idEspacio = :id";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("id", id);		
-//		EspacioNatural espacioNat =  (EspacioNatural) QUERY.uniqueResult(); 
-//		SESSION.delete(espacioNat);		
-//		SESSION.getTransaction().commit();
-//		System.out.println("\n FILA(S) BORRADA(S)\n");
-//	}
 	public static boolean borrarRegistro(String nombre) {
 		SESSION.beginTransaction();	
 		HQL = "from EspacioNatural where nombre = :nombre";

@@ -42,14 +42,6 @@ public class FuenteDAO {
 		return true;
 	}
 	
-//	public static Fuente consultarRegistro(int id) {
-//		HQL = "from Fuente where id = :id";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("id", id);
-//		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
-//        return fuente;
-//	}
-	
 	public static Fuente consultarRegistroPorNombre(String nombre) {
 		HQL = "from Fuente where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -58,16 +50,6 @@ public class FuenteDAO {
         return fuente;
 	}
 	
-//	public static void borrarRegistro(int id) {
-//		SESSION.beginTransaction();	
-//		HQL = "from Fuente where id = :id";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("id", id);	
-//		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
-//		SESSION.delete(fuente);
-//		SESSION.getTransaction().commit();
-//		System.out.println("\n FILA(S) BORRADA(S)\n");
-//	}         
 	public static boolean borrarRegistro(String nombre) {
 		SESSION.beginTransaction();	
 		HQL = "from Fuente where nombre = :nombre";

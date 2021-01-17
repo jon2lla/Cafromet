@@ -8,12 +8,12 @@ public class Datos implements Serializable {
 
     private String idConexion;
     private String contenido;
-    private Peticion peticion;
+    private Peticiones peticion;
     private Object objeto;
 
     public Datos() {}
 
-    public Datos(Peticion peticion) {
+    public Datos(Peticiones peticion) {
         this.peticion = peticion;
     }
 
@@ -33,11 +33,11 @@ public class Datos implements Serializable {
         this.contenido = contenido;
     }
 
-    public Peticion getPeticion() {
+    public Peticiones getPeticion() {
         return this.peticion;
     }
 
-    public void setPeticion(Peticion peticion) {
+    public void setPeticion(Peticiones peticion) {
         this.peticion = peticion;
     }
 

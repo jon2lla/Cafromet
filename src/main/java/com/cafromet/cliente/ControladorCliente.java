@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.cafromet.server.Datos;
-import com.cafromet.server.Peticion;
+import com.cafromet.server.Peticiones;
 
 public class ControladorCliente implements ActionListener {
 
@@ -37,7 +37,7 @@ public class ControladorCliente implements ActionListener {
 			
 			try {
 
-				enviarPeticion(usu+","+pass, Peticion.p101);
+				enviarPeticion(usu + "," + pass, Peticiones.p101);
 
 			} catch (InterruptedException e1) {
 
@@ -49,7 +49,7 @@ public class ControladorCliente implements ActionListener {
 		}
 	}
 
-	public void enviarPeticion(String contenido, Peticion peticion) throws InterruptedException {
+	public void enviarPeticion(String contenido, Peticiones peticion) throws InterruptedException {
 		datos = new Datos();
 		datos.setContenido(contenido);
 		datos.setPeticion(peticion);
@@ -70,20 +70,15 @@ public class ControladorCliente implements ActionListener {
 			boolean existe = (boolean) datos.getObjeto();
 			
 			if (existe) {
-				System.out.println("Existe el usuario");
+				System.out.println("\n Existe el usuario");
 				VentanaMunicipio VentanaMunicipio = new VentanaMunicipio();
 				VentanaMunicipio.setVisible(true);
+
+				ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
 				
-				
-				try {
-					ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
 			} else {
-				System.out.println("NO EXISTE");
+				System.out.println("\n NO EXISTE");
 			}
 			
 			break;

@@ -1,21 +1,18 @@
 package com.cafromet.server;
 
-public enum Peticion {
+public enum Peticiones {
     p101(1),
     p102(2),
     p103(3);
 
-    Peticion(int codigo) {
+    private int codigo;
+	
+    Peticiones(int codigo) {
         this.codigo = codigo;
     }
-    private int codigo;
 
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
 }

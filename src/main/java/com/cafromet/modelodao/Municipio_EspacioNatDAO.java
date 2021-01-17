@@ -34,17 +34,4 @@ public class Municipio_EspacioNatDAO{
         return municipio_EspacionNatural;
 	}
 	
-//	public static void borrarRegistro(Municipio_EspacioNaturalId id) {
-//		SESSION.beginTransaction();	
-//		HQL = "from Municipio_EspacioNatural as mun_es where mun_es.id = :id";
-//		QUERY = SESSION.createQuery(HQL);
-//		QUERY.setParameter("id", id);
-//		
-//		Municipio_EspacioNatural municipio_EspacionNatural =  (Municipio_EspacioNatural) QUERY.uniqueResult(); 
-//		
-//		SESSION.delete(municipio_EspacionNatural);	
-//		
-//		SESSION.getTransaction().commit();
-//		System.out.println("\n FILA(S) BORRADA(S)\n");
-//	}
 }

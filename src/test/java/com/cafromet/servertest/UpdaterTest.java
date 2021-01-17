@@ -12,7 +12,7 @@ public class UpdaterTest {
 	
 	@Test
 	public void testComprobarActualizacionesVacia() {
-		boolean result =Updater.getInstance().comprobarActualizaciones();
+		boolean result = Updater.getInstance().comprobarActualizaciones();
 		assertEquals(true, result);
 	}
 
@@ -23,7 +23,7 @@ public class UpdaterTest {
 	
 	@Test
 	public void testComprobarActualizaciones() {
-		boolean result =Updater.getInstance().comprobarActualizaciones();
+		boolean result = Updater.getInstance().comprobarActualizaciones();
 		assertEquals(true, result);
 	}
 }

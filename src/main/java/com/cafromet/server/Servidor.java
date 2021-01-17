@@ -1,4 +1,5 @@
 package com.cafromet.server;
+import java.io.File;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -11,6 +12,7 @@ import java.net.SocketAddress;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.cafromet.util.GestorFicheros;
 import com.cafromet.util.HibernateUtil;
 
 public class Servidor extends Thread {
@@ -34,7 +36,7 @@ public class Servidor extends Thread {
 			
 			servidor = new ServerSocket(PUERTO);
 
-			System.out.println("\n **SERVIDOR INICIADO**\n");
+			System.out.println("\n **SERVIDOR INICIADO**");
 			Socket socket = new Socket();
 			
 			texto.setText("Numero de consultas realizadas (sesion actual): " + IOListenerSrv.NUM_CONSULTAS);
@@ -51,33 +53,33 @@ public class Servidor extends Thread {
 					IOListenerSrv hilo = new IOListenerSrv(socket, textArea, texto);
 					hilo.start();
 					GestorConexiones.getInstance().registrarConexion(hilo);
-					System.out.println(" #CONEXION " + hilo.getIdConexion() + " -> Conectado\n");
+					System.out.println("\n #CONEXION " + hilo.getIdConexion() + " -> Conectado");
 					texto.setText("Numero de consultas realizadas (sesion actual): " + IOListenerSrv.NUM_CONSULTAS);
 				}
 				else
 					socket.close();
 			}
 			socket.close();			
-			System.out.println(" **SERVIDOR TERMINADO**");
+			System.out.println("\n **SERVIDOR TERMINADO**");
 		} catch (IOException e) {
-			System.out.println(" **SERVIDOR CERRADO**");
+			System.out.println("\n **SERVIDOR CERRADO**");
 			System.exit(0);
 		} catch (InterruptedException e) {
-			System.out.println(" !ERROR: Servidor -> InterruptedException\n");
+			System.out.println("\n !ERROR: Servidor -> InterruptedException");
 		}
 	}
 	
 	public static boolean iniciarSesionHibernate() {
-		System.out.println("\n\n ** CONECTADO A LA BBDD **\n"
-		 		 + " -------------------------\n"); 
+		System.out.println("\n ** CONECTADO A LA BBDD **\n"
+		 		 + " -------------------------"); 
 		HibernateUtil.getSessionFactory().openSession();
 		return true;
  
 	}
 	
 	public boolean cerrarSesionHibernate() {
-		System.out.println("\n\n ** DESCONECTADO DE LA BBDD **\n"
-		 		 + " -----------------------------\n"); 
+		System.out.println("\n ** DESCONECTADO DE LA BBDD **\n"
+		 		 + " -----------------------------"); 
 		HibernateUtil.getSessionFactory().close();
 		return true;		
 	}
@@ -88,6 +90,10 @@ public class Servidor extends Thread {
 			cerrarSesionHibernate();
 			GestorConexiones.getInstance().mensajeDeDifusion("*");			
 			servidor.close();
+			
+			GestorFicheros.eliminarDirectorio(new File(Updater.RUTA_TEMP));
+			System.out.println("\n FICHEROS TEMPORALES BORRADOS => " + Updater.RUTA_TEMP);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
