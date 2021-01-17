@@ -14,15 +14,11 @@ public class FuenteDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {
-		SESSION = HibernateUtil.getSessionFactory().openSession();
-	}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {
-		SESSION.close();
-	}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Fuente fuente) {
+	public synchronized static boolean duplicado(Fuente fuente) {
 		Fuente registro = consultarRegistroPorNombre(fuente.getNombre());
 		if(registro != null) {
 			return true;
@@ -36,11 +32,9 @@ public class FuenteDAO {
 		if(duplicado(fuente)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(fuente);
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		return true;
 	}
 	
@@ -71,7 +65,6 @@ public class FuenteDAO {
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}         
 	public synchronized static boolean borrarRegistro(String nombre) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Fuente where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -80,8 +73,6 @@ public class FuenteDAO {
 		SESSION.delete(fuente);
 		SESSION.getTransaction().commit();
 		System.out.println("\n FILA(S) BORRADA(S)");
-		cerrarSesion();
-
 		return true;
 	}
 }

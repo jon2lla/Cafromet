@@ -17,7 +17,7 @@ public class ProvinciaDAO {
 	
 	public static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Provincia provincia) {
+	public synchronized static boolean duplicado(Provincia provincia) {
 		Provincia registro = consultarRegistro(provincia.getIdProvincia());
 		if(registro != null) {
 			return true;
@@ -31,16 +31,14 @@ public class ProvinciaDAO {
 		if(duplicado(provincia)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();
 		SESSION.save(provincia);
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		return true;
 	}
 		
-	public static Provincia consultarRegistro(int id) {
-		HQL = "from Provincia  where idProvincia = :id";
+	public synchronized static Provincia consultarRegistro(int id) {
+		HQL = "from Provincia where idProvincia = :id";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
@@ -49,7 +47,7 @@ public class ProvinciaDAO {
 		}
         return provincia;
 	}
-	public static Provincia consultarRegistro(String nombre) {
+	public synchronized static Provincia consultarRegistro(String nombre) {
 		HQL = "from Provincia  where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("nombre", nombre);
@@ -71,7 +69,6 @@ public class ProvinciaDAO {
 //	}
 	
 	public synchronized static boolean borrarRegistro(String nombre) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Provincia  where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -80,7 +77,6 @@ public class ProvinciaDAO {
 		SESSION.delete(provincia);		
 		SESSION.getTransaction().commit();
 		
-		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)");
 		return true;
 	}

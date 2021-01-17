@@ -25,7 +25,7 @@ public class Updater {
 			+ "files" + File.separator;
 	protected static String RUTA_JSON = RUTA_RES + "json" + File.separator;
 	public static String RUTA_TEMP =  RUTA_RES + "temp" + File.separator;
-	protected static String RUTA_XML =  RUTA_RES + "xml" + File.separator;
+	public static String RUTA_XML =  RUTA_RES + "xml" + File.separator;
 	protected static String DATOS_PUEBLOS = RUTA_JSON + "pueblos.json";
 	protected static String DATOS_ESPACIOS_NAT = RUTA_JSON + "espacios-naturales.json";
 	protected static String DATOS_ESTACIONES = RUTA_JSON + "estaciones.json"; 
@@ -279,12 +279,7 @@ public class Updater {
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
 		gfMediciones.start();
 		
-		while(gfMediciones.isAlive()) {}
-		
-		JsonToXml jtx = new JsonToXml();
-		jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", RUTA_XML);
-		jtx.start();
-		
+	
 		
 		//DESCOMENTAR PARA REALIZAR LA ACTUALIZACION DE MEDICIONES DE FORMA SECUENCIAL
 //		gfMediciones.join();

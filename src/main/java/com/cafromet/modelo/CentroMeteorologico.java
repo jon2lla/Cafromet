@@ -116,4 +116,29 @@ public class CentroMeteorologico implements java.io.Serializable {
 		this.medicions = medicions;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idCentroMet == null) ? 0 : idCentroMet.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CentroMeteorologico other = (CentroMeteorologico) obj;
+		if (idCentroMet == null) {
+			if (other.idCentroMet != null)
+				return false;
+		} else if (!idCentroMet.equals(other.idCentroMet))
+			return false;
+		return true;
+	}
+
 }

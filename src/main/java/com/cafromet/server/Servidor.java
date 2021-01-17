@@ -75,7 +75,7 @@ public class Servidor extends Thread {
  
 	}
 	
-	public boolean cerrarSesionHibernate() {
+	public static boolean cerrarSesionHibernate() {
 		System.out.println("\n\n ** DESCONECTADO DE LA BBDD **\n"
 		 		 + " -----------------------------\n"); 
 		HibernateUtil.getSessionFactory().close();

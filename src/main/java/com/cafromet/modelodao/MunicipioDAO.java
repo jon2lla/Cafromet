@@ -16,11 +16,11 @@ public class MunicipioDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {SESSION.close();}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Municipio municipio) {
+	public synchronized static boolean duplicado(Municipio municipio) {
 		Municipio registro = consultarRegistro(municipio.getNombre());
 		if(registro != null) {
 			return true;
@@ -34,11 +34,9 @@ public class MunicipioDAO {
 		if(duplicado(municipio)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(municipio);
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		return true;
 	}
 		
@@ -50,7 +48,7 @@ public class MunicipioDAO {
 //        return municipio;
 //	}
 	
-	public static Municipio consultarRegistro(String nombre) {
+	public synchronized static Municipio consultarRegistro(String nombre) {
 		HQL = "from Municipio as mun where mun.nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("nombre", nombre);
@@ -58,7 +56,7 @@ public class MunicipioDAO {
 		return municipio;
 	}
 	
-	public static Municipio consultarRegistro(int codMunicipio, int idProvincia) {
+	public synchronized static Municipio consultarRegistro(int codMunicipio, int idProvincia) {
 		HQL = "from Municipio as mun where mun.codMunicipio = :codMunicipio and mun.provincia.idProvincia = :idProvincia";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("codMunicipio", codMunicipio);
@@ -78,7 +76,7 @@ public class MunicipioDAO {
 //		return municipio;
 //	}
 	
-	public static List<Municipio> consultarRegistros() {
+	public synchronized static List<Municipio> consultarRegistros() {
         SESSION.beginTransaction();
         String hql = "from Municipio";
         Query q = SESSION.createQuery(hql);
@@ -104,7 +102,6 @@ public class MunicipioDAO {
 //		return correcto;
 //	}
 	public synchronized static boolean borrarRegistro(String nombre) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Municipio as mun where mun.nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -112,7 +109,6 @@ public class MunicipioDAO {
 		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
 		SESSION.delete(municipio);		
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

@@ -26,6 +26,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.json.JSONArray;
 import org.json.XML;
+import org.omg.PortableServer.Servant;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -44,6 +45,8 @@ import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodao.Municipio_EspacioDAO;
 import com.cafromet.modelodao.ProvinciaDAO;
+import com.cafromet.server.Servidor;
+import com.cafromet.server.Updater;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -61,7 +64,6 @@ public class GestorFicheros extends Thread {
 	private String[] idProvincias;
 	private ArrayList<Municipio_EspacioNatural> mun_esps = new ArrayList<>();
 	private CentroMeteorologico centroMet;
-	private Fuente fuente;
 	private CentroMeteorologico centroMeteorologico;
 	private String str;
 	private MedicionId medicionId;
@@ -71,16 +73,19 @@ public class GestorFicheros extends Thread {
 		this.ficheroEntrada = ficheroEntrada;
 		this.ficheroSalida = ficheroSalida;
 		this.tipo = tipo;
+		Servidor.iniciarSesionHibernate();
 	}
 	public GestorFicheros(File ficheroEntrada, int tipo) {
 		this.ficheroEntrada = ficheroEntrada;
 		this.tipo = tipo;
+		Servidor.iniciarSesionHibernate();
 	}
 	public GestorFicheros(File ficheroEntrada, File ficheroSalida, int tipo, CentroMeteorologico centroMeteorologico) {
 		this.ficheroEntrada = ficheroEntrada;
 		this.ficheroSalida = ficheroSalida;
 		this.centroMeteorologico = centroMeteorologico;
 		this.tipo = tipo;
+		Servidor.iniciarSesionHibernate();
 	}
 
 	@Override
@@ -90,21 +95,29 @@ public class GestorFicheros extends Thread {
 		case 1:
 			filtrarJson();
 			procesarElementoJsonMunicipio(procesarJson());
+			Servidor.cerrarSesionHibernate();
 			break;
 		case 2:
 			filtrarJson();
 			procesarElementoJsonEspacio(procesarJson());
+			Servidor.cerrarSesionHibernate();
 			break;
 		case 3:
 			filtrarJson();
 			procesarElementoJsonCentrosMet(procesarJson());
+			Servidor.cerrarSesionHibernate();
 			break;
 		case 4:
 			procesarElementoJsonIndex(procesarJson());
+			Servidor.cerrarSesionHibernate();
 			break;
 		case 5:
 			filtrarJson();
 			procesarElementoJsonMedicion(procesarJson());
+			JsonToXml jtx = new JsonToXml();
+			jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", Updater.RUTA_XML);
+			jtx.start();
+			Servidor.cerrarSesionHibernate();
 			break;
 		}
 
@@ -423,13 +436,9 @@ public class GestorFicheros extends Thread {
 					provincia.setNombre(entrada.getValue().getAsString());
 				} else if (entrada.getKey().equals("idprovincia")) {
 					provincia.setIdProvincia(entrada.getValue().getAsInt());
-					ProvinciaDAO.iniciarSesion();
 					ProvinciaDAO.insertarRegistro(provincia);
-					ProvinciaDAO.cerrarSesion();
 					municipio.setProvincia(provincia);
-					MunicipioDAO.iniciarSesion();
 					MunicipioDAO.insertarRegistro(municipio);
-					MunicipioDAO.cerrarSesion();
 				}
 				procesarElementoJsonMunicipio(entrada.getValue());
 			}

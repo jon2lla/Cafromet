@@ -16,11 +16,11 @@ public class CentroMeteorologicoDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {SESSION.close();}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(CentroMeteorologico centroMeteorologico) {
+	public synchronized static boolean duplicado(CentroMeteorologico centroMeteorologico) {
 		CentroMeteorologico registro = consultarRegistro(centroMeteorologico.getNombre());
 		if(registro != null) {
 			return true;
@@ -30,15 +30,13 @@ public class CentroMeteorologicoDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(CentroMeteorologico centroMeteorologico) {
+	public synchronized static boolean insertarRegistro(CentroMeteorologico centroMeteorologico) {
 		if(duplicado(centroMeteorologico)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(centroMeteorologico);
 		SESSION.getTransaction().commit();	
-		cerrarSesion();
 		return true;
 	}
 
@@ -50,14 +48,14 @@ public class CentroMeteorologicoDAO {
 //        return centro;
 //	}
 	
-	public static CentroMeteorologico consultarRegistro(String nombre) {
+	public synchronized static CentroMeteorologico consultarRegistro(String nombre) {
 		HQL = "from CentroMeteorologico where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("nombre", nombre);
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
         return centro;
 	}
-	public static List<CentroMeteorologico> consultarRegistros() {
+	public synchronized static List<CentroMeteorologico> consultarRegistros() {
 		SESSION.beginTransaction();
 		HQL = "from CentroMeteorologico";
 		Query q = SESSION.createQuery(HQL);
@@ -70,11 +68,9 @@ public class CentroMeteorologicoDAO {
 			CentroMeteorologico centro = new CentroMeteorologico(); 
 			centro.setUrl(centroMeteorologico.getUrl());
 			centro.setHash(centroMeteorologico.getHash());
-			iniciarSesion();
 			SESSION.beginTransaction();	
 			SESSION.update(centro);
 			SESSION.getTransaction().commit();
-			cerrarSesion();
 			System.out.println("\n FILA(S) ACTUALIZADA(S)");
 			return true;
 		}
@@ -97,7 +93,6 @@ public class CentroMeteorologicoDAO {
 //		return true;
 //	}
 	public synchronized static boolean borrarRegistro(String nombre) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from CentroMeteorologico where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -105,7 +100,6 @@ public class CentroMeteorologicoDAO {
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 		
 		SESSION.delete(centro);			
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

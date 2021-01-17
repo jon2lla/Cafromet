@@ -15,11 +15,11 @@ public class MedicionDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {SESSION.close();}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Medicion medicion) {
+	public synchronized static boolean duplicado(Medicion medicion) {
 		Medicion registro = consultarRegistro(medicion.getId().getIdCentroMet());
 		if(registro != null) {
 			return true;
@@ -27,20 +27,18 @@ public class MedicionDAO {
 		return false;
 	}
 	
-	public static synchronized boolean insertarRegistro(Medicion medicion) {
-//		if(duplicado(medicion)) {
-//			return false;
-//		}
-		iniciarSesion();
+	public synchronized static boolean insertarRegistro(Medicion medicion) {
+		if(duplicado(medicion)) {
+			return false;
+		}
 		SESSION.beginTransaction();		
 		SESSION.save(medicion);
 		SESSION.getTransaction().commit();	
-		cerrarSesion();
 		return true;
 	}
 	
 	
-	public static Medicion consultarRegistro(int idCentro) {
+	public  synchronized static Medicion consultarRegistro(int idCentro) {
 		HQL = "from Medicion where id.idCentroMet = :idCentro";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("idCentro", idCentro);
@@ -48,7 +46,7 @@ public class MedicionDAO {
         return medicion;
 	}
 	
-	public static Medicion consultarRegistro(int idCentro, Date fecha, Date hora) {
+	public  synchronized static Medicion consultarRegistro(int idCentro, Date fecha, Date hora) {
 		HQL = "from Medicion where id = :idCentro and fecha = :fecha and hora = :hora";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("idCentro", idCentro);
@@ -59,7 +57,6 @@ public class MedicionDAO {
 	}
 	
 	public synchronized static boolean borrarRegistro(int id) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from CentroMeteorologico where idCentroMet = :id";
 		QUERY = SESSION.createQuery(HQL);
@@ -67,7 +64,6 @@ public class MedicionDAO {
 		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
 		SESSION.delete(medicion);	
 		SESSION.getTransaction().commit();	
-		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

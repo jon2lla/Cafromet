@@ -14,11 +14,11 @@ public class ClienteDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {SESSION.close();}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 
-	public static boolean duplicado(Cliente cliente) {
+	public synchronized static boolean duplicado(Cliente cliente) {
 		Cliente registro = consultarRegistro(cliente.getUsuario());
 		if (registro != null) {
 			return true;
@@ -28,15 +28,13 @@ public class ClienteDAO {
 		return false;
 	}
 
-	public static boolean insertarRegistro(Cliente cliente) {
+	public synchronized static boolean insertarRegistro(Cliente cliente) {
 		if (duplicado(cliente)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();
 		SESSION.save(cliente);
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		return true;
 	}
 	
@@ -49,7 +47,7 @@ public class ClienteDAO {
 //        return cliente;
 //	}
 	
-	public static Cliente consultarRegistro(String usuario) {
+	public synchronized static Cliente consultarRegistro(String usuario) {
 		HQL = "from Cliente where usuario = :usuario";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("usuario", usuario);
@@ -75,7 +73,6 @@ public class ClienteDAO {
 //		System.out.println("\n FILA(S) BORRADA(S)\n");
 //	}
 	public synchronized static boolean borrarRegistro(String usuario) {
-		iniciarSesion();
 		SESSION.beginTransaction();	
 		HQL = "from Cliente where usuario = :usuario";
 		QUERY = SESSION.createQuery(HQL);
@@ -83,7 +80,6 @@ public class ClienteDAO {
 		Cliente cliente = (Cliente) QUERY.uniqueResult(); 		
 		SESSION.delete(cliente);		
 		SESSION.getTransaction().commit();
-		cerrarSesion();
 		System.out.println("\n FILA(S) BORRADA(S)\n");
 		return true;
 	}

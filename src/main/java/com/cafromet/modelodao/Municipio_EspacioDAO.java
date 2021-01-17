@@ -16,11 +16,11 @@ public class Municipio_EspacioDAO {
 	@SuppressWarnings("rawtypes")
 	private static Query QUERY;
 	
-	public static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
+	public synchronized static void iniciarSesion() {SESSION = HibernateUtil.getSessionFactory().openSession();}
 	
-	public static void cerrarSesion() {SESSION.close();}
+	public synchronized static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Municipio_EspacioNatural mun_esp) {
+	public synchronized static boolean duplicado(Municipio_EspacioNatural mun_esp) {
 		if(consultarRegistro(mun_esp) != null) {
 			return true;
 		}
@@ -31,22 +31,19 @@ public class Municipio_EspacioDAO {
 		if(duplicado(mun_esp)) {
 			return false;
 		}
-		iniciarSesion();
 		SESSION.beginTransaction();		
 		SESSION.save(mun_esp);
 		SESSION.getTransaction().commit();	
-		cerrarSesion();
 		return true;
 	}
 
 	
-	public static Municipio_EspacioNatural consultarRegistro(Municipio_EspacioNatural mun_esp) {
+	public synchronized static Municipio_EspacioNatural consultarRegistro(Municipio_EspacioNatural mun_esp) {
 		HQL = "from Municipio_EspacioNatural as munesp where (munesp.id.idMunicipio = :idMunicipio and munesp.id.idEspacio = :idEspacio)";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("idMunicipio", mun_esp.getId().getIdMunicipio());
 		QUERY.setParameter("idEspacio", mun_esp.getId().getIdEspacio());
 		Municipio_EspacioNatural mun_esp2 =  (Municipio_EspacioNatural) QUERY.uniqueResult(); 
-//        System.out.printf(" REGISTRO(S) => %s || %d%n%n", mun_espId2.getIdMunicipio(), mun_espId2.getIdEspacio());
         return mun_esp2;
 	}
 	
