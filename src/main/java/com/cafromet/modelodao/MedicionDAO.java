@@ -20,7 +20,7 @@ public class MedicionDAO {
 	
 	public static void cerrarSesion() {SESSION.close();}
 	
-	public static boolean duplicado(Medicion medicion) {
+	public synchronized static boolean duplicado(Medicion medicion) {
 		Medicion registro = null;
 		registro = consultarRegistro(medicion);
 
@@ -53,21 +53,5 @@ public class MedicionDAO {
 		QUERY.setParameter("hora", medicion.getId().getHora());
 		Medicion medicion2 =  (Medicion) QUERY.uniqueResult(); 
         return medicion2;
-	}
-	
-
-	
-	public static boolean borrarRegistro(MedicionId id) {
-		iniciarSesion();
-		SESSION.beginTransaction();	
-		HQL = "from CentroMeteorologico where idCentroMet = :id";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("id", id);	
-		Medicion medicion =  (Medicion) QUERY.uniqueResult(); 
-		SESSION.delete(medicion);	
-		SESSION.getTransaction().commit();
-		cerrarSesion();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
-		return true;
 	}
 }

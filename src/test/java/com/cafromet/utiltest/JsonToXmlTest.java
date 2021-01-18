@@ -12,12 +12,6 @@ import com.cafromet.util.GestorFicheros;
 import com.cafromet.util.JsonToXml;
 
 public class JsonToXmlTest {
-	@After
-	public void borrarArchivosTemp() {
-		GestorFicheros.eliminarDirectorio(new File(Updater.RUTA_TEMP));
-		System.out.println("\n FICHEROS TEMPORALES BORRADOS => " + Updater.RUTA_TEMP);
-	}
-	
 	@Test
 	public void test() {
 		JsonToXml jsonToXml = new JsonToXml();

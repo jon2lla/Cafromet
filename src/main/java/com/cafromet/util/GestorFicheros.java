@@ -106,9 +106,9 @@ public class GestorFicheros extends Thread {
 		case 5:
 			filtrarJson();
 			procesarElementoJsonMedicion(procesarJson());
-			String nombreFormateado = centroMeteorologico.getNombre().replace(StringsFiltros.getString("GestorFicheros.0"), StringsFiltros.getString("GestorFicheros.1"));			 //$NON-NLS-1$ //$NON-NLS-2$
+			String nombreFormateado = centroMeteorologico.getNombre().replace(StringsFiltros.getString("GestorFicheros.0"), StringsFiltros.getString("GestorFicheros.1")).toLowerCase();			 //$NON-NLS-1$ //$NON-NLS-2$
 			JsonToXml jtx = new JsonToXml();
-			jtx.convertJsonToXml(nombreFormateado + StringsFiltros.getString("GestorFicheros.2"), nombreFormateado, StringsFiltros.getString("GestorFicheros.3"), StringsFiltros.getString("GestorFicheros.4") + nombreFormateado.toLowerCase() + StringsFiltros.getString("GestorFicheros.5"), Updater.RUTA_XML); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+			jtx.convertJsonToXml(nombreFormateado + StringsFiltros.getString("GestorFicheros.2"), nombreFormateado, StringsFiltros.getString("GestorFicheros.3"), StringsFiltros.getString("GestorFicheros.4") + nombreFormateado + StringsFiltros.getString("GestorFicheros.5"), Updater.RUTA_XML); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			jtx.start();
 			break;
 		}
