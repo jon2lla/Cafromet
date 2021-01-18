@@ -12,3 +12,12 @@ build
 
 #Ignore /bin directory
 /bin/
+
+#Ignore JSON directory
+/src/resource/com/cafromet/files/json
+
+#Ignore XML directory
+/src/resource/com/cafromet/files/xml
+
+#Ignore TEMP directory
+/src/resource/com/cafromet/files/temp

@@ -1,10 +1,17 @@
 package com.cafromet.server;
 
 public enum Peticiones {
+	//PETICIONES POR PLATAFORMA
+	//  pXXXa -> Cliente de escritorio
+	//  pXXXb -> Cliente de android
+	
+	//PETICION LOGIN
     p101a(1, 1),
     p101b(1, 2),
+    //PETICION REGISTRAR USUARIO
     p102a(2, 1),
     p102b(2, 2),
+    //PETICION LISTAR MUNICIPIOS
     p103a(3, 1),
     p103b(3, 2);
 
