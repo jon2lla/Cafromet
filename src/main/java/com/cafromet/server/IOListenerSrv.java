@@ -47,7 +47,7 @@ public class IOListenerSrv extends Thread {
 		try {
 			datos = (Datos) oentrada.readObject();
 			
-			textArea.append("\n Conexion => " + idConexion + " || Peticion => " + datos.getPeticion());
+			textArea.append(" Conexion => " + idConexion + " || Peticion => " + datos.getPeticion() + "\n");
 			
 			procesarPeticion();
 
@@ -65,7 +65,7 @@ public class IOListenerSrv extends Thread {
 
 		
 		textoF.setText("Numero de consultas realizadas (sesion actual): " + NUM_CONSULTAS);
-		System.out.println("\n #CONEXION " + idConexion + " -> Desconectado");
+		System.out.println(" #CONEXION " + idConexion + " -> Desconectado\n");
 		
 	}
 

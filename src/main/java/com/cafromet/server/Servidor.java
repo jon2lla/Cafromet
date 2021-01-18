@@ -44,9 +44,9 @@ public class Servidor extends Thread {
 			while (continuar) {
 				Thread.sleep(200);
 				if (GestorConexiones.getInstance().getNumUsuarios() < Servidor.MAX_CONEXIONES)
-					textArea.append("\n Esperando conexiones...");
+					textArea.append(" Esperando conexiones...\n");
 				else
-					textArea.append("\n Servidor lleno");
+					textArea.append(" Servidor lleno\n");
 				socket = servidor.accept();
 
 				if (GestorConexiones.getInstance().getNumUsuarios() < MAX_CONEXIONES) {

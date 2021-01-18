@@ -23,17 +23,19 @@ public class Updater {
 			+ "com" + File.separator
 			+ "cafromet" + File.separator
 			+ "files" + File.separator;
+	protected static String JSON = ".json";
 	protected static String RUTA_JSON = RUTA_RES + "json" + File.separator;
 	public static String RUTA_TEMP =  RUTA_RES + "temp" + File.separator;
 	public static String RUTA_XML =  RUTA_RES + "xml" + File.separator;
-	protected static String DATOS_PUEBLOS = RUTA_JSON + "pueblos.json";
-	protected static String DATOS_ESPACIOS_NAT = RUTA_JSON + "espacios-naturales.json";
-	protected static String DATOS_ESTACIONES = RUTA_JSON + "estaciones.json"; 
-	protected static String DATOS_INDEX = RUTA_TEMP + "index.json";
-	protected static String URL_PUEBLOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/pueblos.json";
-	protected static String URL_ESPACIOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json";
-	protected static String URL_ESTACIONES = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json";
-	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/index.json";
+	protected static String DATOS_PUEBLOS = RUTA_JSON + "pueblos" + JSON;
+	protected static String DATOS_ESPACIOS_NAT = RUTA_JSON + "espacios_naturales" + JSON;
+	protected static String DATOS_ESTACIONES = RUTA_JSON + "estaciones" + JSON; 
+	protected static String DATOS_INDEX = RUTA_TEMP + "index" + JSON;
+	protected static String URL_PUEBLOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/pueblos" + JSON;
+	protected static String URL_ESPACIOS = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales" + JSON;
+	protected static String URL_ESTACIONES = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones" + JSON;
+	protected static String URL_INDEX = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/index" + JSON;
+	
 	
 	private Updater() {}
 	
@@ -85,13 +87,13 @@ public class Updater {
 	}
 	
 	public boolean comprobarActuMunicipios() {
-		new PeticionHttp(URL_PUEBLOS, RUTA_TEMP + "pueblosTemp.json");
+		new PeticionHttp(URL_PUEBLOS, RUTA_TEMP + "pueblos_temp" + JSON);
 		Fuente fuenteMunicipios = new Fuente();
 		fuenteMunicipios.setId(1);
-		fuenteMunicipios.setFormato(".json");
+		fuenteMunicipios.setFormato(JSON);
 		fuenteMunicipios.setNombre("Municipios");
 		fuenteMunicipios.setUrl(URL_PUEBLOS);
-		fuenteMunicipios.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "pueblosTemp.json")), "SHA-256"));
+		fuenteMunicipios.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "pueblos_temp" + JSON)), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteMunicipios)) {
 			Fuente fuenteMunicipios2 = FuenteDAO.consultarRegistroPorNombre("Municipios");
 			mostrarHash(fuenteMunicipios.getHash(), fuenteMunicipios2.getHash());
@@ -107,13 +109,13 @@ public class Updater {
 	}
 
 	public boolean comprobarActuEspaciosNat() {
-		new PeticionHttp(URL_ESPACIOS, RUTA_TEMP + "espacios-naturalesTemp.json");
+		new PeticionHttp(URL_ESPACIOS, RUTA_TEMP + "espacios_naturales_temp" + JSON);
 		Fuente fuenteEspaciosNat = new Fuente();
 		fuenteEspaciosNat.setId(2);
-		fuenteEspaciosNat.setFormato(".json");
+		fuenteEspaciosNat.setFormato(JSON);
 		fuenteEspaciosNat.setNombre("Espacios Naturales");
 		fuenteEspaciosNat.setUrl(URL_ESPACIOS);
-		fuenteEspaciosNat.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "espacios-naturalesTemp.json")), "SHA-256"));
+		fuenteEspaciosNat.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "espacios_naturales_temp" + JSON)), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteEspaciosNat)) {
 			Fuente fuenteEspaciosNat2 = FuenteDAO.consultarRegistroPorNombre("Espacios Naturales");
 			mostrarHash(fuenteEspaciosNat.getHash(), fuenteEspaciosNat2.getHash());
@@ -128,13 +130,13 @@ public class Updater {
 	}
  
 	public boolean comprobarActuCentrosMet() {
-		new PeticionHttp(URL_ESTACIONES, RUTA_TEMP + "estacionesTemp.json");
+		new PeticionHttp(URL_ESTACIONES, RUTA_TEMP + "estaciones_temp" + JSON);
 		Fuente fuenteCentrosMet = new Fuente();
 		fuenteCentrosMet.setId(3);
-		fuenteCentrosMet.setFormato(".json");
+		fuenteCentrosMet.setFormato(JSON);
 		fuenteCentrosMet.setNombre("Estaciones Meteorologicas");
 		fuenteCentrosMet.setUrl(URL_ESTACIONES);
-		fuenteCentrosMet.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "estacionesTemp.json")), "SHA-256"));
+		fuenteCentrosMet.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "estaciones_temp" + JSON)), "SHA-256"));
 		if(!FuenteDAO.insertarRegistro(fuenteCentrosMet)) {
 			Fuente fuenteCentrosMet2 = FuenteDAO.consultarRegistroPorNombre("Estaciones Meteorologicas");
 			mostrarHash(fuenteCentrosMet.getHash(), fuenteCentrosMet2.getHash());
@@ -150,13 +152,13 @@ public class Updater {
 	}
 
 	public boolean comprobarActuIndex() {
-		new PeticionHttp(URL_INDEX, RUTA_TEMP + "indexTemp.json");
+		new PeticionHttp(URL_INDEX, RUTA_TEMP + "index_temp" + JSON);
 		Fuente fuenteIndex = new Fuente();
 		fuenteIndex.setId(4);
-		fuenteIndex.setFormato(".json");
+		fuenteIndex.setFormato(JSON);
 		fuenteIndex.setNombre("Index");
 		fuenteIndex.setUrl(URL_INDEX);
-		fuenteIndex.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "indexTemp.json")), "SHA-256"));
+		fuenteIndex.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + "index_temp" + JSON)), "SHA-256"));
 		FuenteDAO.iniciarSesion();
 		if(!FuenteDAO.insertarRegistro(fuenteIndex)) {
 			Fuente fuenteIndex2 = FuenteDAO.consultarRegistroPorNombre("Index");
@@ -183,12 +185,14 @@ public class Updater {
 			String hash = null;
 	
 			if(centroMeteorologico.getUrl() != null) {
-				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
-				fichero = new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
+				String nombreFormateado = centroMeteorologico.getNombre().replace(" ", "_").toLowerCase();
+
+				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + nombreFormateado + "_temp" + JSON);
+				fichero = new File(RUTA_TEMP + nombreFormateado + "_temp" + JSON);
 			
 				//ACTUALIZACION POR HASH
 //				try {
-//					byte[] c = Files.readAllBytes(Paths.get(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"));
+//					byte[] c = Files.readAllBytes(Paths.get(RUTA_TEMP + nombreFormateado + "_temp" + JSON));
 //					hash = Encriptacion.generateHash(c.toString(), "SHA1");
 //				} catch (IOException e1) {
 //					System.out.println("\n ERROR AL ENCRIPTAR");
@@ -228,7 +232,7 @@ public class Updater {
 	}
 	public boolean actualizarMunicipios() {
 		try {
-			GestorFicheros gfMunicipios = new GestorFicheros(new File(RUTA_TEMP + "pueblosTemp.json"), new File(DATOS_PUEBLOS), 1);
+			GestorFicheros gfMunicipios = new GestorFicheros(new File(RUTA_TEMP + "pueblos_temp" + JSON), new File(DATOS_PUEBLOS), 1);
 			gfMunicipios.start();
 			System.out.println("\n >> ACTUALIZANDO FICHERO => " + DATOS_PUEBLOS);
 			gfMunicipios.join();
@@ -241,7 +245,7 @@ public class Updater {
 
 	public boolean actualizarEspaciosNat() {	
 		try {
-			GestorFicheros gfEspNat = new GestorFicheros(new File(RUTA_TEMP + "espacios-naturalesTemp.json"), new File(DATOS_ESPACIOS_NAT), 2);
+			GestorFicheros gfEspNat = new GestorFicheros(new File(RUTA_TEMP + "espacios_naturales_temp" + JSON), new File(DATOS_ESPACIOS_NAT), 2);
 			gfEspNat.start();
 			System.out.println("\n >> ACTUALIZANDO FICHERO => " + DATOS_ESPACIOS_NAT);
 			gfEspNat.join();
@@ -254,7 +258,7 @@ public class Updater {
 	
 	public boolean actualizarCentrosMet() {
 		try {
-			GestorFicheros gfEstaciones = new GestorFicheros(new File(RUTA_TEMP + "estacionesTemp.json"), new File(DATOS_ESTACIONES), 3);
+			GestorFicheros gfEstaciones = new GestorFicheros(new File(RUTA_TEMP + "estaciones_temp" + JSON), new File(DATOS_ESTACIONES), 3);
 			gfEstaciones.start();
 			System.out.println("\n >> ACTUALIZANDO FICHERO => " + DATOS_ESTACIONES);
 			gfEstaciones.join();
@@ -267,27 +271,28 @@ public class Updater {
 	
 	public boolean actualizarIndex() {
 		try {
-			GestorFicheros gfIndex = new GestorFicheros(new File(RUTA_TEMP + "indexTemp.json"), 4);
+			GestorFicheros gfIndex = new GestorFicheros(new File(RUTA_TEMP + "index_temp" + JSON), 4);
 			gfIndex.start();
-			System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + "indexTemp.json");
+			System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + "index_temp" + JSON);
 			gfIndex.join();
 			System.out.println("\n >> FICHERO ACTUALIZADO");
 		} catch (InterruptedException e) {
-			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + RUTA_TEMP + "indexTemp.json");
+			System.out.println("\n ERROR AL ACTUALIZAR. FICHERO => " + RUTA_TEMP + "index_temp" + JSON);
 		}
 		return true;
 	}
 
 	public boolean actualizarMediciones(CentroMeteorologico centroMeteorologico) throws InterruptedException {
-
-		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json"), new File(RUTA_TEMP + centroMeteorologico.getNombre() + "Temp2.json"), 5, centroMeteorologico);
+		String nombreFormateado = centroMeteorologico.getNombre().replace(" ", "_").toLowerCase();
+		
+		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + nombreFormateado + "_temp" + JSON), new File(RUTA_TEMP + nombreFormateado + "_temp2" + JSON), 5, centroMeteorologico);
 		gfMediciones.start();
 //		
 		
 		//DESCOMENTAR PARA ACTUALIZACION DE MEDICIONES SECUENCIAL
 //		gfMediciones.join();
 
-		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + centroMeteorologico.getNombre() + "Temp.json");
+		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + nombreFormateado + "Temp" + JSON);
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;
 	

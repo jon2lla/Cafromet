@@ -62,7 +62,7 @@ public class JsonToXml extends Thread {
 			StreamResult result = new StreamResult(new File(path));
 			trasnFormer.transform(source, result);
 			
-			System.out.println("\n FICHERO XML CREADO => " + nombreXml + "  creado correctamente" );
+			System.out.println("\n FICHERO XML CREADO => " + nombreXml);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

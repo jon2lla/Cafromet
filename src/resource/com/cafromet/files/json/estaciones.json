@@ -1,0 +1,414 @@
+[ {
+  "nombre" : "3 DE MARZO",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Vitoria-Gasteiz",
+  "direccion" : "Plaza Tres de Marzo, s/n",
+  "latitud" : "42.85604797053618",
+  "longitud" : "-2.667784994714487"
+}, {
+  "nombre" : "ABANTO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Abanto y Ciérvana-Abanto Zierbena",
+  "direccion" : "Avda. del Minero, 2. Ayuntamiento",
+  "latitud" : "43.32047399433485",
+  "longitud" : "-3.0741559961978044"
+}, {
+  "nombre" : "AGURAIN",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Agurain/Salvatierra",
+  "direccion" : "C/ Fueros, 11. Subcomisaría de la Ertzaintza.",
+  "latitud" : "42.84901250588428",
+  "longitud" : "-2.3937033896081683"
+}, {
+  "nombre" : "ALGORTA (BBIZI2)",
+  "provincia" : "Bizkaia",
+  "municipio" : "Getxo",
+  "direccion" : "Carretera de Galea, s/n ",
+  "latitud" : "43.362055748944286",
+  "longitud" : "-3.0227822073211765"
+}, {
+  "nombre" : "ALONSOTEGI",
+  "provincia" : "Bizkaia",
+  "municipio" : "Alonsotegi",
+  "direccion" : "C/ Baztieta, s/n. Bº Irauregi",
+  "latitud" : "43.247567997964374",
+  "longitud" : "-2.988024000380936"
+}, {
+  "nombre" : "ANDOAIN",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Andoain",
+  "direccion" : "Ikastola Aita larramendi",
+  "latitud" : "43.22137866586519",
+  "longitud" : "-2.02332524753123"
+}, {
+  "nombre" : "ARRAIZ (Monte)",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "Camino de Arraiz, s/n",
+  "latitud" : "43.245553729819484",
+  "longitud" : "-2.960475856567045"
+}, {
+  "nombre" : "ATEGORRIETA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "Avda. Ategorrieta, 71",
+  "latitud" : "43.32199194732484",
+  "longitud" : "-1.960650618338729"
+}, {
+  "nombre" : "AV. GASTEIZ",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Vitoria-Gasteiz",
+  "direccion" : "Avda. Gasteiz, 97",
+  "latitud" : "42.85478118366939",
+  "longitud" : "-2.6807098224581067"
+}, {
+  "nombre" : "AVDA. TOLOSA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "C/ Andrestegi, 2 ",
+  "latitud" : "43.30941344063433",
+  "longitud" : "-2.010938423674493"
+}, {
+  "nombre" : "AZPEITIA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Azpeitia",
+  "direccion" : "C/ Perdillegi, s/n",
+  "latitud" : "43.180370053194196",
+  "longitud" : "-2.2682104189344456"
+}, {
+  "nombre" : "AÑORGA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "Avda. de Añorga, 12 (Añorga Txiki)",
+  "latitud" : "43.29053138556358",
+  "longitud" : "-1.9957411467011474"
+}, {
+  "nombre" : "BANDERAS (meteo)",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "Monte Banderas, s/n",
+  "latitud" : "43.28099012364825",
+  "longitud" : "-2.953278416670214"
+}, {
+  "nombre" : "BARAKALDO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Barakaldo",
+  "direccion" : "C/ Hogar propio, 7. CIFP Nicolás Larburu",
+  "latitud" : "43.298378997955",
+  "longitud" : "-2.987132999827669"
+}, {
+  "nombre" : "BASAURI",
+  "provincia" : "Bizkaia",
+  "municipio" : "Basauri",
+  "direccion" : "C/ Uribarri, 5. CEIP Bizkotxalde.",
+  "latitud" : "43.24113129588412",
+  "longitud" : "-2.8837610228035238"
+}, {
+  "nombre" : "BEASAIN",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Beasain",
+  "direccion" : "Plaza Gipuzkoa, 1",
+  "latitud" : "43.04809432240711",
+  "longitud" : "-2.191380269702985"
+}, {
+  "nombre" : "BOROA METEO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Amorebieta-Etxano",
+  "direccion" : "Parque Empresarial Boroa, s/n",
+  "latitud" : "43.23590459584916",
+  "longitud" : "-2.7506874305174405"
+}, {
+  "nombre" : "CASTREJANA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Barakaldo",
+  "direccion" : "C/ Larrazabal, 1. Bº Castrejana",
+  "latitud" : "43.25807942736176",
+  "longitud" : "-2.973456590856772"
+}, {
+  "nombre" : "DURANGO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Durango",
+  "direccion" : "C/ San Roque, 20 bajo. E.S. Roque",
+  "latitud" : "43.168285997690994",
+  "longitud" : "-2.6379580009450136"
+}, {
+  "nombre" : "EASO",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "Plaza del Centenario, s/n",
+  "latitud" : "43.31215280742268",
+  "longitud" : "-1.9809008637096939"
+}, {
+  "nombre" : "ELCIEGO",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Elciego",
+  "direccion" : "C/ Gabriel Celaya, 8",
+  "latitud" : "42.51824807424149",
+  "longitud" : "-2.61947521199466"
+}, {
+  "nombre" : "ERANDIO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Erandio",
+  "direccion" : "Avda. José Luis Goyoaga, s/n (Pasaje de Altzaga)",
+  "latitud" : "43.3026526345891",
+  "longitud" : "-2.9772399863752486"
+}, {
+  "nombre" : "EUROPA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "Parque Europa. Bº Txurdinaga",
+  "latitud" : "43.25491056506432",
+  "longitud" : "-2.902376115931137"
+}, {
+  "nombre" : "FARMACIA",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Vitoria-Gasteiz",
+  "direccion" : "Paseo Universidad, 7. Fac. Farmacia UPV",
+  "latitud" : "42.840099615592926",
+  "longitud" : "-2.672563184280286"
+}, {
+  "nombre" : "FERIA (meteo)",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "C/ Rafael Moreno Pitxitxi, s/n",
+  "latitud" : "43.26522199716327",
+  "longitud" : "-2.9475439999557134"
+}, {
+  "nombre" : "HERNANI",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Hernani",
+  "direccion" : "C/ Aristizabal, s/n. Centro de salud Hernani.",
+  "latitud" : "43.26743142273141",
+  "longitud" : "-1.977715640356133"
+}, {
+  "nombre" : "JAIZKIBEL",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Hondarribia",
+  "direccion" : "Monte Jaizkibel, s/n",
+  "latitud" : "43.342775184321106",
+  "longitud" : "-1.8594129027945114"
+}, {
+  "nombre" : "LARRABETZU",
+  "provincia" : "Bizkaia",
+  "municipio" : "Larrabetzu",
+  "direccion" : "Barrio Berrezoaga, 3",
+  "latitud" : "43.261226121618066",
+  "longitud" : "-2.799399084312731"
+}, {
+  "nombre" : "LAS CARRERAS",
+  "provincia" : "Bizkaia",
+  "municipio" : "Abanto y Ciérvana-Abanto Zierbena",
+  "direccion" : "Plaza Trinidad, s/n. Bº Las Carreras",
+  "latitud" : "43.31960312849335",
+  "longitud" : "-3.0973975060209376"
+}, {
+  "nombre" : "LASARTE-ORIA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Lasarte-Oria",
+  "direccion" : "Parque Tximistarreta",
+  "latitud" : "43.26870022418793",
+  "longitud" : "-2.0191293415933154"
+}, {
+  "nombre" : "LEZO",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Lezo",
+  "direccion" : "Plaza Polantzarene, s/n",
+  "latitud" : "43.32152243586307",
+  "longitud" : "-1.900131049811533"
+}, {
+  "nombre" : "LLODIO",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Laudio/Llodio",
+  "direccion" : "C/ Lamuza, s/n",
+  "latitud" : "43.1440289422417",
+  "longitud" : "-2.9633852821260223"
+}, {
+  "nombre" : "LOS HERRAN",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Vitoria-Gasteiz",
+  "direccion" : "Parque Judizmendi. Bº Judizmendi",
+  "latitud" : "42.84370295644861",
+  "longitud" : "-2.661230556636825"
+}, {
+  "nombre" : "MAZARREDO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "C/ Alameda Mazarredo, s/n (Guggenheim)",
+  "latitud" : "43.26750551179745",
+  "longitud" : "-2.935188110338201"
+}, {
+  "nombre" : "MONDRAGON",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Arrasate/Mondragón",
+  "direccion" : "Plaza Jose María Arizmendiarrieta, s/n",
+  "latitud" : "43.06412079434686",
+  "longitud" : "-2.4903966831445423"
+}, {
+  "nombre" : "MONTORRA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Amorebieta-Etxano",
+  "direccion" : "Barrio Montorra fte. nº5",
+  "latitud" : "43.209014222504145",
+  "longitud" : "-2.7165885073623226"
+}, {
+  "nombre" : "MUNDAKA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Mundaka",
+  "direccion" : "Camino Goitiz, s/n. Depósito de Agua",
+  "latitud" : "43.40588884294258",
+  "longitud" : "-2.7031593675211343"
+}, {
+  "nombre" : "MUNOA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Barakaldo",
+  "direccion" : "C/ Llano, 55. CEP Munoa. Bº Lutxana",
+  "latitud" : "43.28558799716144",
+  "longitud" : "-2.978696000976749"
+}, {
+  "nombre" : "MUSKIZ",
+  "provincia" : "Bizkaia",
+  "municipio" : "Muskiz",
+  "direccion" : "C/ Giba Fregenal, s/n. Estación de Renfe",
+  "latitud" : "43.32071311956527",
+  "longitud" : "-3.1127162723783197"
+}, {
+  "nombre" : "Mª DIAZ HARO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Bilbao",
+  "direccion" : "C/ Mª Díaz de Haro, 60",
+  "latitud" : "43.25880286639215",
+  "longitud" : "-2.945656664175787"
+}, {
+  "nombre" : "NAUTICA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Portugalete",
+  "direccion" : "C/ Mª Díaz de Haro, 68 (Esc. Náutica)",
+  "latitud" : "43.32694444265417",
+  "longitud" : "-3.023333333735672"
+}, {
+  "nombre" : "PAGOETA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Aia",
+  "direccion" : "Jardín Botánico de Iturraran. Parque Natural de Pagoeta. ",
+  "latitud" : "43.25060521979407",
+  "longitud" : "-2.1548873966664503"
+}, {
+  "nombre" : "PUYO",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "Camino de Puyo, 14",
+  "latitud" : "43.302777170621106",
+  "longitud" : "-1.9840112864449164"
+}, {
+  "nombre" : "SAN JULIAN",
+  "provincia" : "Bizkaia",
+  "municipio" : "Muskiz",
+  "direccion" : "Camino a Valles, s/n. Bº San Julian",
+  "latitud" : "43.33265015831669",
+  "longitud" : "-3.112994770178107"
+}, {
+  "nombre" : "SAN MIGUEL",
+  "provincia" : "Bizkaia",
+  "municipio" : "Basauri",
+  "direccion" : "Parque pinceles. Bº San Miguel",
+  "latitud" : "43.2212234317361",
+  "longitud" : "-2.886508983250916"
+}, {
+  "nombre" : "SANGRONIZ",
+  "provincia" : "Bizkaia",
+  "municipio" : "Sondika",
+  "direccion" : "C/ Iturrikosolo, s/n",
+  "latitud" : "43.29842135635236",
+  "longitud" : "-2.93038581833024"
+}, {
+  "nombre" : "SANTURCE",
+  "provincia" : "Bizkaia",
+  "municipio" : "Santurtzi",
+  "direccion" : "C/ Vista Alegre, 29 ",
+  "latitud" : "43.33301199742545",
+  "longitud" : "-3.042560000349237"
+}, {
+  "nombre" : "SERANTES",
+  "provincia" : "Bizkaia",
+  "municipio" : "Santurtzi",
+  "direccion" : "Camino Serantes igoera, s/n",
+  "latitud" : "43.3344367083824",
+  "longitud" : "-3.0629905698856272"
+}, {
+  "nombre" : "SESTAO",
+  "provincia" : "Bizkaia",
+  "municipio" : "Sestao",
+  "direccion" : "Parque Portopin",
+  "latitud" : "43.307726099387494",
+  "longitud" : "-2.9959496198447484"
+}, {
+  "nombre" : "TOLOSA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Tolosa",
+  "direccion" : "Avda. Martin Jose Iraola, 23",
+  "latitud" : "43.13078067861342",
+  "longitud" : "-2.078002156707588"
+}, {
+  "nombre" : "URKIOLA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Abadiño",
+  "direccion" : "Urkiola auzoa, 8",
+  "latitud" : "43.100442429429606",
+  "longitud" : "-2.6508700717196243"
+}, {
+  "nombre" : "USURBIL",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Usurbil",
+  "direccion" : "San Inazio",
+  "latitud" : "43.27378032307657",
+  "longitud" : "-2.0505110667115676"
+}, {
+  "nombre" : "VALDEREJO",
+  "provincia" : "Araba/Álava",
+  "municipio" : "Valdegovía/Gaubea",
+  "direccion" : "Ctro. de Interpretación. Parque Natural de Valderejo",
+  "latitud" : "42.87516709375477",
+  "longitud" : "-3.231732505322038"
+}, {
+  "nombre" : "ZALLA",
+  "provincia" : "Bizkaia",
+  "municipio" : "Zalla",
+  "direccion" : "Avda. Kosme Bibanko Etxebarria, 2",
+  "latitud" : "43.2128572411877",
+  "longitud" : "-3.134461258966499"
+}, {
+  "nombre" : "ZELAIETA PARQUE",
+  "provincia" : "Bizkaia",
+  "municipio" : "Amorebieta-Etxano",
+  "direccion" : "Parque Zelaieta ",
+  "latitud" : "43.21890568490462",
+  "longitud" : "-2.7344969803118295"
+}, {
+  "nombre" : "ZIERBENA (Puerto)",
+  "provincia" : "Bizkaia",
+  "municipio" : "Zierbena",
+  "direccion" : "Puerto de Zierbena, s/n. Bº El Puerto",
+  "latitud" : "43.35305543364201",
+  "longitud" : "-3.080988277376953"
+}, {
+  "nombre" : "ZUBIETA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "URIBITARTE IBILBIDEA",
+  "latitud" : "43.272061873363164",
+  "longitud" : "-2.0313507420960284"
+}, {
+  "nombre" : "ZUBIETA METEO",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Donostia / San Sebastián",
+  "direccion" : "ZUBIETA",
+  "latitud" : "43.25597376352475",
+  "longitud" : "-2.0317166856330036"
+}, {
+  "nombre" : "ZUMARRAGA",
+  "provincia" : "Gipuzkoa",
+  "municipio" : "Zumarraga",
+  "direccion" : "Grupo Izazpi 3, 6 ",
+  "latitud" : "43.08507598449891",
+  "longitud" : "-2.316228856182885"
+} ]
