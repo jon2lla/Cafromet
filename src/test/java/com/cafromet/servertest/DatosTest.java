@@ -13,12 +13,12 @@ public class DatosTest {
 
 	@Test
 	public void test() {
-		datos = new Datos(Peticiones.p101);
+		datos = new Datos(Peticiones.p101a);
 		datos.setContenido("");
 		datos.setIdConexion(null);
 		datos.setObjeto(datos);
-		datos.setPeticion(Peticiones.p101);	
-		datos2 = new Datos(Peticiones.p101);
+		datos.setPeticion(Peticiones.p101a);	
+		datos2 = new Datos(Peticiones.p101a);
 		datos.getContenido();
 		datos.getIdConexion();
 		datos.getObjeto();

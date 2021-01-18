@@ -37,7 +37,7 @@ public class ControladorCliente implements ActionListener {
 			
 			try {
 
-				enviarPeticion(usu + "," + pass, Peticiones.p101);
+				enviarPeticion(usu + "," + pass, Peticiones.p101a);
 
 			} catch (InterruptedException e1) {
 

@@ -47,7 +47,7 @@ public class IOListenerSrv extends Thread {
 		try {
 			datos = (Datos) oentrada.readObject();
 			
-			textArea.append(" Conexion => " + idConexion + " || Peticion => " + datos.getPeticion() + "\n");
+			textArea.append("\n Conexion => " + idConexion + " || Peticion => " + datos.getPeticion());
 			
 			procesarPeticion();
 
@@ -65,7 +65,7 @@ public class IOListenerSrv extends Thread {
 
 		
 		textoF.setText("Numero de consultas realizadas (sesion actual): " + NUM_CONSULTAS);
-		System.out.println(" #CONEXION " + idConexion + " -> Desconectado\n");
+		System.out.println("\n #CONEXION " + idConexion + " -> Desconectado");
 		
 	}
 
@@ -98,8 +98,7 @@ public class IOListenerSrv extends Thread {
 			ClienteDAO.cerrarSesion();
 			break;
 
-		case 2:
-			
+		case 2:		
 			ClienteDTO clienteDto = (ClienteDTO) datos.getObjeto();
 			Cliente cliente1 = new Cliente();
 			cliente1.setUsuario(clienteDto.getUsuario());
@@ -108,25 +107,28 @@ public class IOListenerSrv extends Thread {
 			ClienteDAO.iniciarSesion();
 			datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
 			ClienteDAO.cerrarSesion();
-			
 			break;
 
 		case 3:
-
 			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
-			List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
-			
-			for(Municipio muni : lista) {
-				MunicipioDTO muniDTO = new MunicipioDTO();
-				muniDTO.setNombre(muni.getNombre());
-				muniDTO.setIdMunicipio(muni.getIdMunicipio());
-				muniDTO.setProvincia(muni.getProvincia().getNombre());
-				listaDTO.add(muniDTO);
+			switch(datos.getPeticion().getPlataforma()) {
+			case 1:
+				datos.setObjeto(lista);
+				break;
+			case 2: 
+				List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
 
+				for(Municipio muni : lista) {
+					MunicipioDTO muniDTO = new MunicipioDTO();
+					muniDTO.setNombre(muni.getNombre());
+					muniDTO.setIdMunicipio(muni.getIdMunicipio());
+					muniDTO.setProvincia(muni.getProvincia().getNombre());
+					listaDTO.add(muniDTO);
+				}
+				datos.setObjeto(listaDTO);
+				break;
 			}
-			datos.setObjeto(listaDTO);
 			break;
-
 	}
 		MunicipioDAO.cerrarSesion();
 		return true;

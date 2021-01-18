@@ -46,7 +46,7 @@ public class ClienteDAO {
 		if (cliente == null){
 			return null;
 		}
-        System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
+//        System.out.printf(" REGISTRO(S) => %s || %d%n%n", cliente.getUsuario(), cliente.getIdCliente());
         return cliente;
 	}
 	

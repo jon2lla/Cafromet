@@ -51,6 +51,8 @@ public class Updater {
 		
 	public boolean comprobarActualizaciones() {
 		GestorFicheros.crearDirectorio(RUTA_TEMP);
+		GestorFicheros.crearDirectorio(RUTA_JSON);
+		GestorFicheros.crearDirectorio(RUTA_XML);
 		FuenteDAO.iniciarSesion();
 		System.out.println("\n >> COMPROBANDO ACTUALIZACIONES...");
 

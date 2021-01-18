@@ -44,9 +44,9 @@ public class Servidor extends Thread {
 			while (continuar) {
 				Thread.sleep(200);
 				if (GestorConexiones.getInstance().getNumUsuarios() < Servidor.MAX_CONEXIONES)
-					textArea.append(" Esperando conexiones... \n");
+					textArea.append("\n Esperando conexiones...");
 				else
-					textArea.append(" Servidor lleno\n");
+					textArea.append("\n Servidor lleno");
 				socket = servidor.accept();
 
 				if (GestorConexiones.getInstance().getNumUsuarios() < MAX_CONEXIONES) {
@@ -86,11 +86,11 @@ public class Servidor extends Thread {
 	
 	public void desconectar() {
 		continuar = false;
-		try {
+		try {			
+			
 			cerrarSesionHibernate();
 			GestorConexiones.getInstance().mensajeDeDifusion("*");			
 			servidor.close();
-			
 			GestorFicheros.eliminarDirectorio(new File(Updater.RUTA_TEMP));
 			System.out.println("\n FICHEROS TEMPORALES BORRADOS => " + Updater.RUTA_TEMP);
 

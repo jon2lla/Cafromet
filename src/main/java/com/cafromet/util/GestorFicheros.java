@@ -106,8 +106,9 @@ public class GestorFicheros extends Thread {
 		case 5:
 			filtrarJson();
 			procesarElementoJsonMedicion(procesarJson());
+			String nombreFormateado = centroMeteorologico.getNombre().replace(" ", "_");			
 			JsonToXml jtx = new JsonToXml();
-			jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", centroMeteorologico.getNombre(), "MEDICIONES", "mediciones_" + centroMeteorologico.getNombre().toLowerCase() + ".xml", Updater.RUTA_XML);
+			jtx.convertJsonToXml(centroMeteorologico.getNombre() + "Temp2.json", nombreFormateado, "MEDICION", "mediciones_" + nombreFormateado.toLowerCase() + ".xml", Updater.RUTA_XML);
 			jtx.start();
 			break;
 		}
@@ -331,7 +332,7 @@ public class GestorFicheros extends Thread {
             if (directorio.mkdirs()) {
                 System.out.println("\n DIRECTORIO CREADO => " + ruta);
             } else {
-                System.out.println("Error al crear directorio");
+                System.out.println("\n !ERROR => Error al crear el directorio " + ruta);
             }
         }
 		return true;

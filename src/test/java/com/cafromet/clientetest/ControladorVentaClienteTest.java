@@ -30,7 +30,7 @@ public class ControladorVentaClienteTest {
 
         controlador = Mockito.spy(controlador);
         Mockito.doReturn(true).when(controlador).procesarRecepcion();
-        boolean result = controlador.enviarPeticion("prueba", Peticiones.p101);
+        boolean result = controlador.enviarPeticion("prueba", Peticiones.p101a);
         assertTrue(result);
     }
 

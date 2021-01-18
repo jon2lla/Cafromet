@@ -11,14 +11,14 @@ public class ControladorVentanMunicipio {
 
 	private Datos datos;
 
-	private ArrayList<MunicipioDTO> municipios;
+	private ArrayList<Municipio> municipios;
 
 	public VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 
 	public ControladorVentanMunicipio(VentanaMunicipio pVentanaMunicipio){
 
 		ventanaMunicipio = pVentanaMunicipio;
-		enviarPeticion("prueba", Peticiones.p103);
+		enviarPeticion("prueba", Peticiones.p103a);
 	}
 
 	public boolean enviarPeticion(String contenido, Peticiones peticion){
@@ -48,14 +48,18 @@ public class ControladorVentanMunicipio {
 
 		case 3:
 			 
-			municipios = (ArrayList<MunicipioDTO>) datos.getObjeto();
+			municipios = (ArrayList<Municipio>) datos.getObjeto();
 			
+			for(Municipio muni : municipios) {
+				System.out.println(muni.getNombre());
+//				System.out.println(muni.getProvincia().getNombre());
+			}
 			String matrizInfo[][] = new String[municipios.size()][2];
 			
 			for (int i = 0; i < municipios.size(); i++) {
 				
 				matrizInfo[i][0] = municipios.get(i).getNombre();
-				matrizInfo[i][1] = municipios.get(i).getProvincia();
+//				matrizInfo[i][1] = municipios.get(i).getProvincia().getNombre();
 				
 				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);
 				
