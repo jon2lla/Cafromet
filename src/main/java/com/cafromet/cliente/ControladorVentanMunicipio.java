@@ -50,16 +50,12 @@ public class ControladorVentanMunicipio {
 			 
 			municipios = (ArrayList<Municipio>) datos.getObjeto();
 			
-			for(Municipio muni : municipios) {
-				System.out.println(muni.getNombre());
-//				System.out.println(muni.getProvincia().getNombre());
-			}
 			String matrizInfo[][] = new String[municipios.size()][2];
 			
 			for (int i = 0; i < municipios.size(); i++) {
 				
 				matrizInfo[i][0] = municipios.get(i).getNombre();
-//				matrizInfo[i][1] = municipios.get(i).getProvincia().getNombre();
+				matrizInfo[i][1] = municipios.get(i).getDescripcion();
 				
 				ventanaMunicipio.getDefaultTableModel().addRow(matrizInfo[i]);
 				

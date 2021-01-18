@@ -99,5 +99,46 @@ public class GestorFicheroTest {
 		String linea2="])";
 		assertEquals(linea1, linea2);
 	}
-
+	@Test
+	public void testEliminarFichero() {
+		File fichero = new File("pueblos.json");
+		assertTrue(GestorFicheros.eliminarFichero(fichero ));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex1() {
+		assertTrue(gestorFicheros.comprobarEstructuraJsonIndex("["));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex2() {
+		assertTrue(gestorFicheros.comprobarEstructuraJsonIndex("},"));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex3() {
+		assertTrue(gestorFicheros.comprobarEstructuraJsonIndex("    {"));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex4() {
+		assertTrue(gestorFicheros.comprobarEstructuraJsonIndex("    }"));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex5() {
+		assertTrue(gestorFicheros.comprobarEstructuraJsonIndex("]"));
+	}
+	@Test
+	public void testcomprobarEstructuraJsonIndex6() {
+		assertFalse(gestorFicheros.comprobarEstructuraJsonIndex("2"));
+	}
+	
+	@Test
+	public void testremplazoHTIndex() {
+		String linea="";
+		String prueba=gestorFicheros.remplazoHTIndex("\"lastUpdateDate\": ");
+		assertEquals(linea, prueba);
+	}
+	@Test
+	public void testremplazoHTIndex2() {
+		String linea="[";
+		String prueba=gestorFicheros.remplazoHTIndex("\"aggregated\":");
+		assertEquals(linea, prueba);
+	}
 }
