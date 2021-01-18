@@ -292,7 +292,7 @@ public class Updater {
 		//DESCOMENTAR PARA ACTUALIZACION DE MEDICIONES SECUENCIAL
 //		gfMediciones.join();
 
-		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + nombreFormateado + "Temp" + JSON);
+		System.out.println("\n >> ACTUALIZANDO FICHERO => " + RUTA_TEMP + nombreFormateado + "_temp" + JSON);
 		System.out.println("\n >> FICHERO ACTUALIZADO\n");
 		return true;
 	
