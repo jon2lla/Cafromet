@@ -85,6 +85,7 @@ public class ControladorCliente implements ActionListener {
 				ventanaCliente.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "NO EXISTE EL USUARIO", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+
 			}
 			
 			break;

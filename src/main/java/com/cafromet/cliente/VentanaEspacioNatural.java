@@ -1,27 +1,28 @@
 package com.cafromet.cliente;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 
-@SuppressWarnings("serial")
-public class VentanaMunicipio extends JFrame {
+public class VentanaEspacioNatural extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
 	private JComboBox comboBoxProvincia;
 	private JButton btnFiltrar;
-	
 	
 	public JButton getBtnFiltrar() {
 		return btnFiltrar;
@@ -47,30 +48,29 @@ public class VentanaMunicipio extends JFrame {
 		this.defaultTableModel = defaultTableModel;
 	}
 	
-	@SuppressWarnings("unused")
-	public void inicioVentanaMunicipio() {
+	public void inicioVentanaEspacioNatural() {
+
+		VentanaEspacioNatural ventanaEspacioNatural = new VentanaEspacioNatural();
+		ventanaEspacioNatural.setVisible(true);
 		
-		VentanaMunicipio VentanaMunicipio = new VentanaMunicipio();
-		VentanaMunicipio.setVisible(true);
-		
-		ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
-				
+		ControladorVentanaEspacioNatural controladorVentEspacioNatural = new ControladorVentanaEspacioNatural(ventanaEspacioNatural);
+
 	}
 
-	public VentanaMunicipio() {
+	public VentanaEspacioNatural() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 606, 373);
+		setBounds(100, 100, 519, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane;
+		contentPane.setLayout(null);
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 136, 592, 187);
+		scrollPane.setBounds(10, 74, 483, 176);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "NOMBRE", "DESCRIPCION","PROVINCIA"};
+		String columnas[] = { "NOMBRE", "DESCRIPCION","TIPO","CATEGORIA"};
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
@@ -85,18 +85,19 @@ public class VentanaMunicipio extends JFrame {
 		scrollPane.setViewportView(tablaContactos);
 		
 		comboBoxProvincia = new JComboBox();
-		comboBoxProvincia.setModel(new DefaultComboBoxModel(new String[] {"Araba/Álava", "Gipuzkoa", "Bizkaia"}));
-		comboBoxProvincia.setBounds(135, 33, 112, 22);
+		comboBoxProvincia.setModel(new DefaultComboBoxModel(new String[] {"PANTANOS", "RIOS", "PLAYAS"}));
+		comboBoxProvincia.setBounds(135, 36, 112, 22);
 		contentPane.add(comboBoxProvincia);
 		
-		JLabel lblNewLabel = new JLabel("PROVINCIA");
+		JLabel lblNewLabel = new JLabel("CATEGORIA");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(25, 35, 100, 20);
 		contentPane.add(lblNewLabel);
 		
 		btnFiltrar = new JButton("FILTRAR");
-		btnFiltrar.setBounds(281, 33, 89, 23);
+		btnFiltrar.setBounds(257, 35, 100, 24);
 		contentPane.add(btnFiltrar);
 		
 	}
+
 }

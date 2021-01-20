@@ -11,11 +11,15 @@ import javax.swing.JTextField;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
+import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.ClienteDAO;
+import com.cafromet.modelodao.EspacioNaturalDAO;
 import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodto.CentroMeteorologicoDTO;
 import com.cafromet.modelodto.ClienteDTO;
+import com.cafromet.modelodto.EspacioNaturalDTO;
 import com.cafromet.modelodto.MunicipioDTO;
 
 
@@ -64,7 +68,6 @@ public class IOListenerSrv extends Thread {
 			System.out.println(" !ERROR: Input Listener Servidor -> IOException");
 			GestorConexiones.getInstance().cerrarConexion(idConexion);
 		}
-
 		
 		textoF.setText("Numero de consultas realizadas (sesion actual): " + NUM_CONSULTAS);
 		System.out.println(" #CONEXION " + idConexion + " -> Desconectado\n");
@@ -73,6 +76,8 @@ public class IOListenerSrv extends Thread {
 
 	public synchronized boolean procesarPeticion() {
 		MunicipioDAO.iniciarSesion();
+		CentroMeteorologicoDAO.iniciarSesion();	
+		EspacioNaturalDAO.iniciarSesion();
 		switch (datos.getPeticion().getCodigo()) {	
 		case 1: 
 			String[] array = datos.getContenido().split(",");
@@ -125,12 +130,10 @@ public class IOListenerSrv extends Thread {
 			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
 			switch(datos.getPeticion().getPlataforma()) {
 			case 1:
-				
 				datos.setObjeto(lista);
 				break;
 			case 2: 
 				List<MunicipioDTO> listaDTO = new ArrayList<MunicipioDTO>();
-
 				for(Municipio muni : lista) {
 					MunicipioDTO muniDTO = new MunicipioDTO();
 					muniDTO.setNombre(muni.getNombre());
@@ -140,10 +143,50 @@ public class IOListenerSrv extends Thread {
 				}
 				datos.setObjeto(listaDTO);
 				break;
-			}	
+			}
+			break;			
+		case 4:
+			List<EspacioNatural> listaEspNat = EspacioNaturalDAO.consultarRegistros();
+			switch(datos.getPeticion().getPlataforma()) {
+			case 1:
+				datos.setObjeto(listaEspNat);
+				break;
+			case 2: 
+				List<EspacioNaturalDTO> listaespaNat = new ArrayList<EspacioNaturalDTO>();
+				for(EspacioNatural espacioNatural : listaEspNat) {
+					EspacioNaturalDTO espaNatDTO = new EspacioNaturalDTO();
+					espaNatDTO.setIdEspacioNatural(espaNatDTO.getIdEspacioNatural());
+					espaNatDTO.setNombre(espaNatDTO.getNombre());
+					espaNatDTO.setCategoria(espacioNatural.getCategoria());
+					espaNatDTO.setDescripcion(espacioNatural.getDescripcion());
+					espaNatDTO.setTipo(espacioNatural.getTipo());
+					listaespaNat.add(espaNatDTO);
+				}
+				break;
+			}
+			break;
+		case 5:	
+			List<CentroMeteorologico> listaCentro =  CentroMeteorologicoDAO.consultarRegistros();
+			switch(datos.getPeticion().getPlataforma()) {	
+			case 1:
+				datos.setObjeto(listaCentro);
+				break;
+			case 2: 
+				List<CentroMeteorologicoDTO> listaCentroDTO = new ArrayList<CentroMeteorologicoDTO>();				
+				for(CentroMeteorologico centroMet : listaCentro) {
+					CentroMeteorologicoDTO centroDTO = new CentroMeteorologicoDTO();
+					centroDTO.setIdCentroMet(centroMet.getIdCentroMet());
+					centroDTO.setNombre(centroMet.getNombre());				
+					listaCentroDTO.add(centroDTO);
+				}
+				datos.setObjeto(listaCentroDTO);
+				break;
+			}		
 			break;
 	}
 		MunicipioDAO.cerrarSesion();
+		CentroMeteorologicoDAO.cerrarSesion();
+		EspacioNaturalDAO.cerrarSesion();
 		return true;
 	}
 	
