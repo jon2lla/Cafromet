@@ -13,8 +13,8 @@ public class CentroMeteorologicoTest {
 	
 	@Before
 	public void setup() {	
-		centro1 = new CentroMeteorologico("ca",null, null, null, 0.0, 0.0, null, null, null);
-		centro2 = new CentroMeteorologico("ca",null, null, null, 0.0, 0.0, null, null, null);
+		centro1 = new CentroMeteorologico(null, null, null, null, 0.0, null, null, null);
+		centro2 = new CentroMeteorologico(null, null, null, null, 0.0, null, null, null);
 	}
 	@Test
 	public void testConstructorCentroMet() {

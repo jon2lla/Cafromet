@@ -14,8 +14,13 @@ public class MainServer {
 		//DESACTIVA LOS LOGS DE HIBERNATE
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		
-		Updater.getInstance().comprobarActualizaciones();
-
+		Updater.getInstance().start();
+		
+		try {
+			Updater.getInstance().join();
+		} catch (InterruptedException e) {
+			System.out.println("\n !ERROR => INTERRUPTED EXCEPTION");
+		}
 		Logger server = new Logger();	
 		server.iniciarSesion();
 	}

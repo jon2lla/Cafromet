@@ -62,6 +62,15 @@ public class MunicipioDAO {
 		return municipio;		
 	}
 	
+	public static Municipio consultarRegistro(String nomMunicipio, int idProvincia) {
+		HQL = "from Municipio as mun where mun.nombre = :nomMunicipio and mun.provincia.idProvincia = :idProvincia";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("nomMunicipio", nomMunicipio);
+		QUERY.setParameter("idProvincia", idProvincia);
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
+		return municipio;		
+	}
+	
 	public static List<Municipio> consultarRegistros() {
         SESSION.beginTransaction();
         String hql = "from Municipio";

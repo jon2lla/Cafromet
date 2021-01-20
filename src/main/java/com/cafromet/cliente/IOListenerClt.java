@@ -17,10 +17,7 @@ public class IOListenerClt implements Runnable{
     private ObjectInputStream ois;
 
     private Datos datos;
-//    private String ip = "192.168.0.20";
-    private String ip = "192.168.43.49"; 
-//    private String ip = "192.168.0.13";
-//    private String ip = "192.168.6.241";
+    private String ip = "localhost"; 
 
     public IOListenerClt(Datos datos){
         this.datos = datos;

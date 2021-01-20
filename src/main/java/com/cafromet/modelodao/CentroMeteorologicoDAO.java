@@ -34,7 +34,7 @@ public class CentroMeteorologicoDAO {
 		return false;
 	}
 	
-	public static boolean insertarRegistro(CentroMeteorologico centroMeteorologico) {
+	public synchronized static boolean insertarRegistro(CentroMeteorologico centroMeteorologico) {
 		if(duplicado(centroMeteorologico)) {
 			return false;
 		}

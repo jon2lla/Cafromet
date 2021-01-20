@@ -17,7 +17,7 @@ import com.cafromet.util.Encriptacion;
 import com.cafromet.util.GestorFicheros;
 import com.cafromet.util.JsonToXml;
 
-public class Updater {
+public class Updater extends Thread{
 	protected static String RUTA_RES =  "src" + File.separator 
 			+ "resource" + File.separator 
 			+ "com" + File.separator
@@ -51,6 +51,11 @@ public class Updater {
 		return Holder.INSTANCE;
 	}
 		
+	@Override
+	public void run() {
+		comprobarActualizaciones();
+	}
+
 	public boolean comprobarActualizaciones() {
 		GestorFicheros.crearDirectorio(RUTA_TEMP);
 		GestorFicheros.crearDirectorio(RUTA_JSON);
@@ -226,7 +231,8 @@ public class Updater {
 				}
 			}	
 			mostrarHash(centroMeteorologico.getHash(), hash);	
-		}	
+		}
+		
 		return true;
 
 	}
@@ -286,8 +292,7 @@ public class Updater {
 		String nombreFormateado = centroMeteorologico.getNombre().replace(" ", "_").toLowerCase();
 		
 		GestorFicheros gfMediciones = new GestorFicheros(new File (RUTA_TEMP + nombreFormateado + "_temp" + JSON), new File(RUTA_TEMP + nombreFormateado + "_temp2" + JSON), 5, centroMeteorologico);
-		gfMediciones.start();
-//		
+		gfMediciones.start();		
 		
 		//DESCOMENTAR PARA ACTUALIZACION DE MEDICIONES SECUENCIAL
 //		gfMediciones.join();

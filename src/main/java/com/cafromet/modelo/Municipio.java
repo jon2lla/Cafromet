@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 11 ene. 2021 18:47:26 by Hibernate Tools 5.4.21.Final
+// Generated 20 ene. 2021 17:05:37 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,17 +15,19 @@ public class Municipio implements java.io.Serializable {
 	private String descripcion;
 	private Integer codMunicipio;
 	private Set municipio_EspacioNaturals = new HashSet(0);
+	private Set centroMeteorologicos = new HashSet(0);
 
 	public Municipio() {
 	}
 
 	public Municipio(Provincia provincia, String nombre, String descripcion, Integer codMunicipio,
-			Set municipio_EspacioNaturals) {
+			Set municipio_EspacioNaturals, Set centroMeteorologicos) {
 		this.provincia = provincia;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.codMunicipio = codMunicipio;
 		this.municipio_EspacioNaturals = municipio_EspacioNaturals;
+		this.centroMeteorologicos = centroMeteorologicos;
 	}
 
 	public Integer getIdMunicipio() {
@@ -74,6 +76,14 @@ public class Municipio implements java.io.Serializable {
 
 	public void setMunicipio_EspacioNaturals(Set municipio_EspacioNaturals) {
 		this.municipio_EspacioNaturals = municipio_EspacioNaturals;
+	}
+
+	public Set getCentroMeteorologicos() {
+		return this.centroMeteorologicos;
+	}
+
+	public void setCentroMeteorologicos(Set centroMeteorologicos) {
+		this.centroMeteorologicos = centroMeteorologicos;
 	}
 
 }

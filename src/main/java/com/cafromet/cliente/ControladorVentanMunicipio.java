@@ -50,11 +50,10 @@ public class ControladorVentanMunicipio {
 			 
 			municipios = (ArrayList<Municipio>) datos.getObjeto();
 			
-			System.out.println(municipios.get(2).getProvincia().getMunicipios());
 			String matrizInfo[][] = new String[municipios.size()][2];
 			
 			for (int i = 0; i < municipios.size(); i++) {
-				
+
 				matrizInfo[i][0] = municipios.get(i).getNombre();
 				matrizInfo[i][1] = municipios.get(i).getDescripcion();
 				
