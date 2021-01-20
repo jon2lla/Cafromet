@@ -14,7 +14,7 @@ public class MainServer {
 		//DESACTIVA LOS LOGS DE HIBERNATE
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		
-		Updater.getInstance().start();
+//		Updater.getInstance().start();
 		
 		try {
 			Updater.getInstance().join();

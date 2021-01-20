@@ -14,7 +14,7 @@ public class VentanaMunicipio extends JFrame {
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
-	
+
 	public DefaultTableModel getDefaultTableModel() {
 		return defaultTableModel;
 	}
@@ -29,15 +29,13 @@ public class VentanaMunicipio extends JFrame {
 		VentanaMunicipio VentanaMunicipio = new VentanaMunicipio();
 		VentanaMunicipio.setVisible(true);
 		
-
 		ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
-		
-		
+				
 	}
 
 	public VentanaMunicipio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 606, 234);
+		setBounds(100, 100, 606, 373);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -45,10 +43,10 @@ public class VentanaMunicipio extends JFrame {
 		
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 592, 187);
+		scrollPane.setBounds(0, 136, 592, 187);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "NOMBRE", "DESCRIPCION" };
+		String columnas[] = { "NOMBRE", "DESCRIPCION"};
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
@@ -63,5 +61,4 @@ public class VentanaMunicipio extends JFrame {
 		scrollPane.setViewportView(tablaContactos);
 		
 	}
-
 }

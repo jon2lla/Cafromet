@@ -13,7 +13,10 @@ public enum Peticiones {
     p102b(2, 2),
     //PETICION LISTAR MUNICIPIOS
     p103a(3, 1),
-    p103b(3, 2);
+    p103b(3, 2),
+	//PETICION LISTAR CENTROS METEOROLOGICOS
+    p105a(5, 1),
+    p105b(5, 2);
 
     private int codigo;
     private int plataforma;

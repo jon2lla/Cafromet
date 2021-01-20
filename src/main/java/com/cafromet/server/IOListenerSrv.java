@@ -9,8 +9,10 @@ import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.Municipio;
+import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodto.ClienteDTO;
@@ -99,20 +101,31 @@ public class IOListenerSrv extends Thread {
 			break;
 
 		case 2:		
-			ClienteDTO clienteDto = (ClienteDTO) datos.getObjeto();
-			Cliente cliente1 = new Cliente();
-			cliente1.setUsuario(clienteDto.getUsuario());
-			cliente1.setPasswd(clienteDto.getPasswd());
-			System.out.println("\n RECEPCION SERVER => Cliente: " + cliente1.getUsuario() + "; Password: " + cliente1.getPasswd());
-			ClienteDAO.iniciarSesion();
-			datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
-			ClienteDAO.cerrarSesion();
+			switch(datos.getPeticion().getPlataforma()) {			
+			case 1:
+				Cliente cliente2 = (Cliente) datos.getObjeto();
+				System.out.println("\n RECEPCION SERVER => Cliente: " + cliente2.getUsuario() + "; Password: " + cliente2.getPasswd());
+				ClienteDAO.iniciarSesion();
+				datos.setObjeto(ClienteDAO.insertarRegistro(cliente2));
+				ClienteDAO.cerrarSesion();
+				break;
+			case 2:
+				ClienteDTO clienteDto = (ClienteDTO) datos.getObjeto();
+				Cliente cliente1 = new Cliente();
+				cliente1.setUsuario(clienteDto.getUsuario());
+				cliente1.setPasswd(clienteDto.getPasswd());
+				System.out.println("\n RECEPCION SERVER => Cliente: " + cliente1.getUsuario() + "; Password: " + cliente1.getPasswd());
+				ClienteDAO.iniciarSesion();
+				datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
+				ClienteDAO.cerrarSesion();
 			break;
-
+			}
+			break;
 		case 3:
 			List<Municipio> lista =  MunicipioDAO.consultarRegistros();
 			switch(datos.getPeticion().getPlataforma()) {
 			case 1:
+				
 				datos.setObjeto(lista);
 				break;
 			case 2: 
@@ -127,7 +140,7 @@ public class IOListenerSrv extends Thread {
 				}
 				datos.setObjeto(listaDTO);
 				break;
-			}
+			}	
 			break;
 	}
 		MunicipioDAO.cerrarSesion();

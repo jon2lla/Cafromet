@@ -3,13 +3,15 @@ package com.cafromet.cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
 
 public class ControladorCliente implements ActionListener {
 
 	private Datos datos;
-
+	public VentanaRegistrar ventanaRegistrar = new VentanaRegistrar();
 	public VentanaCliente ventanaCliente = new VentanaCliente();
 
 	public ControladorCliente(VentanaCliente pVentanaCliente) {
@@ -23,7 +25,8 @@ public class ControladorCliente implements ActionListener {
 
 		ventanaCliente.getbtnEnviar().addActionListener(this);
 		ventanaCliente.getbtnEnviar().setActionCommand("Enviar");
-
+		ventanaCliente.getBtnRegistrar().addActionListener(this);
+		ventanaCliente.getBtnRegistrar().setActionCommand("Registrar");
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -35,10 +38,19 @@ public class ControladorCliente implements ActionListener {
 			String usu = ventanaCliente.getTextFieldUsuario().getText();
 			String pass = ventanaCliente.getTextFieldPassw().getText();
 			
-			enviarPeticion(usu + "," + pass, Peticiones.p101a);
-
+			if (!usu.isEmpty() && !pass.isEmpty()) {
+				enviarPeticion(usu + "," + pass, Peticiones.p101a);
+			}else {
+				JOptionPane.showMessageDialog(null, "CAMPO(S) VACIO(S)", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+		
 			break;
+			
+		case "Registrar":
 
+			ventanaRegistrar.VentRegistrar();
+			ventanaCliente.dispose();
+			break;
 		}
 	}
 
@@ -58,7 +70,7 @@ public class ControladorCliente implements ActionListener {
 		}	
 		return true;
 	}
-	@SuppressWarnings("unused")
+
 	public boolean procesarRecepcion() {
 		
 		switch (datos.getPeticion().getCodigo()) {
@@ -68,15 +80,11 @@ public class ControladorCliente implements ActionListener {
 			boolean existe = (boolean) datos.getObjeto();
 			
 			if (existe) {
-				System.out.println("\n Existe el usuario");
-				VentanaMunicipio VentanaMunicipio = new VentanaMunicipio();
-				VentanaMunicipio.setVisible(true);
-
-				ControladorVentanMunicipio controladorVentanMunicipio = new ControladorVentanMunicipio(VentanaMunicipio);
-				
-				
+				VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
+				ventanaMenuPrincipal.InicioMenuPrincipal();
+				ventanaCliente.dispose();
 			} else {
-				System.out.println("\n NO EXISTE");
+				JOptionPane.showMessageDialog(null, "NO EXISTE EL USUARIO", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			break;
