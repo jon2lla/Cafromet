@@ -1,7 +1,5 @@
 package com.cafromet.cliente;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,6 +19,7 @@ public class VentanaEspacioNatural extends JFrame {
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
+	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxProvincia;
 	private JButton btnFiltrar;
 	
@@ -32,10 +31,12 @@ public class VentanaEspacioNatural extends JFrame {
 		this.btnFiltrar = btnFiltrar;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JComboBox getComboBoxProvincia() {
 		return comboBoxProvincia;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setComboBoxProvincia(JComboBox comboBoxProvincia) {
 		this.comboBoxProvincia = comboBoxProvincia;
 	}
@@ -57,6 +58,7 @@ public class VentanaEspacioNatural extends JFrame {
 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public VentanaEspacioNatural() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 519, 300);
@@ -70,7 +72,7 @@ public class VentanaEspacioNatural extends JFrame {
 		scrollPane.setBounds(10, 74, 483, 176);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "NOMBRE", "DESCRIPCION","TIPO","CATEGORIA"};
+		String columnas[] = {"NOMBRE", "DESCRIPCION", "CATEGORIA"};
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
@@ -85,7 +87,7 @@ public class VentanaEspacioNatural extends JFrame {
 		scrollPane.setViewportView(tablaContactos);
 		
 		comboBoxProvincia = new JComboBox();
-		comboBoxProvincia.setModel(new DefaultComboBoxModel(new String[] {"PANTANOS", "RIOS", "PLAYAS"}));
+		comboBoxProvincia.setModel(new DefaultComboBoxModel(new String[] {"Pantanos", "Rios", "Playas"}));
 		comboBoxProvincia.setBounds(135, 36, 112, 22);
 		contentPane.add(comboBoxProvincia);
 		

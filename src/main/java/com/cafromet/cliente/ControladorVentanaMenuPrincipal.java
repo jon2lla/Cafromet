@@ -19,7 +19,7 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		ventanaMenuPrincipal.getBtnMunicipios().addActionListener(this);
 		ventanaMenuPrincipal.getBtnMunicipios().setActionCommand("municipios");
 		ventanaMenuPrincipal.getBtnCentrosMeteorologicos().addActionListener(this);
-		ventanaMenuPrincipal.getBtnCentrosMeteorologicos().setActionCommand("centrosMeteorologicos");
+		ventanaMenuPrincipal.getBtnCentrosMeteorologicos().setActionCommand("Mediciones");
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().addActionListener(this);
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().setActionCommand("espaciosNaturales");
 	}
@@ -33,8 +33,8 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 			VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 			ventanaMunicipio.inicioVentanaMunicipio();
 			break;
-		case "centrosMeteorologicos":
-			VentanaCentrosMeteorologicos ventanaCentrosMeteorologicos = new VentanaCentrosMeteorologicos();
+		case "Mediciones":
+			VentanaMediciones ventanaCentrosMeteorologicos = new VentanaMediciones();
 			ventanaCentrosMeteorologicos.inicioVentanaCentrosMeteorologicos();
 			break;
 		case "espaciosNaturales":

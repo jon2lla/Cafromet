@@ -57,6 +57,7 @@ public class EspacioNaturalDAO {
 		SESSION.getTransaction().commit();
         return espacioNatural;
 	}
+	
 	public static boolean borrarRegistro(String nombre) {
 		SESSION.beginTransaction();	
 		HQL = "from EspacioNatural where nombre = :nombre";

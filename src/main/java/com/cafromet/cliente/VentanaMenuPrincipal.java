@@ -62,7 +62,7 @@ public class VentanaMenuPrincipal extends JFrame {
 		btnEspaciosNaturales.setBounds(52, 156, 152, 23);
 		contentPane.add(btnEspaciosNaturales);
 		
-		btnCentrosMeteorologicos = new JButton("CENTROS METEOROLOGICOS");
+		btnCentrosMeteorologicos = new JButton("MEDICIONES");
 		btnCentrosMeteorologicos.setBounds(52, 105, 152, 23);
 		contentPane.add(btnCentrosMeteorologicos);
 	}

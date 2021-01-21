@@ -59,7 +59,7 @@ public class VentanaMunicipio extends JFrame {
 
 	public VentanaMunicipio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 606, 373);
+		setBounds(100, 100, 606, 313);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,10 +67,10 @@ public class VentanaMunicipio extends JFrame {
 		
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 136, 592, 187);
+		scrollPane.setBounds(10, 76, 570, 187);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "NOMBRE", "DESCRIPCION","PROVINCIA"};
+		String columnas[] = { "NOMBRE", "DESCRIPCION"};
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
