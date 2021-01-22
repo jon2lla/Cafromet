@@ -39,6 +39,7 @@ public class MedicionDAO {
 		if(duplicado(medicion)) {
 			return false;
 		}
+
 		SESSION.beginTransaction();		
 		SESSION.save(medicion);
 		SESSION.getTransaction().commit();	

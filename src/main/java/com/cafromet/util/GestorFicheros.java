@@ -766,15 +766,25 @@ public class GestorFicheros extends Thread {
 					    medicionId.setHora(date);
 					    medicionId.setIdCentroMet(centroMeteorologico.getIdCentroMet());
 					    medicion.setId(medicionId);
-					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.206"))) { //$NON-NLS-1$
-
-					 
 					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.208"))) { //$NON-NLS-1$
+						medicion.setDirViento(Integer.parseInt(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.209"))) { //$NON-NLS-1$
+						medicion.setHRelativa(Integer.parseInt(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.210"))) { //$NON-NLS-1$
+						medicion.setPAtmosferica(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.211"))) { //$NON-NLS-1$
+						medicion.setPrecip(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.212"))) { //$NON-NLS-1$
+						medicion.setRadSolar(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.213"))) { //$NON-NLS-1$
+						medicion.setTempAmbiente(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.214"))) { //$NON-NLS-1$
+						medicion.setVViento(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.215"))) { //$NON-NLS-1$
 //						System.out.println(medicion.toString());
 						medicion.setIca(entrada.getValue().getAsString());
 						MedicionDAO.insertarRegistro(medicion);
 					}
-
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}

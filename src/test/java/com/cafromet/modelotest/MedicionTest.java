@@ -19,7 +19,7 @@ public class MedicionTest {
 		medId = new MedicionId();
 		medId.setIdCentroMet(1);
 		medicion =  new Medicion(medId, null);
-		medicion2 = new Medicion(medId, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		medicion2 = new Medicion(medId, null, null, null, null, null, null, null, null, null);
 	}
 	
 	@Test
@@ -31,19 +31,14 @@ public class MedicionTest {
 	public void testSetMedicion() {
 		medicion.setId(medId);
 		medicion.setCentroMeteorologico(null);
-		medicion.setComgm3(null);
-		medicion.setCo8hmgm3(null); 
-		medicion.setNogm3(null);
-		medicion.setNo2(null);
-		medicion.setNo2ica(null);
-		medicion.setNoxgm3(null);
-		medicion.setPm10(null);
-		medicion.setPm10ica(null);
-		medicion.setPm25(null);
-		medicion.setPm25ica(null);
-		medicion.setSo2(null);
-		medicion.setSo2ica(null);
-		medicion.setIcaEstacion(null);
+		medicion.setDirViento(null);
+		medicion.setHRelativa(null); 
+		medicion.setPAtmosferica(null);
+		medicion.setPrecip(null);
+		medicion.setRadSolar(null);
+		medicion.setTempAmbiente(null);
+		medicion.setVViento(null);
+		medicion.setIca(null);
 		
 		assertEquals(medicion.getId(), medicion2.getId());
 	}
@@ -52,19 +47,14 @@ public class MedicionTest {
 	public void testGetMedicion() {
 		medicion.getId();
 		medicion.getCentroMeteorologico();
-		medicion.getComgm3();
-		medicion.getCo8hmgm3(); 
-		medicion.getNogm3();
-		medicion.getNo2();
-		medicion.getNo2ica();
-		medicion.getNoxgm3();
-		medicion.getPm10();
-		medicion.getPm10ica();
-		medicion.getPm25();
-		medicion.getPm25ica();
-		medicion.getSo2();
-		medicion.getSo2ica();
-		medicion.getIcaEstacion();
+		medicion.getDirViento();
+		medicion.getHRelativa(); 
+		medicion.getPAtmosferica();
+		medicion.getPrecip();
+		medicion.getRadSolar();
+		medicion.getTempAmbiente();
+		medicion.getVViento();
+		medicion.getIca();
 		
 		assertEquals(medicion.getId(), medicion2.getId());
 	}

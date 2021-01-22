@@ -19,7 +19,7 @@ public class ClienteTest {
 	@Test
 	public void testConstructorCliente() {
 		 cliente1 = new Cliente();
-		 cliente2 = new Cliente( null,null);
+		 cliente2 = new Cliente( null, null, null, null);
 		assertEquals(cliente1.getIdCliente(), cliente2.getIdCliente());
 	}
 	@Test
