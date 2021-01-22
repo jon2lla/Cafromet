@@ -1,5 +1,5 @@
 package com.cafromet.modelo;
-// Generated 20 ene. 2021 17:05:37 by Hibernate Tools 5.4.21.Final
+// Generated 22 ene. 2021 17:40:52 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -105,11 +105,10 @@ public class CentroMeteorologico implements java.io.Serializable {
 	public void setMedicions(Set medicions) {
 		this.medicions = medicions;
 	}
-	
+
 	@Override
 	public String toString() {
 
 		return nombre;
 	}
-
 }

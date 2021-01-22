@@ -761,15 +761,17 @@ public class GestorFicheros extends Thread {
 						medicion = new Medicion();
 						medicionId = new MedicionId();
 						medicionId.setFecha(date);
-					} 
-					else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.206"))) { //$NON-NLS-1$
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.206"))) { //$NON-NLS-1$
 					    Date date = new SimpleDateFormat(StringsGestorFicheros.getString("GestorFicheros.207")).parse(entrada.getValue().getAsString());     //$NON-NLS-1$
 					    medicionId.setHora(date);
 					    medicionId.setIdCentroMet(centroMeteorologico.getIdCentroMet());
 					    medicion.setId(medicionId);
+					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.206"))) { //$NON-NLS-1$
+
+					 
 					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.208"))) { //$NON-NLS-1$
 //						System.out.println(medicion.toString());
-						medicion.setIcaEstacion(entrada.getValue().getAsString());
+						medicion.setIca(entrada.getValue().getAsString());
 						MedicionDAO.insertarRegistro(medicion);
 					}
 

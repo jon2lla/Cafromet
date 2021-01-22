@@ -11,6 +11,8 @@
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
 	</type-mapping>
 	<table-filter match-name="centros_meteorologicos"
 		match-catalog="cafrometbbdd">
@@ -19,6 +21,8 @@
 	<table-filter match-name="espacios_naturales"
 		match-catalog="cafrometbbdd">
 	</table-filter>
+	<table-filter match-name="favoritos" match-catalog="cafrometbbdd"></table-filter>
+	<table-filter match-name="fotos" match-catalog="cafrometbbdd"></table-filter>
 	<table-filter match-name="fuentes" match-catalog="cafrometbbdd"></table-filter>
 	<table-filter match-name="mediciones_centro_met"
 		match-catalog="cafrometbbdd">
@@ -32,7 +36,8 @@
 	<table-filter match-name="provincias"
 		match-catalog="cafrometbbdd">
 	</table-filter>
-	<table catalog="cafrometbbdd" name="centros_meteorologicos" class="com.cafromet.modelo.CentroMeteorologico">
+	<table catalog="cafrometbbdd" name="centros_meteorologicos"
+		class="com.cafromet.modelo.CentroMeteorologico">
 		<column name="ID_CENTRO_MET"></column>
 		<column name="ID_MUNICIPIO"></column>
 		<column name="DIRECCION"></column>
@@ -40,12 +45,14 @@
 		<column name="LATITUD"></column>
 		<column name="LONGITUD"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="clientes" class="com.cafromet.modelo.Cliente">
+	<table catalog="cafrometbbdd" name="clientes"
+		class="com.cafromet.modelo.Cliente">
 		<column name="ID_CLIENTE"></column>
 		<column name="PASSWD"></column>
 		<column name="USUARIO"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="espacios_naturales" class="com.cafromet.modelo.EspacioNatural">
+	<table catalog="cafrometbbdd" name="espacios_naturales"
+		class="com.cafromet.modelo.EspacioNatural">
 		<column name="ID_ESPACIO"></column>
 		<column name="DIRECCION"></column>
 		<column name="DESCRIPCION"></column>
@@ -55,14 +62,16 @@
 		<column name="LATITUD"></column>
 		<column name="CATEGORIA"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="fuentes" class="com.cafromet.modelo.Fuente">
+	<table catalog="cafrometbbdd" name="fuentes"
+		class="com.cafromet.modelo.Fuente">
 		<column name="ID"></column>
 		<column name="URL"></column>
 		<column name="NOMBRE"></column>
 		<column name="HASH"></column>
 		<column name="FORMATO"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="mediciones_centro_met" class="com.cafromet.modelo.Medicion">
+	<table catalog="cafrometbbdd" name="mediciones_centro_met"
+		class="com.cafromet.modelo.Medicion">
 		<column name="ID_CENTRO_MET"></column>
 		<column name="FECHA"></column>
 		<column name="HORA"></column>
@@ -80,17 +89,20 @@
 		<column name="ICA_ESTACION"></column>
 		<column name="PM10ICA"></column>
 	</table>
-	<table catalog="cafrometbbdd" name="municipios" class="com.cafromet.modelo.Municipio">
+	<table catalog="cafrometbbdd" name="municipios"
+		class="com.cafromet.modelo.Municipio">
 		<column name="ID_MUNICIPIO"></column>
 		<column name="NOMBRE"></column>
 		<column name="ID_PROVINCIA"></column>
 	</table>
-<table catalog="cafrometbbdd" name="municipios_espacios_nat" class="com.cafromet.modelo.Municipio_EspacioNatural">
+	<table catalog="cafrometbbdd" name="municipios_espacios_nat"
+		class="com.cafromet.modelo.Municipio_EspacioNatural">
 
-	<column name="ID_ESPACIO"></column>
-	<column name="ID_MUNICIPIO"></column>
-</table>
-<table catalog="cafrometbbdd" name="provincias" class="com.cafromet.modelo.Provincia">
+		<column name="ID_ESPACIO"></column>
+		<column name="ID_MUNICIPIO"></column>
+	</table>
+	<table catalog="cafrometbbdd" name="provincias"
+		class="com.cafromet.modelo.Provincia">
 		<column name="ID_PROVINCIA"></column>
 		<column name="NOMBRE"></column>
 	</table>

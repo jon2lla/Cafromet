@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20 ene. 2021 17:05:38 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 ene. 2021 17:40:53 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Cliente" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="clientes">
         <id name="idCliente" type="java.lang.Integer">
@@ -12,5 +12,17 @@
         <property generated="never" lazy="false" name="passwd" optimistic-lock="true" type="string" unique="false">
             <column length="30" name="PASSWD"/>
         </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="favoritoses" optimistic-lock="true" sort="unsorted" table="favoritos">
+            <key on-delete="noaction">
+                <column name="ID_CLIENTE"/>
+            </key>
+            <one-to-many class="com.cafromet.modelo.Favoritos" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="fotoses" optimistic-lock="true" sort="unsorted" table="fotos">
+            <key on-delete="noaction">
+                <column name="ID_CLIENTE"/>
+            </key>
+            <one-to-many class="com.cafromet.modelo.Fotos" embed-xml="true" not-found="exception"/>
+        </set>
     </class>
 </hibernate-mapping>

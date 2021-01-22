@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20 ene. 2021 17:05:38 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 ene. 2021 17:40:53 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Medicion" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="mediciones_centro_met">
         <composite-id class="com.cafromet.modelo.MedicionId" mapped="false" name="id" unsaved-value="undefined">
@@ -16,44 +16,29 @@
         <many-to-one class="com.cafromet.modelo.CentroMeteorologico" embed-xml="true" fetch="select" insert="false" name="centroMeteorologico" not-found="exception" optimistic-lock="true" unique="false" update="false">
             <column name="ID_CENTRO_MET" not-null="true"/>
         </many-to-one>
-        <property generated="never" lazy="false" name="comgm3" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="COMGM3" precision="3"/>
+        <property generated="never" lazy="false" name="dirViento" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="DIR_VIENTO" precision="3"/>
         </property>
-        <property generated="never" lazy="false" name="co8hmgm3" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="CO8HMGM3" precision="3"/>
+        <property generated="never" lazy="false" name="HRelativa" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="H_RELATIVA" precision="3"/>
         </property>
-        <property generated="never" lazy="false" name="nogm3" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="NOGM3" precision="3"/>
+        <property generated="never" lazy="false" name="PAtmosferica" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="P_ATMOSFERICA" precision="4"/>
         </property>
-        <property generated="never" lazy="false" name="no2" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="NO2" precision="3"/>
+        <property generated="never" lazy="false" name="precip" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="PRECIP" precision="2"/>
         </property>
-        <property generated="never" lazy="false" name="no2ica" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="NO2ICA"/>
+        <property generated="never" lazy="false" name="radSolar" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="RAD_SOLAR" precision="4"/>
         </property>
-        <property generated="never" lazy="false" name="noxgm3" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="NOXGM3" precision="3"/>
+        <property generated="never" lazy="false" name="tempAmbiente" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="TEMP_AMBIENTE" precision="2"/>
         </property>
-        <property generated="never" lazy="false" name="pm10" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="PM10" precision="3"/>
+        <property generated="never" lazy="false" name="VViento" optimistic-lock="true" type="java.lang.Float" unique="false">
+            <column name="V_VIENTO" precision="3"/>
         </property>
-        <property generated="never" lazy="false" name="pm10ica" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="PM10ICA"/>
-        </property>
-        <property generated="never" lazy="false" name="pm25" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="PM25" precision="3"/>
-        </property>
-        <property generated="never" lazy="false" name="pm25ica" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="PM25ICA"/>
-        </property>
-        <property generated="never" lazy="false" name="so2" optimistic-lock="true" type="java.lang.Float" unique="false">
-            <column name="SO2" precision="3"/>
-        </property>
-        <property generated="never" lazy="false" name="so2ica" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="SO2ICA"/>
-        </property>
-        <property generated="never" lazy="false" name="icaEstacion" optimistic-lock="true" type="string" unique="false">
-            <column length="50" name="ICA_ESTACION"/>
+        <property generated="never" lazy="false" name="ica" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="ICA"/>
         </property>
     </class>
 </hibernate-mapping>

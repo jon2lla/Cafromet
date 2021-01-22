@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 22 ene. 2021 17:40:53 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Favoritos" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="favoritos">
+        <id name="idFavorito" type="java.lang.Integer">
+            <column name="ID_FAVORITO"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="com.cafromet.modelo.Cliente" embed-xml="true" fetch="select" insert="true" name="cliente" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="ID_CLIENTE"/>
+        </many-to-one>
+        <many-to-one class="com.cafromet.modelo.EspacioNatural" embed-xml="true" fetch="select" insert="true" name="espacioNatural" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="ID_ESPACIO"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="favorito" optimistic-lock="true" type="java.lang.Boolean" unique="false">
+            <column name="FAVORITO"/>
+        </property>
+    </class>
+</hibernate-mapping>

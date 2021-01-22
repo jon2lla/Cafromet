@@ -87,7 +87,7 @@ public class IOListenerSrv extends Thread {
 
 			String usuario = array[0];
 			String passwd = array[1];
-			Cliente cliente = new Cliente(usuario, passwd);
+			Cliente cliente = new Cliente(usuario, passwd, null, null);
 			Cliente clienteComprobacion = new Cliente();
 			boolean existe;
 			ClienteDAO.iniciarSesion();

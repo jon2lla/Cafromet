@@ -12,10 +12,12 @@
         <mapping resource="com/cafromet/modelo/EspacioNatural.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Municipio.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Municipio_EspacioNatural.hbm.xml"/>
+        <mapping resource="com/cafromet/modelo/Favoritos.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Fuente.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Medicion.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Provincia.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/CentroMeteorologico.hbm.xml"/>
         <mapping resource="com/cafromet/modelo/Cliente.hbm.xml"/>
+        <mapping resource="com/cafromet/modelo/Fotos.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

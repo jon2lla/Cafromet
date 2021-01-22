@@ -33,11 +33,11 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ControladorVentanaMediciones(VentanaMediciones ventanaCentrosMeteorologicos) {
 
 		this.ventanaMediciones = ventanaCentrosMeteorologicos;
+		iniciarControlador();
 		enviarPeticion("centros", Peticiones.p105c);
 		enviarPeticion("municipio", Peticiones.p103c);
 		enviarPeticion("mediciones", Peticiones.p106a);
 		llenarComboBoxMunicipios(municipios);
-		iniciarControlador();
 	}
 
 	private void iniciarControlador() {
@@ -124,22 +124,29 @@ public class ControladorVentanaMediciones implements ActionListener {
 
 	}
 
-	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
+	public boolean llenarTabla(ArrayList<Medicion> mediciones2) {
 
 		mLimpiarTabla();
 		String matrizInfo[][] = new String[mediciones.size()][3];
 
-		for (int i = 0; i < mediciones.size(); i++) {
+		for (int i = 0; i < mediciones2.size(); i++) {
 
-			matrizInfo[i][0] = String.valueOf(mediciones.get(i).getId().getFecha());
-			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getId().getHora());
-			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getIcaEstacion());
+			matrizInfo[i][0] = String.valueOf(mediciones2.get(i).getId().getFecha());
+			matrizInfo[i][1] = String.valueOf(mediciones2.get(i).getId().getHora());
+			matrizInfo[i][2] = String.valueOf(mediciones2.get(i).getIca());
 			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
 
 		return true;
 	}
+	
+	public void mLimpiarTabla() {
 
+		if (ventanaMediciones.getDefaultTableModel().getRowCount() > 0) {
+			ventanaMediciones.getDefaultTableModel().setRowCount(0);
+		}
+	}
+	
 	public boolean enviarPeticion(String contenido, Peticiones peticion) {
 		try {
 			datos = new Datos();
@@ -158,12 +165,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 		return true;
 	}
 
-	public void mLimpiarTabla() {
 
-		if (ventanaMediciones.getDefaultTableModel().getRowCount() > 0) {
-			ventanaMediciones.getDefaultTableModel().setRowCount(0);
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	public boolean procesarRecepcion() {
@@ -173,18 +175,14 @@ public class ControladorVentanaMediciones implements ActionListener {
 		case 3:
 
 			municipios = (ArrayList<Municipio>) datos.getObjeto();
-
 			break;
 		case 5:
 
 			centroMeteorologicos = (ArrayList<CentroMeteorologico>) datos.getObjeto();
-
 			break;
 
 		case 6:
-
 			mediciones = (ArrayList<Medicion>) datos.getObjeto();
-
 			break;
 		}
 		return true;
