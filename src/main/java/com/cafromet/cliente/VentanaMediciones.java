@@ -83,7 +83,7 @@ public class VentanaMediciones extends JFrame {
 		scrollPane.setBounds(10, 105, 634, 188);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = { "FECHA","HORA","COMGM3","NOGM3","NO2","NO2ICA","SO2","SO2ICA","PM25","ESTACION"};
+		String columnas[] = { "FECHA","HORA","DIR_VIENTO","H_RELATIVA","P_ATMOSFERICA","PRECIP","RAD_SOLAR","TEMP_AMBIENTE","V_VIENTO","ESTACION"};
 												
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 

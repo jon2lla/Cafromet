@@ -127,15 +127,15 @@ public class ControladorVentanaMediciones implements ActionListener {
 		
 			matrizInfo[i][0] = String.valueOf(mediciones.get(i).getId().getFecha());
 			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getId().getHora());
-//			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getComgm3());
-//			matrizInfo[i][3] = String.valueOf(mediciones.get(i).getNogm3());
-//			matrizInfo[i][4] = String.valueOf(mediciones.get(i).getNo2());
-//			matrizInfo[i][5] = String.valueOf(mediciones.get(i).getNo2ica());
-//			matrizInfo[i][6] = String.valueOf(mediciones.get(i).getSo2());
-//			matrizInfo[i][7] = String.valueOf(mediciones.get(i).getSo2ica());
-//			matrizInfo[i][8] = String.valueOf(mediciones.get(i).getPm25());
-//			matrizInfo[i][9] = String.valueOf(mediciones.get(i).getIcaEstacion());
-ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
+			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getDirViento());
+			matrizInfo[i][3] = String.valueOf(mediciones.get(i).getHRelativa());
+			matrizInfo[i][4] = String.valueOf(mediciones.get(i).getPAtmosferica());
+			matrizInfo[i][5] = String.valueOf(mediciones.get(i).getPrecip());
+			matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar());
+			matrizInfo[i][7] = String.valueOf(mediciones.get(i).getTempAmbiente());
+			matrizInfo[i][8] = String.valueOf(mediciones.get(i).getVViento());
+			matrizInfo[i][9] = String.valueOf(mediciones.get(i).getIca());
+			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
 
 		return true;
