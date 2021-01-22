@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Medicion;
@@ -33,43 +34,45 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ControladorVentanaMediciones(VentanaMediciones ventanaCentrosMeteorologicos) {
 
 		this.ventanaMediciones = ventanaCentrosMeteorologicos;
-		iniciarControlador();
 		enviarPeticion("centros", Peticiones.p105c);
 		enviarPeticion("municipio", Peticiones.p103c);
 		enviarPeticion("mediciones", Peticiones.p106a);
 		llenarComboBoxMunicipios(municipios);
+		iniciarControlador();
 	}
 
 	private void iniciarControlador() {
 
 		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
-		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("muni");
-		ventanaMediciones.getComboBoxCentros().addActionListener(this);
-		ventanaMediciones.getComboBoxCentros().setActionCommand("centro");
+		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("municipio");
+		ventanaMediciones.getBtnBuscar().addActionListener(this);
+		ventanaMediciones.getBtnBuscar().setActionCommand("buscar");
+		ventanaMediciones.getBtnBuscar().setEnabled(false);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		
 		switch (e.getActionCommand()) {
-		case "muni":
+		
+		case "municipio":
 			
-			Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
-
+			Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();		
+			ventanaMediciones.getBtnBuscar().setEnabled(true);
+			mLimpiarTabla();
 			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
 			
 			break;
-			
-		case "centro":
-			
-			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
 
+		case "buscar":
+			
+			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();		
 			llenarTabla(filtroMediciones(centro));
 			
 			break;
-
-		}
-
+			
+		}	
 	}
 
 	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
@@ -83,7 +86,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private void llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
 
 		ventanaMediciones.getComboBoxCentros().removeAllItems();
-
+	
 		for (CentroMeteorologico cent : centros) {
 
 			ventanaMediciones.getComboBoxCentros().addItem(cent);
@@ -93,21 +96,13 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
 
 		centrosFiltrados = new ArrayList<CentroMeteorologico>();
-	
+
 		for (CentroMeteorologico cent : centroMeteorologicos) {
 
 			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
 				centrosFiltrados.add(cent);
 			}
 		}
-
-//		int x = 0;
-//		for (Medicion med : mediciones) {
-//			if (med.getId().getIdCentroMet() == centrosFiltrados.get(x).getIdCentroMet()) {
-//				medicionFiltrado.add(med);
-//			}
-//		}
-
 		return centrosFiltrados;
 	}
 
@@ -121,32 +116,31 @@ public class ControladorVentanaMediciones implements ActionListener {
 			}
 		}
 		return medicionFiltrado;
-
 	}
 
-	public boolean llenarTabla(ArrayList<Medicion> mediciones2) {
+	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
 
 		mLimpiarTabla();
-		String matrizInfo[][] = new String[mediciones.size()][3];
+		String matrizInfo[][] = new String[mediciones.size()][10];
 
-		for (int i = 0; i < mediciones2.size(); i++) {
-
-			matrizInfo[i][0] = String.valueOf(mediciones2.get(i).getId().getFecha());
-			matrizInfo[i][1] = String.valueOf(mediciones2.get(i).getId().getHora());
-			matrizInfo[i][2] = String.valueOf(mediciones2.get(i).getIca());
-			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
+		for (int i = 0; i < mediciones.size(); i++) {
+		
+			matrizInfo[i][0] = String.valueOf(mediciones.get(i).getId().getFecha());
+			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getId().getHora());
+			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getComgm3());
+			matrizInfo[i][3] = String.valueOf(mediciones.get(i).getNogm3());
+			matrizInfo[i][4] = String.valueOf(mediciones.get(i).getNo2());
+			matrizInfo[i][5] = String.valueOf(mediciones.get(i).getNo2ica());
+			matrizInfo[i][6] = String.valueOf(mediciones.get(i).getSo2());
+			matrizInfo[i][7] = String.valueOf(mediciones.get(i).getSo2ica());
+			matrizInfo[i][8] = String.valueOf(mediciones.get(i).getPm25());
+			matrizInfo[i][9] = String.valueOf(mediciones.get(i).getIcaEstacion());
+ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
 
 		return true;
 	}
-	
-	public void mLimpiarTabla() {
 
-		if (ventanaMediciones.getDefaultTableModel().getRowCount() > 0) {
-			ventanaMediciones.getDefaultTableModel().setRowCount(0);
-		}
-	}
-	
 	public boolean enviarPeticion(String contenido, Peticiones peticion) {
 		try {
 			datos = new Datos();
@@ -165,7 +159,12 @@ public class ControladorVentanaMediciones implements ActionListener {
 		return true;
 	}
 
+	public void mLimpiarTabla() {
 
+		if (ventanaMediciones.getDefaultTableModel().getRowCount() > 0) {
+			ventanaMediciones.getDefaultTableModel().setRowCount(0);
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public boolean procesarRecepcion() {
@@ -175,14 +174,18 @@ public class ControladorVentanaMediciones implements ActionListener {
 		case 3:
 
 			municipios = (ArrayList<Municipio>) datos.getObjeto();
+
 			break;
 		case 5:
 
 			centroMeteorologicos = (ArrayList<CentroMeteorologico>) datos.getObjeto();
+
 			break;
 
 		case 6:
+
 			mediciones = (ArrayList<Medicion>) datos.getObjeto();
+
 			break;
 		}
 		return true;
