@@ -72,7 +72,7 @@ public class VentanaMediciones extends JFrame {
 	public VentanaMediciones() {
 		setTitle("MEDICIONES");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 343);
+		setBounds(100, 100, 1200, 750);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +80,7 @@ public class VentanaMediciones extends JFrame {
 
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 105, 634, 188);
+		scrollPane.setBounds(10, 105, 1166, 608);
 		getContentPane().add(scrollPane);
 		
 		String columnas[] = { "FECHA","HORA","DIR_VIENTO","H_RELATIVA","P_ATMOSFERICA","PRECIP","RAD_SOLAR","TEMP_AMBIENTE","V_VIENTO","ESTACION"};
@@ -92,14 +92,14 @@ public class VentanaMediciones extends JFrame {
 		tablaContactos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaContactos.setRowSelectionAllowed(false);
 		tablaContactos.setCellSelectionEnabled(false);
+		tablaContactos.getColumnModel().getColumn(9).setMinWidth(100);
 	
 		tablaContactos.setDefaultEditor(Object.class, null); 
 
 		scrollPane.setViewportView(tablaContactos);
 		
-		comboBoxMunicipio = new JComboBox();
-		comboBoxMunicipio.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un municipio"}));
-		comboBoxMunicipio.setBounds(135, 33, 112, 22);
+		comboBoxMunicipio = new JComboBox<Municipio>();
+		comboBoxMunicipio.setBounds(135, 33, 200, 22);
 		contentPane.add(comboBoxMunicipio);
 		
 		JLabel lblNewLabel = new JLabel("MUNICIPIO");
@@ -107,22 +107,17 @@ public class VentanaMediciones extends JFrame {
 		lblNewLabel.setBounds(25, 35, 100, 20);
 		contentPane.add(lblNewLabel);
 		
-		comboBoxCentros = new JComboBox();	
-		comboBoxCentros.setBounds(417, 31, 112, 22);
+		comboBoxCentros = new JComboBox<CentroMeteorologico>();	
+		comboBoxCentros.setBounds(594, 33, 200, 22);
 		contentPane.add(comboBoxCentros);
 		
-		JLabel lblCentro = new JLabel("CENTRO");
-		lblCentro.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCentro.setBounds(293, 19, 75, 20);
-		contentPane.add(lblCentro);
-		
-		JLabel lblMeteorologico = new JLabel("METEOROLOGICO");
+		JLabel lblMeteorologico = new JLabel(" CENTRO METEOROLOGICO");
 		lblMeteorologico.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMeteorologico.setBounds(271, 35, 136, 20);
+		lblMeteorologico.setBounds(370, 35, 214, 20);
 		contentPane.add(lblMeteorologico);
 		
 		btnBuscar = new JButton("BUSCAR");
-		btnBuscar.setBounds(508, 71, 89, 23);
+		btnBuscar.setBounds(837, 33, 89, 23);
 		contentPane.add(btnBuscar);
 	
 	}

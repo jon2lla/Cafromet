@@ -48,22 +48,22 @@ public class VentanaMenuPrincipal extends JFrame {
 
 	public VentanaMenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 293, 328);
+		setBounds(850, 400, 293, 328);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		btnMunicipios = new JButton("MUNICIPIOS");
-		btnMunicipios.setBounds(52, 49, 152, 23);
+		btnMunicipios.setBounds(47, 55, 182, 23);
 		contentPane.add(btnMunicipios);
 		
 		btnEspaciosNaturales = new JButton("ESPACIOS NATURALES");
-		btnEspaciosNaturales.setBounds(52, 156, 152, 23);
+		btnEspaciosNaturales.setBounds(47, 211, 182, 23);
 		contentPane.add(btnEspaciosNaturales);
 		
 		btnCentrosMeteorologicos = new JButton("MEDICIONES");
-		btnCentrosMeteorologicos.setBounds(52, 105, 152, 23);
+		btnCentrosMeteorologicos.setBounds(47, 133, 182, 23);
 		contentPane.add(btnCentrosMeteorologicos);
 	}
 }

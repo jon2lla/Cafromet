@@ -45,15 +45,14 @@ public class ControladorVentanaMediciones implements ActionListener {
 
 		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
 		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("municipio");
+		ventanaMediciones.getComboBoxCentros().setEnabled(false);
 		ventanaMediciones.getBtnBuscar().addActionListener(this);
 		ventanaMediciones.getBtnBuscar().setActionCommand("buscar");
 		ventanaMediciones.getBtnBuscar().setEnabled(false);
-
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void actionPerformed(ActionEvent e) {	
 		switch (e.getActionCommand()) {
 		
 		case "municipio":
@@ -62,6 +61,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			ventanaMediciones.getBtnBuscar().setEnabled(true);
 			mLimpiarTabla();
 			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+			ventanaMediciones.getComboBoxCentros().setEnabled(true);
 			
 			break;
 
@@ -78,7 +78,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
 
 		for (Municipio muni : municipios) {
-
+			muni.setNombre(muni.getNombre().toUpperCase());
 			ventanaMediciones.getcomboBoxMunicipio().addItem(muni);
 		}
 	}
@@ -88,7 +88,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 		ventanaMediciones.getComboBoxCentros().removeAllItems();
 	
 		for (CentroMeteorologico cent : centros) {
-
+			
 			ventanaMediciones.getComboBoxCentros().addItem(cent);
 		}
 	}
@@ -127,14 +127,46 @@ public class ControladorVentanaMediciones implements ActionListener {
 		
 			matrizInfo[i][0] = String.valueOf(mediciones.get(i).getId().getFecha());
 			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getId().getHora());
-			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getDirViento());
-			matrizInfo[i][3] = String.valueOf(mediciones.get(i).getHRelativa());
-			matrizInfo[i][4] = String.valueOf(mediciones.get(i).getPAtmosferica());
-			matrizInfo[i][5] = String.valueOf(mediciones.get(i).getPrecip());
-			matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar());
-			matrizInfo[i][7] = String.valueOf(mediciones.get(i).getTempAmbiente());
-			matrizInfo[i][8] = String.valueOf(mediciones.get(i).getVViento());
-			matrizInfo[i][9] = String.valueOf(mediciones.get(i).getIca());
+			if(mediciones.get(i).getDirViento() == null) {
+				matrizInfo[i][2] = "SIN DATOS";
+			}else {
+				matrizInfo[i][2] = String.valueOf(mediciones.get(i).getDirViento() + "º");
+			}
+			if(mediciones.get(i).getHRelativa() == null) {
+				matrizInfo[i][3] = "SIN DATOS";
+			}else {
+				matrizInfo[i][3] = String.valueOf(mediciones.get(i).getHRelativa() + "%");
+			}
+			if(mediciones.get(i).getPAtmosferica() == null) {
+				matrizInfo[i][4] = "SIN DATOS";
+			}else {
+				matrizInfo[i][4] = String.valueOf(mediciones.get(i).getPAtmosferica() + "mbar");
+			}
+			if(mediciones.get(i).getPrecip() == null ) {
+				matrizInfo[i][5] = "SIN DATOS";
+			}else {
+				matrizInfo[i][5] = String.valueOf(mediciones.get(i).getPrecip() + "l/m2");
+			}
+			if(mediciones.get(i).getRadSolar() == null) {
+				matrizInfo[i][6] = "SIN DATOS";
+			}else {
+				matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar() + "W/m2");
+			}
+			if(mediciones.get(i).getTempAmbiente() == null) {
+				matrizInfo[i][7] = "SIN DATOS";
+			}else {
+				matrizInfo[i][7] = String.valueOf(mediciones.get(i).getTempAmbiente() + "Cº");
+			}
+			if(mediciones.get(i).getVViento() == null) {
+				matrizInfo[i][8] = "SIN DATOS";
+			}else {
+				matrizInfo[i][8] = String.valueOf(mediciones.get(i).getVViento() + "m/s");
+			}
+			if(mediciones.get(i).getIca() == null) {
+				matrizInfo[i][9] = "SIN DATOS";
+			}else {
+				matrizInfo[i][9] = String.valueOf(mediciones.get(i).getIca());
+			}
 			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
 
