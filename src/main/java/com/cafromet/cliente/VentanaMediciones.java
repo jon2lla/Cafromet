@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Municipio;
+import javax.swing.JButton;
 
 public class VentanaMediciones extends JFrame {
 
@@ -23,7 +24,17 @@ public class VentanaMediciones extends JFrame {
 	private JTable tablaContactos;
 	private JComboBox<Municipio> comboBoxMunicipio;
 	private JComboBox<CentroMeteorologico> comboBoxCentros;
+	private JButton btnBuscar;
 	
+	//
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+
+	public void setBtnBuscar(JButton btnBuscar) {
+		this.btnBuscar = btnBuscar;
+	}
+
 	public JComboBox<CentroMeteorologico> getComboBoxCentros() {
 		return comboBoxCentros;
 	}
@@ -61,7 +72,7 @@ public class VentanaMediciones extends JFrame {
 	public VentanaMediciones() {
 		setTitle("MEDICIONES");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 328);
+		setBounds(100, 100, 670, 343);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,7 +80,7 @@ public class VentanaMediciones extends JFrame {
 
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 90, 634, 188);
+		scrollPane.setBounds(10, 105, 634, 188);
 		getContentPane().add(scrollPane);
 		
 		String columnas[] = { "FECHA","HORA","COMGM3","NOGM3","NO2","NO2ICA","SO2","SO2ICA","PM25","ESTACION"};
@@ -97,18 +108,22 @@ public class VentanaMediciones extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		comboBoxCentros = new JComboBox();	
-		comboBoxCentros.setBounds(456, 31, 112, 22);
+		comboBoxCentros.setBounds(417, 31, 112, 22);
 		contentPane.add(comboBoxCentros);
 		
 		JLabel lblCentro = new JLabel("CENTRO");
 		lblCentro.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCentro.setBounds(332, 19, 75, 20);
+		lblCentro.setBounds(293, 19, 75, 20);
 		contentPane.add(lblCentro);
 		
 		JLabel lblMeteorologico = new JLabel("METEOROLOGICO");
 		lblMeteorologico.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMeteorologico.setBounds(310, 35, 136, 20);
+		lblMeteorologico.setBounds(271, 35, 136, 20);
 		contentPane.add(lblMeteorologico);
+		
+		btnBuscar = new JButton("BUSCAR");
+		btnBuscar.setBounds(508, 71, 89, 23);
+		contentPane.add(btnBuscar);
 	
 	}
 }
