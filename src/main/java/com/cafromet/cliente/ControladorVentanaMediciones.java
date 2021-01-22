@@ -27,6 +27,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private ArrayList<CentroMeteorologico> centroMeteorologicos;
 	private ArrayList<Medicion> medicionFiltrado;
 	private ArrayList<CentroMeteorologico> centrosFiltrados;
+
 	VentanaMediciones ventanaMediciones = new VentanaMediciones();
 
 	public ControladorVentanaMediciones(VentanaMediciones ventanaCentrosMeteorologicos) {
@@ -42,18 +43,33 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private void iniciarControlador() {
 
 		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
+		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("muni");
 		ventanaMediciones.getComboBoxCentros().addActionListener(this);
+		ventanaMediciones.getComboBoxCentros().setActionCommand("centro");
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
+		switch (e.getActionCommand()) {
+		case "muni":
+			
+			Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
 
-		llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+			
+			break;
+			
+		case "centro":
+			
+			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
 
-		CentroMeteorologico centros = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
+			llenarTabla(filtroMediciones(centro));
+			
+			break;
 
-		llenarTabla(medicionFiltrado);
+		}
+
 	}
 
 	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
@@ -61,14 +77,13 @@ public class ControladorVentanaMediciones implements ActionListener {
 		for (Municipio muni : municipios) {
 
 			ventanaMediciones.getcomboBoxMunicipio().addItem(muni);
-
 		}
-
 	}
 
 	private void llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
 
 		ventanaMediciones.getComboBoxCentros().removeAllItems();
+
 		for (CentroMeteorologico cent : centros) {
 
 			ventanaMediciones.getComboBoxCentros().addItem(cent);
@@ -78,26 +93,39 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
 
 		centrosFiltrados = new ArrayList<CentroMeteorologico>();
-		medicionFiltrado = new ArrayList<Medicion>();
+	
 		for (CentroMeteorologico cent : centroMeteorologicos) {
 
 			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
 				centrosFiltrados.add(cent);
 			}
-		}		
-			
-		int x=0;
+		}
+
+//		int x = 0;
+//		for (Medicion med : mediciones) {
+//			if (med.getId().getIdCentroMet() == centrosFiltrados.get(x).getIdCentroMet()) {
+//				medicionFiltrado.add(med);
+//			}
+//		}
+
+		return centrosFiltrados;
+	}
+
+	public ArrayList<Medicion> filtroMediciones(CentroMeteorologico centro) {
+		
+		medicionFiltrado = new ArrayList<Medicion>();
+
 		for (Medicion med : mediciones) {
-			if (med.getId().getIdCentroMet() == centrosFiltrados.get(x).getIdCentroMet()) {
+			if (med.getId().getIdCentroMet() == centro.getIdCentroMet()) {
 				medicionFiltrado.add(med);
 			}
 		}
-				
-		return centrosFiltrados;
+		return medicionFiltrado;
+
 	}
-	
+
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
-	
+
 		mLimpiarTabla();
 		String matrizInfo[][] = new String[mediciones.size()][3];
 
@@ -108,7 +136,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getIcaEstacion());
 			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
-		
+
 		return true;
 	}
 
