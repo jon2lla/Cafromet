@@ -63,10 +63,10 @@ public class VentanaMediciones extends JFrame {
 	@SuppressWarnings("unused")
 	public void inicioVentanaCentrosMeteorologicos() {
 		
-		VentanaMediciones VentanaCentrosMeteorologicos = new VentanaMediciones();
-		VentanaCentrosMeteorologicos.setVisible(true);
+		VentanaMediciones VentanaMediciones = new VentanaMediciones();
+		VentanaMediciones.setVisible(true);
 		
-		ControladorVentanaMediciones controladorVentanaCentrosMeteorologicos = new ControladorVentanaMediciones(VentanaCentrosMeteorologicos);
+		ControladorVentanaMediciones controladorVentanaMediciones = new ControladorVentanaMediciones(VentanaMediciones);
 			
 	}
 	public VentanaMediciones() {
