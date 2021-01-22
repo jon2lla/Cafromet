@@ -18,14 +18,15 @@ import com.cafromet.modelo.Municipio;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
 
-public class ControladorVentanaMediciones {
+public class ControladorVentanaMediciones implements ActionListener {
 
 	private Datos datos;
 
 	private ArrayList<Medicion> mediciones;
 	private ArrayList<Municipio> municipios;
 	private ArrayList<CentroMeteorologico> centroMeteorologicos;
-
+	private ArrayList<Medicion> medicionFiltrado;
+	private ArrayList<CentroMeteorologico> centrosFiltrados;
 	VentanaMediciones ventanaMediciones = new VentanaMediciones();
 
 	public ControladorVentanaMediciones(VentanaMediciones ventanaCentrosMeteorologicos) {
@@ -33,27 +34,27 @@ public class ControladorVentanaMediciones {
 		this.ventanaMediciones = ventanaCentrosMeteorologicos;
 		enviarPeticion("centros", Peticiones.p105c);
 		enviarPeticion("municipio", Peticiones.p103c);
-		enviarPeticion("mediciones", Peticiones.p106a);	
+		enviarPeticion("mediciones", Peticiones.p106a);
 		llenarComboBoxMunicipios(municipios);
 		iniciarControlador();
 	}
 
 	private void iniciarControlador() {
-		
-		Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
-		
-		ventanaMediciones.getcomboBoxMunicipio().addActionListener(new ActionListener() {		
-			@Override
-			public void actionPerformed(ActionEvent e) {				
-				llenarComboBoxCentros(filtroCentros(municipio));			
-			}
-		});
 
+		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
+		ventanaMediciones.getComboBoxCentros().addActionListener(this);
 	}
-	
-//	Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
-//	llenarComboBoxCentros(centroMeteorologicos);
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
+		Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
+
+		llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+
+		CentroMeteorologico centros = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
+
+		llenarTabla(medicionFiltrado);
+	}
 
 	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
 
@@ -66,27 +67,49 @@ public class ControladorVentanaMediciones {
 	}
 
 	private void llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
-		
+
 		ventanaMediciones.getComboBoxCentros().removeAllItems();
 		for (CentroMeteorologico cent : centros) {
 
 			ventanaMediciones.getComboBoxCentros().addItem(cent);
-
 		}
-
 	}
-	
-	public ArrayList<CentroMeteorologico> filtroCentros(Municipio municipio) {
-		
-		ArrayList<CentroMeteorologico> centrosFiltrados = new ArrayList<CentroMeteorologico>();
-		
+
+	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
+
+		centrosFiltrados = new ArrayList<CentroMeteorologico>();
+		medicionFiltrado = new ArrayList<Medicion>();
 		for (CentroMeteorologico cent : centroMeteorologicos) {
 
-			if(cent.getMunicipio().getIdMunicipio()==municipio.getIdMunicipio()) {
-				centrosFiltrados.add(cent);	
+			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
+				centrosFiltrados.add(cent);
+			}
+		}		
+			
+		int x=0;
+		for (Medicion med : mediciones) {
+			if (med.getId().getIdCentroMet() == centrosFiltrados.get(x).getIdCentroMet()) {
+				medicionFiltrado.add(med);
 			}
 		}
+				
 		return centrosFiltrados;
+	}
+	
+	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
+	
+		mLimpiarTabla();
+		String matrizInfo[][] = new String[mediciones.size()][3];
+
+		for (int i = 0; i < mediciones.size(); i++) {
+
+			matrizInfo[i][0] = String.valueOf(mediciones.get(i).getId().getFecha());
+			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getId().getHora());
+			matrizInfo[i][2] = String.valueOf(mediciones.get(i).getIcaEstacion());
+			ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
+		}
+		
+		return true;
 	}
 
 	public boolean enviarPeticion(String contenido, Peticiones peticion) {
@@ -134,14 +157,6 @@ public class ControladorVentanaMediciones {
 
 			mediciones = (ArrayList<Medicion>) datos.getObjeto();
 
-			String matrizInfo[][] = new String[mediciones.size()][2];
-
-			for (int i = 0; i < mediciones.size(); i++) {
-
-				matrizInfo[i][0] = mediciones.get(i).getIcaEstacion();
-				matrizInfo[i][1] = mediciones.get(i).getNo2ica();
-				ventanaMediciones.getDefaultTableModel().addRow(matrizInfo[i]);
-			}
 			break;
 		}
 		return true;

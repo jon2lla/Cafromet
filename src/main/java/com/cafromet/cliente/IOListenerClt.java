@@ -20,8 +20,8 @@ public class IOListenerClt implements Runnable{
 //    private String ip = "192.168.0.20";
 //    private String ip = "192.168.43.49"; 
 //    private String ip = "192.168.0.13";
-      private String ip = "192.168.6.241";
-//    private String ip = "192.168.0.90";
+//    private String ip = "192.168.6.241";
+    private String ip = "192.168.0.90";
     public IOListenerClt(Datos datos){
         this.datos = datos;
     }

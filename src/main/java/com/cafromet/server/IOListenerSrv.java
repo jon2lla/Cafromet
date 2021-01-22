@@ -229,7 +229,7 @@ public class IOListenerSrv extends Thread {
 				ArrayList<Medicion> listaMedicionesFiltro = new ArrayList<Medicion>();
 				for (CentroMeteorologico centro : listaCentroParaMedicion) {
 					for (Medicion medicion : listaMediciones) {
-						if (centro.getIdCentroMet().equals(medicion.getId())) {
+						if (centro.getIdCentroMet() == medicion.getId().getIdCentroMet()) {
 							listaMedicionesFiltro.add(medicion);
 						}
 					}

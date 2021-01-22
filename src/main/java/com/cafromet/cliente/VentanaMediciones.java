@@ -2,7 +2,7 @@ package com.cafromet.cliente;
 
 import java.awt.Font;
 
-import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +15,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Municipio;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class VentanaMediciones extends JFrame {
 
@@ -89,6 +87,7 @@ public class VentanaMediciones extends JFrame {
 		scrollPane.setViewportView(tablaContactos);
 		
 		comboBoxMunicipio = new JComboBox();
+		comboBoxMunicipio.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un municipio"}));
 		comboBoxMunicipio.setBounds(135, 33, 112, 22);
 		contentPane.add(comboBoxMunicipio);
 		
@@ -97,7 +96,7 @@ public class VentanaMediciones extends JFrame {
 		lblNewLabel.setBounds(25, 35, 100, 20);
 		contentPane.add(lblNewLabel);
 		
-		comboBoxCentros = new JComboBox();
+		comboBoxCentros = new JComboBox();	
 		comboBoxCentros.setBounds(456, 31, 112, 22);
 		contentPane.add(comboBoxCentros);
 		
