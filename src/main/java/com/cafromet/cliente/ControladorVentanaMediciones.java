@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Medicion;
@@ -42,34 +43,25 @@ public class ControladorVentanaMediciones implements ActionListener {
 
 	private void iniciarControlador() {
 
-		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
-		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("muni");
-		ventanaMediciones.getComboBoxCentros().addActionListener(this);
-		ventanaMediciones.getComboBoxCentros().setActionCommand("centro");
+//		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
+//		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("muni");
+//		ventanaMediciones.getComboBoxCentros().addActionListener(this);
+//		ventanaMediciones.getComboBoxCentros().setActionCommand("centro");
 	}
 
+
+	// modificar actionPerfomerd porque hay que hacer 2 click
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		switch (e.getActionCommand()) {
-		case "muni":
-			
-			Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
-
-			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
-			
-			break;
-			
-		case "centro":
-			
-			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
-
-			llenarTabla(filtroMediciones(centro));
-			
-			break;
-
-		}
-
+//
+//		Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();
+//
+//		llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+//
+//		CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
+//
+//		filtroMediciones(centro);
+//		
 	}
 
 	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
@@ -93,7 +85,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
 
 		centrosFiltrados = new ArrayList<CentroMeteorologico>();
-	
+
 		for (CentroMeteorologico cent : centroMeteorologicos) {
 
 			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
@@ -112,7 +104,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 	}
 
 	public ArrayList<Medicion> filtroMediciones(CentroMeteorologico centro) {
-		
+
 		medicionFiltrado = new ArrayList<Medicion>();
 
 		for (Medicion med : mediciones) {
@@ -121,7 +113,6 @@ public class ControladorVentanaMediciones implements ActionListener {
 			}
 		}
 		return medicionFiltrado;
-
 	}
 
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
