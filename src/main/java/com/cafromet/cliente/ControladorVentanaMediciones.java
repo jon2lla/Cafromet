@@ -46,6 +46,8 @@ public class ControladorVentanaMediciones implements ActionListener {
 		ventanaMediciones.getBtnBuscar().addActionListener(this);
 		ventanaMediciones.getBtnBuscar().setActionCommand("buscar");
 		ventanaMediciones.getBtnBuscar().setEnabled(false);
+		ventanaMediciones.getBtnVolver().addActionListener(this);
+		ventanaMediciones.getBtnVolver().setActionCommand("volver");
 		
 	}
 
@@ -69,6 +71,12 @@ public class ControladorVentanaMediciones implements ActionListener {
 			llenarTabla(filtroMediciones(centro));
 			
 			break;
+			
+		case "volver":
+			VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
+			ventanaMenuPrincipal.InicioMenuPrincipal();
+			ventanaMediciones.dispose();
+		break;
 			
 		}	
 	}

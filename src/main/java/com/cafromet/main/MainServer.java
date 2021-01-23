@@ -19,6 +19,8 @@ public class MainServer {
 		
 		Updater.getInstance().start();
 		
+
+	
 		try {
 			Updater.getInstance().join();
 		} catch (InterruptedException e) {

@@ -25,10 +25,19 @@ public class VentanaMediciones extends JFrame {
 	private JComboBox<Municipio> comboBoxMunicipio;
 	private JComboBox<CentroMeteorologico> comboBoxCentros;
 	private JButton btnBuscar;
+	private JButton btnVolver;
 	
 	//
 	public JButton getBtnBuscar() {
 		return btnBuscar;
+	}
+
+	public JButton getBtnVolver() {
+		return btnVolver;
+	}
+
+	public void setBtnVolver(JButton btnVolver) {
+		this.btnVolver = btnVolver;
 	}
 
 	public void setBtnBuscar(JButton btnBuscar) {
@@ -120,6 +129,10 @@ public class VentanaMediciones extends JFrame {
 		btnBuscar = new JButton("BUSCAR");
 		btnBuscar.setBounds(837, 33, 89, 23);
 		contentPane.add(btnBuscar);
+		
+		btnVolver = new JButton("VOLVER");
+		btnVolver.setBounds(1067, 33, 89, 23);
+		contentPane.add(btnVolver);
 	
 	}
 }

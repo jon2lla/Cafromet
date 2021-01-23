@@ -22,6 +22,8 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		ventanaMenuPrincipal.getBtnCentrosMeteorologicos().setActionCommand("Mediciones");
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().addActionListener(this);
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().setActionCommand("espaciosNaturales");
+		ventanaMenuPrincipal.getBtnVolver().addActionListener(this);
+		ventanaMenuPrincipal.getBtnVolver().setActionCommand("volver");
 	}
 
 	@Override
@@ -32,15 +34,23 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		case "municipios":
 			VentanaMunicipio ventanaMunicipio = new VentanaMunicipio();
 			ventanaMunicipio.inicioVentanaMunicipio();
+			ventanaMenuPrincipal.dispose();
 			break;
 		case "Mediciones":
 			VentanaMediciones entanaMediciones = new VentanaMediciones();
-			entanaMediciones.inicioVentanaMediciones();;
+			entanaMediciones.inicioVentanaMediciones();
+			ventanaMenuPrincipal.dispose();
 			break;
 		case "espaciosNaturales":
 			VentanaEspacioNatural ventanaEspacioNatural = new VentanaEspacioNatural();
 			ventanaEspacioNatural.inicioVentanaEspacioNatural();
+			ventanaMenuPrincipal.dispose();
 			break;
+		case "volver":
+			VentanaCliente ventanaCliente = new VentanaCliente();
+			ventanaCliente.inicioVentaCliente();
+			ventanaMenuPrincipal.dispose();
+		break;
 
 		}
 

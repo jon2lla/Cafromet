@@ -11,7 +11,15 @@ public class VentanaMenuPrincipal extends JFrame {
 	private JButton btnMunicipios;
 	private JButton btnEspaciosNaturales;
 	private JButton btnCentrosMeteorologicos;
-	
+	private JButton btnVolver;
+		
+	public JButton getBtnVolver() {
+		return btnVolver;
+	}
+
+	public void setBtnVolver(JButton btnVolver) {
+		this.btnVolver = btnVolver;
+	}
 
 	public JButton getBtnMunicipios() {
 		return btnMunicipios;
@@ -48,22 +56,28 @@ public class VentanaMenuPrincipal extends JFrame {
 
 	public VentanaMenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(850, 400, 293, 328);
+		setBounds(100, 100, 404, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		btnMunicipios = new JButton("MUNICIPIOS");
-		btnMunicipios.setBounds(47, 55, 182, 23);
+		btnMunicipios.setBounds(10, 39, 169, 46);
 		contentPane.add(btnMunicipios);
 		
 		btnEspaciosNaturales = new JButton("ESPACIOS NATURALES");
-		btnEspaciosNaturales.setBounds(47, 211, 182, 23);
+		btnEspaciosNaturales.setBounds(10, 121, 169, 46);
 		contentPane.add(btnEspaciosNaturales);
 		
 		btnCentrosMeteorologicos = new JButton("MEDICIONES");
-		btnCentrosMeteorologicos.setBounds(47, 133, 182, 23);
+		btnCentrosMeteorologicos.setBounds(209, 39, 169, 46);
 		contentPane.add(btnCentrosMeteorologicos);
+		
+		
+		btnVolver = new JButton("VOLVER");
+		btnVolver.setBounds(10, 255, 89, 33);
+		contentPane.add(btnVolver);
+		
 	}
 }

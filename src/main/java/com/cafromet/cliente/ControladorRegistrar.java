@@ -89,6 +89,9 @@ public class ControladorRegistrar implements ActionListener {
                  ventanaRegistrar.dispose();
              } else {
                  JOptionPane.showMessageDialog(null, "USUARIO YA REGISTRADO","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
+                 ventanaRegistrar.getTextFieldNombre().setText("");
+                 ventanaRegistrar.getTextFieldPassword().setText("");
+                 ventanaRegistrar.getTextFieldPassword2().setText("");
                  return false;
              }
              break;
