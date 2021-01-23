@@ -42,8 +42,7 @@ public class ControladorCliente implements ActionListener {
 				enviarPeticion(usu + "," + pass, Peticiones.p101a);
 			}else {
 				JOptionPane.showMessageDialog(null, "CAMPO(S) VACIO(S)", "ERROR", JOptionPane.ERROR_MESSAGE);
-			}
-		
+			}	
 			break;
 			
 		case "Registrar":
@@ -85,12 +84,9 @@ public class ControladorCliente implements ActionListener {
 				ventanaCliente.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "NO EXISTE EL USUARIO", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-
-			}
-			
+			}		
 			break;
 		}
 		return true;
 	}
-
 }

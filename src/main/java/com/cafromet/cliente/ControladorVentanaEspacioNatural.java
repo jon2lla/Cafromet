@@ -114,6 +114,7 @@ public class ControladorVentanaEspacioNatural implements ActionListener {
 				matrizInfo[i][0] = espacioNatural.get(i).getNombre();
 				matrizInfo[i][1] = espacioNatural.get(i).getDescripcion();
 				matrizInfo[i][2] = espacioNatural.get(i).getCategoria();
+//				matrizInfo[i][5] = espacioNatural.get(i).getCategoria();
 				ventanaEspacioNatural.getDefaultTableModel().addRow(matrizInfo[i]);
 			}
 			break;

@@ -61,7 +61,7 @@ public class VentanaMediciones extends JFrame {
 	
 	
 	@SuppressWarnings("unused")
-	public void inicioVentanaCentrosMeteorologicos() {
+	public void inicioVentanaMediciones() {
 		
 		VentanaMediciones VentanaMediciones = new VentanaMediciones();
 		VentanaMediciones.setVisible(true);

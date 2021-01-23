@@ -10,7 +10,10 @@ import com.cafromet.server.Logger;
 public class MainServer {
 	
 	public static void main(String[] args) {
-
+		inicioServer();		
+	}
+	
+	public static boolean inicioServer() {
 		//DESACTIVA LOS LOGS DE HIBERNATE
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		

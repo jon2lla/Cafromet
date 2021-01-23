@@ -90,15 +90,9 @@ public class MedicionDAOTest {
 		MedicionDAO.insertarRegistro(medicion);
 		medicion2 = new Medicion(id, centroMeteorologico);
 		MedicionDAO.insertarRegistro(medicion2);
-//		MedicionDAO.consultarRegistro(medicion);
-		boolean result = MedicionDAO.duplicado(medicion);
-		
-
-		assertEquals(true, result);
-		
+		boolean result = MedicionDAO.duplicado(medicion);		
+		assertEquals(true, result);		
 		CentroMeteorologicoDAO.borrarRegistro("cafromet");
-//		MedicionDAO.cerrarSesion();
-//		CentroMeteorologicoDAO.cerrarSesion();
 	}
 
 }
