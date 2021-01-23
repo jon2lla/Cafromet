@@ -53,9 +53,6 @@ public class ControladorRegistrarTest {
 			field = ControladorRegistrar.class.getDeclaredField("datos");
 			field.setAccessible(true);
 			field.set(controlador, dato);
-			field = ControladorRegistrar.class.getDeclaredField("insertado");
-			field.setAccessible(true);
-			field.set(controlador, true);
 		} catch (NoSuchFieldException | SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
