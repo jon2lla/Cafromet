@@ -94,4 +94,11 @@ public class MunicipioDAO {
 		correcto=true;
 		return correcto;
 	}
+	public static Municipio consultarMuni(int idMunicipio) {
+		HQL = "from Municipio as mun where mun.idMunicipio = :idMunicipio ";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idMunicipio", idMunicipio);
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
+		return municipio;		
+	}
 }
