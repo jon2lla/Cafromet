@@ -2,16 +2,7 @@ package com.cafromet.cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Medicion;
@@ -140,27 +131,27 @@ public class ControladorVentanaMediciones implements ActionListener {
 			if(mediciones.get(i).getPAtmosferica() == null) {
 				matrizInfo[i][4] = "SIN DATOS";
 			}else {
-				matrizInfo[i][4] = String.valueOf(mediciones.get(i).getPAtmosferica() + "mbar");
+				matrizInfo[i][4] = String.valueOf(mediciones.get(i).getPAtmosferica() + " mbar");
 			}
 			if(mediciones.get(i).getPrecip() == null ) {
 				matrizInfo[i][5] = "SIN DATOS";
 			}else {
-				matrizInfo[i][5] = String.valueOf(mediciones.get(i).getPrecip() + "l/m2");
+				matrizInfo[i][5] = String.valueOf(mediciones.get(i).getPrecip() + " l/m2");
 			}
 			if(mediciones.get(i).getRadSolar() == null) {
 				matrizInfo[i][6] = "SIN DATOS";
 			}else {
-				matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar() + "W/m2");
+				matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar() + " W/m2");
 			}
 			if(mediciones.get(i).getTempAmbiente() == null) {
 				matrizInfo[i][7] = "SIN DATOS";
 			}else {
-				matrizInfo[i][7] = String.valueOf(mediciones.get(i).getTempAmbiente() + "Cº");
+				matrizInfo[i][7] = String.valueOf(mediciones.get(i).getTempAmbiente() + " Cº");
 			}
 			if(mediciones.get(i).getVViento() == null) {
 				matrizInfo[i][8] = "SIN DATOS";
 			}else {
-				matrizInfo[i][8] = String.valueOf(mediciones.get(i).getVViento() + "m/s");
+				matrizInfo[i][8] = String.valueOf(mediciones.get(i).getVViento() + " m/s");
 			}
 			if(mediciones.get(i).getIca() == null) {
 				matrizInfo[i][9] = "SIN DATOS";

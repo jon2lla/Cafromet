@@ -75,7 +75,6 @@ public class IOListenerSrv extends Thread {
 
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	public synchronized boolean procesarPeticion() {
 		MunicipioDAO.iniciarSesion();
 		CentroMeteorologicoDAO.iniciarSesion();
