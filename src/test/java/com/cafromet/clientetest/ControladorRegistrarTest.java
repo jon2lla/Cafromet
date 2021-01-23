@@ -53,15 +53,13 @@ public class ControladorRegistrarTest {
 			field = ControladorRegistrar.class.getDeclaredField("datos");
 			field.setAccessible(true);
 			field.set(controlador, dato);
-			field = ControladorRegistrar.class.getDeclaredField("insertado");
-			field.setAccessible(true);
-			field.set(controlador, true);
+		
 		} catch (NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
+        	System.out.println("\n !ERROR => NO SUCH FILE EXCEPTION");
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+        	System.out.println("\n !ERROR => ILLEGAL ARGUMENT EXCEPTION");
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+        	System.out.println("\n !ERROR => ILLEGAL ACCESS EXCEPTION");
 		}	
 		boolean rs =controlador.procesarRecepcion();
 		assertEquals(true, rs);

@@ -58,7 +58,7 @@ public class ClienteDAO {
 		Cliente cliente = (Cliente) QUERY.uniqueResult(); 		
 		SESSION.delete(cliente);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n >> REGISTRO BORRADO\n");
 		return true;
 	}
 }

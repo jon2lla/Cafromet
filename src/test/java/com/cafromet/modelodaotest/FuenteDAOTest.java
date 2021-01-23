@@ -21,7 +21,7 @@ public class FuenteDAOTest {
 	@Test
 	public void testInsertar() {		
 		boolean result=FuenteDAO.insertarRegistro(fuente);
-		FuenteDAO.consultarRegistroPorNombre("cafromet");
+		FuenteDAO.consultarRegistro("cafromet");
 		FuenteDAO.borrarRegistro("cafromet");
 		FuenteDAO.cerrarSesion();
 		assertEquals(true, result);
@@ -30,7 +30,7 @@ public class FuenteDAOTest {
 	@Test
 	public void testEliminar() {
 		FuenteDAO.insertarRegistro(fuente);
-		FuenteDAO.consultarRegistroPorNombre("cafromet");
+		FuenteDAO.consultarRegistro("cafromet");
 		boolean result=FuenteDAO.borrarRegistro("cafromet");
 		FuenteDAO.cerrarSesion();
 		assertEquals(true, result);

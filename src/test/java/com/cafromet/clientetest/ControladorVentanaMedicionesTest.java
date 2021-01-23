@@ -60,7 +60,7 @@ public class ControladorVentanaMedicionesTest {
 	public void enviarPeticion() {
 		controlador = Mockito.spy(controlador);
 		Mockito.doReturn(true).when(controlador).procesarRecepcion();
-		boolean result =controlador.enviarPeticion("prueba", Peticiones.p103a);
+		boolean result = controlador.enviarPeticion("prueba", Peticiones.p103a);
 		assertTrue(result);
 	}
 	
@@ -161,7 +161,7 @@ public class ControladorVentanaMedicionesTest {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}	
-		boolean rs =controlador.procesarRecepcion();
+		boolean rs = controlador.procesarRecepcion();
 		assertEquals(true, rs);
 	}
 
@@ -240,7 +240,7 @@ public class ControladorVentanaMedicionesTest {
 			e.printStackTrace();
 		}	
 		controlador.mLimpiarTabla();
-		boolean rs=controlador.llenarTabla(mediciones);
+		boolean rs = controlador.llenarTabla(mediciones);
 		assertEquals(true,rs);
 	}
 }

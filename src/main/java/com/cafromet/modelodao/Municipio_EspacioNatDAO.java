@@ -30,7 +30,7 @@ public class Municipio_EspacioNatDAO{
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("id", id);
 		Municipio_EspacioNatural municipio_EspacionNatural =  (Municipio_EspacioNatural) QUERY.uniqueResult(); 
-        System.out.printf(" REGISTRO(S) => %s || %s%n%n", municipio_EspacionNatural.getMunicipio().getNombre(), municipio_EspacionNatural.getEspacioNatural().getNombre());
+//        System.out.printf(" REGISTRO(S) => %s || %s%n%n", municipio_EspacionNatural.getMunicipio().getNombre(), municipio_EspacionNatural.getEspacioNatural().getNombre());
         return municipio_EspacionNatural;
 	}
 	

@@ -90,7 +90,7 @@ public class MunicipioDAO {
 		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
 		SESSION.delete(municipio);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n >> REGISTRO BORRADO\n");
 		correcto=true;
 		return correcto;
 	}

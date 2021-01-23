@@ -71,7 +71,7 @@ public class ProvinciaDAO {
 		Provincia provincia = (Provincia) QUERY.uniqueResult(); 
 		SESSION.delete(provincia);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n >> REGISTRO BORRADO\n");
 		correcto=true;		
 		return correcto;
 	}

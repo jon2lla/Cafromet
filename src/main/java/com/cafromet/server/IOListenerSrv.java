@@ -77,9 +77,6 @@ public class IOListenerSrv extends Thread {
 
 	public synchronized boolean procesarPeticion() {
 		MunicipioDAO.iniciarSesion();
-		CentroMeteorologicoDAO.iniciarSesion();
-		EspacioNaturalDAO.iniciarSesion();
-		MedicionDAO.iniciarSesion();
 		switch (datos.getPeticion().getCodigo()) {
 		case 1:
 			String[] array = datos.getContenido().split(",");
@@ -89,7 +86,6 @@ public class IOListenerSrv extends Thread {
 			Cliente cliente = new Cliente(usuario, passwd, null, null);
 			Cliente clienteComprobacion = new Cliente();
 			boolean existe;
-			ClienteDAO.iniciarSesion();
 			clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
 
 			if (clienteComprobacion != null) {
@@ -98,13 +94,11 @@ public class IOListenerSrv extends Thread {
 					datos.setObjeto(existe);
 					datos.setContenido("Este es el usuario");
 				}
-
 			} else {
 				System.out.println("\n EL USUARIO NO EXISTE");
 				existe = false;
 				datos.setObjeto(existe);
 			}
-			ClienteDAO.cerrarSesion();
 			break;
 
 		case 2:
@@ -113,9 +107,7 @@ public class IOListenerSrv extends Thread {
 				Cliente cliente2 = (Cliente) datos.getObjeto();
 				System.out.println("\n RECEPCION SERVER => Cliente: " + cliente2.getUsuario() + "; Password: "
 						+ cliente2.getPasswd());
-				ClienteDAO.iniciarSesion();
 				datos.setObjeto(ClienteDAO.insertarRegistro(cliente2));
-				ClienteDAO.cerrarSesion();
 				break;
 			case 2:
 				ClienteDTO clienteDto = (ClienteDTO) datos.getObjeto();
@@ -124,9 +116,8 @@ public class IOListenerSrv extends Thread {
 				cliente1.setPasswd(clienteDto.getPasswd());
 				System.out.println("\n RECEPCION SERVER => Cliente: " + cliente1.getUsuario() + "; Password: "
 						+ cliente1.getPasswd());
-				ClienteDAO.iniciarSesion();
 				datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
-				ClienteDAO.cerrarSesion();
+
 				break;
 			}
 			break;
@@ -241,9 +232,6 @@ public class IOListenerSrv extends Thread {
 			break;
 		}
 		MunicipioDAO.cerrarSesion();
-		CentroMeteorologicoDAO.cerrarSesion();
-		EspacioNaturalDAO.cerrarSesion();
-		MedicionDAO.cerrarSesion();
 		return true;
 	}
 

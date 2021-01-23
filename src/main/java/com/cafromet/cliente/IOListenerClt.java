@@ -47,9 +47,9 @@ public class IOListenerClt implements Runnable{
                 s.close();
 
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+        	System.out.println("\n !ERROR => UNKNOWN HOST EXCEPTION");
         }catch (ConnectException e) {
-        	System.out.println("\n !ERROR => CONNECTEXCEPTION || CONEXION RECHAZADA");
+        	System.out.println("\n !ERROR => CONNECT EXCEPTION");
         }catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

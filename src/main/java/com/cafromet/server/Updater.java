@@ -81,12 +81,12 @@ public class Updater extends Thread{
 		return true;
 	}
 
-	public boolean mostrarHash(String hash, String hash2) {
-		if(hash != null) {
-			System.out.println(StringsUpdater.getString("Updater.18") + hash); //$NON-NLS-1$
+	public boolean mostrarHash(String hashLocal, String hashRemoto) {
+		if(hashLocal != null) {
+			System.out.println(StringsUpdater.getString("Updater.18") + hashLocal); //$NON-NLS-1$
 		}
-		if(hash2 != null) {
-			System.out.println(StringsUpdater.getString("Updater.19") + hash2); //$NON-NLS-1$
+		if(hashRemoto != null) {
+			System.out.println(StringsUpdater.getString("Updater.19") + hashRemoto); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -100,9 +100,11 @@ public class Updater extends Thread{
 		fuenteMunicipios.setUrl(URL_PUEBLOS);
 		fuenteMunicipios.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + StringsUpdater.getString("Updater.22") + JSON)), StringsUpdater.getString("Updater.23"))); //$NON-NLS-1$ //$NON-NLS-2$
 		if(!FuenteDAO.insertarRegistro(fuenteMunicipios)) {
-			Fuente fuenteMunicipios2 = FuenteDAO.consultarRegistroPorNombre(StringsUpdater.getString("Updater.24")); //$NON-NLS-1$
-			mostrarHash(fuenteMunicipios.getHash(), fuenteMunicipios2.getHash());
+			Fuente fuenteMunicipios2 = FuenteDAO.consultarRegistro(StringsUpdater.getString("Updater.24")); //$NON-NLS-1$
+			mostrarHash(fuenteMunicipios2.getHash(), fuenteMunicipios.getHash());
 			if(!fuenteMunicipios.equals(fuenteMunicipios2)) {
+				fuenteMunicipios2.setHash(fuenteMunicipios.getHash());
+				FuenteDAO.actualizarRegistro(fuenteMunicipios2);
 				actualizarMunicipios();
 			}
 		}
@@ -122,9 +124,11 @@ public class Updater extends Thread{
 		fuenteEspaciosNat.setUrl(URL_ESPACIOS);
 		fuenteEspaciosNat.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + StringsUpdater.getString("Updater.27") + JSON)), StringsUpdater.getString("Updater.28"))); //$NON-NLS-1$ //$NON-NLS-2$
 		if(!FuenteDAO.insertarRegistro(fuenteEspaciosNat)) {
-			Fuente fuenteEspaciosNat2 = FuenteDAO.consultarRegistroPorNombre(StringsUpdater.getString("Updater.29")); //$NON-NLS-1$
-			mostrarHash(fuenteEspaciosNat.getHash(), fuenteEspaciosNat2.getHash());
+			Fuente fuenteEspaciosNat2 = FuenteDAO.consultarRegistro(StringsUpdater.getString("Updater.29")); //$NON-NLS-1$
+			mostrarHash(fuenteEspaciosNat2.getHash(), fuenteEspaciosNat.getHash());
 			if(!fuenteEspaciosNat.equals(fuenteEspaciosNat2)) {
+				fuenteEspaciosNat2.setHash(fuenteEspaciosNat.getHash());
+				FuenteDAO.actualizarRegistro(fuenteEspaciosNat2);
 				actualizarEspaciosNat();
 			}
 		}
@@ -143,9 +147,11 @@ public class Updater extends Thread{
 		fuenteCentrosMet.setUrl(URL_ESTACIONES);
 		fuenteCentrosMet.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + StringsUpdater.getString("Updater.32") + JSON)), StringsUpdater.getString("Updater.33"))); //$NON-NLS-1$ //$NON-NLS-2$
 		if(!FuenteDAO.insertarRegistro(fuenteCentrosMet)) {
-			Fuente fuenteCentrosMet2 = FuenteDAO.consultarRegistroPorNombre(StringsUpdater.getString("Updater.34")); //$NON-NLS-1$
-			mostrarHash(fuenteCentrosMet.getHash(), fuenteCentrosMet2.getHash());
+			Fuente fuenteCentrosMet2 = FuenteDAO.consultarRegistro(StringsUpdater.getString("Updater.34")); //$NON-NLS-1$
+			mostrarHash(fuenteCentrosMet2.getHash(), fuenteCentrosMet.getHash());
 			if(!fuenteCentrosMet.equals(fuenteCentrosMet2)) {
+				fuenteCentrosMet2.setHash(fuenteCentrosMet.getHash());
+				FuenteDAO.actualizarRegistro(fuenteCentrosMet2);
 				actualizarCentrosMet();
 			}
 		}
@@ -166,9 +172,11 @@ public class Updater extends Thread{
 		fuenteIndex.setHash(Encriptacion.generateHash(GestorFicheros.readFileAsString(new File(RUTA_TEMP + StringsUpdater.getString("Updater.37") + JSON)), StringsUpdater.getString("Updater.38"))); //$NON-NLS-1$ //$NON-NLS-2$
 		FuenteDAO.iniciarSesion();
 		if(!FuenteDAO.insertarRegistro(fuenteIndex)) {
-			Fuente fuenteIndex2 = FuenteDAO.consultarRegistroPorNombre(StringsUpdater.getString("Updater.39")); //$NON-NLS-1$
-			mostrarHash(fuenteIndex.getHash(), fuenteIndex.getHash());
+			Fuente fuenteIndex2 = FuenteDAO.consultarRegistro(StringsUpdater.getString("Updater.39")); //$NON-NLS-1$
+			mostrarHash(fuenteIndex2.getHash(), fuenteIndex.getHash());
 			if(!fuenteIndex.equals(fuenteIndex2)) {
+				fuenteIndex2.setHash(fuenteIndex.getHash());
+				FuenteDAO.actualizarRegistro(fuenteIndex2);
 				actualizarIndex();
 			}
 		}
@@ -187,9 +195,11 @@ public class Updater extends Thread{
 		List<CentroMeteorologico> centros = CentroMeteorologicoDAO.consultarRegistros(); 
 		for (CentroMeteorologico centroMeteorologico : centros) {
 		
-			String hash = null;
-	
+			String hashLocal = null;
+			String hashRemoto = null;
+			
 			if(centroMeteorologico.getUrl() != null) {
+				hashLocal = centroMeteorologico.getHash();
 				String nombreFormateado = centroMeteorologico.getNombre().replace(StringsUpdater.getString("Updater.40"), StringsUpdater.getString("Updater.41")).toLowerCase(); //$NON-NLS-1$ //$NON-NLS-2$
 
 				new PeticionHttp(centroMeteorologico.getUrl(), RUTA_TEMP + nombreFormateado + StringsUpdater.getString("Updater.42") + JSON); //$NON-NLS-1$
@@ -204,33 +214,21 @@ public class Updater extends Thread{
 //				}
 				
 				//ACTUALIZACION POR TAMAÑO
-				hash = String.valueOf(fichero.length());
+				hashRemoto = String.valueOf(fichero.length());
 				
-				if(centroMeteorologico.getHash() == null) {
-					centroMeteorologico.setHash(hash);
+				if(centroMeteorologico.getHash() == null || !centroMeteorologico.getHash().equals(hashRemoto)) {
+					centroMeteorologico.setHash(hashRemoto);
 					CentroMeteorologicoDAO.iniciarSesion();
 					CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
 					CentroMeteorologicoDAO.cerrarSesion();
 					try {
 						actualizarMediciones(centroMeteorologico);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				else if(!centroMeteorologico.getHash().equals(hash)) {	
-					try {
-						centroMeteorologico.setHash(hash);
-						CentroMeteorologicoDAO.iniciarSesion();
-						CentroMeteorologicoDAO.actualizarRegistro(centroMeteorologico);
-						CentroMeteorologicoDAO.cerrarSesion();
-						actualizarMediciones(centroMeteorologico);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+						System.out.println("\n !ERROR => INTERRUPTED EXCEPTION");
 					}
 				}
 			}	
-			mostrarHash(centroMeteorologico.getHash(), hash);	
+			mostrarHash(hashLocal, hashRemoto);	
 		}
 		
 		return true;

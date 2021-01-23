@@ -16,7 +16,7 @@ import com.cafromet.cliente.VentanaMunicipio;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
 
-public class controladorCLienteTest {
+public class controladorClienteTest {
 	
 	VentanaCliente VentanaCliente;
 	ControladorCliente controladorCliente;

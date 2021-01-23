@@ -66,7 +66,7 @@ public class EspacioNaturalDAO {
 		EspacioNatural espacioNat =  (EspacioNatural) QUERY.uniqueResult(); 
 		SESSION.delete(espacioNat);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n >> REGISTRO BORRADO\n");
 		return true;
 	}
 }

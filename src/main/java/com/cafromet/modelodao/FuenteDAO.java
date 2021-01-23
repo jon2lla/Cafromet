@@ -3,6 +3,7 @@ package com.cafromet.modelodao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Fuente;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.util.HibernateUtil;
@@ -23,7 +24,7 @@ public class FuenteDAO {
 	}
 	
 	public static boolean duplicado(Fuente fuente) {
-		Fuente registro = consultarRegistroPorNombre(fuente.getNombre());
+		Fuente registro = consultarRegistro(fuente.getNombre());
 		if(registro != null) {
 			return true;
 		}else if(fuente.equals(registro)) {
@@ -42,12 +43,27 @@ public class FuenteDAO {
 		return true;
 	}
 	
-	public static Fuente consultarRegistroPorNombre(String nombre) {
+	public static Fuente consultarRegistro(String nombre) {
 		HQL = "from Fuente where nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
 		QUERY.setParameter("nombre", nombre);
 		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
         return fuente;
+	}
+	
+	public static boolean actualizarRegistro(Fuente fuente) {
+		Fuente registro = consultarRegistro(fuente.getNombre()); 
+		SESSION.beginTransaction();	
+		if(registro!=null) {
+			registro.setUrl(fuente.getUrl());
+			registro.setHash(fuente.getHash());
+			SESSION.update(registro);
+			SESSION.getTransaction().commit();
+			System.out.println("\n >> REGISTRO ACTUALIZADO\n");
+			return true;
+		}
+		System.out.println("\n !ERROR AL ACTUALIZAR; CLASE => FUENTEDAO\n");
+		return false;
 	}
 	
 	public static boolean borrarRegistro(String nombre) {
@@ -58,7 +74,7 @@ public class FuenteDAO {
 		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
 		SESSION.delete(fuente);
 		SESSION.getTransaction().commit();
-		System.out.println("\n FILA(S) BORRADA(S)\n");
+		System.out.println("\n >> REGISTRO BORRADO\n");
 		return true;
 	}
 }

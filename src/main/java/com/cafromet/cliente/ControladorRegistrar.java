@@ -85,7 +85,6 @@ public class ControladorRegistrar implements ActionListener {
          case 1:
              boolean insertado = (boolean) datos.getObjeto();
              if (insertado) {
-                 JOptionPane.showMessageDialog(null, "USUARIO REGISTRADO CON EXITO","REGISTRADO",JOptionPane.INFORMATION_MESSAGE);
                  ventanaCliente.inicioVentaCliente();
                  ventanaRegistrar.dispose();
              } else {

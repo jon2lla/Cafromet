@@ -21,19 +21,19 @@ public class ClienteDAOTest {
 	
 	@Test
 	public void testInsertar() {
-		boolean resutl=ClienteDAO.insertarRegistro(cliente);
+		boolean resutl = ClienteDAO.insertarRegistro(cliente);
 		ClienteDAO.consultarRegistro("CLIENTE CAFROMET");
 		ClienteDAO.borrarRegistro("CLIENTE CAFROMET");
 		ClienteDAO.cerrarSesion();
-		assertEquals(true,resutl);
+		assertEquals(true, resutl);
 	}
 	
 	@Test
 	public void testEliminar() {
 		ClienteDAO.insertarRegistro(cliente);
 		ClienteDAO.consultarRegistro("CLIENTE CAFROMET");
-		boolean resutl=ClienteDAO.borrarRegistro("CLIENTE CAFROMET");
+		boolean resutl = ClienteDAO.borrarRegistro("CLIENTE CAFROMET");
 		ClienteDAO.cerrarSesion();
-		assertEquals(true,resutl);
+		assertEquals(true, resutl);
 	}
 }
