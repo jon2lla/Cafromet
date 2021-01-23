@@ -71,8 +71,7 @@ public class ControladorRegistrar implements ActionListener {
 	        Thread hiloSender = new Thread(IOListenerClt);
 	        hiloSender.start();
 			hiloSender.join();
-			datos = IOListenerClt.getDatos();
-			
+			datos = IOListenerClt.getDatos();			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
