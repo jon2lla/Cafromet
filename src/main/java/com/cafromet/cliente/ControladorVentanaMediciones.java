@@ -30,7 +30,12 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private ArrayList<CentroMeteorologico> centrosFiltrados;
 
 	VentanaMediciones ventanaMediciones = new VentanaMediciones();
+	
+	public ControladorVentanaMediciones() {
+	
+	}
 
+	
 	public ControladorVentanaMediciones(VentanaMediciones ventanaMediciones) {
 
 		this.ventanaMediciones = ventanaMediciones;
