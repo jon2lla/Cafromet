@@ -21,8 +21,17 @@ public class VentanaMunicipio extends JFrame {
 	private JTable tablaContactos;
 	private JComboBox comboBoxProvincia;
 	private JButton btnFiltrar;
+	private JButton btnVolver;
 	
-	
+		
+	public JButton getBtnVolver() {
+		return btnVolver;
+	}
+
+	public void setBtnVolver(JButton btnVolver) {
+		this.btnVolver = btnVolver;
+	}
+
 	public JButton getBtnFiltrar() {
 		return btnFiltrar;
 	}
@@ -59,7 +68,7 @@ public class VentanaMunicipio extends JFrame {
 
 	public VentanaMunicipio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 606, 313);
+		setBounds(100, 100, 606, 360);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,6 +106,10 @@ public class VentanaMunicipio extends JFrame {
 		btnFiltrar = new JButton("FILTRAR");
 		btnFiltrar.setBounds(281, 33, 89, 23);
 		contentPane.add(btnFiltrar);
+		
+		btnVolver = new JButton("VOLVER");
+		btnVolver.setBounds(10, 287, 89, 23);
+		contentPane.add(btnVolver);
 		
 	}
 }

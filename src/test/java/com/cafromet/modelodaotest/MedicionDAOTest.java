@@ -61,8 +61,8 @@ public class MedicionDAOTest {
 		assertEquals(medicion, medicion2);
 	
 		CentroMeteorologicoDAO.borrarRegistro("cafromet");
-//		MedicionDAO.cerrarSesion();
-//		CentroMeteorologicoDAO.cerrarSesion();
+		MedicionDAO.cerrarSesion();
+		CentroMeteorologicoDAO.cerrarSesion();
 		
 	}
 	
@@ -93,6 +93,8 @@ public class MedicionDAOTest {
 		boolean result = MedicionDAO.duplicado(medicion);		
 		assertEquals(true, result);		
 		CentroMeteorologicoDAO.borrarRegistro("cafromet");
+		MedicionDAO.cerrarSesion();
+		CentroMeteorologicoDAO.cerrarSesion();
 	}
 
 }

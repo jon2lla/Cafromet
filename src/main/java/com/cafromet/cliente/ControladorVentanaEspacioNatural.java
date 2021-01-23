@@ -29,7 +29,8 @@ public class ControladorVentanaEspacioNatural implements ActionListener {
 
 		ventanaEspacioNatural.getBtnFiltrar().addActionListener(this);
 		ventanaEspacioNatural.getBtnFiltrar().setActionCommand("filtrar");
-
+		ventanaEspacioNatural.getBtnVolver().addActionListener(this);
+		ventanaEspacioNatural.getBtnVolver().setActionCommand("volver");
 	}
 
 	@Override
@@ -42,7 +43,12 @@ public class ControladorVentanaEspacioNatural implements ActionListener {
 			String provincia = (String) ventanaEspacioNatural.getComboBoxProvincia().getSelectedItem();
 			filtrar(provincia);
 			break;
+		case "volver":
 
+			VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
+			ventanaMenuPrincipal.InicioMenuPrincipal();
+			ventanaEspacioNatural.dispose();
+		break;
 		}
 
 	}

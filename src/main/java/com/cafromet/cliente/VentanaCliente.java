@@ -52,38 +52,38 @@ public class VentanaCliente extends JFrame {
 
 	public VentanaCliente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(850, 400, 341, 289);
+		setBounds(100, 100, 341, 303);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(52, 176, 89, 23);
+		btnEnviar = new JButton("INICIAR");
+		btnEnviar.setBounds(25, 195, 112, 33);
 		contentPane.add(btnEnviar);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(91, 60, 143, 20);
+		textFieldUsuario.setBounds(91, 71, 143, 20);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
 		textFieldPassw = new JTextField();
 		textFieldPassw.setColumns(10);
-		textFieldPassw.setBounds(91, 119, 143, 20);
+		textFieldPassw.setBounds(91, 142, 143, 20);
 		contentPane.add(textFieldPassw);
 		
 		JLabel lblLogin = new JLabel("NOMBRE");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblLogin.setBounds(91, 32, 94, 17);
+		lblLogin.setBounds(91, 43, 94, 17);
 		contentPane.add(lblLogin);
 		
 		JLabel lblPassword = new JLabel("CONTRASEÑA");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblPassword.setBounds(91, 91, 143, 17);
+		lblPassword.setBounds(91, 107, 143, 24);
 		contentPane.add(lblPassword);
 		
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(191, 176, 89, 23);
+		btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar.setBounds(182, 195, 112, 33);
 		contentPane.add(btnRegistrar);
 	}
 

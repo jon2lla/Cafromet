@@ -22,7 +22,17 @@ public class VentanaEspacioNatural extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxProvincia;
 	private JButton btnFiltrar;
+	private JButton btnVolver;
 	
+	
+	public JButton getBtnVolver() {
+		return btnVolver;
+	}
+
+	public void setBtnVolver(JButton btnVolver) {
+		this.btnVolver = btnVolver;
+	}
+
 	public JButton getBtnFiltrar() {
 		return btnFiltrar;
 	}
@@ -61,7 +71,7 @@ public class VentanaEspacioNatural extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public VentanaEspacioNatural() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 300);
+		setBounds(100, 100, 519, 336);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -99,6 +109,10 @@ public class VentanaEspacioNatural extends JFrame {
 		btnFiltrar = new JButton("FILTRAR");
 		btnFiltrar.setBounds(257, 35, 100, 24);
 		contentPane.add(btnFiltrar);
+		
+		btnVolver = new JButton("VOLVER");
+		btnVolver.setBounds(10, 266, 100, 24);
+		contentPane.add(btnVolver);
 		
 	}
 

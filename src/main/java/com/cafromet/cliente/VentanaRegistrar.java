@@ -100,12 +100,12 @@ public class VentanaRegistrar extends JFrame {
 		textFieldPassword2.setBounds(85, 176, 177, 20);
 		contentPane.add(textFieldPassword2);
 
-		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(53, 230, 89, 23);
+		btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar.setBounds(34, 230, 112, 35);
 		contentPane.add(btnRegistrar);
 
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(222, 230, 89, 23);
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setBounds(201, 230, 112, 35);
 		contentPane.add(btnCancelar);
 	}
 

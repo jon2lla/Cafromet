@@ -35,9 +35,10 @@ public class ControladorVentanMunicipio implements ActionListener {
 
 		ventanaMunicipio.getBtnFiltrar().addActionListener(this);
 		ventanaMunicipio.getBtnFiltrar().setActionCommand("filtrar");
+		ventanaMunicipio.getBtnVolver().addActionListener(this);
+		ventanaMunicipio.getBtnVolver().setActionCommand("volver");
 		
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -54,6 +55,12 @@ public class ControladorVentanMunicipio implements ActionListener {
 			}else if (provincia.equals("Bizkaia")) {
 				filtrar(48);
 			}				
+			break;
+			
+		case "volver":
+				VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
+				ventanaMenuPrincipal.InicioMenuPrincipal();
+				ventanaMunicipio.dispose();
 			break;
 		}
 
@@ -131,5 +138,5 @@ public class ControladorVentanMunicipio implements ActionListener {
 		}
 		return true;
 	}
-	
+
 }
