@@ -240,7 +240,21 @@ public class IOListenerSrv extends Thread {
 				break;
 			}
 			break;
+		case 7:
+
+			switch (datos.getPeticion().getPlataforma()) {
+			case 2:
+				Municipio muni = new Municipio();
+				String idmuni = datos.getContenido();
+				muni = MunicipioDAO.consultarMuni(Integer.valueOf(idmuni));
+				MunicipioDTO muniDTO = new MunicipioDTO(muni);
+				
+				datos.setObjeto(muniDTO);
+				break;
+			}
+			break;
 		}
+
 		MunicipioDAO.cerrarSesion();
 		CentroMeteorologicoDAO.cerrarSesion();
 		EspacioNaturalDAO.cerrarSesion();
