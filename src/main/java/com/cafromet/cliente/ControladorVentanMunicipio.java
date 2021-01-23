@@ -84,11 +84,12 @@ public class ControladorVentanMunicipio implements ActionListener {
 		return true;
 	}
 
-	public void mLimpiarTabla() {
+	public boolean mLimpiarTabla() {
 
 		if (ventanaMunicipio.getDefaultTableModel().getRowCount() > 0) {
 			ventanaMunicipio.getDefaultTableModel().setRowCount(0);
 		}
+		return true;
 	}
 
 	public boolean enviarPeticion(String contenido, Peticiones peticion) {

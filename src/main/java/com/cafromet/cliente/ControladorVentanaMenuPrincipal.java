@@ -34,8 +34,8 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 			ventanaMunicipio.inicioVentanaMunicipio();
 			break;
 		case "Mediciones":
-			VentanaMediciones ventanaCentrosMeteorologicos = new VentanaMediciones();
-			ventanaCentrosMeteorologicos.inicioVentanaCentrosMeteorologicos();
+			VentanaMediciones entanaMediciones = new VentanaMediciones();
+			entanaMediciones.inicioVentanaMediciones();;
 			break;
 		case "espaciosNaturales":
 			VentanaEspacioNatural ventanaEspacioNatural = new VentanaEspacioNatural();

@@ -31,24 +31,26 @@ public class ControladorVentanaMediciones implements ActionListener {
 
 	VentanaMediciones ventanaMediciones = new VentanaMediciones();
 
-	public ControladorVentanaMediciones(VentanaMediciones ventanaCentrosMeteorologicos) {
+	public ControladorVentanaMediciones(VentanaMediciones ventanaMediciones) {
 
-		this.ventanaMediciones = ventanaCentrosMeteorologicos;
+		this.ventanaMediciones = ventanaMediciones;
 		enviarPeticion("centros", Peticiones.p105c);
 		enviarPeticion("municipio", Peticiones.p103c);
-		enviarPeticion("mediciones", Peticiones.p106a);
+		enviarPeticion("mediciones", Peticiones.p106a);	
 		llenarComboBoxMunicipios(municipios);
 		iniciarControlador();
+		
 	}
 
 	private void iniciarControlador() {
-
+		
 		ventanaMediciones.getcomboBoxMunicipio().addActionListener(this);
 		ventanaMediciones.getcomboBoxMunicipio().setActionCommand("municipio");
 		ventanaMediciones.getComboBoxCentros().setEnabled(false);
 		ventanaMediciones.getBtnBuscar().addActionListener(this);
 		ventanaMediciones.getBtnBuscar().setActionCommand("buscar");
 		ventanaMediciones.getBtnBuscar().setEnabled(false);
+		
 	}
 
 	@Override
@@ -75,15 +77,16 @@ public class ControladorVentanaMediciones implements ActionListener {
 		}	
 	}
 
-	private void llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
+	public boolean llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
 
 		for (Municipio muni : municipios) {
 			muni.setNombre(muni.getNombre().toUpperCase());
 			ventanaMediciones.getcomboBoxMunicipio().addItem(muni);
 		}
+		return true;
 	}
 
-	private void llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
+	public boolean llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
 
 		ventanaMediciones.getComboBoxCentros().removeAllItems();
 	
@@ -91,6 +94,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			
 			ventanaMediciones.getComboBoxCentros().addItem(cent);
 		}
+		return true;
 	}
 
 	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
