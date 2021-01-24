@@ -22,12 +22,12 @@ public class EspacioNaturalDTOTest {
 	public void test() {
 		espacioNaturalDTO.setCategoria("playa");
 		espacioNaturalDTO.setDescripcion("buena");
-		espacioNaturalDTO2.setIdEspacioNatural(1);
+		espacioNaturalDTO2.setIdEspacio(1);
 		espacioNaturalDTO2.setNombre("casa");
 		espacioNaturalDTO.setTipo("playa");
 		espacioNaturalDTO2.getCategoria();
 		espacioNaturalDTO2.getDescripcion();
-		espacioNaturalDTO.getIdEspacioNatural();
+		espacioNaturalDTO.getIdEspacio();
 		espacioNaturalDTO.getNombre();
 		espacioNaturalDTO.getTipo();
 		assertNotEquals(espacioNaturalDTO, espacioNaturalDTO2);

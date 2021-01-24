@@ -101,7 +101,7 @@ public class IOListenerSrv extends Thread {
 			}
 			ClienteDAO.cerrarSesion();
 			break;
-		
+	
 		case 2:
 			ClienteDAO.iniciarSesion();
 			switch (datos.getPeticion().getPlataforma()) {
@@ -165,13 +165,14 @@ public class IOListenerSrv extends Thread {
 				List<EspacioNaturalDTO> listaespaNat = new ArrayList<EspacioNaturalDTO>();
 				for (EspacioNatural espacioNatural : listaEspNat) {
 					EspacioNaturalDTO espaNatDTO = new EspacioNaturalDTO();
-					espaNatDTO.setIdEspacioNatural(espaNatDTO.getIdEspacioNatural());
-					espaNatDTO.setNombre(espaNatDTO.getNombre());
+					espaNatDTO.setIdEspacio(espacioNatural.getIdEspacio());
+					espaNatDTO.setNombre(espacioNatural.getNombre());
 					espaNatDTO.setCategoria(espacioNatural.getCategoria());
 					espaNatDTO.setDescripcion(espacioNatural.getDescripcion());
 					espaNatDTO.setTipo(espacioNatural.getTipo());
 					listaespaNat.add(espaNatDTO);
 				}
+				datos.setObjeto(listaespaNat);
 				break;
 			}
 			EspacioNaturalDAO.cerrarSesion();
@@ -256,6 +257,22 @@ public class IOListenerSrv extends Thread {
 				break;
 			}
 			MunicipioDAO.cerrarSesion();
+			break;
+		case 8:
+			EspacioNaturalDAO.iniciarSesion();
+			switch (datos.getPeticion().getPlataforma()) {
+			case 2:
+				EspacioNatural espacioNatural = new EspacioNatural();
+				String idEspacioNatural = datos.getContenido();
+				espacioNatural = EspacioNaturalDAO.consultarRegistroPorId(Integer.valueOf(idEspacioNatural));
+				EspacioNaturalDTO muniDTO = new EspacioNaturalDTO(espacioNatural);
+				datos.setContenido("Estoy enviandolo");
+				datos.setObjeto(muniDTO);
+			
+				break;	
+				
+			}
+			EspacioNaturalDAO.cerrarSesion();
 			break;
 		}
 		return true;

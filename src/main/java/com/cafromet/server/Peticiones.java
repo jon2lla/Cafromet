@@ -25,9 +25,12 @@ public enum Peticiones {
     //PETICION LISTAR MEDICIONES
     p106a(6, 1),
     p106b(6, 2),
-    //PETICION LISTAR MEDICIONES
+    //PETICION TRAER 1 MUNICIPIO
     p107a(7, 1),
-    p107b(7, 2);
+    p107b(7, 2),
+    //PETICION TRAER 1 ESPACIO NATURAL
+    p108a(8, 1),
+    p108b(8, 2);
 
     private int codigo;
     private int plataforma;

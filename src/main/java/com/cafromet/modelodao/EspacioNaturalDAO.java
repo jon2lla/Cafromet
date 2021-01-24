@@ -41,7 +41,15 @@ public class EspacioNaturalDAO {
 		SESSION.getTransaction().commit();	
 		return true;
 	}
-		
+	
+	public static EspacioNatural consultarRegistroPorId(int idEspacio) {
+		HQL = "from EspacioNatural as esp where esp.idEspacio = :idEspacio";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idEspacio", idEspacio);
+		EspacioNatural espacio = (EspacioNatural) QUERY.uniqueResult(); 
+		return espacio;
+	}
+	
 	public static EspacioNatural consultarRegistroPorNombre(String nombre) {
 		HQL = "from EspacioNatural as esp where esp.nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
