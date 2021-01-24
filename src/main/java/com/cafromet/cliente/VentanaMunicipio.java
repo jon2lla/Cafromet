@@ -19,7 +19,7 @@ public class VentanaMunicipio extends JFrame {
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
-	private JComboBox comboBoxProvincia;
+	private JComboBox<String> comboBoxProvincia;
 	private JButton btnFiltrar;
 	private JButton btnVolver;
 	
@@ -40,11 +40,11 @@ public class VentanaMunicipio extends JFrame {
 		this.btnFiltrar = btnFiltrar;
 	}
 
-	public JComboBox getComboBoxProvincia() {
+	public JComboBox<String> getComboBoxProvincia() {
 		return comboBoxProvincia;
 	}
 
-	public void setComboBoxProvincia(JComboBox comboBoxProvincia) {
+	public void setComboBoxProvincia(JComboBox<String> comboBoxProvincia) {
 		this.comboBoxProvincia = comboBoxProvincia;
 	}
 
@@ -68,7 +68,7 @@ public class VentanaMunicipio extends JFrame {
 
 	public VentanaMunicipio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 606, 360);
+		setBounds(300, 250, 1200, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,7 +76,7 @@ public class VentanaMunicipio extends JFrame {
 		
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 76, 570, 187);
+		scrollPane.setBounds(10, 76, 1164, 440);
 		getContentPane().add(scrollPane);
 		
 		String columnas[] = { "NOMBRE", "DESCRIPCION"};
@@ -88,13 +88,16 @@ public class VentanaMunicipio extends JFrame {
 		tablaContactos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaContactos.setRowSelectionAllowed(false);
 		tablaContactos.setCellSelectionEnabled(false);
-	
+		tablaContactos.getColumnModel().getColumn(0).setMaxWidth(200);
+		tablaContactos.getColumnModel().getColumn(0).setMinWidth(200);
+
+
 		tablaContactos.setDefaultEditor(Object.class, null); 
 
 		scrollPane.setViewportView(tablaContactos);
 		
-		comboBoxProvincia = new JComboBox();
-		comboBoxProvincia.setModel(new DefaultComboBoxModel(new String[] {"Araba/Álava", "Gipuzkoa", "Bizkaia"}));
+		comboBoxProvincia = new JComboBox<String>();
+		comboBoxProvincia.setModel(new DefaultComboBoxModel<String>(new String[] {"Araba/Álava", "Gipuzkoa", "Bizkaia"}));
 		comboBoxProvincia.setBounds(135, 33, 112, 22);
 		contentPane.add(comboBoxProvincia);
 		
@@ -108,7 +111,7 @@ public class VentanaMunicipio extends JFrame {
 		contentPane.add(btnFiltrar);
 		
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setBounds(10, 287, 89, 23);
+		btnVolver.setBounds(10, 527, 89, 23);
 		contentPane.add(btnVolver);
 		
 	}

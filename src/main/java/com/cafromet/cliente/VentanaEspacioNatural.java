@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaEspacioNatural extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
@@ -64,6 +65,7 @@ public class VentanaEspacioNatural extends JFrame {
 		VentanaEspacioNatural ventanaEspacioNatural = new VentanaEspacioNatural();
 		ventanaEspacioNatural.setVisible(true);
 		
+		@SuppressWarnings("unused")
 		ControladorVentanaEspacioNatural controladorVentEspacioNatural = new ControladorVentanaEspacioNatural(ventanaEspacioNatural);
 
 	}
@@ -71,7 +73,7 @@ public class VentanaEspacioNatural extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public VentanaEspacioNatural() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 519, 336);
+		setBounds(300, 250, 1200, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,10 +81,10 @@ public class VentanaEspacioNatural extends JFrame {
 		JScrollPane scrollPane;
 		contentPane.setLayout(null);
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 74, 483, 176);
+		scrollPane.setBounds(10, 74, 1164, 441);
 		getContentPane().add(scrollPane);
 		
-		String columnas[] = {"NOMBRE", "DESCRIPCION", "CATEGORIA"};
+		String columnas[] = {"NOMBRE", "DESCRIPCION"};
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
@@ -91,7 +93,10 @@ public class VentanaEspacioNatural extends JFrame {
 		tablaContactos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaContactos.setRowSelectionAllowed(false);
 		tablaContactos.setCellSelectionEnabled(false);
-	
+		tablaContactos.getColumnModel().getColumn(0).setMaxWidth(200);
+		tablaContactos.getColumnModel().getColumn(0).setMinWidth(200);
+
+		
 		tablaContactos.setDefaultEditor(Object.class, null); 
 
 		scrollPane.setViewportView(tablaContactos);
@@ -111,7 +116,7 @@ public class VentanaEspacioNatural extends JFrame {
 		contentPane.add(btnFiltrar);
 		
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setBounds(10, 266, 100, 24);
+		btnVolver.setBounds(10, 526, 100, 24);
 		contentPane.add(btnVolver);
 		
 	}

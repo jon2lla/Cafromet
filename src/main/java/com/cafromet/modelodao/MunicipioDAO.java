@@ -82,7 +82,7 @@ public class MunicipioDAO {
     }
 
 	public static boolean borrarRegistro(String nombre) {
-		boolean correcto=false;
+		boolean correcto = false;
 		SESSION.beginTransaction();	
 		HQL = "from Municipio as mun where mun.nombre = :nombre";
 		QUERY = SESSION.createQuery(HQL);
@@ -90,8 +90,8 @@ public class MunicipioDAO {
 		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
 		SESSION.delete(municipio);		
 		SESSION.getTransaction().commit();
-		System.out.println("\n >> REGISTRO BORRADO\n");
-		correcto=true;
+		System.out.println("\n >> REGISTRO BORRADO");
+		correcto = true;
 		return correcto;
 	}
 	public static Municipio consultarMuni(int idMunicipio) {

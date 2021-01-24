@@ -69,10 +69,10 @@ public class CentroMeteorologicoDAO {
 			registro.setHash(centroMeteorologico.getHash());
 			SESSION.update(registro);
 			SESSION.getTransaction().commit();
-			System.out.println("\n >> REGISTRO ACTUALIZADO\n");
+			System.out.println("\n >> REGISTRO ACTUALIZADO");
 			return true;
 		}
-		System.out.println("\n !ERROR AL ACTUALIZAR; CLASE => CENTROMETDAO\n");
+		System.out.println("\n !ERROR AL ACTUALIZAR; CLASE => CENTROMETDAO");
 		return false;
 	}
 	
@@ -85,7 +85,7 @@ public class CentroMeteorologicoDAO {
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 		
 		SESSION.delete(centro);			
 		SESSION.getTransaction().commit();
-		System.out.println("\n >> REGISTRO BORRADO\n");
+		System.out.println("\n >> REGISTRO BORRADO");
 		return true;
 	}
 }

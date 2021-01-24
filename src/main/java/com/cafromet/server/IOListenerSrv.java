@@ -208,6 +208,7 @@ public class IOListenerSrv extends Thread {
 		case 6:
 			MunicipioDAO.iniciarSesion();
 			CentroMeteorologicoDAO.iniciarSesion();
+			MedicionDAO.iniciarSesion();
 			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
 			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
 			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
@@ -241,6 +242,7 @@ public class IOListenerSrv extends Thread {
 			}
 			MunicipioDAO.cerrarSesion();
 			CentroMeteorologicoDAO.cerrarSesion();
+			MedicionDAO.iniciarSesion();
 			break;
 		case 7:
 			MunicipioDAO.iniciarSesion();

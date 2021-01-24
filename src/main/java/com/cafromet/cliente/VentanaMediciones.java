@@ -2,7 +2,6 @@ package com.cafromet.cliente;
 
 import java.awt.Font;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +18,7 @@ import javax.swing.JButton;
 
 public class VentanaMediciones extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
@@ -81,7 +81,7 @@ public class VentanaMediciones extends JFrame {
 	public VentanaMediciones() {
 		setTitle("MEDICIONES");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 750);
+		setBounds(350, 150, 1200, 750);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +90,7 @@ public class VentanaMediciones extends JFrame {
 
 		JScrollPane scrollPane;
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 105, 1166, 608);
+		scrollPane.setBounds(10, 105, 1166, 558);
 		getContentPane().add(scrollPane);
 		
 		String columnas[] = { "FECHA","HORA","DIR_VIENTO","H_RELATIVA","P_ATMOSFERICA","PRECIP","RAD_SOLAR","TEMP_AMBIENTE","V_VIENTO","ESTACION"};
@@ -131,7 +131,7 @@ public class VentanaMediciones extends JFrame {
 		contentPane.add(btnBuscar);
 		
 		btnVolver = new JButton("VOLVER");
-		btnVolver.setBounds(1067, 33, 89, 23);
+		btnVolver.setBounds(10, 674, 89, 23);
 		contentPane.add(btnVolver);
 	
 	}

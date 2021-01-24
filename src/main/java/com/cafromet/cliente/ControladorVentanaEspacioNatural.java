@@ -67,13 +67,12 @@ public class ControladorVentanaEspacioNatural implements ActionListener {
 			x++;
 		}
 
-		String matrizInfo[][] = new String[espacioNaturalFiltrado.size()][3];
+		String matrizInfo[][] = new String[espacioNaturalFiltrado.size()][2];
 
 		for (int i = 0; i < espacioNaturalFiltrado.size(); i++) {
 
 			matrizInfo[i][0] = espacioNaturalFiltrado.get(i).getNombre();
 			matrizInfo[i][1] = espacioNaturalFiltrado.get(i).getDescripcion();
-			matrizInfo[i][2] = espacioNaturalFiltrado.get(i).getCategoria();
 			ventanaEspacioNatural.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
 
@@ -113,14 +112,12 @@ public class ControladorVentanaEspacioNatural implements ActionListener {
 
 			espacioNatural = (ArrayList<EspacioNatural>) datos.getObjeto();
 
-			String matrizInfo[][] = new String[espacioNatural.size()][3];
+			String matrizInfo[][] = new String[espacioNatural.size()][2];
 
 			for (int i = 0; i < espacioNatural.size(); i++) {
 
 				matrizInfo[i][0] = espacioNatural.get(i).getNombre();
 				matrizInfo[i][1] = espacioNatural.get(i).getDescripcion();
-				matrizInfo[i][2] = espacioNatural.get(i).getCategoria();
-//				matrizInfo[i][5] = espacioNatural.get(i).getCategoria();
 				ventanaEspacioNatural.getDefaultTableModel().addRow(matrizInfo[i]);
 			}
 			break;

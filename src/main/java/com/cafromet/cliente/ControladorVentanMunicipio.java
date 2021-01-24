@@ -4,12 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-
-import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Municipio;
-import com.cafromet.modelodto.MunicipioDTO;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
 

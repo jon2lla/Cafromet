@@ -32,7 +32,7 @@ public class Logger extends JFrame implements ActionListener {
 	public Logger() {		
 		super(" VENTANA SERVIDOR ");
 		
-		setBounds(0, 0, 500, 450);
+		setBounds(750, 300, 500, 450);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		getContentPane().setLayout(null);

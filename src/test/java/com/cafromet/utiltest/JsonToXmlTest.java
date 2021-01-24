@@ -15,7 +15,7 @@ public class JsonToXmlTest {
 	@Test
 	public void test() {
 		JsonToXml jsonToXml = new JsonToXml();
-		boolean rs = jsonToXml.convertJsonToXml("abanto_temp2.json", "ABANTO", "ABANTO", "test_" +  "abanto.xml", Updater.RUTA_XML);
+		boolean rs = jsonToXml.convertJsonToXml("abanto_temp2.json", "ABANTO", "MEDICION", "test_" +  "abanto.xml", Updater.RUTA_XML);
 		assertEquals(true, rs);
 	}
 

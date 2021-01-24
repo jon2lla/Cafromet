@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 public class VentanaMenuPrincipal extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnMunicipios;
 	private JButton btnEspaciosNaturales;
@@ -50,13 +51,14 @@ public class VentanaMenuPrincipal extends JFrame {
 		VentanaMenuPrincipal VentMenuPrincipal = new VentanaMenuPrincipal();
 		VentMenuPrincipal.setVisible(true);
 		
+		@SuppressWarnings("unused")
 		ControladorVentanaMenuPrincipal controladorMenuPrincipal = new ControladorVentanaMenuPrincipal(VentMenuPrincipal);
 	
 	}
 
 	public VentanaMenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 404, 338);
+		setBounds(800, 400, 404, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

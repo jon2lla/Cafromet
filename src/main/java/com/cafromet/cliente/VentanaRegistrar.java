@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 public class VentanaRegistrar extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
 	private JTextField textFieldPassword;
@@ -58,13 +59,14 @@ public class VentanaRegistrar extends JFrame {
 		VentanaRegistrar ventanaRegistrar = new VentanaRegistrar();
 		ventanaRegistrar.setVisible(true);
 		
+		@SuppressWarnings("unused")
 		ControladorRegistrar controladorRegistrar = new ControladorRegistrar(ventanaRegistrar);
 		
 	}
 
 	public VentanaRegistrar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 370, 335);
+		setBounds(800, 400, 370, 335);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
