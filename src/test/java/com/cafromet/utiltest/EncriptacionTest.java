@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.cafromet.server.Updater;
 import com.cafromet.util.Encriptacion;
 
 public class EncriptacionTest {
@@ -18,13 +19,13 @@ public class EncriptacionTest {
 	@Test
 	public void testEncriptar() {
 		Encriptacion encriptacion = new Encriptacion();
-		boolean rs= encriptacion.encriptar("casa", "123456789", "..\\..\\Desktop");
+		boolean rs= encriptacion.encriptar("casa", "123456789",Updater.RUTA_TEMP);// "..\\..\\Desktop"
 		assertEquals(true, rs);
 	}
 	@Test
 	public void testDesencriptar() {
 		Encriptacion encriptacion = new Encriptacion();
-		byte[] mensajeCodificado = encriptacion.desencriptar("..\\\\..\\\\Desktop", "123456789");
+		byte[] mensajeCodificado = encriptacion.desencriptar(Updater.RUTA_TEMP, "123456789");// "..\\\\..\\\\Desktop"
 		byte[] mensajeDecodificado = null;
 		assertNotEquals(mensajeCodificado, mensajeDecodificado);
 	}

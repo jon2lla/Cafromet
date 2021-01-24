@@ -2,6 +2,7 @@ package com.cafromet.clientetest;
 
 import static org.junit.Assert.*;
 
+import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 

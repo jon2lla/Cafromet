@@ -76,9 +76,9 @@ public class IOListenerSrv extends Thread {
 	}
 
 	public synchronized boolean procesarPeticion() {
-		MunicipioDAO.iniciarSesion();
 		switch (datos.getPeticion().getCodigo()) {
 		case 1:
+			ClienteDAO.iniciarSesion();
 			String[] array = datos.getContenido().split(",");
 
 			String usuario = array[0];
@@ -99,9 +99,11 @@ public class IOListenerSrv extends Thread {
 				existe = false;
 				datos.setObjeto(existe);
 			}
+			ClienteDAO.cerrarSesion();
 			break;
-
+		
 		case 2:
+			ClienteDAO.iniciarSesion();
 			switch (datos.getPeticion().getPlataforma()) {
 			case 1:
 				Cliente cliente2 = (Cliente) datos.getObjeto();
@@ -120,8 +122,10 @@ public class IOListenerSrv extends Thread {
 
 				break;
 			}
+			ClienteDAO.cerrarSesion();
 			break;
 		case 3:
+			MunicipioDAO.iniciarSesion();
 			List<Municipio> lista = MunicipioDAO.consultarRegistros();
 			switch (datos.getPeticion().getPlataforma()) {
 			case 1:
@@ -148,8 +152,10 @@ public class IOListenerSrv extends Thread {
 				datos.setObjeto(listaMunicipio);
 				break;
 			}
+			MunicipioDAO.iniciarSesion();
 			break;
 		case 4:
+			EspacioNaturalDAO.iniciarSesion();
 			List<EspacioNatural> listaEspNat = EspacioNaturalDAO.consultarRegistros();
 			switch (datos.getPeticion().getPlataforma()) {
 			case 1:
@@ -168,8 +174,10 @@ public class IOListenerSrv extends Thread {
 				}
 				break;
 			}
+			EspacioNaturalDAO.cerrarSesion();
 			break;
 		case 5:
+			CentroMeteorologicoDAO.iniciarSesion();
 			List<CentroMeteorologico> listaCentro = CentroMeteorologicoDAO.consultarRegistros();
 			switch (datos.getPeticion().getPlataforma()) {
 			case 1:
@@ -195,15 +203,17 @@ public class IOListenerSrv extends Thread {
 				datos.setObjeto(listaCentros);
 				break;
 			}
+			CentroMeteorologicoDAO.cerrarSesion();
 			break;
 		case 6:
+			MunicipioDAO.iniciarSesion();
+			CentroMeteorologicoDAO.iniciarSesion();
 			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
 			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
 			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
 			switch (datos.getPeticion().getPlataforma()) {
 
 			case 1:
-
 				ArrayList<Municipio> listaMunicipio = new ArrayList<Municipio>();
 				for (Municipio muni : listaMunicipioParaMedicion) {
 					if (!muni.getCentroMeteorologicos().isEmpty()) {
@@ -229,23 +239,23 @@ public class IOListenerSrv extends Thread {
 			case 2:
 				break;
 			}
+			MunicipioDAO.cerrarSesion();
+			CentroMeteorologicoDAO.cerrarSesion();
 			break;
 		case 7:
-
+			MunicipioDAO.iniciarSesion();
 			switch (datos.getPeticion().getPlataforma()) {
 			case 2:
 				Municipio muni = new Municipio();
 				String idmuni = datos.getContenido();
 				muni = MunicipioDAO.consultarMuni(Integer.valueOf(idmuni));
-				MunicipioDTO muniDTO = new MunicipioDTO(muni);
-				
+				MunicipioDTO muniDTO = new MunicipioDTO(muni);				
 				datos.setObjeto(muniDTO);
 				break;
 			}
+			MunicipioDAO.cerrarSesion();
 			break;
 		}
-
-		MunicipioDAO.cerrarSesion();
 		return true;
 	}
 
