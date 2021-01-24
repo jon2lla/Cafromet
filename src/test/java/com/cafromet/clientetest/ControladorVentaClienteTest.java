@@ -21,11 +21,16 @@ public class ControladorVentaClienteTest {
 
 	ControladorVentanMunicipio controlador;
 	VentanaMunicipio ventanaMunicipio;
-
+	Datos dato;
+	Municipio muni;
+	Provincia provincia;
 	@Before
 	public void setup() {
 	ventanaMunicipio = new VentanaMunicipio();
 	controlador = new ControladorVentanMunicipio(ventanaMunicipio);
+	dato = new Datos();
+	muni = new Municipio();
+	provincia = new Provincia();
 	}
 	
 	@Test
@@ -38,11 +43,11 @@ public class ControladorVentaClienteTest {
 	
 	@Test
 	public void testProcesar() {
-		Datos dato = new Datos();
+		
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p103a);		
-		Municipio muni = new Municipio();
+	
 		muni.setDescripcion("sad");
 		muni.setNombre("cas");
 		muni.setIdMunicipio(1);
@@ -70,11 +75,11 @@ public class ControladorVentaClienteTest {
 	
 	@Test
 	public void testFiltro() {
-		Municipio muni = new Municipio();
+		
 		muni.setDescripcion("sad");
 		muni.setNombre("cas");
 		muni.setIdMunicipio(1);
-		Provincia provincia = new Provincia();
+	
 		provincia.setIdProvincia(1);
 		provincia.setNombre("casd");
 		muni.setProvincia(provincia);

@@ -24,17 +24,27 @@ public class ControladorVentanaMedicionesTest {
 
 	VentanaMediciones ventana;
 	ControladorVentanaMediciones controlador;
-	
+	Municipio muni;
+	Provincia provincia;
+	CentroMeteorologico cent;
+	Datos dato;
+	Medicion medicion;
+	MedicionId MedicionId;
 	@Before
 	public void setup() {
 		ventana = new VentanaMediciones();
 		controlador = new ControladorVentanaMediciones();
+		muni = new Municipio();
+		provincia = new Provincia();
+		cent = new CentroMeteorologico();
+		dato = new Datos();
+		medicion = new Medicion();
+		MedicionId = new MedicionId();	
 	}
 	
 	@Test
 	public void testLlenarComboBoxMunicipios() {
-		Municipio muni = new Municipio();
-		Provincia provincia = new Provincia();
+
 		provincia.setIdProvincia(1);
 		provincia.setNombre("prueba2");
 		muni.setIdMunicipio(1);
@@ -47,7 +57,7 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void testLlenarComboBoxCentros() {
-		CentroMeteorologico cent = new CentroMeteorologico();
+		
 		cent.setDireccion("casd");
 		cent.setNombre("asfas");
 		cent.setIdCentroMet(2);
@@ -66,12 +76,11 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void testProcesarMunicipios() {
-		Datos dato = new Datos();
+		
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p103a);		
-		Municipio muni = new Municipio();
-		Provincia provincia = new Provincia();
+
 		provincia.setIdProvincia(1);
 		provincia.setNombre("prueba2");
 		muni.setIdMunicipio(1);
@@ -101,11 +110,11 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void testProcesarCentosMeteorologicos() {
-		Datos dato = new Datos();
+
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p105c);		
-		CentroMeteorologico cent = new CentroMeteorologico();
+
 		cent.setDireccion("casd");
 		cent.setNombre("asfas");
 		cent.setIdCentroMet(2);
@@ -133,13 +142,13 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void testProcesarMedicion() {
-		Datos dato = new Datos();
+
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p106a);		
-		Medicion medicion = new Medicion();
+
 		medicion.setDirViento(1);
-		MedicionId MedicionId = new MedicionId();
+		
 		MedicionId.setIdCentroMet(1);
 		medicion.setId(MedicionId);
 		medicion.setIca("prueba");
@@ -167,13 +176,13 @@ public class ControladorVentanaMedicionesTest {
 
 	@Test
 	public void testLlenarTabla() {
-		Datos dato = new Datos();
+		
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p106a);		
-		Medicion medicion = new Medicion();
+
 		medicion.setDirViento(1);
-		MedicionId MedicionId = new MedicionId();
+		
 		MedicionId.setIdCentroMet(1);
 		medicion.setId(MedicionId);
 		medicion.setIca("prueba");
@@ -202,16 +211,15 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void testLlenarTabla2() {
-		Datos dato = new Datos();
+
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p106a);
-		CentroMeteorologico cent = new CentroMeteorologico();
+
 		cent.setDireccion("casd");
 		cent.setNombre("asfas");
 		cent.setIdCentroMet(2);
-		Medicion medicion = new Medicion();		
-		MedicionId MedicionId = new MedicionId();
+
 		MedicionId.setIdCentroMet(1);
 		medicion.setId(MedicionId);
 		medicion.setCentroMeteorologico(cent);

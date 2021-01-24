@@ -18,9 +18,7 @@ public class MainServer {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		
 		Updater.getInstance().start();
-		
-
-	
+			
 		try {
 			Updater.getInstance().join();
 		} catch (InterruptedException e) {

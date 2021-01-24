@@ -20,8 +20,8 @@ public class MunicipioDAOTest {
 	public void setup() {
 		municipio = new Municipio();
 		municipio.setNombre("cafromet");
-		MunicipioDAO.iniciarSesion();
 		provincia = new Provincia();
+		MunicipioDAO.iniciarSesion();		
 	}
 	
 	@Test
@@ -44,8 +44,6 @@ public class MunicipioDAOTest {
 	
 	@Test
 	public void testConsultar() {
-		municipio = new Municipio();
-		provincia = new Provincia();
 		municipio.setNombre("cafromet");
 		municipio.setIdMunicipio(500);
 		provincia.setIdProvincia(50);

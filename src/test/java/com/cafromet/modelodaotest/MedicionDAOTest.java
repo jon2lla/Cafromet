@@ -37,7 +37,6 @@ public class MedicionDAOTest {
 	@Test
 	public void test() {
 		
-		MedicionDAO.iniciarSesion();
 		medicion = new Medicion();
 		
 		CentroMeteorologico centroMeteorologico = new CentroMeteorologico();
@@ -54,47 +53,14 @@ public class MedicionDAOTest {
 		medicion.setCentroMeteorologico(centroMeteorologico);
 		medicion.setId(id);
 		MedicionDAO.insertarRegistro(medicion);		
-//		medicion = MedicionDAO.consultarRegistro(medicion);
 		medicion = new Medicion(id, centroMeteorologico);	
 		medicion2 = new Medicion(id, centroMeteorologico);
 		
 		assertEquals(medicion, medicion2);
 	
 		CentroMeteorologicoDAO.borrarRegistro("cafromet");
-		MedicionDAO.cerrarSesion();
 		CentroMeteorologicoDAO.cerrarSesion();
 		
-	}
-	
-	@Test
-	public void consultar() {
-		
-		MedicionDAO.iniciarSesion();
-		medicion = new Medicion();
-		
-		CentroMeteorologico centroMeteorologico = new CentroMeteorologico();
-		centroMeteorologico.setNombre("cafromet");
-		centroMeteorologico.setIdCentroMet(5000);
-		CentroMeteorologicoDAO.iniciarSesion();
-		CentroMeteorologicoDAO.insertarRegistro(centroMeteorologico);
-		CentroMeteorologicoDAO.consultarRegistro("cafromet");
-			
-		MedicionId id = new MedicionId();
-
-		id.setFecha(fecha);
-		id.setHora(hora);
-		id.setIdCentroMet(centroMeteorologico.getIdCentroMet());
-		
-		medicion.setId(id);
-		medicion.setCentroMeteorologico(centroMeteorologico);
-		MedicionDAO.insertarRegistro(medicion);
-		medicion2 = new Medicion(id, centroMeteorologico);
-		MedicionDAO.insertarRegistro(medicion2);
-		boolean result = MedicionDAO.duplicado(medicion);		
-		assertEquals(true, result);		
-		CentroMeteorologicoDAO.borrarRegistro("cafromet");
-		MedicionDAO.cerrarSesion();
-		CentroMeteorologicoDAO.cerrarSesion();
 	}
 
 }

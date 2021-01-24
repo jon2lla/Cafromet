@@ -18,6 +18,8 @@ public class Municipio_EspacioNatDAOTest {
 	
 	Municipio_EspacioNaturalId id;
 	Municipio_EspacioNatural mun_esp;
+	Municipio municipio;
+	EspacioNatural espacioNatural;
 	
 	@Before
 	public void setup() {			
@@ -25,18 +27,18 @@ public class Municipio_EspacioNatDAOTest {
 		id = new Municipio_EspacioNaturalId();
 		Municipio_EspacioNatDAO.iniciarSesion();
 		Municipio_EspacioDAO.iniciarSesion();
+		municipio = new Municipio();
+		espacioNatural = new EspacioNatural();
 	}
 	
 	@Test
 	public void test() {
-		
-		Municipio municipio = new Municipio();
+			
 		municipio.setNombre("cafromet");
 		MunicipioDAO.iniciarSesion();
 		MunicipioDAO.insertarRegistro(municipio);
 		MunicipioDAO.consultarRegistro("cafromet");
-		
-		EspacioNatural espacioNatural = new EspacioNatural();
+				
 		espacioNatural.setNombre("cafromet");
 		EspacioNaturalDAO.iniciarSesion();
 		EspacioNaturalDAO.insertarRegistro(espacioNatural);
@@ -61,8 +63,7 @@ public class Municipio_EspacioNatDAOTest {
 		MunicipioDAO.borrarRegistro("cafromet");
 		MunicipioDAO.cerrarSesion();
 		
-		assertEquals(true, result);
-			
+		Municipio_EspacioDAO.cerrarSesion();
+		assertEquals(true, result);			
 	}
-
 }

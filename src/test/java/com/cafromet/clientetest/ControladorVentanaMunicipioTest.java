@@ -22,17 +22,23 @@ public class ControladorVentanaMunicipioTest {
 
 	VentanaMunicipio VentanaMunicipio;
 	ControladorVentanMunicipio controlador;
+	Municipio muni;
+	Provincia provincia;
+	Datos dato;
+	
 	@Before
 	public void setup(){
 		VentanaMunicipio = new VentanaMunicipio();
 		controlador = new ControladorVentanMunicipio(VentanaMunicipio);
+		muni = new Municipio();
+		provincia = new Provincia();
+		dato = new Datos();
+		
 	}
-	
-	
+		
 	@Test
 	public void testFiltrar() {
-		Municipio muni = new Municipio();
-		Provincia provincia = new Provincia();
+
 		provincia.setIdProvincia(1);
 		provincia.setNombre("prueba2");
 		muni.setIdMunicipio(1);
@@ -67,12 +73,11 @@ public class ControladorVentanaMunicipioTest {
 	
 	@Test
 	public void testProcesar() {
-		Datos dato = new Datos();
+
 		dato.setContenido("prueba");
 		dato.setIdConexion("cas");
 		dato.setPeticion(Peticiones.p103a);		
-		Municipio muni = new Municipio();
-		Provincia provincia = new Provincia();
+
 		provincia.setIdProvincia(1);
 		provincia.setNombre("prueba2");
 		muni.setIdMunicipio(1);
