@@ -79,29 +79,58 @@ public class IOListenerSrv extends Thread {
 		switch (datos.getPeticion().getCodigo()) {
 		case 1:
 			ClienteDAO.iniciarSesion();
-			String[] array = datos.getContenido().split(",");
+			switch (datos.getPeticion().getPlataforma()) {
 
-			String usuario = array[0];
-			String passwd = array[1];
-			Cliente cliente = new Cliente(usuario, passwd, null, null);
-			Cliente clienteComprobacion = new Cliente();
-			boolean existe;
-			clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
+			case 1:
+				String[] array = datos.getContenido().split(",");
 
-			if (clienteComprobacion != null) {
-				if (cliente.getPasswd().equals(clienteComprobacion.getPasswd())) {
-					existe = true;
+				String usuario = array[0];
+				String passwd = array[1];
+				Cliente cliente = new Cliente(usuario, passwd, null, null);
+				Cliente clienteComprobacion = new Cliente();
+				boolean existe;
+				clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
+
+				if (clienteComprobacion != null) {
+					if (cliente.getPasswd().equals(clienteComprobacion.getPasswd())) {
+						existe = true;
+						datos.setObjeto(existe);
+						datos.setContenido("Este es el usuario");
+					}
+				} else {
+					System.out.println("\n EL USUARIO NO EXISTE");
+					existe = false;
 					datos.setObjeto(existe);
-					datos.setContenido("Este es el usuario");
 				}
-			} else {
-				System.out.println("\n EL USUARIO NO EXISTE");
-				existe = false;
-				datos.setObjeto(existe);
+				ClienteDAO.cerrarSesion();
+				break;
+
+			case 2:
+				boolean existe1;
+				Cliente clienteComprobacion2 = new Cliente();
+				ClienteDTO clienteDTO = (ClienteDTO) datos.getObjeto();
+				Cliente cliente1 = new Cliente();
+				cliente1.setUsuario(clienteDTO.getUsuario());
+				cliente1.setPasswd(clienteDTO.getPasswd());
+				
+				clienteComprobacion2 = ClienteDAO.consultarRegistro(cliente1.getUsuario());
+
+				if (clienteComprobacion2 != null) {
+					if (cliente1.getPasswd().equals(clienteComprobacion2.getPasswd())) {
+						existe = true;
+						datos.setObjeto(existe);
+						datos.setContenido(String.valueOf(clienteComprobacion2.getIdCliente()));
+					}
+				} else {
+					System.out.println("\n EL USUARIO NO EXISTE");
+					existe = false;
+					datos.setObjeto(existe);
+				}
+				
+				
+				break;
 			}
-			ClienteDAO.cerrarSesion();
 			break;
-	
 		case 2:
 			ClienteDAO.iniciarSesion();
 			switch (datos.getPeticion().getPlataforma()) {
@@ -119,7 +148,6 @@ public class IOListenerSrv extends Thread {
 				System.out.println("\n RECEPCION SERVER => Cliente: " + cliente1.getUsuario() + "; Password: "
 						+ cliente1.getPasswd());
 				datos.setObjeto(ClienteDAO.insertarRegistro(cliente1));
-
 				break;
 			}
 			ClienteDAO.cerrarSesion();
@@ -273,6 +301,15 @@ public class IOListenerSrv extends Thread {
 				
 			}
 			EspacioNaturalDAO.cerrarSesion();
+			break;
+		case 9:
+			
+			
+			
+			
+			
+			
+			
 			break;
 		}
 		return true;

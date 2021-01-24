@@ -30,7 +30,10 @@ public enum Peticiones {
     p107b(7, 2),
     //PETICION TRAER 1 ESPACIO NATURAL
     p108a(8, 1),
-    p108b(8, 2);
+    p108b(8, 2),
+    //PETICION FAVORITOS
+    p109a(9, 1),
+    p109b(9, 2);
 
     private int codigo;
     private int plataforma;
