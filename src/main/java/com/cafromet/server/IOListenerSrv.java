@@ -25,6 +25,7 @@ import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodto.CentroMeteorologicoDTO;
 import com.cafromet.modelodto.ClienteDTO;
 import com.cafromet.modelodto.EspacioNaturalDTO;
+import com.cafromet.modelodto.FavoritosDTO;
 import com.cafromet.modelodto.MunicipioDTO;
 
 public class IOListenerSrv extends Thread {
@@ -113,7 +114,7 @@ public class IOListenerSrv extends Thread {
 				Cliente cliente1 = new Cliente();
 				cliente1.setUsuario(clienteDTO.getUsuario());
 				cliente1.setPasswd(clienteDTO.getPasswd());
-				
+
 				clienteComprobacion2 = ClienteDAO.consultarRegistro(cliente1.getUsuario());
 
 				if (clienteComprobacion2 != null) {
@@ -127,7 +128,7 @@ public class IOListenerSrv extends Thread {
 					existe = false;
 					datos.setObjeto(existe);
 				}
-				
+
 				ClienteDAO.cerrarSesion();
 				break;
 			}
@@ -237,6 +238,8 @@ public class IOListenerSrv extends Thread {
 			break;
 		case 6:
 			MunicipioDAO.iniciarSesion();
+			CentroMeteorologicoDAO.iniciarSesion();
+			MedicionDAO.iniciarSesion();
 			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
 			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
 			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
@@ -269,6 +272,8 @@ public class IOListenerSrv extends Thread {
 				break;
 			}
 			MunicipioDAO.cerrarSesion();
+			CentroMeteorologicoDAO.cerrarSesion();
+			MedicionDAO.cerrarSesion();
 			break;
 		case 7:
 			MunicipioDAO.iniciarSesion();
@@ -277,7 +282,7 @@ public class IOListenerSrv extends Thread {
 				Municipio muni = new Municipio();
 				String idmuni = datos.getContenido();
 				muni = MunicipioDAO.consultarMuni(Integer.valueOf(idmuni));
-				MunicipioDTO muniDTO = new MunicipioDTO(muni);				
+				MunicipioDTO muniDTO = new MunicipioDTO(muni);
 				datos.setObjeto(muniDTO);
 				break;
 			}
@@ -293,9 +298,9 @@ public class IOListenerSrv extends Thread {
 				EspacioNaturalDTO espacioDTO = new EspacioNaturalDTO(espacioNatural);
 				datos.setContenido("Estoy enviandolo");
 				datos.setObjeto(espacioDTO);
-			
-				break;	
-				
+
+				break;
+
 			}
 			EspacioNaturalDAO.cerrarSesion();
 			break;
@@ -307,40 +312,37 @@ public class IOListenerSrv extends Thread {
 			String[] array = datos.getContenido().split(";");
 			espacio.setIdEspacio(Integer.parseInt(array[0]));
 			cliente.setIdCliente(Integer.parseInt(array[1]));
-	
+
 			favorito.setEspacioNatural(espacio);
 			favorito.setCliente(cliente);
-			favorito.setFavorito((Boolean) datos.getObjeto()); 
-		
-			if(!FavoritosDAO.insertarRegistro(favorito)) {
+			favorito.setFavorito((Boolean) datos.getObjeto());
+
+			if (!FavoritosDAO.insertarRegistro(favorito)) {
 				FavoritosDAO.actualizarRegistro(favorito);
-			}	
+			}
 			FavoritosDAO.cerrarSesion();
 			break;
 		case 10:
 			FavoritosDAO.iniciarSesion();
 			Favoritos favorito2 = new Favoritos();
-			EspacioNatural espacio2 = new EspacioNatural();
 			Cliente cliente2 = new Cliente();
 			String[] array2 = datos.getContenido().split(";");
-			espacio2.setIdEspacio(Integer.parseInt(array2[0]));
 			cliente2.setIdCliente(Integer.parseInt(array2[1]));
-	
-			favorito2.setEspacioNatural(espacio2);
+
 			favorito2.setCliente(cliente2);
-			Favoritos registro = FavoritosDAO.consultarRegistro(favorito2);
-			
-			if(registro == null) {
-				datos.setObjeto(false);
-			}else {
-				if(registro.getFavorito()) {
-					datos.setObjeto(true);
-				}else {
-					datos.setObjeto(false);
-				}
+
+			ArrayList<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente2.getIdCliente());
+			ArrayList<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
+			for (Favoritos favoritos : listaFavoritos) {
+				FavoritosDTO favoritosDTO = new FavoritosDTO();
+				favoritosDTO.setIdCliente(favoritos.getCliente().getIdCliente());
+				favoritosDTO.setIdEspacioNatural(favoritos.getEspacioNatural().getIdEspacio());
+				favoritosDTO.setNombre(favoritos.getEspacioNatural().getNombre());
+				favoritosDTO.setIdFavorito(favoritos.getIdFavorito());
+				FavoritosCliente.add(favoritosDTO);
 			}
+			datos.setObjeto(FavoritosCliente);			
 			FavoritosDAO.cerrarSesion();
-			
 			break;
 		}
 		return true;

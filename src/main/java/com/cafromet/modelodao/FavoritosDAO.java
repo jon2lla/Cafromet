@@ -1,9 +1,12 @@
 package com.cafromet.modelodao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.cafromet.modelo.Favoritos;
+import com.cafromet.modelo.Municipio;
 import com.cafromet.util.HibernateUtil;
 
 @SuppressWarnings("deprecation")
@@ -49,6 +52,15 @@ public class FavoritosDAO {
 		Favoritos registro = (Favoritos) QUERY.uniqueResult(); 
         return registro;
 	}
+	
+	public static List<Favoritos> consultarRegistros(int idCliente) {
+        SESSION.beginTransaction();
+        String hql = "from Favoritos as fav where fav.cliente.idCliente = :idCliente";
+        Query q = SESSION.createQuery(hql);
+        List<Favoritos> listaFavoritos = q.list();
+        SESSION.getTransaction().commit();
+        return listaFavoritos;
+    }
 	
 	public static boolean actualizarRegistro(Favoritos favorito) {
 		Favoritos registro = consultarRegistro(favorito); 

@@ -11,26 +11,24 @@ public class MunicipioDTO implements java.io.Serializable {
     public MunicipioDTO() {
 
     }
-
-    
     public MunicipioDTO(Municipio muni) {
 
-    	this.idMunicipio = muni.getIdMunicipio();
-    	this.nombre = muni.getNombre();
-    	this.provincia = muni.getProvincia().getNombre();
-    	this.descripcion = muni.getDescripcion();
+        this.idMunicipio = muni.getIdMunicipio();
+        this.nombre = muni.getNombre();
+        this.provincia = muni.getProvincia().getNombre();
+        this.descripcion = muni.getDescripcion();
     }
-    
+
     public String getDescripcion() {
-		return descripcion;
-	}
+        return descripcion;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 
-	public String getProvincia() {
+    public String getProvincia() {
         return provincia;
     }
 
