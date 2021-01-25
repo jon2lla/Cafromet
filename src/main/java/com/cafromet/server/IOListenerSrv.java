@@ -152,7 +152,7 @@ public class IOListenerSrv extends Thread {
 				datos.setObjeto(listaMunicipio);
 				break;
 			}
-			MunicipioDAO.iniciarSesion();
+			MunicipioDAO.cerrarSesion();
 			break;
 		case 4:
 			EspacioNaturalDAO.iniciarSesion();
@@ -207,8 +207,6 @@ public class IOListenerSrv extends Thread {
 			break;
 		case 6:
 			MunicipioDAO.iniciarSesion();
-			CentroMeteorologicoDAO.iniciarSesion();
-			MedicionDAO.iniciarSesion();
 			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
 			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
 			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
@@ -241,8 +239,6 @@ public class IOListenerSrv extends Thread {
 				break;
 			}
 			MunicipioDAO.cerrarSesion();
-			CentroMeteorologicoDAO.cerrarSesion();
-			MedicionDAO.iniciarSesion();
 			break;
 		case 7:
 			MunicipioDAO.iniciarSesion();
