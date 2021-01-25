@@ -54,11 +54,11 @@ public class FavoritosDAO {
 	}
 	
 	public static List<Favoritos> consultarRegistros(int idCliente) {
-        SESSION.beginTransaction();
         String hql = "from Favoritos as fav where fav.cliente.idCliente = :idCliente";
-        Query q = SESSION.createQuery(hql);
-        List<Favoritos> listaFavoritos = q.list();
-        SESSION.getTransaction().commit();
+        QUERY = SESSION.createQuery(hql);
+        System.out.println(idCliente);
+		QUERY.setParameter("idCliente", idCliente);
+        List<Favoritos> listaFavoritos = QUERY.list();
         return listaFavoritos;
     }
 	

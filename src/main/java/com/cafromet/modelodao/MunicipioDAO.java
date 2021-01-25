@@ -72,11 +72,9 @@ public class MunicipioDAO {
 	}
 	
 	public static List<Municipio> consultarRegistros() {
-        SESSION.beginTransaction();
         String hql = "from Municipio";
-        Query q = SESSION.createQuery(hql);
-        List<Municipio> filasMuni = q.list();
-        SESSION.getTransaction().commit();
+        QUERY = SESSION.createQuery(hql);
+        List<Municipio> filasMuni = QUERY.list();
 
         return filasMuni;
     }

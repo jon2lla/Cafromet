@@ -325,21 +325,49 @@ public class IOListenerSrv extends Thread {
 		case 10:
 			FavoritosDAO.iniciarSesion();
 			Favoritos favorito2 = new Favoritos();
+			EspacioNatural espacio2 = new EspacioNatural();
 			Cliente cliente2 = new Cliente();
 			String[] array2 = datos.getContenido().split(";");
+			espacio2.setIdEspacio(Integer.parseInt(array2[0]));
 			cliente2.setIdCliente(Integer.parseInt(array2[1]));
+	
+			favorito2.setEspacioNatural(espacio2);
 			favorito2.setCliente(cliente2);
+			Favoritos registro = FavoritosDAO.consultarRegistro(favorito2);
+			
+			if(registro == null) {
+				datos.setObjeto(false);
+			}else {
+				if(registro.getFavorito()) {
+					datos.setObjeto(true);
+				}else {
+					datos.setObjeto(false);
+				}
+			}
+			FavoritosDAO.cerrarSesion();
+			break;
+		case 11:
+			FavoritosDAO.iniciarSesion();
+			Favoritos favorito3 = new Favoritos();
+			Cliente cliente3 = new Cliente();
+			cliente3.setIdCliente(Integer.parseInt(datos.getContenido()));
+			System.out.println(cliente3.getIdCliente());
+			favorito3.setCliente(cliente3);
 			
 
-			ArrayList<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente2.getIdCliente());
+			ArrayList<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente3.getIdCliente());
 			ArrayList<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
-			for (Favoritos favoritos : listaFavoritos) {
-				FavoritosDTO favoritosDTO = new FavoritosDTO();
-				favoritosDTO.setIdCliente(favoritos.getCliente().getIdCliente());
-				favoritosDTO.setIdEspacioNatural(favoritos.getEspacioNatural().getIdEspacio());
-				favoritosDTO.setNombre(favoritos.getEspacioNatural().getNombre());
-				favoritosDTO.setIdFavorito(favoritos.getIdFavorito());
-				FavoritosCliente.add(favoritosDTO);
+			
+			for (Favoritos favorito4 : listaFavoritos) {
+				System.out.println();
+				FavoritosDTO favoritoDTO = new FavoritosDTO();
+				favoritoDTO.setIdCliente(favorito4.getCliente().getIdCliente());
+				favoritoDTO.setIdEspacioNatural(favorito4.getEspacioNatural().getIdEspacio());
+				favoritoDTO.setNombre(favorito4.getEspacioNatural().getNombre());
+				favoritoDTO.setIdFavorito(favorito4.getIdFavorito());
+				System.out.println(favoritoDTO.getNombre());
+
+				FavoritosCliente.add(favoritoDTO);
 			}
 			datos.setObjeto(FavoritosCliente);			
 			FavoritosDAO.cerrarSesion();
