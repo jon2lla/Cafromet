@@ -75,4 +75,28 @@ public class FavoritosDAO {
 		return false;
 	}
 	
+	
+	public static Favoritos consultarRegistros1(int idFavorito) {
+        String hql = "from Favoritos as fav where fav.idFavorito = :idFavorito ";
+        QUERY = SESSION.createQuery(hql);
+		QUERY.setParameter("idFavorito", idFavorito);
+		Favoritos Favoritos = new Favoritos();
+		Favoritos = (Favoritos) QUERY.uniqueResult();
+        return Favoritos;
+    }
+	
+	public static boolean borrarFavorito(Integer idFavorito) {
+		System.out.println(idFavorito);
+		Favoritos registro = consultarRegistros1(idFavorito); 
+		SESSION.beginTransaction();	
+		if(registro != null) {
+			SESSION.delete(registro);
+			SESSION.getTransaction().commit();
+			System.out.println("\n >> REGISTRO BORRADO");
+			return true;
+		}
+		System.out.println("\n !ERROR AL BORRAR; CLASE => FAVORITOSDAO");
+		return false;
+	}
+	
 }

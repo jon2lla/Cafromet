@@ -34,14 +34,16 @@ public enum Peticiones {
     //PETICION GUARDAR FAVORITOS
     p109a(9, 1),
     p109b(9, 2),
-	//PETICION CARGAR FAVORITO
+    //PETICION CARGAR FAVORITO
     p110(10,1),
-	//PETICION CARGAR FAVORITOS
+    //PETICION CARGAR FAVORITOS
     p111(11,1),
-	//PETICION CARGAR FOTOS
-    p112(12,1);
-	
-	
+    //PETICION CARGAR FOTOS
+    p112(12,1),
+    //Eliminar favorito
+    p113(13,1);
+
+
     private int codigo;
     private int plataforma;
 

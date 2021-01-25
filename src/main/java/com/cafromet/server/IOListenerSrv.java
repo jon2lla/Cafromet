@@ -355,21 +355,34 @@ public class IOListenerSrv extends Thread {
 			
 
 			List<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente3.getIdCliente());
-			List<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
-			
+			List<FavoritosDTO> FavoritosCliente = new ArrayList<FavoritosDTO>();
+
 			for (Favoritos favorito4 : listaFavoritos) {
-				System.out.println();
-				FavoritosDTO favoritoDTO = new FavoritosDTO();
-				favoritoDTO.setIdCliente(favorito4.getCliente().getIdCliente());
-				favoritoDTO.setIdEspacioNatural(favorito4.getEspacioNatural().getIdEspacio());
-				favoritoDTO.setNombre(favorito4.getEspacioNatural().getNombre());
-				favoritoDTO.setIdFavorito(favorito4.getIdFavorito());
-				System.out.println(favoritoDTO.getNombre());
-				
-				FavoritosCliente.add(favoritoDTO);
+				if (favorito4.getFavorito()) {
+					System.out.println();
+					FavoritosDTO favoritoDTO = new FavoritosDTO();
+					favoritoDTO.setIdCliente(favorito4.getCliente().getIdCliente());
+					favoritoDTO.setIdEspacioNatural(favorito4.getEspacioNatural().getIdEspacio());
+					favoritoDTO.setNombre(favorito4.getEspacioNatural().getNombre());
+					favoritoDTO.setIdFavorito(favorito4.getIdFavorito());
+					System.out.println(favoritoDTO.getNombre());
+
+					FavoritosCliente.add(favoritoDTO);
+				}
 			}
-			datos.setObjeto(FavoritosCliente);	
+			datos.setObjeto(FavoritosCliente);
+
+			FavoritosDAO.cerrarSesion();
+			break;
+
+		case 12:
+
+			break;
+		case 13:
+			FavoritosDAO.iniciarSesion();
 			
+			datos.setObjeto(FavoritosDAO.borrarFavorito(Integer.parseInt(datos.getContenido())));
+
 			FavoritosDAO.cerrarSesion();
 			break;
 		}
