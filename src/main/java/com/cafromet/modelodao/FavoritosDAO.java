@@ -54,9 +54,8 @@ public class FavoritosDAO {
 	}
 	
 	public static List<Favoritos> consultarRegistros(int idCliente) {
-        String hql = "from Favoritos as fav where fav.cliente.idCliente = :idCliente";
+        String hql = "from Favoritos as fav where fav.cliente.idCliente = :idCliente ";
         QUERY = SESSION.createQuery(hql);
-        System.out.println(idCliente);
 		QUERY.setParameter("idCliente", idCliente);
         List<Favoritos> listaFavoritos = QUERY.list();
         return listaFavoritos;

@@ -1,6 +1,6 @@
 package com.cafromet.modelodto;
 
-public class FavoritosDTO {
+public class FavoritosDTO implements java.io.Serializable {
 
     private Integer idFavorito;
     private Integer idCliente;

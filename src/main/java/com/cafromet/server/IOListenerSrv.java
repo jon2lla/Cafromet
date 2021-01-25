@@ -351,12 +351,11 @@ public class IOListenerSrv extends Thread {
 			Favoritos favorito3 = new Favoritos();
 			Cliente cliente3 = new Cliente();
 			cliente3.setIdCliente(Integer.parseInt(datos.getContenido()));
-			System.out.println(cliente3.getIdCliente());
 			favorito3.setCliente(cliente3);
 			
 
-			ArrayList<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente3.getIdCliente());
-			ArrayList<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
+			List<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente3.getIdCliente());
+			List<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
 			
 			for (Favoritos favorito4 : listaFavoritos) {
 				System.out.println();
@@ -366,10 +365,11 @@ public class IOListenerSrv extends Thread {
 				favoritoDTO.setNombre(favorito4.getEspacioNatural().getNombre());
 				favoritoDTO.setIdFavorito(favorito4.getIdFavorito());
 				System.out.println(favoritoDTO.getNombre());
-
+				
 				FavoritosCliente.add(favoritoDTO);
 			}
-			datos.setObjeto(FavoritosCliente);			
+			datos.setObjeto(FavoritosCliente);	
+			
 			FavoritosDAO.cerrarSesion();
 			break;
 		}
