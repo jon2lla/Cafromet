@@ -13,11 +13,13 @@ import javax.swing.JTextField;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.EspacioNatural;
+import com.cafromet.modelo.Favoritos;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.EspacioNaturalDAO;
+import com.cafromet.modelodao.FavoritosDAO;
 import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodto.CentroMeteorologicoDTO;
@@ -102,7 +104,6 @@ public class IOListenerSrv extends Thread {
 					existe = false;
 					datos.setObjeto(existe);
 				}
-				ClienteDAO.cerrarSesion();
 				break;
 
 			case 2:
@@ -127,7 +128,7 @@ public class IOListenerSrv extends Thread {
 					datos.setObjeto(existe);
 				}
 				
-				
+				ClienteDAO.cerrarSesion();
 				break;
 			}
 			break;
@@ -180,7 +181,7 @@ public class IOListenerSrv extends Thread {
 				datos.setObjeto(listaMunicipio);
 				break;
 			}
-			MunicipioDAO.iniciarSesion();
+			MunicipioDAO.cerrarSesion();
 			break;
 		case 4:
 			EspacioNaturalDAO.iniciarSesion();
@@ -236,8 +237,6 @@ public class IOListenerSrv extends Thread {
 			break;
 		case 6:
 			MunicipioDAO.iniciarSesion();
-			CentroMeteorologicoDAO.iniciarSesion();
-			MedicionDAO.iniciarSesion();
 			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
 			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
 			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
@@ -270,8 +269,6 @@ public class IOListenerSrv extends Thread {
 				break;
 			}
 			MunicipioDAO.cerrarSesion();
-			CentroMeteorologicoDAO.cerrarSesion();
-			MedicionDAO.iniciarSesion();
 			break;
 		case 7:
 			MunicipioDAO.iniciarSesion();
@@ -293,9 +290,9 @@ public class IOListenerSrv extends Thread {
 				EspacioNatural espacioNatural = new EspacioNatural();
 				String idEspacioNatural = datos.getContenido();
 				espacioNatural = EspacioNaturalDAO.consultarRegistroPorId(Integer.valueOf(idEspacioNatural));
-				EspacioNaturalDTO muniDTO = new EspacioNaturalDTO(espacioNatural);
+				EspacioNaturalDTO espacioDTO = new EspacioNaturalDTO(espacioNatural);
 				datos.setContenido("Estoy enviandolo");
-				datos.setObjeto(muniDTO);
+				datos.setObjeto(espacioDTO);
 			
 				break;	
 				
@@ -303,12 +300,46 @@ public class IOListenerSrv extends Thread {
 			EspacioNaturalDAO.cerrarSesion();
 			break;
 		case 9:
+			FavoritosDAO.iniciarSesion();
+			Favoritos favorito = new Favoritos();
+			EspacioNatural espacio = new EspacioNatural();
+			Cliente cliente = new Cliente();
+			String[] array = datos.getContenido().split(";");
+			espacio.setIdEspacio(Integer.parseInt(array[0]));
+			cliente.setIdCliente(Integer.parseInt(array[1]));
+	
+			favorito.setEspacioNatural(espacio);
+			favorito.setCliente(cliente);
+			favorito.setFavorito((Boolean) datos.getObjeto()); 
+		
+			if(!FavoritosDAO.insertarRegistro(favorito)) {
+				FavoritosDAO.actualizarRegistro(favorito);
+			}	
+			FavoritosDAO.cerrarSesion();
+			break;
+		case 10:
+			FavoritosDAO.iniciarSesion();
+			Favoritos favorito2 = new Favoritos();
+			EspacioNatural espacio2 = new EspacioNatural();
+			Cliente cliente2 = new Cliente();
+			String[] array2 = datos.getContenido().split(";");
+			espacio2.setIdEspacio(Integer.parseInt(array2[0]));
+			cliente2.setIdCliente(Integer.parseInt(array2[1]));
+	
+			favorito2.setEspacioNatural(espacio2);
+			favorito2.setCliente(cliente2);
+			Favoritos registro = FavoritosDAO.consultarRegistro(favorito2);
 			
-			
-			
-			
-			
-			
+			if(registro == null) {
+				datos.setObjeto(false);
+			}else {
+				if(registro.getFavorito()) {
+					datos.setObjeto(true);
+				}else {
+					datos.setObjeto(false);
+				}
+			}
+			FavoritosDAO.cerrarSesion();
 			
 			break;
 		}

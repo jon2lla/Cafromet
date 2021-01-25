@@ -106,4 +106,14 @@
 		<column name="ID_PROVINCIA"></column>
 		<column name="NOMBRE"></column>
 	</table>
+<table catalog="cafrometbbdd" name="favoritos">
+	<column name="ID_CLIENTE"></column>
+	<column name="ID_ESPACIO"></column>
+	<column name="FAVORITO"></column>
+</table>
+<table catalog="cafrometbbdd" name="fotos">
+	<column name="ID_FOTO"></column>
+	<column name="ID_CLIENTE"></column>
+	<column name="ID_ESPACIO"></column>
+</table>
 </hibernate-reverse-engineering>

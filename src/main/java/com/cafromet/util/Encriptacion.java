@@ -121,7 +121,7 @@ public class Encriptacion {
 			oos.close();
 
 			System.out.println(
-					"\nSe han guardado " + mensajeCodificado.length + " bytes en el fichero " + fichero.getName());
+					"\n Se han guardado " + mensajeCodificado.length + " bytes en el fichero " + fichero.getName());
 
 		} catch (FileNotFoundException fn) {
 			System.out.println("\n !ERROR => No se encuentra el fichero");

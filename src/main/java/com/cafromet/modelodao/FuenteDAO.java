@@ -62,7 +62,7 @@ public class FuenteDAO {
 			System.out.println("\n >> REGISTRO ACTUALIZADO\n");
 			return true;
 		}
-		System.out.println("\n !ERROR AL ACTUALIZAR; CLASE => FUENTEDAO\n");
+		System.out.println("\n !ERROR AL ACTUALIZAR; CLASE => FUENTEDAO");
 		return false;
 	}
 	
@@ -74,7 +74,7 @@ public class FuenteDAO {
 		Fuente fuente = (Fuente) QUERY.uniqueResult(); 
 		SESSION.delete(fuente);
 		SESSION.getTransaction().commit();
-		System.out.println("\n >> REGISTRO BORRADO\n");
+		System.out.println("\n >> REGISTRO BORRADO");
 		return true;
 	}
 }
