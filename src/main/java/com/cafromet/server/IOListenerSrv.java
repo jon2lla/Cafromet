@@ -328,8 +328,8 @@ public class IOListenerSrv extends Thread {
 			Cliente cliente2 = new Cliente();
 			String[] array2 = datos.getContenido().split(";");
 			cliente2.setIdCliente(Integer.parseInt(array2[1]));
-
 			favorito2.setCliente(cliente2);
+			
 
 			ArrayList<Favoritos>listaFavoritos = (ArrayList<Favoritos>) FavoritosDAO.consultarRegistros(cliente2.getIdCliente());
 			ArrayList<FavoritosDTO>FavoritosCliente = new ArrayList<FavoritosDTO>();
