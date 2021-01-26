@@ -35,6 +35,7 @@ public class Updater extends Thread{
 	protected static String URL_ESPACIOS = StringsUpdater.getString("Updater.14") + JSON; //$NON-NLS-1$
 	protected static String URL_ESTACIONES = StringsUpdater.getString("Updater.15") + JSON; //$NON-NLS-1$
 	protected static String URL_INDEX = StringsUpdater.getString("Updater.16") + JSON; //$NON-NLS-1$
+	public static String RUTA_FOTOS = RUTA_RES + StringsUpdater.getString("Updater.69") + File.separator; //$NON-NLS-1$
 	
 	
 	private Updater() {}

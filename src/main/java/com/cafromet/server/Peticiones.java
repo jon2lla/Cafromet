@@ -31,15 +31,17 @@ public enum Peticiones {
     //PETICION TRAER 1 ESPACIO NATURAL
     p108a(8, 1),
     p108b(8, 2),
-    //PETICION GUARDAR FAVORITOS
+    //PETICION GUARDAR FAVORITO
     p109a(9, 1),
     p109b(9, 2),
     //PETICION CARGAR FAVORITO
     p110(10,1),
     //PETICION CARGAR FAVORITOS
     p111(11,1),
-    //PETICION CARGAR FOTOS
-    p112(12,1),
+    //PETICION CARGAR/GUARDAR FOTOS
+
+    p112a(12,1), //CARGAR
+    p112b(12,2), //GUARDAR
     //Eliminar favorito
     p113(13,1);
 

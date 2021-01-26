@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 22 ene. 2021 19:54:49 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 ene. 2021 4:12:22 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="cafrometbbdd" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.cafromet.modelo.Fotos" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="fotos">
-        <id name="idFoto" type="java.lang.Integer">
-            <column name="ID_FOTO"/>
-            <generator class="identity"/>
+        <id name="idFoto" type="string">
+            <column length="40" name="ID_FOTO"/>
+            <generator class="assigned"/>
         </id>
         <many-to-one class="com.cafromet.modelo.Cliente" embed-xml="true" fetch="select" insert="true" name="cliente" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="ID_CLIENTE"/>

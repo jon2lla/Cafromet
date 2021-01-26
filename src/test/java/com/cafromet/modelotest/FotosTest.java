@@ -19,9 +19,9 @@ public class FotosTest {
 	public void setup() {
 		cliente = new Cliente();
 		espacioNatural = new EspacioNatural();
-		fotos =new Fotos(cliente, espacioNatural);
-		fotos2 =new Fotos(cliente, espacioNatural);
-		fotos =new Fotos();
+		fotos = new Fotos("" , cliente, espacioNatural);
+		fotos2 = new Fotos("" , cliente, espacioNatural);
+		fotos = new Fotos();
 	}
 	@Test
 	public void test() {
@@ -31,7 +31,6 @@ public class FotosTest {
 	public void testSet() {
 		fotos.setCliente(cliente);
 		fotos.setEspacioNatural(espacioNatural);
-		fotos.setIdFoto(1);
 		fotos2.getCliente();
 		fotos2.getEspacioNatural();
 		fotos2.getIdFoto();

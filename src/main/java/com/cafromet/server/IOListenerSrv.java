@@ -1,5 +1,7 @@
 package com.cafromet.server;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,24 +11,29 @@ import java.util.List;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Box.Filler;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Favoritos;
+import com.cafromet.modelo.Fotos;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.Municipio;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.EspacioNaturalDAO;
 import com.cafromet.modelodao.FavoritosDAO;
+import com.cafromet.modelodao.FotoDAO;
 import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodto.CentroMeteorologicoDTO;
 import com.cafromet.modelodto.ClienteDTO;
 import com.cafromet.modelodto.EspacioNaturalDTO;
 import com.cafromet.modelodto.FavoritosDTO;
+import com.cafromet.modelodto.FotoDTO;
 import com.cafromet.modelodto.MunicipioDTO;
+import com.cafromet.util.GestorFicheros;
 
 public class IOListenerSrv extends Thread {
 	protected static int ID_CLIENTE = 0;
@@ -359,13 +366,11 @@ public class IOListenerSrv extends Thread {
 
 			for (Favoritos favorito4 : listaFavoritos) {
 				if (favorito4.getFavorito()) {
-					System.out.println();
 					FavoritosDTO favoritoDTO = new FavoritosDTO();
 					favoritoDTO.setIdCliente(favorito4.getCliente().getIdCliente());
 					favoritoDTO.setIdEspacioNatural(favorito4.getEspacioNatural().getIdEspacio());
 					favoritoDTO.setNombre(favorito4.getEspacioNatural().getNombre());
 					favoritoDTO.setIdFavorito(favorito4.getIdFavorito());
-					System.out.println(favoritoDTO.getNombre());
 
 					FavoritosCliente.add(favoritoDTO);
 				}
@@ -376,7 +381,20 @@ public class IOListenerSrv extends Thread {
 			break;
 
 		case 12:
+			switch(datos.getPeticion().getPlataforma()) {
+			
+			case 1:
+				String[] array3 = datos.getContenido().split(",");
 
+				datos.setObjeto(GestorFicheros.cargarFotos(Integer.parseInt(array3[0]), Integer.parseInt(array3[1])));
+				break;
+			case 2:
+
+				FotoDTO fotoDTO = (FotoDTO) datos.getObjeto();
+				datos.setObjeto(GestorFicheros.guardarFoto(fotoDTO));
+				break;
+			}
+			
 			break;
 		case 13:
 			FavoritosDAO.iniciarSesion();

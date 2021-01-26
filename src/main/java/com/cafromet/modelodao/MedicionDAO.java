@@ -59,11 +59,9 @@ public class MedicionDAO {
 	}
 	
 	public static List<Medicion> consultarRegistros() {
-		SESSION.beginTransaction();
 		HQL = "from Medicion";
-		Query q = SESSION.createQuery(HQL);
-		List<Medicion> mediciones = q.list(); 
-		SESSION.getTransaction().commit();
+		QUERY = SESSION.createQuery(HQL);
+		List<Medicion> mediciones = QUERY.list(); 
         return mediciones;
 	}
 	

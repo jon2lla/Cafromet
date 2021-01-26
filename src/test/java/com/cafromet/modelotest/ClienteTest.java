@@ -24,7 +24,7 @@ public class ClienteTest {
 	}
 	@Test
 	public void testIsnull() {
-		boolean result =cliente1.isNull(cliente1);
+		boolean result = cliente1.isNull(cliente1);
 		assertEquals(true, result);
 	}
 }

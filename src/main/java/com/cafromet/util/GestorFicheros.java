@@ -2,7 +2,9 @@ package com.cafromet.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,11 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.cafromet.modelo.CentroMeteorologico;
+import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.EspacioNatural;
+import com.cafromet.modelo.Fotos;
 import com.cafromet.modelo.Fuente;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
@@ -26,11 +31,14 @@ import com.cafromet.modelo.Municipio_EspacioNatural;
 import com.cafromet.modelo.Municipio_EspacioNaturalId;
 import com.cafromet.modelo.Provincia;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
+import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.EspacioNaturalDAO;
+import com.cafromet.modelodao.FotoDAO;
 import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.modelodao.Municipio_EspacioDAO;
 import com.cafromet.modelodao.ProvinciaDAO;
+import com.cafromet.modelodto.FotoDTO;
 import com.cafromet.server.Updater;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,7 +57,7 @@ public class GestorFicheros extends Thread {
 	private String[] idProvincias;
 	private ArrayList<Municipio_EspacioNatural> mun_esps = new ArrayList<>();
 	private CentroMeteorologico centroMet;
-	private Fuente fuente;
+//	private Fuente fuente;
 	private CentroMeteorologico centroMeteorologico;
 	private String str;
 	private MedicionId medicionId;
@@ -348,6 +356,70 @@ public class GestorFicheros extends Thread {
 			System.out.println(StringsGestorFicheros.getString("GestorFicheros.44") + fichero.getPath()); //$NON-NLS-1$
 		}
 		return true;
+	}
+	
+	public synchronized static boolean guardarFoto(FotoDTO fotoDTO) {
+		FotoDAO.iniciarSesion();
+		ClienteDAO.iniciarSesion();
+		EspacioNaturalDAO.iniciarSesion();
+		Fotos foto = new Fotos();
+		Cliente cliente4 = ClienteDAO.consultarRegistro(fotoDTO.getIdCliente());
+		EspacioNatural espacio3 = EspacioNaturalDAO.consultarRegistroPorId(fotoDTO.getIdEspacio());
+		foto.setCliente(cliente4);
+		foto.setEspacioNatural(espacio3);
+		foto.setIdFoto(fotoDTO.getIdFoto());
+		if(!FotoDAO.insertarRegistro(foto)) {
+			return false;
+		}
+		String rutaFoto = Updater.RUTA_FOTOS + fotoDTO.getIdCliente() + File.separator + fotoDTO.getIdEspacio();
+		GestorFicheros.crearDirectorio(rutaFoto);
+	    try {
+			FileOutputStream fos = new FileOutputStream(rutaFoto + fotoDTO.getIdFoto() + ".jpeg");
+			fos.write(fotoDTO.getbArray());
+			fos.close();
+
+		} catch (IOException e) {
+			System.out.println("\n !ERROR AL CREAR EL FICHERO .JPEG");
+			return false;
+
+		}
+	    FotoDAO.cerrarSesion();
+		ClienteDAO.cerrarSesion();
+		EspacioNaturalDAO.cerrarSesion();
+		return true;
+	}
+	
+	public synchronized static ArrayList<FotoDTO> cargarFotos(int idCliente, int idEspacio) {
+		FotoDAO.iniciarSesion();
+
+		List<Fotos> listaFotos = FotoDAO.consultarRegistros(idCliente, idEspacio);
+		ArrayList<FotoDTO> listaFotosDTO = new ArrayList<>();
+		String rutaFoto = Updater.RUTA_FOTOS + idCliente + File.separator + idEspacio;
+		GestorFicheros.crearDirectorio(rutaFoto);
+		for (Fotos foto : listaFotos) {
+			try {
+				System.out.println(foto.getIdFoto());
+				FotoDTO fotoDTO = new FotoDTO();
+				File file = new File(rutaFoto + foto.getIdFoto() + ".jpeg");
+				byte[] bArray = new byte[(int) file.length()];
+				FileInputStream fis = new FileInputStream(rutaFoto + foto.getIdFoto() + ".jpeg");
+				fis.read();
+				fis.close();
+				fotoDTO.setIdFoto(foto.getIdFoto());
+				fotoDTO.setbArray(bArray);
+				fotoDTO.setIdCliente(idCliente);
+				fotoDTO.setIdEspacio(idEspacio);
+				listaFotosDTO.add(fotoDTO);
+
+			} catch (IOException e) {
+				System.out.println("\n !ERROR AL CREAR EL FICHERO .JPEG");
+				return null;
+
+			}
+		}
+  
+	    FotoDAO.cerrarSesion();
+		return listaFotosDTO;
 	}
 	
 	
