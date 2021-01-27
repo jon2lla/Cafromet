@@ -42,7 +42,7 @@ public enum Peticiones {
 
     p112a(12,1), //CARGAR
     p112b(12,2), //GUARDAR
-    //Eliminar favorito
+    //PETICION ELIMINAR FAVORITOS
     p113(13,1);
 
 

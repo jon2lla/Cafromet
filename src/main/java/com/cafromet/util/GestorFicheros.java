@@ -371,7 +371,7 @@ public class GestorFicheros extends Thread {
 		if(!FotoDAO.insertarRegistro(foto)) {
 			return false;
 		}
-		String rutaFoto = Updater.RUTA_FOTOS + fotoDTO.getIdCliente() + File.separator + fotoDTO.getIdEspacio();
+		String rutaFoto = Updater.RUTA_FOTOS + fotoDTO.getIdCliente() + File.separator + fotoDTO.getIdEspacio() + File.separator;
 		GestorFicheros.crearDirectorio(rutaFoto);
 	    try {
 			FileOutputStream fos = new FileOutputStream(rutaFoto + fotoDTO.getIdFoto() + ".jpeg");
@@ -394,7 +394,7 @@ public class GestorFicheros extends Thread {
 
 		List<Fotos> listaFotos = FotoDAO.consultarRegistros(idCliente, idEspacio);
 		ArrayList<FotoDTO> listaFotosDTO = new ArrayList<>();
-		String rutaFoto = Updater.RUTA_FOTOS + idCliente + File.separator + idEspacio;
+		String rutaFoto = Updater.RUTA_FOTOS + idCliente + File.separator + idEspacio + File.separator;
 		GestorFicheros.crearDirectorio(rutaFoto);
 		for (Fotos foto : listaFotos) {
 			try {
