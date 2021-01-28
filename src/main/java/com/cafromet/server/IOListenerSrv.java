@@ -194,54 +194,26 @@ public class IOListenerSrv extends Thread {
 				datos.setObjeto(listaCentroDTO);
 				break;
 			case 3:
-				ArrayList<CentroMeteorologico> listaCentros = new ArrayList<CentroMeteorologico>();
-				for (CentroMeteorologico centro : listaCentro) {
-					if (centro.getMunicipio() != null) {
-						listaCentros.add(centro);
-					}
-				}
+				List<CentroMeteorologico> listaCentros = CentroMeteorologicoDAO.consultarRegistros(Integer.parseInt((String) datos.getContenido()));
 				datos.setObjeto(listaCentros);
 				break;
 			}
 			CentroMeteorologicoDAO.cerrarSesion();
 			break;
 		case 6:
-			MunicipioDAO.iniciarSesion();
-			CentroMeteorologicoDAO.iniciarSesion();
+		
 			MedicionDAO.iniciarSesion();
-			List<Municipio> listaMunicipioParaMedicion = MunicipioDAO.consultarRegistros();
-			List<CentroMeteorologico> listaCentroParaMedicion = CentroMeteorologicoDAO.consultarRegistros();
-			List<Medicion> listaMediciones = MedicionDAO.consultarRegistros();
+			
 			switch (datos.getPeticion().getPlataforma()) {
 
 			case 1:
-				ArrayList<Municipio> listaMunicipio = new ArrayList<Municipio>();
-				for (Municipio muni : listaMunicipioParaMedicion) {
-					if (!muni.getCentroMeteorologicos().isEmpty()) {
-						listaMunicipio.add(muni);
-					}
-				}
-				ArrayList<CentroMeteorologico> listaCentros = new ArrayList<CentroMeteorologico>();
-				for (CentroMeteorologico centro : listaCentroParaMedicion) {
-					if (centro.getMunicipio() != null) {
-						listaCentros.add(centro);
-					}
-				}
-				ArrayList<Medicion> listaMedicionesFiltro = new ArrayList<Medicion>();
-				for (CentroMeteorologico centro : listaCentroParaMedicion) {
-					for (Medicion medicion : listaMediciones) {
-						if (centro.getIdCentroMet() == medicion.getId().getIdCentroMet()) {
-							listaMedicionesFiltro.add(medicion);
-						}
-					}
-				}
-				datos.setObjeto(listaMedicionesFiltro);
+				List<Medicion> listaCentros = MedicionDAO.consultarRegistros(Integer.parseInt((String) datos.getContenido()));
+				datos.setObjeto(listaCentros);
 				break;
 			case 2:
 				break;
 			}
-			MunicipioDAO.cerrarSesion();
-			CentroMeteorologicoDAO.cerrarSesion();
+
 			MedicionDAO.iniciarSesion();
 			break;
 		case 7:

@@ -58,12 +58,18 @@ public class MedicionDAO {
         return medicion2;
 	}
 	
+	public static List<Medicion> consultarRegistros(int idCentro) {
+		HQL = "from Medicion where centroMeteorologico.idCentroMet = :idCentro";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idCentro", idCentro);
+		List<Medicion> mediciones = QUERY.list(); 
+        return mediciones;
+	}
+	
 	public static List<Medicion> consultarRegistros() {
-		SESSION.beginTransaction();
 		HQL = "from Medicion";
-		Query q = SESSION.createQuery(HQL);
-		List<Medicion> mediciones = q.list(); 
-		SESSION.getTransaction().commit();
+		QUERY = SESSION.createQuery(HQL);
+		List<Medicion> mediciones = QUERY.list(); 
         return mediciones;
 	}
 	
