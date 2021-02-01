@@ -19,12 +19,9 @@ public class ControladorVentanaPlayas implements ActionListener {
 	private ArrayList<Medicion> mediciones;
 	private ArrayList<Municipio> municipios;
 	private ArrayList<CentroMeteorologico> centroMeteorologicos;
-	private ArrayList<Medicion> medicionFiltrado;
-	private ArrayList<CentroMeteorologico> centrosFiltrados;
 	private ArrayList<EspacioNatural> espacioNatural;
 
 	public ControladorVentanaPlayas() {
-
 	}
 
 	public ControladorVentanaPlayas(VentanaPlayas ventanaPlayas) {
@@ -38,15 +35,15 @@ public class ControladorVentanaPlayas implements ActionListener {
 
 		ventanaPlayas.getComboBoxEspacio().addActionListener(this);
 		ventanaPlayas.getComboBoxEspacio().setActionCommand("espacio");
-		
+
 		ventanaPlayas.getComboBoxMunicipio().setEnabled(false);
-		
+
 		ventanaPlayas.getComboBoxCentros().setEnabled(false);
-		
+
 		ventanaPlayas.getBtnBuscar().addActionListener(this);
 		ventanaPlayas.getBtnBuscar().setActionCommand("buscar");
 		ventanaPlayas.getBtnBuscar().setEnabled(false);
-		
+
 		ventanaPlayas.getBtnVolver().addActionListener(this);
 		ventanaPlayas.getBtnVolver().setActionCommand("volver");
 	}
@@ -57,64 +54,42 @@ public class ControladorVentanaPlayas implements ActionListener {
 		switch (e.getActionCommand()) {
 
 		case "espacio":
-
 			EspacioNatural espacio = (EspacioNatural) ventanaPlayas.getComboBoxEspacio().getSelectedItem();
 			ventanaPlayas.getComboBoxMunicipio().setEnabled(true);
 			enviarPeticion(String.valueOf(espacio.getIdEspacio()), Peticiones.p117);
 			llenarComboBoxMunicipios(municipios);
 			ventanaPlayas.getComboBoxMunicipio().addActionListener(this);
 			ventanaPlayas.getComboBoxMunicipio().setActionCommand("municipio");
-			
-			
-			Municipio municipio = (Municipio) ventanaPlayas.getComboBoxMunicipio().getSelectedItem();			
-			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
-			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
-			ventanaPlayas.getComboBoxCentros().setEnabled(true);
-		
-		break;
-		
-		case "buscar":
+			ventanaPlayas.getComboBoxCentros().removeAllItems();
+			ventanaPlayas.getComboBoxCentros().setEnabled(false);
+			break;
 
+		case "municipio":
+			ventanaPlayas.getComboBoxMunicipio().addActionListener(this);
+			ventanaPlayas.getComboBoxMunicipio().setActionCommand("");
+			Municipio municipio = (Municipio) ventanaPlayas.getComboBoxMunicipio().getSelectedItem();
+			ventanaPlayas.getComboBoxCentros().removeAllItems();
+			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
+			llenarComboBoxCentros(centroMeteorologicos);
+			ventanaPlayas.getComboBoxCentros().setEnabled(true);
+			ventanaPlayas.getBtnBuscar().setEnabled(true);
+			break;
+
+		case "buscar":
 			CentroMeteorologico centro = (CentroMeteorologico) ventanaPlayas.getComboBoxCentros().getSelectedItem();
 			mLimpiarTabla();
-			ventanaPlayas.getBtnBuscar().setEnabled(true);
 			enviarPeticion(String.valueOf(centro.getIdCentroMet()), Peticiones.p106a);
-			llenarTabla(filtroMediciones(centro));
-			
+			llenarTabla(mediciones);
 			break;
-			
+
 		case "volver":
 			VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
 			ventanaMenuPrincipal.InicioMenuPrincipal();
 			ventanaPlayas.dispose();
-		break;
-		
+			break;
+
 		}
 
-	}
-
-	public boolean llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
-
-		ventanaPlayas.getComboBoxCentros().removeAllItems();
-
-		for (CentroMeteorologico cent : centros) {
-
-			ventanaPlayas.getComboBoxCentros().addItem(cent);
-		}
-		return true;
-	}
-
-	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
-
-		centrosFiltrados = new ArrayList<CentroMeteorologico>();
-
-		for (CentroMeteorologico cent : centroMeteorologicos) {
-
-			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
-				centrosFiltrados.add(cent);
-			}
-		}
-		return centrosFiltrados;
 	}
 
 	public void mLimpiarTabla() {
@@ -134,7 +109,7 @@ public class ControladorVentanaPlayas implements ActionListener {
 	}
 
 	public boolean llenarComboBoxMunicipios(ArrayList<Municipio> municipios) {
-		
+
 		ventanaPlayas.getComboBoxMunicipio().removeAllItems();
 		for (Municipio muni : municipios) {
 			muni.setNombre(muni.getNombre().toUpperCase());
@@ -143,16 +118,15 @@ public class ControladorVentanaPlayas implements ActionListener {
 		return true;
 	}
 
-	public ArrayList<Medicion> filtroMediciones(CentroMeteorologico centro) {
+	public boolean llenarComboBoxCentros(ArrayList<CentroMeteorologico> centros) {
 
-		medicionFiltrado = new ArrayList<Medicion>();
+		ventanaPlayas.getComboBoxCentros().removeAllItems();
 
-		for (Medicion med : mediciones) {
-			if (med.getId().getIdCentroMet() == centro.getIdCentroMet()) {
-				medicionFiltrado.add(med);
-			}
+		for (CentroMeteorologico cent : centros) {
+
+			ventanaPlayas.getComboBoxCentros().addItem(cent);
 		}
-		return medicionFiltrado;
+		return true;
 	}
 
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
@@ -232,7 +206,7 @@ public class ControladorVentanaPlayas implements ActionListener {
 	public boolean procesarRecepcion() {
 
 		switch (datos.getPeticion().getCodigo()) {
-				
+
 		case 4:
 
 			espacioNatural = (ArrayList<EspacioNatural>) datos.getObjeto();

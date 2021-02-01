@@ -96,9 +96,7 @@ public class MunicipioDAO {
 			
 			if (i<municipios_EspaciosNaturales.size()-1) {
 				hql += " or ";
-			}
-			
-			
+			}	
 		}		
 		System.out.println(hql);
         QUERY = SESSION.createQuery(hql);

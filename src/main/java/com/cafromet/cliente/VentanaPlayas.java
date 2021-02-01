@@ -110,7 +110,7 @@ public class VentanaPlayas extends JFrame {
 
 		JLabel lblMeteorologico = new JLabel(" CENTRO METEOROLOGICO");
 		lblMeteorologico.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMeteorologico.setBounds(468, 11, 214, 20);
+		lblMeteorologico.setBounds(481, 11, 214, 20);
 		contentPane.add(lblMeteorologico);
 
 		JLabel lblEspacioNatural = new JLabel("ESPACIO NATURAL");
@@ -119,11 +119,11 @@ public class VentanaPlayas extends JFrame {
 		contentPane.add(lblEspacioNatural);
 
 		comboBoxMunicipio = new JComboBox<Municipio>();
-		comboBoxMunicipio.setBounds(265, 42, 133, 22);
+		comboBoxMunicipio.setBounds(265, 42, 167, 22);
 		contentPane.add(comboBoxMunicipio);
 
 		comboBoxCentros = new JComboBox<CentroMeteorologico>();
-		comboBoxCentros.setBounds(478, 37, 204, 22);
+		comboBoxCentros.setBounds(478, 42, 204, 22);
 		contentPane.add(comboBoxCentros);
 
 		comboBoxEspacio = new JComboBox<EspacioNatural>();

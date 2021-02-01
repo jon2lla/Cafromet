@@ -212,6 +212,7 @@ public class IOListenerSrv extends Thread {
 					listaespaNat.add(espaNatDTO);
 				}
 				datos.setObjeto(listaespaNat);
+			
 				break;
 			}		
 			EspacioNaturalDAO.cerrarSesion();
@@ -385,6 +386,7 @@ public class IOListenerSrv extends Thread {
 			
 			List<Municipio>municipios = MunicipioDAO.consultarRegistrosPorEspacio(Municipio_EspacioDAO.consultarRegistroPorEspacio(Integer.parseInt(datos.getContenido())));
 			
+		
 			datos.setObjeto(municipios);
 						
 			Municipio_EspacioDAO.cerrarSesion();	
