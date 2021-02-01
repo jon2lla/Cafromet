@@ -6,8 +6,10 @@
  ------------------------------------------------------------	   
 	   
  Script BBDD:
-
-	src/resource/com.cafromet.files/cafrometbbdd.txt
+	
+	BBDD vacia -> src/resource/com.cafromet.files/cafrometbbdd(sinDatos).txt
+	
+	BBDD con datos -> src/resource/com.cafromet.files/cafrometbbdd(conDatos).sql
 
  ------------------------------------------------------------
 
