@@ -83,7 +83,7 @@ public class PeticionHttp {
 			fichero.close();
 			System.out.println("\n FICHERO TEMPORAL CREADO => " + NomFichero);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("\n !ERROR -> NO SE ENCUENTRA LA URL");;
 		}
 		
 	}

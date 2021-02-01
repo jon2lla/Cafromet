@@ -52,12 +52,19 @@ public class CentroMeteorologicoDAO {
 		CentroMeteorologico centro =  (CentroMeteorologico) QUERY.uniqueResult(); 
         return centro;
 	}
+	
+	public static List<CentroMeteorologico> consultarRegistros(int idMunicipio) {
+		HQL = "from CentroMeteorologico where municipio.idMunicipio = :idMunicipio";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idMunicipio", idMunicipio);
+		List<CentroMeteorologico> centros = QUERY.list(); 
+        return centros;
+	}
+	
 	public static List<CentroMeteorologico> consultarRegistros() {
-		SESSION.beginTransaction();
 		HQL = "from CentroMeteorologico";
-		Query q = SESSION.createQuery(HQL);
-		List<CentroMeteorologico> centros = q.list(); 
-		SESSION.getTransaction().commit();
+		QUERY = SESSION.createQuery(HQL);
+		List<CentroMeteorologico> centros = QUERY.list(); 
         return centros;
 	}
 	
