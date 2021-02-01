@@ -30,12 +30,9 @@ public class ControladorVentanaMediciones implements ActionListener {
 	public ControladorVentanaMediciones(VentanaMediciones ventanaMediciones) {
 
 		this.ventanaMediciones = ventanaMediciones;
-		enviarPeticion("centros", Peticiones.p105c);
 		enviarPeticion("municipio", Peticiones.p103c);
-		enviarPeticion("mediciones", Peticiones.p106a);	
 		llenarComboBoxMunicipios(municipios);
 		iniciarControlador();
-		
 	}
 
 	private void iniciarControlador() {
@@ -48,7 +45,6 @@ public class ControladorVentanaMediciones implements ActionListener {
 		ventanaMediciones.getBtnBuscar().setEnabled(false);
 		ventanaMediciones.getBtnVolver().addActionListener(this);
 		ventanaMediciones.getBtnVolver().setActionCommand("volver");
-		
 	}
 
 	@Override
@@ -60,6 +56,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			Municipio municipio = (Municipio) ventanaMediciones.getcomboBoxMunicipio().getSelectedItem();		
 			ventanaMediciones.getBtnBuscar().setEnabled(true);
 			mLimpiarTabla();
+			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
 			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
 			ventanaMediciones.getComboBoxCentros().setEnabled(true);
 			
@@ -67,7 +64,8 @@ public class ControladorVentanaMediciones implements ActionListener {
 
 		case "buscar":
 			
-			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();		
+			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
+			enviarPeticion(String.valueOf(centro.getIdCentroMet()), Peticiones.p106a);
 			llenarTabla(filtroMediciones(centro));
 			
 			break;
@@ -214,18 +212,15 @@ public class ControladorVentanaMediciones implements ActionListener {
 		case 3:
 
 			municipios = (ArrayList<Municipio>) datos.getObjeto();
-
 			break;
 		case 5:
 
 			centroMeteorologicos = (ArrayList<CentroMeteorologico>) datos.getObjeto();
-
 			break;
 
 		case 6:
 
 			mediciones = (ArrayList<Medicion>) datos.getObjeto();
-
 			break;
 		}
 		return true;
