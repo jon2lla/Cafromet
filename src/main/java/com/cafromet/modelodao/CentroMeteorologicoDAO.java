@@ -83,7 +83,14 @@ public class CentroMeteorologicoDAO {
 		return false;
 	}
 	
-
+	public static CentroMeteorologico consultarCentroMeteorologico(int idCentroMet) {
+		HQL = "from CentroMeteorologico as centro where centro.idCentroMet = :idCentroMet ";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idCentroMet", idCentroMet);
+		CentroMeteorologico centro = (CentroMeteorologico) QUERY.uniqueResult(); 
+		return centro;		
+	}
+	
 	public static boolean borrarRegistro(String nombre) {
 		SESSION.beginTransaction();	
 		HQL = "from CentroMeteorologico where nombre = :nombre";

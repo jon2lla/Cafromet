@@ -73,4 +73,14 @@ public class MedicionDAO {
         return mediciones;
 	}
 	
+	public static List<Medicion> consultarRegistroPorIdEspacio(int idCentroMet) {
+		
+		HQL = "from Medicion as medi where medi.centroMeteorologico.idCentroMet = :idCentroMet";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idCentroMet", idCentroMet);
+		List<Medicion> medi = QUERY.list(); 
+	
+        return medi;
+	}
+	
 }

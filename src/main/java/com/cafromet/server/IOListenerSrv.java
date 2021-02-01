@@ -34,6 +34,7 @@ import com.cafromet.modelodto.ClienteDTO;
 import com.cafromet.modelodto.EspacioNaturalDTO;
 import com.cafromet.modelodto.FavoritosDTO;
 import com.cafromet.modelodto.FotoDTO;
+import com.cafromet.modelodto.MedicionDTO;
 import com.cafromet.modelodto.MunicipioDTO;
 import com.cafromet.util.GestorFicheros;
 
@@ -379,7 +380,48 @@ public class IOListenerSrv extends Thread {
 
 			FavoritosDAO.cerrarSesion();
 			break;
+		case 14:
 			
+			CentroMeteorologicoDAO.iniciarSesion();
+			switch (datos.getPeticion().getPlataforma()) {
+			case 2:
+				CentroMeteorologico centro = new CentroMeteorologico();
+				String idCentroMet = datos.getContenido();
+				centro = CentroMeteorologicoDAO.consultarCentroMeteorologico(Integer.valueOf(idCentroMet));
+				CentroMeteorologicoDTO centroDTO = new CentroMeteorologicoDTO(centro);
+				datos.setObjeto(centroDTO);
+				break;
+			}
+			CentroMeteorologicoDAO.cerrarSesion();
+			break;
+		case 15:
+			MedicionDAO.iniciarSesion();
+			int idCentro = Integer.valueOf(datos.getContenido());
+			List<Medicion> medicion = MedicionDAO.consultarRegistroPorIdEspacio(idCentro);
+			
+			switch (datos.getPeticion().getPlataforma()) {
+	
+			case 2:
+
+				List<MedicionDTO> listaDTO = new ArrayList<MedicionDTO>();
+				for (Medicion muni : medicion) {
+					
+					MedicionDTO mediDTO = new MedicionDTO();
+					mediDTO.setCentroMeteorologico(muni.getCentroMeteorologico().getNombre());
+					mediDTO.setId(muni.getCentroMeteorologico().getIdCentroMet());
+					mediDTO.setDirViento(muni.getDirViento());
+					mediDTO.setHRelativa(muni.getHRelativa());
+					mediDTO.setPAtmosferica(muni.getPAtmosferica());
+					mediDTO.setPrecip(muni.getPrecip());
+					
+					listaDTO.add(mediDTO);
+				}
+				datos.setContenido("camilo");
+				datos.setObjeto(listaDTO);
+				break;
+			}
+			MedicionDAO.cerrarSesion();
+			break;
 		case 17:
 			Municipio_EspacioDAO.iniciarSesion();
 			MunicipioDAO.iniciarSesion();

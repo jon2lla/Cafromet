@@ -39,13 +39,19 @@ public enum Peticiones {
     //PETICION CARGAR FAVORITOS
     p111(11,1),
     //PETICION CARGAR/GUARDAR FOTOS
-
     p112a(12,1), //CARGAR
     p112b(12,2), //GUARDAR
     //PETICION ELIMINAR FAVORITOS
     p113(13,1),
-
+    //PETICION TRAER 1 CENTRO METEOROLOGICO
+    p114a(14, 1),
+    p114b(14, 2),
+    //PETICION TRAER MEDICIONES DE 1 CENTRO METEOROLOGICO
+    p115a(15, 1),
+    p115b(15, 2),
+    
 	p117(17,1);
+	
     private int codigo;
     private int plataforma;
 
