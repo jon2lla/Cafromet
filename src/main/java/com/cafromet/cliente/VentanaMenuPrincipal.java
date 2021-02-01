@@ -81,5 +81,9 @@ public class VentanaMenuPrincipal extends JFrame {
 		btnVolver.setBounds(10, 255, 89, 33);
 		contentPane.add(btnVolver);
 		
+		JButton btnTop = new JButton("TOP 5 ");
+		btnTop.setBounds(209, 121, 169, 46);
+		contentPane.add(btnTop);
+		
 	}
 }
