@@ -57,7 +57,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			ventanaMediciones.getBtnBuscar().setEnabled(true);
 			mLimpiarTabla();
 			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
-			llenarComboBoxCentros(filtroCentros(municipio.getIdMunicipio()));
+			llenarComboBoxCentros(centroMeteorologicos);
 			ventanaMediciones.getComboBoxCentros().setEnabled(true);
 			
 			break;
@@ -66,7 +66,7 @@ public class ControladorVentanaMediciones implements ActionListener {
 			
 			CentroMeteorologico centro = (CentroMeteorologico) ventanaMediciones.getComboBoxCentros().getSelectedItem();
 			enviarPeticion(String.valueOf(centro.getIdCentroMet()), Peticiones.p106a);
-			llenarTabla(filtroMediciones(centro));
+			llenarTabla(mediciones);
 			
 			break;
 			
@@ -99,30 +99,6 @@ public class ControladorVentanaMediciones implements ActionListener {
 		return true;
 	}
 
-	public ArrayList<CentroMeteorologico> filtroCentros(int idMunicipio) {
-
-		centrosFiltrados = new ArrayList<CentroMeteorologico>();
-
-		for (CentroMeteorologico cent : centroMeteorologicos) {
-
-			if (cent.getMunicipio().getIdMunicipio() == idMunicipio) {
-				centrosFiltrados.add(cent);
-			}
-		}
-		return centrosFiltrados;
-	}
-
-	public ArrayList<Medicion> filtroMediciones(CentroMeteorologico centro) {
-		
-		medicionFiltrado = new ArrayList<Medicion>();
-
-		for (Medicion med : mediciones) {
-			if (med.getId().getIdCentroMet() == centro.getIdCentroMet()) {
-				medicionFiltrado.add(med);
-			}
-		}
-		return medicionFiltrado;
-	}
 
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
 
