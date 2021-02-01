@@ -58,11 +58,9 @@ public class EspacioNaturalDAO {
 		return espacio;
 	}
 	public static List<EspacioNatural> consultarRegistros() {
-		SESSION.beginTransaction();
 		HQL = "from EspacioNatural";
-		Query q = SESSION.createQuery(HQL);
-		List<EspacioNatural> espacioNatural = q.list(); 
-		SESSION.getTransaction().commit();
+		QUERY = SESSION.createQuery(HQL);
+		List<EspacioNatural> espacioNatural = QUERY.list(); 
         return espacioNatural;
 	}
 	

@@ -24,6 +24,9 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().setActionCommand("espaciosNaturales");
 		ventanaMenuPrincipal.getBtnVolver().addActionListener(this);
 		ventanaMenuPrincipal.getBtnVolver().setActionCommand("volver");
+		ventanaMenuPrincipal.getBtnPlayas().addActionListener(this);
+		ventanaMenuPrincipal.getBtnPlayas().setActionCommand("playas");
+		
 	}
 
 	@Override
@@ -44,6 +47,11 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		case "espaciosNaturales":
 			VentanaEspacioNatural ventanaEspacioNatural = new VentanaEspacioNatural();
 			ventanaEspacioNatural.inicioVentanaEspacioNatural();
+			ventanaMenuPrincipal.dispose();
+			break;
+		case "playas":
+			VentanaPlayas ventanaPlayas = new VentanaPlayas();
+			ventanaPlayas.InicioVentanaPlayas();
 			ventanaMenuPrincipal.dispose();
 			break;
 		case "volver":

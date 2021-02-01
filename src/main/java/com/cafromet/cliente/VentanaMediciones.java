@@ -26,8 +26,11 @@ public class VentanaMediciones extends JFrame {
 	private JComboBox<CentroMeteorologico> comboBoxCentros;
 	private JButton btnBuscar;
 	private JButton btnVolver;
+	 
+	//get-set
 	
-	//
+	
+	
 	public JButton getBtnBuscar() {
 		return btnBuscar;
 	}

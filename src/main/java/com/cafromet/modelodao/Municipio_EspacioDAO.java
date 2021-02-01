@@ -1,5 +1,7 @@
 package com.cafromet.modelodao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -52,6 +54,21 @@ public class Municipio_EspacioDAO {
         return mun_esp2;
 	}
 	
+	public static Municipio_EspacioNatural consultarRegistro(Municipio_EspacioNaturalId id) {
+		HQL = "from Municipio_EspacioNatural as mun_es where mun_es.id = :id";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("id", id);
+		Municipio_EspacioNatural municipio_EspacionNatural =  (Municipio_EspacioNatural) QUERY.uniqueResult(); 
+//        System.out.printf(" REGISTRO(S) => %s || %s%n%n", municipio_EspacionNatural.getMunicipio().getNombre(), municipio_EspacionNatural.getEspacioNatural().getNombre());
+        return municipio_EspacionNatural;
+	}
 	
+	public static List<Municipio_EspacioNatural> consultarRegistroPorEspacio(int idEspacio) {
+		HQL = "from Municipio_EspacioNatural as mun_es where mun_es.id.idEspacio = :idEspacio";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idEspacio", idEspacio);
+		List<Municipio_EspacioNatural> municipios_EspaciosNaturales = QUERY.list(); 
+		return municipios_EspaciosNaturales;
+	}
 	
 }

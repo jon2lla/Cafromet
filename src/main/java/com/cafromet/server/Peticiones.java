@@ -43,9 +43,9 @@ public enum Peticiones {
     p112a(12,1), //CARGAR
     p112b(12,2), //GUARDAR
     //PETICION ELIMINAR FAVORITOS
-    p113(13,1);
+    p113(13,1),
 
-
+	p117(17,1);
     private int codigo;
     private int plataforma;
 

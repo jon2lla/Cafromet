@@ -20,6 +20,7 @@ import com.cafromet.modelo.Favoritos;
 import com.cafromet.modelo.Fotos;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.Municipio;
+import com.cafromet.modelo.Municipio_EspacioNatural;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.ClienteDAO;
 import com.cafromet.modelodao.EspacioNaturalDAO;
@@ -27,6 +28,7 @@ import com.cafromet.modelodao.FavoritosDAO;
 import com.cafromet.modelodao.FotoDAO;
 import com.cafromet.modelodao.MedicionDAO;
 import com.cafromet.modelodao.MunicipioDAO;
+import com.cafromet.modelodao.Municipio_EspacioDAO;
 import com.cafromet.modelodto.CentroMeteorologicoDTO;
 import com.cafromet.modelodto.ClienteDTO;
 import com.cafromet.modelodto.EspacioNaturalDTO;
@@ -211,7 +213,7 @@ public class IOListenerSrv extends Thread {
 				}
 				datos.setObjeto(listaespaNat);
 				break;
-			}
+			}		
 			EspacioNaturalDAO.cerrarSesion();
 			break;
 		case 5:
@@ -375,6 +377,18 @@ public class IOListenerSrv extends Thread {
 			datos.setObjeto(FavoritosDAO.borrarFavorito(Integer.parseInt(datos.getContenido())));
 
 			FavoritosDAO.cerrarSesion();
+			break;
+			
+		case 17:
+			Municipio_EspacioDAO.iniciarSesion();
+			MunicipioDAO.iniciarSesion();
+			
+			List<Municipio>municipios = MunicipioDAO.consultarRegistrosPorEspacio(Municipio_EspacioDAO.consultarRegistroPorEspacio(Integer.parseInt(datos.getContenido())));
+			
+			datos.setObjeto(municipios);
+						
+			Municipio_EspacioDAO.cerrarSesion();	
+			MunicipioDAO.cerrarSesion();
 			break;
 		}
 		return true;

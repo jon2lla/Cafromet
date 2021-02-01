@@ -13,7 +13,16 @@ public class VentanaMenuPrincipal extends JFrame {
 	private JButton btnEspaciosNaturales;
 	private JButton btnCentrosMeteorologicos;
 	private JButton btnVolver;
+	private JButton btnPlayas;
 		
+	public JButton getBtnPlayas() {
+		return btnPlayas;
+	}
+
+	public void setBtnPlayas(JButton btnPlayas) {
+		this.btnPlayas = btnPlayas;
+	}
+
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
@@ -84,6 +93,10 @@ public class VentanaMenuPrincipal extends JFrame {
 		JButton btnTop = new JButton("TOP 5 ");
 		btnTop.setBounds(209, 121, 169, 46);
 		contentPane.add(btnTop);
+		
+		btnPlayas = new JButton("PLAYAS");
+		btnPlayas.setBounds(10, 195, 169, 46);
+		contentPane.add(btnPlayas);
 		
 	}
 }

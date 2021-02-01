@@ -1,13 +1,16 @@
 package com.cafromet.modelodao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.cafromet.modelo.Municipio;
+import com.cafromet.modelo.Municipio_EspacioNatural;
 import com.cafromet.modelo.Provincia;
 import com.cafromet.util.HibernateUtil;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 @SuppressWarnings("deprecation")
 public class MunicipioDAO {
@@ -79,6 +82,38 @@ public class MunicipioDAO {
         return filasMuni;
     }
 
+	public static List<Municipio> consultarRegistrosPorEspacio(List<Municipio_EspacioNatural> municipios_EspaciosNaturales) {
+        
+		Municipio_EspacioNatural municipio_EspacioNatural2 = new Municipio_EspacioNatural();
+		
+		String hql = "from Municipio ";
+		
+		for (int i = 0; i < municipios_EspaciosNaturales.size(); i++) {
+			
+			municipio_EspacioNatural2 = municipios_EspaciosNaturales.get(i);
+				
+			hql = hql + " where idMunicipio = " + municipio_EspacioNatural2.getId().getIdMunicipio();
+			
+			if (i<municipios_EspaciosNaturales.size()-1) {
+				hql += " or ";
+			}
+			
+			
+		}		
+		System.out.println(hql);
+        QUERY = SESSION.createQuery(hql);
+        List<Municipio> filasMuni = QUERY.list();
+
+        return filasMuni;
+    }
+	public static Municipio consultarMuni(int idMunicipio) {
+		HQL = "from Municipio as mun where mun.idMunicipio = :idMunicipio ";
+		QUERY = SESSION.createQuery(HQL);
+		QUERY.setParameter("idMunicipio", idMunicipio);
+		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
+		return municipio;		
+	}
+	
 	public static boolean borrarRegistro(String nombre) {
 		boolean correcto = false;
 		SESSION.beginTransaction();	
@@ -91,12 +126,5 @@ public class MunicipioDAO {
 		System.out.println("\n >> REGISTRO BORRADO");
 		correcto = true;
 		return correcto;
-	}
-	public static Municipio consultarMuni(int idMunicipio) {
-		HQL = "from Municipio as mun where mun.idMunicipio = :idMunicipio ";
-		QUERY = SESSION.createQuery(HQL);
-		QUERY.setParameter("idMunicipio", idMunicipio);
-		Municipio municipio = (Municipio) QUERY.uniqueResult(); 
-		return municipio;		
 	}
 }
