@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Box.Filler;
 
+import org.apache.commons.math3.util.MedianOf3PivotingStrategy;
+
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
 import com.cafromet.modelo.EspacioNatural;
@@ -436,6 +438,19 @@ public class IOListenerSrv extends Thread {
 			datos.setObjeto(municipios);			
 			Municipio_EspacioDAO.cerrarSesion();	
 			MunicipioDAO.cerrarSesion();
+			break;
+		case 20:		
+			MedicionDAO.iniciarSesion();
+			
+			List<Medicion>medicionTop = MedicionDAO.consultarTop();		
+		
+			for (Medicion medicion2 : medicionTop) {
+				System.out.println(medicion2.getRadSolar());
+			}
+			
+			//datos.setObjeto(municipios);
+						
+			MedicionDAO.cerrarSesion();
 			break;
 		}
 		return true;

@@ -42,11 +42,11 @@ public class VentanaTop extends JFrame {
 		this.btnVolver = btnVolver;
 	}
 
-	public static void main(String[] args) {
+	public static void inicioVentanaTop() {
 
 		VentanaTop ventanaTop = new VentanaTop();
 		ventanaTop.setVisible(true);
-
+		ControladorVentanaTop controladorVentanaTop = new ControladorVentanaTop(ventanaTop);
 	}
 
 	public VentanaTop() {

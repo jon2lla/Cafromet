@@ -22,6 +22,9 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 		ventanaMenuPrincipal.getBtnCentrosMeteorologicos().setActionCommand("Mediciones");
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().addActionListener(this);
 		ventanaMenuPrincipal.getBtnEspaciosNaturales().setActionCommand("espaciosNaturales");
+		ventanaMenuPrincipal.getBtnTop().addActionListener(this);
+		ventanaMenuPrincipal.getBtnTop().setActionCommand("top");
+		
 		ventanaMenuPrincipal.getBtnVolver().addActionListener(this);
 		ventanaMenuPrincipal.getBtnVolver().setActionCommand("volver");
 		ventanaMenuPrincipal.getBtnPlayas().addActionListener(this);
@@ -59,7 +62,11 @@ public class ControladorVentanaMenuPrincipal implements ActionListener {
 			ventanaCliente.inicioVentaCliente();
 			ventanaMenuPrincipal.dispose();
 		break;
-
+		case "top":
+			VentanaTop ventanaTop = new VentanaTop();
+			ventanaTop.inicioVentanaTop();
+			ventanaMenuPrincipal.dispose();
+		break;
 		}
 
 	}
