@@ -86,13 +86,13 @@ public class MunicipioDAO {
         
 		Municipio_EspacioNatural municipio_EspacioNatural2 = new Municipio_EspacioNatural();
 		
-		String hql = "from Municipio ";
+		String hql = "from Municipio where ";
 		
 		for (int i = 0; i < municipios_EspaciosNaturales.size(); i++) {
 			
 			municipio_EspacioNatural2 = municipios_EspaciosNaturales.get(i);
 				
-			hql = hql + " where idMunicipio = " + municipio_EspacioNatural2.getId().getIdMunicipio();
+			hql = hql + "idMunicipio = " + municipio_EspacioNatural2.getId().getIdMunicipio();
 
 			if (i<municipios_EspaciosNaturales.size()-1) {
 				hql += " or ";

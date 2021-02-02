@@ -61,7 +61,7 @@ public class VentanaTop extends JFrame {
 		scrollPane.setBounds(10, 26, 602, 240);
 		contentPane.add(scrollPane);
 
-		String columnas[] = { "NOMBRE", "RAD_SOLAR" };
+		String columnas[] = { "NOMBRE", "PRECIPITACION" };
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 

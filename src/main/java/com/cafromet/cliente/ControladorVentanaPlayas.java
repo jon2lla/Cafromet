@@ -26,7 +26,7 @@ public class ControladorVentanaPlayas implements ActionListener {
 
 	public ControladorVentanaPlayas(VentanaPlayas ventanaPlayas) {
 		this.ventanaPlayas = ventanaPlayas;
-		enviarPeticion("espacio", Peticiones.p104a);
+		enviarPeticion("espacio", Peticiones.p104c);
 		llenarComboBoxEspacios(espacioNatural);
 		iniciarControlador();
 	}
@@ -73,10 +73,15 @@ public class ControladorVentanaPlayas implements ActionListener {
 			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
 			llenarComboBoxCentros(centroMeteorologicos);
 			ventanaPlayas.getComboBoxCentros().setEnabled(true);
-			ventanaPlayas.getBtnBuscar().setEnabled(true);
-
+			ventanaPlayas.getComboBoxCentros().addActionListener(this);
+			ventanaPlayas.getComboBoxCentros().setActionCommand("centro");
 			break;
-
+			
+		case "centro":
+			ventanaPlayas.getComboBoxCentros().addActionListener(this);
+			ventanaPlayas.getComboBoxCentros().setActionCommand("");
+			ventanaPlayas.getBtnBuscar().setEnabled(true);
+			break;
 		case "buscar":
 			CentroMeteorologico centro = (CentroMeteorologico) ventanaPlayas.getComboBoxCentros().getSelectedItem();
 			mLimpiarTabla();

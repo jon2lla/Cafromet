@@ -22,7 +22,7 @@ public class ControladorVentanaTop implements ActionListener {
 		
 		iniciarControlador();
 		enviarPeticion("top", Peticiones.p120);
-//		llenarTabla(mediciones);
+		llenarTabla(mediciones);
 	}
 	
 	private void iniciarControlador() {
@@ -49,15 +49,12 @@ public class ControladorVentanaTop implements ActionListener {
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
 
 		mLimpiarTabla();
-		String matrizInfo[][] = new String[mediciones.size()][10];
+		String matrizInfo[][] = new String[mediciones.size()][1];
 
 		for (int i = 0; i < mediciones.size(); i++) {
 		
-			if(mediciones.get(i).getRadSolar() == null) {
-				matrizInfo[i][6] = "SIN DATOS";
-			}else {
-				matrizInfo[i][6] = String.valueOf(mediciones.get(i).getRadSolar() + " W/m2");
-			}
+			matrizInfo[i][0] = "SIN DATOS";
+			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip());
 
 			ventanaTop.getDefaultTableModel().addRow(matrizInfo[i]);
 		}

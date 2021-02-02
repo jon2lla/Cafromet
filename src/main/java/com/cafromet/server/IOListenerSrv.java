@@ -215,7 +215,15 @@ public class IOListenerSrv extends Thread {
 					listaespaNat.add(espaNatDTO);
 				}
 				datos.setObjeto(listaespaNat);
-			
+				break;
+			case 3:
+				ArrayList<EspacioNatural> listaEspacioNat= new ArrayList<EspacioNatural>();
+				for (EspacioNatural esp : listaEspNat) {
+					if (!esp.getMunicipio_EspacioNaturals().isEmpty()) {
+						listaEspacioNat.add(esp);
+					}
+				}
+				datos.setObjeto(listaEspacioNat);
 				break;
 			}		
 			EspacioNaturalDAO.cerrarSesion();
@@ -435,6 +443,7 @@ public class IOListenerSrv extends Thread {
 			Municipio_EspacioDAO.iniciarSesion();
 			MunicipioDAO.iniciarSesion();
 			List<Municipio>municipios = MunicipioDAO.consultarRegistrosPorEspacio(Municipio_EspacioDAO.consultarRegistroPorEspacio(Integer.parseInt(datos.getContenido())));
+			
 			datos.setObjeto(municipios);			
 			Municipio_EspacioDAO.cerrarSesion();	
 			MunicipioDAO.cerrarSesion();
@@ -443,12 +452,8 @@ public class IOListenerSrv extends Thread {
 			MedicionDAO.iniciarSesion();
 			
 			List<Medicion>medicionTop = MedicionDAO.consultarTop();		
-		
-			for (Medicion medicion2 : medicionTop) {
-				System.out.println(medicion2.getRadSolar());
-			}
-			
-			//datos.setObjeto(municipios);
+					
+			datos.setObjeto(medicionTop);
 						
 			MedicionDAO.cerrarSesion();
 			break;

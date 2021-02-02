@@ -18,6 +18,7 @@ public enum Peticiones {
     //PETICION LISTAR ESPACIOS NATURALES
     p104a(4, 1),
     p104b(4, 2),
+    p104c(4, 3),
     //PETICION LISTAR CENTROS METEOROLOGICOS
     p105a(5, 1),
     p105b(5, 2),
