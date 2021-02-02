@@ -153,7 +153,6 @@ public class Encriptacion {
 		} catch (IOException io) {
 			System.out.println("\n !ERROR => IOException ");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return bytes;
@@ -173,6 +172,7 @@ public class Encriptacion {
 		}
 		return null;
 	}
+	
 
 	/**
 	 * Devuelve un hash a partir de un tipo y un texto

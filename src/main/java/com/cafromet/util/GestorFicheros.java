@@ -1,6 +1,8 @@
 package com.cafromet.util;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.Cliente;
@@ -338,14 +342,11 @@ public class GestorFicheros extends Thread {
 		File[] ficheros = fichero.listFiles();
 
 		for (int x = 0; x < ficheros.length; x++) {
-
 			if (ficheros[x].isDirectory()) {
 				eliminarDirectorio(ficheros[x]);
 			}
 			ficheros[x].delete();
-
 		}
-
 		return true;
 	}
 	
@@ -398,15 +399,14 @@ public class GestorFicheros extends Thread {
 		GestorFicheros.crearDirectorio(rutaFoto);
 		for (Fotos foto : listaFotos) {
 			try {
-				System.out.println(foto.getIdFoto());
 				FotoDTO fotoDTO = new FotoDTO();
-				File file = new File(rutaFoto + foto.getIdFoto() + ".jpeg");
-				byte[] bArray = new byte[(int) file.length()];
-				FileInputStream fis = new FileInputStream(rutaFoto + foto.getIdFoto() + ".jpeg");
-				fis.read();
-				fis.close();
+				BufferedImage bImage = ImageIO.read(new File(rutaFoto + foto.getIdFoto() + ".jpeg"));
+			    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			    ImageIO.write(bImage, "jpeg", bos );
+			    byte [] data = bos.toByteArray();
+			    		    
 				fotoDTO.setIdFoto(foto.getIdFoto());
-				fotoDTO.setbArray(bArray);
+				fotoDTO.setbArray(data);
 				fotoDTO.setIdCliente(idCliente);
 				fotoDTO.setIdEspacio(idEspacio);
 				listaFotosDTO.add(fotoDTO);
@@ -414,7 +414,6 @@ public class GestorFicheros extends Thread {
 			} catch (IOException e) {
 				System.out.println("\n !ERROR AL CREAR EL FICHERO .JPEG");
 				return null;
-
 			}
 		}
   

@@ -20,7 +20,9 @@ public class CentroMeteorologicoDTO implements Serializable {
     public CentroMeteorologicoDTO(CentroMeteorologico centroMeteorologico) {
         this.idCentroMet = centroMeteorologico.getIdCentroMet();
         this.nombre = centroMeteorologico.getNombre();
-        this.municipio = centroMeteorologico.getMunicipio().getNombre();
+        if(centroMeteorologico.getMunicipio() != null) {
+            this.municipio = centroMeteorologico.getMunicipio().getNombre();
+        }
         this.direccion = centroMeteorologico.getDireccion();
         this.latitud = centroMeteorologico.getLatitud();
         this.longitud = centroMeteorologico.getLongitud();
