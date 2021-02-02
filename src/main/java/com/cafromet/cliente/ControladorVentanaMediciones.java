@@ -17,8 +17,6 @@ public class ControladorVentanaMediciones implements ActionListener {
 	private ArrayList<Medicion> mediciones;
 	private ArrayList<Municipio> municipios;
 	private ArrayList<CentroMeteorologico> centroMeteorologicos;
-	private ArrayList<Medicion> medicionFiltrado;
-	private ArrayList<CentroMeteorologico> centrosFiltrados;
 
 	VentanaMediciones ventanaMediciones = new VentanaMediciones();
 	

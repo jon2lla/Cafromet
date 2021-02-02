@@ -54,25 +54,27 @@ public class ControladorVentanaPlayas implements ActionListener {
 		switch (e.getActionCommand()) {
 
 		case "espacio":
-			EspacioNatural espacio = (EspacioNatural) ventanaPlayas.getComboBoxEspacio().getSelectedItem();
-			ventanaPlayas.getComboBoxMunicipio().setEnabled(true);
+			EspacioNatural espacio = (EspacioNatural) ventanaPlayas.getComboBoxEspacio().getSelectedItem();		
 			enviarPeticion(String.valueOf(espacio.getIdEspacio()), Peticiones.p117);
 			llenarComboBoxMunicipios(municipios);
+			ventanaPlayas.getComboBoxMunicipio().setEnabled(true);
 			ventanaPlayas.getComboBoxMunicipio().addActionListener(this);
 			ventanaPlayas.getComboBoxMunicipio().setActionCommand("municipio");
 			ventanaPlayas.getComboBoxCentros().removeAllItems();
 			ventanaPlayas.getComboBoxCentros().setEnabled(false);
+			ventanaPlayas.getBtnBuscar().setEnabled(false);
 			break;
 
 		case "municipio":
+
 			ventanaPlayas.getComboBoxMunicipio().addActionListener(this);
 			ventanaPlayas.getComboBoxMunicipio().setActionCommand("");
-			Municipio municipio = (Municipio) ventanaPlayas.getComboBoxMunicipio().getSelectedItem();
-			ventanaPlayas.getComboBoxCentros().removeAllItems();
+			Municipio municipio = (Municipio) ventanaPlayas.getComboBoxMunicipio().getSelectedItem();	
 			enviarPeticion(String.valueOf(municipio.getIdMunicipio()), Peticiones.p105c);
 			llenarComboBoxCentros(centroMeteorologicos);
 			ventanaPlayas.getComboBoxCentros().setEnabled(true);
 			ventanaPlayas.getBtnBuscar().setEnabled(true);
+
 			break;
 
 		case "buscar":

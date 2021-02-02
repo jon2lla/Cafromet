@@ -93,7 +93,7 @@ public class MunicipioDAO {
 			municipio_EspacioNatural2 = municipios_EspaciosNaturales.get(i);
 				
 			hql = hql + " where idMunicipio = " + municipio_EspacioNatural2.getId().getIdMunicipio();
-			
+
 			if (i<municipios_EspaciosNaturales.size()-1) {
 				hql += " or ";
 			}	
