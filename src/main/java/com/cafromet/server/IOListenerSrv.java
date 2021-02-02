@@ -410,11 +410,18 @@ public class IOListenerSrv extends Thread {
 					mediDTO.setCentroMeteorologico(muni.getCentroMeteorologico().getNombre());
 					mediDTO.setId(muni.getCentroMeteorologico().getIdCentroMet());
 					mediDTO.setDirViento(muni.getDirViento());
+					mediDTO.setVViento(muni.getVViento());
 					mediDTO.setHRelativa(muni.getHRelativa());
+					mediDTO.setIca(muni.getIca());
+					mediDTO.setTempAmbiente((muni.getTempAmbiente()));
 					mediDTO.setPAtmosferica(muni.getPAtmosferica());
 					mediDTO.setPrecip(muni.getPrecip());
+					mediDTO.setRadSolar(muni.getRadSolar());
+					mediDTO.setFecha((muni.getId().getFecha()));
+					mediDTO.setHora((muni.getId().getHora()));
 					
 					listaDTO.add(mediDTO);
+					
 				}
 				datos.setContenido("camilo");
 				datos.setObjeto(listaDTO);
@@ -425,12 +432,8 @@ public class IOListenerSrv extends Thread {
 		case 17:
 			Municipio_EspacioDAO.iniciarSesion();
 			MunicipioDAO.iniciarSesion();
-			
 			List<Municipio>municipios = MunicipioDAO.consultarRegistrosPorEspacio(Municipio_EspacioDAO.consultarRegistroPorEspacio(Integer.parseInt(datos.getContenido())));
-			
-		
-			datos.setObjeto(municipios);
-						
+			datos.setObjeto(municipios);			
 			Municipio_EspacioDAO.cerrarSesion();	
 			MunicipioDAO.cerrarSesion();
 			break;

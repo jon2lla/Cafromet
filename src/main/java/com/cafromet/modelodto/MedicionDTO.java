@@ -1,6 +1,8 @@
 package com.cafromet.modelodto;
 // Generated 22 ene. 2021 19:54:49 by Hibernate Tools 5.4.21.Final
 
+import java.util.Date;
+
 import com.cafromet.modelo.CentroMeteorologico;
 
 
@@ -19,6 +21,8 @@ public class MedicionDTO implements java.io.Serializable {
 	private Float tempAmbiente;
 	private Float VViento;
 	private String ica;
+	private Date fecha;
+	private Date hora;
 
 	public MedicionDTO() {
 	}
@@ -123,4 +127,21 @@ public class MedicionDTO implements java.io.Serializable {
 		this.centroMeteorologico = centroMeteorologico;
 	}
 
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Date getHora() {
+		return hora;
+	}
+
+	public void setHora(Date hora) {
+		this.hora = hora;
+	}
+
+	
 }
