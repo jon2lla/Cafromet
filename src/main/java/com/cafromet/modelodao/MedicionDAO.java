@@ -73,6 +73,21 @@ public class MedicionDAO {
         return mediciones;
 	}
 	
+	public static List<Medicion> consultarTop() {
+		HQL = "SELECT Medicion.MedicionId.idCentroMet, max(radSolar) FROM Medicion ";
+//				+ "WHERE Medicion.id.idCentroMet = CentroMeteorologico.idCentroMet "
+//				+ "and CentroMeteorologico.municipio.idMunicipio = CentroMeteorologico.municipio.idMunicipio "
+//				+ "group by Medicion.id.idCentroMet having max(radSolar) > 1 ";
+		QUERY = SESSION.createQuery(HQL);
+		List<Medicion> mediciones = QUERY.list(); 
+		
+		for (Medicion medicion : mediciones) {
+			medicion.getRadSolar();
+		}
+		
+        return mediciones;
+	}
+	
 	public static List<Medicion> consultarRegistroPorIdEspacio(int idCentroMet) {
 		
 		HQL = "from Medicion as medi where medi.centroMeteorologico.idCentroMet = :idCentroMet";

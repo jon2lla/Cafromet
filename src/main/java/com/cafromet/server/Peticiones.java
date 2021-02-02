@@ -49,8 +49,10 @@ public enum Peticiones {
     //PETICION TRAER MEDICIONES DE 1 CENTRO METEOROLOGICO
     p115a(15, 1),
     p115b(15, 2),
-    
-	p117(17,1);
+    //PETICION MEDICION PLAYAS
+	p117(17,1),
+	//PETICION TOP
+	p120(20,1);
 	
     private int codigo;
     private int plataforma;

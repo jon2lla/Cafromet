@@ -4,17 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import com.cafromet.modelo.CentroMeteorologico;
+import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Medicion;
+import com.cafromet.modelo.Municipio;
+import com.cafromet.server.Datos;
+import com.cafromet.server.Peticiones;
 
 public class ControladorVentanaTop implements ActionListener {
 
 	VentanaTop ventanaTop = new VentanaTop();
-
+	ArrayList<Medicion> mediciones;
+	Datos datos;
 	public ControladorVentanaTop(VentanaTop ventanaTop) {
 		
 		this.ventanaTop = ventanaTop;
 		
 		iniciarControlador();
+		enviarPeticion("top", Peticiones.p120);
 //		llenarTabla(mediciones);
 	}
 	
@@ -64,5 +71,35 @@ public class ControladorVentanaTop implements ActionListener {
 			ventanaTop.getDefaultTableModel().setRowCount(0);
 		}
 	}
-	
+	public boolean enviarPeticion(String contenido, Peticiones peticion) {
+		try {
+			datos = new Datos();
+			datos.setContenido(contenido);
+			datos.setPeticion(peticion);
+			IOListenerClt IOListenerClt = new IOListenerClt(datos);
+			Thread hiloSender = new Thread(IOListenerClt);
+			hiloSender.start();
+			hiloSender.join();
+			datos = IOListenerClt.getDatos();
+			procesarRecepcion();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean procesarRecepcion() {
+
+		switch (datos.getPeticion().getCodigo()) {
+
+		case 20:
+
+			mediciones = (ArrayList<Medicion>) datos.getObjeto();
+			break;
+
+		}
+		return true;
+	}
 }
