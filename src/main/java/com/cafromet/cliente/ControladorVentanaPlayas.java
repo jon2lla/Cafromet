@@ -99,14 +99,15 @@ public class ControladorVentanaPlayas implements ActionListener {
 
 	}
 
-	public void mLimpiarTabla() {
+	public boolean mLimpiarTabla() {
 
 		if (ventanaPlayas.getDefaultTableModel().getRowCount() > 0) {
 			ventanaPlayas.getDefaultTableModel().setRowCount(0);
 		}
+		return true;
 	}
 
-	private boolean llenarComboBoxEspacios(ArrayList<EspacioNatural> espacioNatural) {
+	public boolean llenarComboBoxEspacios(ArrayList<EspacioNatural> espacioNatural) {
 
 		for (EspacioNatural espacio : espacioNatural) {
 			espacio.setNombre(espacio.getNombre().toUpperCase());

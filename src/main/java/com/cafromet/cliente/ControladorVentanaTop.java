@@ -16,6 +16,11 @@ public class ControladorVentanaTop implements ActionListener {
 	VentanaTop ventanaTop = new VentanaTop();
 	ArrayList<Medicion> mediciones;
 	Datos datos;
+	
+	public ControladorVentanaTop() {
+		
+	}
+	
 	public ControladorVentanaTop(VentanaTop ventanaTop) {
 		
 		this.ventanaTop = ventanaTop;
@@ -49,12 +54,16 @@ public class ControladorVentanaTop implements ActionListener {
 	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
 
 		mLimpiarTabla();
-		String matrizInfo[][] = new String[mediciones.size()][1];
+		String matrizInfo[][] = new String[mediciones.size()][2];
 
 		for (int i = 0; i < mediciones.size(); i++) {
 		
 			matrizInfo[i][0] = "SIN DATOS";
-			matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip());
+			if(mediciones.get(i).getPrecip() == null ) {
+				matrizInfo[i][1] = "SIN DATOS";
+			}else {
+				matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip() + " l/m2");
+			}
 
 			ventanaTop.getDefaultTableModel().addRow(matrizInfo[i]);
 		}

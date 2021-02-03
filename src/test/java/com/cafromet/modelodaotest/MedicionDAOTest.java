@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
 import com.cafromet.modelodao.CentroMeteorologicoDAO;
 import com.cafromet.modelodao.MedicionDAO;
+
 
 public class MedicionDAOTest {
 	
@@ -62,6 +65,27 @@ public class MedicionDAOTest {
 		CentroMeteorologicoDAO.cerrarSesion();
 		
 	}
+	
+	@Test
+	public void testLista1() {
+		MedicionDAO.iniciarSesion();
+		List<Medicion> mediciones = MedicionDAO.consultarRegistros(555);
+		java.util.List<Medicion> medicione2 = new ArrayList<Medicion>();
+		int tam1 = mediciones.size();
+		int tam2 = medicione2.size();
+		assertEquals(tam1, tam2);
+		MedicionDAO.cerrarSesion();
+	}
 
+	@Test
+	public void testLista3() {
+		MedicionDAO.iniciarSesion();
+		List<Medicion> mediciones = MedicionDAO.consultarRegistroPorIdEspacio(555);
+		List<Medicion> medicione2 = new ArrayList<Medicion>();
+		int tam1 = mediciones.size();
+		int tam2 = medicione2.size();
+		assertEquals(tam1, tam2);
+		MedicionDAO.cerrarSesion();
+	}
 }
 

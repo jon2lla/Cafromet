@@ -255,8 +255,7 @@ public class IOListenerSrv extends Thread {
 		case 6:
 		
 			MedicionDAO.iniciarSesion();
-			MunicipioDAO.iniciarSesion();
-			
+						
 			switch (datos.getPeticion().getPlataforma()) {
 
 			case 1:
