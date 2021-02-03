@@ -430,8 +430,12 @@ public class GestorFicheros extends Thread {
 		linea = linea.trim();
 		if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.45"))) //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.46"), StringsGestorFicheros.getString("GestorFicheros.47")); //$NON-NLS-1$ //$NON-NLS-2$
-		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.48"))) //$NON-NLS-1$
+		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.48"))) { //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.49"), StringsGestorFicheros.getString("GestorFicheros.50")); //$NON-NLS-1$ //$NON-NLS-2$
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.216"), StringsGestorFicheros.getString("GestorFicheros.217"));
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.218"), StringsGestorFicheros.getString("GestorFicheros.219"));
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.220"), StringsGestorFicheros.getString("GestorFicheros.221"));
+		}
 		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.51"))) { //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.52"), StringsGestorFicheros.getString("GestorFicheros.53")); //$NON-NLS-1$ //$NON-NLS-2$
 			linea = eliminarRepetidos(linea);
@@ -516,8 +520,12 @@ public class GestorFicheros extends Thread {
 
 		if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.77"))) //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.78"), StringsGestorFicheros.getString("GestorFicheros.79")); //$NON-NLS-1$ //$NON-NLS-2$
-		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.80"))) //$NON-NLS-1$
+		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.80"))) { //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.81"), StringsGestorFicheros.getString("GestorFicheros.82")); //$NON-NLS-1$ //$NON-NLS-2$
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.216"), StringsGestorFicheros.getString("GestorFicheros.217"));
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.218"), StringsGestorFicheros.getString("GestorFicheros.219"));
+			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.220"), StringsGestorFicheros.getString("GestorFicheros.221"));
+		}
 		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.83"))) //$NON-NLS-1$
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.84"), StringsGestorFicheros.getString("GestorFicheros.85")); //$NON-NLS-1$ //$NON-NLS-2$
 		else if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.86"))) //$NON-NLS-1$
