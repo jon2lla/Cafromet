@@ -129,6 +129,7 @@ public class IOListenerSrv extends Thread {
 
 				clienteComprobacion2 = ClienteDAO.consultarRegistro(cliente1.getUsuario());
 
+				
 				if (clienteComprobacion2 != null) {
 					if (cliente1.getPasswd().equals(clienteComprobacion2.getPasswd())) {
 						existe1 = true;
