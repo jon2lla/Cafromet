@@ -120,7 +120,7 @@ public class IOListenerSrv extends Thread {
 				break;
 
 			case 2:
-				boolean existe1;
+				boolean existe1 = false;
 				Cliente clienteComprobacion2 = new Cliente();
 				ClienteDTO clienteDTO = (ClienteDTO) datos.getObjeto();
 				Cliente cliente1 = new Cliente();
@@ -131,15 +131,14 @@ public class IOListenerSrv extends Thread {
 
 				if (clienteComprobacion2 != null) {
 					if (cliente1.getPasswd().equals(clienteComprobacion2.getPasswd())) {
-						existe = true;
-						datos.setObjeto(existe);
+						existe1 = true;
 						datos.setContenido(String.valueOf(clienteComprobacion2.getIdCliente()));
 					}
 				} else {
 					System.out.println("\n EL USUARIO NO EXISTE");
-					existe = false;
-					datos.setObjeto(existe);
+					existe1 = false;
 				}
+				datos.setObjeto(existe1);
 
 				ClienteDAO.cerrarSesion();
 				break;
