@@ -66,26 +66,6 @@ public class MedicionDAOTest {
 		
 	}
 	
-	@Test
-	public void testLista1() {
-		MedicionDAO.iniciarSesion();
-		List<Medicion> mediciones = MedicionDAO.consultarRegistros(555);
-		java.util.List<Medicion> medicione2 = new ArrayList<Medicion>();
-		int tam1 = mediciones.size();
-		int tam2 = medicione2.size();
-		assertEquals(tam1, tam2);
-		MedicionDAO.cerrarSesion();
-	}
 
-	@Test
-	public void testLista3() {
-		MedicionDAO.iniciarSesion();
-		List<Medicion> mediciones = MedicionDAO.consultarRegistroPorIdEspacio(555);
-		List<Medicion> medicione2 = new ArrayList<Medicion>();
-		int tam1 = mediciones.size();
-		int tam2 = medicione2.size();
-		assertEquals(tam1, tam2);
-		MedicionDAO.cerrarSesion();
-	}
 }
 
