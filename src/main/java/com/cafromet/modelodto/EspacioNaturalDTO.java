@@ -18,21 +18,18 @@ public class EspacioNaturalDTO implements java.io.Serializable {
     private String categoria;
     private Double latitud;
     private Double longitud;
-    private Set favoritoses = new HashSet(0);
-
 
     public EspacioNaturalDTO() {
     }
 
     public EspacioNaturalDTO(String nombre, String descripcion, String tipo, String categoria, Double latitud,
-                             Double longitud, Set favoritoses, Set fotoses, Set municipio_EspacioNaturals) {
+                             Double longitud) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.categoria = categoria;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.favoritoses = favoritoses;
 
     }
     public EspacioNaturalDTO(EspacioNatural espacioNatural) {
@@ -102,15 +99,5 @@ public class EspacioNaturalDTO implements java.io.Serializable {
     public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
-
-    public Set getFavoritoses() {
-        return favoritoses;
-    }
-
-    public void setFavoritoses(Set favoritoses) {
-        this.favoritoses = favoritoses;
-    }
-
-
 
 }

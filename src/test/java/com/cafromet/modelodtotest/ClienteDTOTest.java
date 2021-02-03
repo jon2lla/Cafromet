@@ -28,6 +28,8 @@ public class ClienteDTOTest {
 		cliente2.setUsuario("a");
 		cliente2.getPasswd();
 		cliente2.getUsuario();
+		cliente2.setIdCliente(2);
+		cliente2.getIdCliente();
 		assertNotEquals(cliente1.getUsuario(), cliente2.getUsuario());
 	}
 	
