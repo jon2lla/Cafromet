@@ -3,6 +3,8 @@ package com.cafromet.cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
@@ -14,7 +16,7 @@ import com.cafromet.server.Peticiones;
 public class ControladorVentanaTop implements ActionListener {
 
 	VentanaTop ventanaTop = new VentanaTop();
-	ArrayList<Medicion> mediciones;
+	TreeSet<Medicion> mediciones;
 	Datos datos;
 	
 	public ControladorVentanaTop() {
@@ -51,7 +53,7 @@ public class ControladorVentanaTop implements ActionListener {
 
 	}
 	
-	public boolean llenarTabla(ArrayList<Medicion> mediciones) {
+	public boolean llenarTabla(TreeSet<Medicion> mediciones) {
 
 		mLimpiarTabla();
 		String matrizInfo[][] = new String[mediciones.size()][2];
@@ -59,11 +61,11 @@ public class ControladorVentanaTop implements ActionListener {
 		for (int i = 0; i < mediciones.size(); i++) {
 		
 			matrizInfo[i][0] = "SIN DATOS";
-			if(mediciones.get(i).getPrecip() == null ) {
+//			if(mediciones.get(i).getPrecip() == null ) {
 				matrizInfo[i][1] = "SIN DATOS";
-			}else {
-				matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip() + " l/m2");
-			}
+//			}else {
+//				matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip() + " l/m2");
+//			}
 
 			ventanaTop.getDefaultTableModel().addRow(matrizInfo[i]);
 		}
@@ -102,7 +104,7 @@ public class ControladorVentanaTop implements ActionListener {
 
 		case 20:
 
-			mediciones = (ArrayList<Medicion>) datos.getObjeto();
+//			mediciones = (ArrayList<Medicion>) datos.getObjeto();
 			break;
 
 		}

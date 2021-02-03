@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -450,9 +451,9 @@ public class IOListenerSrv extends Thread {
 		case 20:		
 			MedicionDAO.iniciarSesion();
 			
-			List<Medicion>medicionTop = MedicionDAO.consultarTop();		
+//			TreeSet<Medicion>medicionTop = (TreeSet<Medicion>) MedicionDAO.consultarTop();		
 					
-			datos.setObjeto(medicionTop);
+//			datos.setObjeto(medicionTop);
 						
 			MedicionDAO.cerrarSesion();
 			break;

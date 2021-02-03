@@ -1,7 +1,10 @@
 package com.cafromet.modelodao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -73,24 +76,27 @@ public class MedicionDAO {
         return mediciones;
 	}
 	
-	public static List<Medicion> consultarTop() {
-//		HQL = "SELECT max(precip) FROM Medicion "
-//				+ "WHERE Medicion.MedicionId.idCentroMet = CentroMeteorologico.idCentroMet "
-//				+ "and CentroMeteorologico.municipio.idMunicipio = CentroMeteorologico.municipio.idMunicipio "
-//				+ "having max(precip) > 1 ";		
-		HQL="SELECT DISTINCT muni.NOMBRE,med.ID_CENTRO_MET,MAX(med.RAD_SOLAR) "
-				+ "FROM mediciones_centro_met as med "
-				+ "Inner join centros_meteorologicos as cen "
-				+ "ON cen.ID_CENTRO_MET=med.ID_CENTRO_MET "
-				+ "INNER JOIN municipios as muni "
-				+ "ON muni.ID_MUNICIPIO = cen.ID_MUNICIPIO "
-				+ "GROUP By ID_CENTRO_MET HAVING MAX(RAD_SOLAR) >1 LIMIT 4";
+	public static Set<Medicion> consultarTop() {
+		Set<Medicion> listaFiltrada = new TreeSet<Medicion>();
+		HQL="from Medicion order by tempAmbiente desc";
 		
-//		QUERY = SESSION.createQuery(HQL);
-		QUERY = SESSION.createSQLQuery(HQL);
+		QUERY = SESSION.createQuery(HQL);
 		List<Medicion> mediciones = QUERY.list(); 
 		
-        return mediciones;
+		int i = 0;
+		int contadorEntradas = 0;
+		while(contadorEntradas < listaFiltrada.size()) {
+			Medicion medicion = new Medicion();
+			medicion = mediciones.get(i);
+			
+			listaFiltrada.add(medicion);
+			i++;
+			contadorEntradas = listaFiltrada.size();
+		}
+		
+		System.out.println(listaFiltrada.size());
+		
+        return listaFiltrada;
 	}
 	
 	public static List<Medicion> consultarRegistroPorIdEspacio(int idCentroMet) {
