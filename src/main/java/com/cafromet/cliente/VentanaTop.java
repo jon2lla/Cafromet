@@ -1,5 +1,6 @@
 package com.cafromet.cliente;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JComboBox;
 
 public class VentanaTop extends JFrame {
 
@@ -15,6 +17,8 @@ public class VentanaTop extends JFrame {
 	private DefaultTableModel defaultTableModel;
 	private JTable tablaContactos;
 	private JButton btnVolver;
+	private JComboBox<String> cmbBxProvincias;
+	private JButton btnProvincias;
 
 	
 	
@@ -42,8 +46,15 @@ public class VentanaTop extends JFrame {
 		this.btnVolver = btnVolver;
 	}
 
-	public void inicioVentanaTop() {
+	public JComboBox<String> getCmbBxProvincias() {
+		return cmbBxProvincias;
+	}
 
+	public JButton getBtnProvincias() {
+		return btnProvincias;
+	}
+
+	public void inicioVentanaTop() {
 		VentanaTop ventanaTop = new VentanaTop();
 		ventanaTop.setVisible(true);
 		ControladorVentanaTop controladorVentanaTop = new ControladorVentanaTop(ventanaTop);
@@ -51,17 +62,17 @@ public class VentanaTop extends JFrame {
 
 	public VentanaTop() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 638, 358);
+		setBounds(100, 100, 500, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 26, 602, 240);
+		scrollPane.setBounds(10, 66, 464, 208);
 		contentPane.add(scrollPane);
 
-		String columnas[] = { "NOMBRE", "PRECIPITACION" };
+		String columnas[] = { "NOMBRE", "TEMPERATURA" };
 
 		defaultTableModel = new DefaultTableModel(columnas, 0);
 
@@ -80,5 +91,14 @@ public class VentanaTop extends JFrame {
 		btnVolver = new JButton("VOLVER");
 		btnVolver.setBounds(10, 285, 89, 23);
 		contentPane.add(btnVolver);
+		
+		cmbBxProvincias = new JComboBox<String>();
+		cmbBxProvincias.setModel(new DefaultComboBoxModel<String>(new String[] {"Araba/Álava", "Gipuzkoa", "Bizkaia"}));
+		cmbBxProvincias.setBounds(10, 11, 137, 22);
+		contentPane.add(cmbBxProvincias);
+		
+		btnProvincias = new JButton("New button");
+		btnProvincias.setBounds(311, 11, 163, 23);
+		contentPane.add(btnProvincias);
 	}
 }

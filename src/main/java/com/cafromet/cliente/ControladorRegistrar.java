@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import com.cafromet.modelo.Cliente;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
+import com.cafromet.util.Encriptacion;
 
 public class ControladorRegistrar implements ActionListener {
 	
@@ -44,7 +45,7 @@ public class ControladorRegistrar implements ActionListener {
 		
 			Cliente cliente = new Cliente();
 			cliente.setUsuario(usu);
-			cliente.setPasswd(pass);
+			cliente.setPasswd(Encriptacion.generateHash(pass, "SHA1"));
 			if (!usu.isEmpty()) {
 				if (pass.equals(pass2) && !pass2.isEmpty()) {
 					enviarPeticion(cliente, Peticiones.p102a);

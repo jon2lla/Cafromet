@@ -9,6 +9,8 @@ import java.util.Set;
  */
 public class Municipio implements java.io.Serializable {
 
+	
+
 	private Integer idMunicipio;
 	private Provincia provincia;
 	private String nombre;
@@ -90,4 +92,28 @@ public class Municipio implements java.io.Serializable {
 		return this.nombre;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idMunicipio == null) ? 0 : idMunicipio.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Municipio other = (Municipio) obj;
+		if (idMunicipio == null) {
+			if (other.idMunicipio != null)
+				return false;
+		} else if (!idMunicipio.equals(other.idMunicipio))
+			return false;
+		return true;
+	}
 }

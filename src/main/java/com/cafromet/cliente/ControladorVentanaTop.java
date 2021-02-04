@@ -3,6 +3,8 @@ package com.cafromet.cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,13 +12,17 @@ import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.Municipio;
+import com.cafromet.modelodao.MunicipioDAO;
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
+
+import antlr.collections.List;
 
 public class ControladorVentanaTop implements ActionListener {
 
 	VentanaTop ventanaTop = new VentanaTop();
-	TreeSet<Medicion> mediciones;
+	LinkedHashMap<Municipio, Medicion> mapaMediciones;
+	ArrayList<Medicion> mediciones;
 	Datos datos;
 	
 	public ControladorVentanaTop() {
@@ -29,13 +35,19 @@ public class ControladorVentanaTop implements ActionListener {
 		
 		iniciarControlador();
 		enviarPeticion("top", Peticiones.p120);
-		llenarTabla(mediciones);
+		llenarTabla(mapaMediciones);
+		ventanaTop.getCmbBxProvincias().setVisible(false);
+		ventanaTop.getBtnProvincias().setText("PROVINCIAS");
 	}
 	
 	private void iniciarControlador() {
-
+		
+		ventanaTop.getBtnProvincias().addActionListener(this);
+		ventanaTop.getBtnProvincias().setActionCommand("Provincias");
 		ventanaTop.getBtnVolver().addActionListener(this);
 		ventanaTop.getBtnVolver().setActionCommand("volver");
+		ventanaTop.getCmbBxProvincias().addActionListener(this);
+		ventanaTop.getCmbBxProvincias().setActionCommand("comboBox");
 		
 	}
 	
@@ -43,7 +55,33 @@ public class ControladorVentanaTop implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
-			
+		case "Provincias":
+			if(ventanaTop.getCmbBxProvincias().isVisible()) {
+				ventanaTop.getBtnProvincias().setText("PROVINCIAS");
+				ventanaTop.getCmbBxProvincias().setVisible(false);
+				enviarPeticion("top", Peticiones.p120);
+				llenarTabla(mapaMediciones);
+			}
+			else {
+				ventanaTop.getBtnProvincias().setText("MUNICIPIOS");
+				mLimpiarTabla();
+				ventanaTop.getCmbBxProvincias().setVisible(true);
+			}
+			break;
+		case "comboBox":
+			switch (ventanaTop.getCmbBxProvincias().getSelectedIndex()) {
+			case 0:
+				enviarPeticion(String.valueOf(1), Peticiones.p121);
+				break;
+			case 1:
+				enviarPeticion(String.valueOf(20), Peticiones.p121);
+				break;
+			case 2:
+				enviarPeticion(String.valueOf(48), Peticiones.p121);
+				break;
+			}
+			llenarTabla(mapaMediciones);
+			break;
 		case "volver":
 				VentanaMenuPrincipal ventanaMenuPrincipal = new VentanaMenuPrincipal();
 				ventanaMenuPrincipal.InicioMenuPrincipal();
@@ -53,23 +91,22 @@ public class ControladorVentanaTop implements ActionListener {
 
 	}
 	
-	public boolean llenarTabla(TreeSet<Medicion> mediciones) {
+	public boolean llenarTabla(LinkedHashMap<Municipio, Medicion>  mediciones) {
 
 		mLimpiarTabla();
 		String matrizInfo[][] = new String[mediciones.size()][2];
+		int i = 0;
+		for (Map.Entry<Municipio, Medicion> entry : mapaMediciones.entrySet()) {
+			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
 
-		for (int i = 0; i < mediciones.size(); i++) {
-		
-			matrizInfo[i][0] = "SIN DATOS";
-//			if(mediciones.get(i).getPrecip() == null ) {
-				matrizInfo[i][1] = "SIN DATOS";
-//			}else {
-//				matrizInfo[i][1] = String.valueOf(mediciones.get(i).getPrecip() + " l/m2");
-//			}
+			matrizInfo[i][0] = entry.getKey().getNombre();
+			matrizInfo[i][1] = entry.getValue().getTempAmbiente() + " Cº";
 
 			ventanaTop.getDefaultTableModel().addRow(matrizInfo[i]);
+			i++;
 		}
-
+		
+	
 		return true;
 	}
 	
@@ -103,8 +140,7 @@ public class ControladorVentanaTop implements ActionListener {
 		switch (datos.getPeticion().getCodigo()) {
 
 		case 20:
-
-//			mediciones = (ArrayList<Medicion>) datos.getObjeto();
+			mapaMediciones = (LinkedHashMap<Municipio, Medicion>) datos.getObjeto();
 			break;
 
 		}

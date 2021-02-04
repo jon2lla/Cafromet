@@ -2,7 +2,9 @@ package com.cafromet.modelodao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,6 +14,7 @@ import org.hibernate.Session;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Medicion;
 import com.cafromet.modelo.MedicionId;
+import com.cafromet.modelo.Municipio;
 import com.cafromet.util.HibernateUtil;
 
 public class MedicionDAO {
@@ -76,28 +79,70 @@ public class MedicionDAO {
         return mediciones;
 	}
 	
-	public static Set<Medicion> consultarTop() {
-		Set<Medicion> listaFiltrada = new TreeSet<Medicion>();
+	public synchronized static LinkedHashMap<Municipio, Medicion> consultarTopMunicipios() {
+		iniciarSesion();
+		MunicipioDAO.iniciarSesion();
 		HQL="from Medicion order by tempAmbiente desc";
 		
 		QUERY = SESSION.createQuery(HQL);
 		List<Medicion> mediciones = QUERY.list(); 
 		
-		int i = 0;
-		int contadorEntradas = 0;
-		while(contadorEntradas < listaFiltrada.size()) {
-			Medicion medicion = new Medicion();
-			medicion = mediciones.get(i);
-			
-			listaFiltrada.add(medicion);
-			i++;
-			contadorEntradas = listaFiltrada.size();
+		LinkedHashMap<Municipio, Medicion> mapaMediciones = new LinkedHashMap<Municipio, Medicion>();
+		mapaMediciones.clear();
+
+		int contador = 0; 
+		Medicion medicion;
+		while(mapaMediciones.size() < 5) {
+			medicion = new Medicion();
+			medicion = mediciones.get(contador);
+			if(!mapaMediciones.keySet().contains(medicion.getCentroMeteorologico().getMunicipio())
+					&& medicion.getCentroMeteorologico().getMunicipio() != null) {
+				mapaMediciones.put(MunicipioDAO.consultarMuni(medicion.getCentroMeteorologico().getMunicipio().getIdMunicipio()), medicion);
+			}
+			contador++;
 		}
 		
-		System.out.println(listaFiltrada.size());
-		
-        return listaFiltrada;
+//		for (Map.Entry<Municipio, Medicion> entry : mapaMediciones.entrySet()) {
+//			System.out.println("Key = " + entry.getKey().getNombre() + ", Value = " + entry.getValue().getCentroMeteorologico().getNombre());
+//		}
+		cerrarSesion();
+		MunicipioDAO.cerrarSesion();
+		return mapaMediciones;
 	}
+	
+//	public static LinkedHashMap<Municipio, Medicion> consultarTopProvincias(int idProvincia) {
+//		iniciarSesion();
+//		MunicipioDAO.iniciarSesion();
+//		
+//		HQL="from Medicion order by tempAmbiente desc";
+////		HQL="from Medicion where centroMeteorologico.municipio.provincia.idProvincia in :idProvincia order by tempAmbiente desc";
+//		QUERY = SESSION.createQuery(HQL);
+////		QUERY.setParameter("idProvincia", idProvincia);
+//		List<Medicion> mediciones = QUERY.list(); 
+//		
+//		LinkedHashMap<Municipio, Medicion> mapaMediciones = new LinkedHashMap<Municipio, Medicion>();
+//		mapaMediciones.clear();
+//		int contador = 0; 
+//		Medicion medicion;
+//		while(mapaMediciones.size() < 5) {
+//			medicion = new Medicion();
+//			medicion = mediciones.get(contador);
+//			if((!mapaMediciones.keySet().contains(medicion.getCentroMeteorologico().getMunicipio()))
+//					&& (medicion.getCentroMeteorologico().getMunicipio() != null) && (String.valueOf(medicion.getCentroMeteorologico().getMunicipio().getProvincia().getIdProvincia()).equals(String.valueOf(idProvincia)))) {
+//				System.out.println("\n TAMAÑO MAPA PROVINCIAS - > " + mapaMediciones.size());
+//				mapaMediciones.put(MunicipioDAO.consultarMuni(medicion.getCentroMeteorologico().getMunicipio().getIdMunicipio()), medicion);
+//			}
+//			contador++;
+//		}
+//		
+////		for (Map.Entry<Municipio, Medicion> entry : mapaMediciones.entrySet()) {
+////			System.out.println("Key = " + entry.getKey().getNombre() + ", Value = " + entry.getValue().getCentroMeteorologico().getNombre());
+////		}
+//		
+//		cerrarSesion();
+//		MunicipioDAO.cerrarSesion();
+//		return mapaMediciones;
+//	}
 	
 	public static List<Medicion> consultarRegistroPorIdEspacio(int idCentroMet) {
 		

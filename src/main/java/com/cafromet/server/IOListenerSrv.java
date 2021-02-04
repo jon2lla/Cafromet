@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -104,20 +105,20 @@ public class IOListenerSrv extends Thread {
 				String passwd = array[1];
 				Cliente cliente = new Cliente(usuario, passwd, null, null);
 				Cliente clienteComprobacion = new Cliente();
-				boolean existe;
+				boolean existe = false;
 				clienteComprobacion = ClienteDAO.consultarRegistro(cliente.getUsuario());
 
 				if (clienteComprobacion != null) {
 					if (cliente.getPasswd().equals(clienteComprobacion.getPasswd())) {
 						existe = true;
-						datos.setObjeto(existe);
 						datos.setContenido("Este es el usuario");
 					}
+					
 				} else {
 					System.out.println("\n EL USUARIO NO EXISTE");
 					existe = false;
-					datos.setObjeto(existe);
 				}
+				datos.setObjeto(existe);
 				break;
 
 			case 2:
@@ -449,13 +450,16 @@ public class IOListenerSrv extends Thread {
 			MunicipioDAO.cerrarSesion();
 			break;
 		case 20:		
-			MedicionDAO.iniciarSesion();
 			
-//			TreeSet<Medicion>medicionTop = (TreeSet<Medicion>) MedicionDAO.consultarTop();		
-					
-//			datos.setObjeto(medicionTop);
+			LinkedHashMap<Municipio, Medicion> mapaMediciones = MedicionDAO.consultarTopMunicipios();			
+			datos.setObjeto(mapaMediciones);
 						
-			MedicionDAO.cerrarSesion();
+			break;
+		case 21:		
+			System.out.println("\n ID PROVINCIA -> " + datos.getContenido());
+//			LinkedHashMap<Municipio, Medicion> mapaMediciones2 = MedicionDAO.consultarTopProvincias(Integer.parseInt(datos.getContenido()));		
+//			datos.setObjeto(mapaMediciones2);
+						
 			break;
 		}
 		return true;

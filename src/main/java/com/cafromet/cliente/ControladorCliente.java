@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.cafromet.server.Datos;
 import com.cafromet.server.Peticiones;
+import com.cafromet.util.Encriptacion;
 
 public class ControladorCliente implements ActionListener {
 
@@ -36,7 +37,7 @@ public class ControladorCliente implements ActionListener {
 		case "Enviar":
 			
 			String usu = ventanaCliente.getTextFieldUsuario().getText();
-			String pass = ventanaCliente.getTextFieldPassw().getText();
+			String pass = Encriptacion.generateHash(ventanaCliente.getTextFieldPassw().getText(), "SHA1");
 			
 			if (!usu.isEmpty() && !pass.isEmpty()) {
 				enviarPeticion(usu + "," + pass, Peticiones.p101a);
@@ -83,7 +84,7 @@ public class ControladorCliente implements ActionListener {
 				ventanaMenuPrincipal.InicioMenuPrincipal();
 				ventanaCliente.dispose();
 			} else {
-				JOptionPane.showMessageDialog(null, "NO EXISTE EL USUARIO", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "NO EXISTE EL USUARIO O CONTRASEÑA INCORRECTA", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 			}		
 			break;
 		}

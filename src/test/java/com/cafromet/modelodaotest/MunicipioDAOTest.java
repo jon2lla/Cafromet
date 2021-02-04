@@ -100,7 +100,7 @@ public class MunicipioDAOTest {
 		municipio = MunicipioDAO.consultarMuni(2);
 		Municipio municipio2 = new Municipio();
 		municipio2.setIdMunicipio(2);
-		assertNotEquals(municipio, municipio2);
+		assertEquals(municipio, municipio2);
 		MunicipioDAO.cerrarSesion();	
 	}
 	
