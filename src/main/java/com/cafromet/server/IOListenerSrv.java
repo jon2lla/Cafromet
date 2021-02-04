@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import javax.swing.JTextArea;
@@ -451,16 +452,20 @@ public class IOListenerSrv extends Thread {
 			break;
 		case 20:		
 			
-			LinkedHashMap<Municipio, Medicion> mapaMediciones = MedicionDAO.consultarTopMunicipios();			
-			datos.setObjeto(mapaMediciones);
+			LinkedHashMap<Municipio, Medicion> mapaMediciones = MedicionDAO.consultarTopMunicipios();	
+			switch(datos.getPeticion().getPlataforma()) {
+				case 1:
+					datos.setObjeto(mapaMediciones);
+					break;
+			}
 						
 			break;
-		case 21:		
-			System.out.println("\n ID PROVINCIA -> " + datos.getContenido());
+//		case 21:		
+//			System.out.println("\n ID PROVINCIA -> " + datos.getContenido());
 //			LinkedHashMap<Municipio, Medicion> mapaMediciones2 = MedicionDAO.consultarTopProvincias(Integer.parseInt(datos.getContenido()));		
 //			datos.setObjeto(mapaMediciones2);
-						
-			break;
+//						
+//			break;
 		}
 		return true;
 	}

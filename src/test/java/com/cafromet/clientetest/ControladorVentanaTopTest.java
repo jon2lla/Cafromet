@@ -40,7 +40,7 @@ public class ControladorVentanaTopTest {
 	public void testEnviarPeticion() {
 		controlador = Mockito.spy(controlador);
 		Mockito.doReturn(true).when(controlador).procesarRecepcion();
-		boolean result =controlador.enviarPeticion("prueba", Peticiones.p120);
+		boolean result =controlador.enviarPeticion("prueba", Peticiones.p120a);
 		assertTrue(result);
 	}
 	

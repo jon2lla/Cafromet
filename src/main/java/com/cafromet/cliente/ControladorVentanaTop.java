@@ -34,7 +34,7 @@ public class ControladorVentanaTop implements ActionListener {
 		this.ventanaTop = ventanaTop;
 		
 		iniciarControlador();
-		enviarPeticion("top", Peticiones.p120);
+		enviarPeticion("top", Peticiones.p120a);
 		llenarTabla(mapaMediciones);
 		ventanaTop.getCmbBxProvincias().setVisible(false);
 		ventanaTop.getBtnProvincias().setText("PROVINCIAS");
@@ -59,7 +59,7 @@ public class ControladorVentanaTop implements ActionListener {
 			if(ventanaTop.getCmbBxProvincias().isVisible()) {
 				ventanaTop.getBtnProvincias().setText("PROVINCIAS");
 				ventanaTop.getCmbBxProvincias().setVisible(false);
-				enviarPeticion("top", Peticiones.p120);
+				enviarPeticion("top", Peticiones.p120a);
 				llenarTabla(mapaMediciones);
 			}
 			else {

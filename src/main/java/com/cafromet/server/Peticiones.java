@@ -53,9 +53,10 @@ public enum Peticiones {
     //PETICION MEDICION PLAYAS
 	p117(17,1),
 	//PETICION TOP MUNICIPIOS
-	p120(20,1),
+	p120a(20,1),
 	//PETICION TOP PROVINCIAS
 	p121(21,1);
+	
 	
     private int codigo;
     private int plataforma;
