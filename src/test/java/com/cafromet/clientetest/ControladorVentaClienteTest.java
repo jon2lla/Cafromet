@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +36,8 @@ public class ControladorVentaClienteTest {
 	
 	@Test
 	public void test() {
+		ActionEvent e = new ActionEvent(ventanaMunicipio, 0, "volver");
+		controlador.actionPerformed(e );
 		controlador = Mockito.spy(controlador);
 		Mockito.doReturn(true).when(controlador).procesarRecepcion();
 		boolean result =controlador.enviarPeticion("prueba", Peticiones.p101a);

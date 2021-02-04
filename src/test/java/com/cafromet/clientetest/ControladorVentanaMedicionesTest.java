@@ -3,6 +3,7 @@ package com.cafromet.clientetest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -68,6 +69,8 @@ public class ControladorVentanaMedicionesTest {
 	
 	@Test
 	public void enviarPeticion() {
+		ActionEvent e = new ActionEvent(ventana, 0, "volver");
+		controlador.actionPerformed(e );
 		controlador = Mockito.spy(controlador);
 		Mockito.doReturn(true).when(controlador).procesarRecepcion();
 		boolean result = controlador.enviarPeticion("prueba", Peticiones.p103a);

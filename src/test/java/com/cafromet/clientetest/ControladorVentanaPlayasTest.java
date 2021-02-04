@@ -2,6 +2,7 @@ package com.cafromet.clientetest;
 
 import static org.junit.Assert.*;
 
+import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -10,8 +11,10 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.cafromet.cliente.ControladorVentanMunicipio;
+import com.cafromet.cliente.ControladorVentanaEspacioNatural;
 import com.cafromet.cliente.ControladorVentanaMediciones;
 import com.cafromet.cliente.ControladorVentanaPlayas;
+import com.cafromet.cliente.VentanaPlayas;
 import com.cafromet.modelo.CentroMeteorologico;
 import com.cafromet.modelo.EspacioNatural;
 import com.cafromet.modelo.Medicion;
@@ -31,6 +34,8 @@ public class ControladorVentanaPlayasTest {
 	ControladorVentanaPlayas controlador; 
 	Provincia provincia;
 	MedicionId MedicionId;
+	VentanaPlayas ventanaPlayas;
+	EspacioNatural espacio;
 	@Before
 	public void setUp(){
 		dato = new Datos();
@@ -41,10 +46,14 @@ public class ControladorVentanaPlayasTest {
 		medicion = new Medicion();
 		MedicionId = new MedicionId(); 
 		controlador = new ControladorVentanaPlayas();
+		ventanaPlayas = new VentanaPlayas();
+		espacio = new EspacioNatural();
 	}
 
 	@Test
 	public void enviarPeticion() {
+		ActionEvent e = new ActionEvent(ventanaPlayas, 0, "volver");
+		controlador.actionPerformed(e );
 		controlador = Mockito.spy(controlador);
 		Mockito.doReturn(true).when(controlador).procesarRecepcion();
 		boolean result =controlador.enviarPeticion("prueba", Peticiones.p104c);

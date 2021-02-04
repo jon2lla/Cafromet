@@ -32,6 +32,8 @@ public class ControladorRegistrarTest {
 	
 	@Test
 	public void enviarPeticion() {
+		ActionEvent e = new ActionEvent(VentanaRegistrar, 0, "Cancelar");
+		controlador.actionPerformed(e );
 		Cliente cliente = new Cliente();
 		cliente.setIdCliente(1);
 		cliente.setPasswd("a");
