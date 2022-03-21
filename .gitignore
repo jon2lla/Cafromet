@@ -12,3 +12,4 @@ build
 
 #Ignore /bin directory
 /bin/
+/src/resource/com/cafromet/files/temp
