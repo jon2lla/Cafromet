@@ -68,11 +68,12 @@ public class PeticionHttp {
 
 		try {
 			URL url = new URL(urlJson);
+
 			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 			conexion.setRequestMethod("GET");
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
 			String lineaActual;
-			
 			FileWriter fichero = new FileWriter(NomFichero);
 			
 			PrintWriter pw = new PrintWriter(fichero);

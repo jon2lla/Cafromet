@@ -18,6 +18,7 @@ public class Medicion implements java.io.Serializable {
 	private String ica;
 
 	public Medicion() {
+		this.id = new MedicionId();
 	}
 
 	public Medicion(MedicionId id, CentroMeteorologico centroMeteorologico) {

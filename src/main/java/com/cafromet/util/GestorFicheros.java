@@ -64,8 +64,7 @@ public class GestorFicheros extends Thread {
 //	private Fuente fuente;
 	private CentroMeteorologico centroMeteorologico;
 	private String str;
-	private MedicionId medicionId;
-	private Medicion medicion;
+
 	
 	public GestorFicheros(File ficheroEntrada, File ficheroSalida, int tipo) {
 		this.ficheroEntrada = ficheroEntrada;
@@ -166,7 +165,6 @@ public class GestorFicheros extends Thread {
 //			int contador = 0;
 			brFichero = new BufferedReader(new FileReader(ficheroEntrada));
 			while ((linea = brFichero.readLine()) != null) {
-
 				switch (tipo) {
 				case 1:
 					if (comprobarCamposMunicipios(linea)) {
@@ -244,6 +242,7 @@ public class GestorFicheros extends Thread {
 
 	public String remplazoHT(String linea) {
 		if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.17"))) { //$NON-NLS-1$
+
 			linea = linea.replace(StringsGestorFicheros.getString("GestorFicheros.18"), StringsGestorFicheros.getString("GestorFicheros.19")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		if (linea.contains(StringsGestorFicheros.getString("GestorFicheros.20"))) { //$NON-NLS-1$
@@ -827,8 +826,9 @@ public class GestorFicheros extends Thread {
 	
 	
 	private synchronized boolean procesarElementoJsonMedicion(JsonElement elemento) {
+		MedicionId medicionId = null;
+		Medicion medicion = null;
 		if (elemento.isJsonObject()) {
-
 			JsonObject obj = elemento.getAsJsonObject();
 			Set<Map.Entry<String, JsonElement>> entradas = obj.entrySet();
 			Iterator<Map.Entry<String, JsonElement>> iter = entradas.iterator();
@@ -860,20 +860,18 @@ public class GestorFicheros extends Thread {
 					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.214"))) { //$NON-NLS-1$
 						medicion.setVViento(Float.parseFloat(entrada.getValue().getAsString().replace(",", ".")));
 					}else if (entrada.getKey().equals(StringsGestorFicheros.getString("GestorFicheros.215"))) { //$NON-NLS-1$
-//						System.out.println(medicion.toString());
 						medicion.setIca(entrada.getValue().getAsString());
-						MedicionDAO.insertarRegistro(medicion);
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
 				procesarElementoJsonMedicion(entrada.getValue());
 			}
+			MedicionDAO.insertarRegistro(medicion);
+
 		} else if (elemento.isJsonArray()) {
 			JsonArray array = elemento.getAsJsonArray();
 			Iterator<JsonElement> iter = array.iterator();
-
 			while (iter.hasNext()) {
 				JsonElement entrada = iter.next();
 				procesarElementoJsonMedicion(entrada);
@@ -881,7 +879,4 @@ public class GestorFicheros extends Thread {
 		}
 		return true;
 	}
-	
-
-
 }
